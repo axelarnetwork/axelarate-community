@@ -48,6 +48,7 @@ These instructions are a step by step guide to run manual commands for the minti
   ```
   axelarcli tx ethereum sign-pending-transfers --from validator -y -b block
   -> returns commandID of signed tx
+  -> wait for sign protocol to complete (~10 blocks)
   ```
 - Send the previous command to Ethereum
   ```
@@ -74,6 +75,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 - Trigger signing of all pending transfers to Bitcoin
   ```
   axelarcli tx bitcoin sign-pending-transfers {tx fee, e.g. 0.0001btc} --from validator -b block -y
+  -> wait for sign protocol to complete (~10 blocks)
   ```
 - Submit the transfer to Bitcoin
   ```
