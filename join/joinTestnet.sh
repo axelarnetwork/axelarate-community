@@ -6,6 +6,7 @@ AXELAR_CORE_VERSION=""
 TOFND_VERSION=""
 RESET_CHAIN=false
 ROOT_DIRECTORY=~/.axelar
+GIT_ROOT=$(git rev-parse --show-toplevel)
 
 for arg in "$@"
 do
@@ -63,11 +64,11 @@ if [ ! -f $SHARED_DIRECTORY/peers.txt ]; then
 fi
 
 if [ ! -f $SHARED_DIRECTORY/config.toml ]; then
-  cp ./config.toml $SHARED_DIRECTORY/config.toml
+  cp ${GIT_ROOT}/join/config.toml $SHARED_DIRECTORY/config.toml
 fi
 
 if [ ! -f $SHARED_DIRECTORY/consumeGenesis.sh ]; then
-  cp ./consumeGenesis.sh $SHARED_DIRECTORY/consumeGenesis.sh
+  cp ${GIT_ROOT}/join/consumeGenesis.sh $SHARED_DIRECTORY/consumeGenesis.sh
 fi
 
 docker run \
