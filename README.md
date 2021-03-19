@@ -156,15 +156,19 @@ You can now open Metamask, add the custom asset (Bitcoin) with contract address 
 To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
 1. Create a deposit address on Ethereum 
+
   ```
   axelarcli tx ethereum link bitcoin {bitcoin addr} satoshi --from validator -y -b block
   -> returns deposit address
   ```
+  
   e.g., 
-    ```
+  ```
   axelarcli tx ethereum link bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator -y -b block
   ```
+  
   Look for the Ethereum deposit address as the first outout in this line (`0x5CFE...`): 
+  
   ```
   "successfully linked {0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E} and {tb1qq8wnre6rzctec9wycrl2dq00m3avravslahc8v}"
   ```
@@ -172,6 +176,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 2. External: send wrapped tokens to deposit address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. Wait for 30 Ethereum block confirmations. 
 
 3. Verify the Ethereum transaction
+
   ```
   axelarcli tx ethereum verify-erc20-deposit {txID} {amount} {deposit addr} --from validator -y -b block
   -> wait for verification to be confirmed (~10 Axelar blocks)
@@ -179,21 +184,26 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   
   Here, amount should be specific in Satoshi. (For instance, 0.0001BTC = 10000)
   e.g., 
+  
   ```
   axelarcli tx ethereum verify-erc20-deposit 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000  0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
   -> wait for verification to be confirmed (~10 Axelar blocks)
   ```
+  
 4. Trigger signing of all pending transfers to Bitcoin
+
  ```
   axelarcli tx bitcoin sign-pending-transfers {tx fee} --from validator -b block -y
   -> wait for sign protocol to complete (~10 Axelar blocks)
   ```
   
  e.g., 
+ 
  ```
-  axelarcli tx bitcoin sign-pending-transfers 0.0001btc --from validator -b block -y
-  ```
+ axelarcli tx bitcoin sign-pending-transfers 0.0001btc --from validator -b block -y
+ ```
 5. Submit the transfer to Bitcoin
+
   ```
   axelarcli q bitcoin send
   -> returns tx ID
@@ -204,21 +214,26 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and verify the outpoints!
 
 1. Create verification json object for Axelar
+
   ```
   axelarcli q bitcoin txInfo {blockhash} {txID}:{voutIdx}
   -> returns json of verification info for the given outpoint (copy the escaped string)
   ```
   
   e.g., 
+  
     ```
   axelarcli q bitcoin txInfo 4ac9dc50dc1b952cb1efca1e634216da2f5e3a12b4a4a802ce0f6b1271876bd2  da5b2e8037ce4b95f40ada01c6c2cd3ccb806d0a952906130eb9b806f7887590:1
   ```
   
 2. Verify the Bitcoin outpoint
+
   ```
   axelarcli tx bitcoin verifyTx {"verification info" (output of previous cmd)} --from validator -y -b block
   ```
+  
   e.g., 
+  
    ```
   axelarcli tx bitcoin verifyTx "{\"OutPoint\":{\"Hash\":\"NxF/hGLGQZ6mTNyMWkYHPJ21E+2PMb1DV/beV7R9Gpk=\",\"Index\":1},\"Amount\":\"100000000\",\"BlockHash\":\"tPqsKekDOp5lW6QUl+YwlaD/3cmbQJwuUqgiNkqloQM=\",\"Address\":\"bcrt1qrnc097fuepeyrchganj4jzl2yuf5c0fg800uenr5h0d58emztxasusnk7p\",\"Confirmations\":\"21\"}" --from validator -y -b block
   ```
