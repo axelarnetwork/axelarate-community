@@ -15,7 +15,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
   https://hub.docker.com/repository/docker/axelarnet/tofnd 
 
 ## What you need
-- Bitcoin test testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/
+- Bitcoin testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/
 - Metamask 
 - Ethereum Ropsten address (generate via Metamask) 
 
