@@ -192,16 +192,16 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   
 4. Trigger signing of all pending transfers to Bitcoin
 
- ```
+  ```
   axelarcli tx bitcoin sign-pending-transfers {tx fee} --from validator -b block -y
   -> wait for sign protocol to complete (~10 Axelar blocks)
   ```
   
  e.g., 
  
- ```
- axelarcli tx bitcoin sign-pending-transfers 0.0001btc --from validator -b block -y
- ```
+  ```
+  axelarcli tx bitcoin sign-pending-transfers 0.0001btc --from validator -b block -y
+  ```
 5. Submit the transfer to Bitcoin
 
   ```
@@ -220,10 +220,10 @@ Without this step, other users of the testnet will be unable to withdraw their w
   -> returns json of verification info for the given outpoint (copy the escaped string)
   ```
   
-  e.g., 
+e.g., 
   
-    ```
-  axelarcli q bitcoin txInfo 4ac9dc50dc1b952cb1efca1e634216da2f5e3a12b4a4a802ce0f6b1271876bd2  da5b2e8037ce4b95f40ada01c6c2cd3ccb806d0a952906130eb9b806f7887590:1
+  ```
+  axelarcli q bitcoin txInfo 4ac9dc50dc1b952cb1efca1e634216da2f5e3a12b4a4a802ce0f6b1271876bd2 da5b2e8037ce4b95f40ada01c6c2cd3ccb806d0a952906130eb9b806f7887590:1
   ```
   
 2. Verify the Bitcoin outpoint
@@ -234,6 +234,6 @@ Without this step, other users of the testnet will be unable to withdraw their w
   
   e.g., 
   
-   ```
+  ```
   axelarcli tx bitcoin verifyTx "{\"OutPoint\":{\"Hash\":\"NxF/hGLGQZ6mTNyMWkYHPJ21E+2PMb1DV/beV7R9Gpk=\",\"Index\":1},\"Amount\":\"100000000\",\"BlockHash\":\"tPqsKekDOp5lW6QUl+YwlaD/3cmbQJwuUqgiNkqloQM=\",\"Address\":\"bcrt1qrnc097fuepeyrchganj4jzl2yuf5c0fg800uenr5h0d58emztxasusnk7p\",\"Confirmations\":\"21\"}" --from validator -y -b block
   ```
