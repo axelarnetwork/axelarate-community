@@ -89,7 +89,7 @@ axelarcli q account {validator_addr}
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
 
-1. Create a deposit address on Bitcoin (to which you'll deposit coins later)
+1. Create a deposit address on Bitcoin (to which you'll deposit coins later). You can connect your Metamask to Ropsten and copy your address, as this [example](https://axelar-static.s3.us-east-2.amazonaws.com/metamask-ropsten.png).
 
   ```
   axelarcli tx bitcoin link ethereum {ethereum Ropsten dst addr} --from validator -y -b block
@@ -104,10 +104,10 @@ axelarcli q account {validator_addr}
 
   Look for `chain: Bitcoin, address: {btcaddress}`
 
-2. External: send a TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
-  - ALERT: DO NOT SEND ANY REAL ASSETS
-  - (https://testnet-faucet.mempool.co/
-  - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
+2. External: send a TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). You can use https://testnet-faucet.mempool.co/ for that.
+  - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/ .
+  - **NOTE**: Please ensure you are seeting 6 confirmations before moving to the next steps. Axelar network will verify until at least 6 confirmations.
+  - **ALERT**: DO NOT SEND ANY REAL ASSET.
 
 3. Create verification json object for Axelar
 
@@ -115,6 +115,11 @@ axelarcli q account {validator_addr}
   axelarcli q bitcoin txInfo {blockhash} {txID}:{voutIdx}
   -> returns json of verification info for the given outpoint (copy the escaped string)
   ```
+
+Explanation of the arguments: (See [here](https://axelar-static.s3.us-east-2.amazonaws.com/blockstream.png) for an example)
+- txID: ID of the trasaction;
+- blockhash: the hash of the block containing this transaction;
+- voutIdx: the index of the vout (output portions of the trasaction).
 
   e.g.,
 
@@ -131,7 +136,7 @@ axelarcli q account {validator_addr}
   e.g.,
 
   ```
-  axelarcli tx bitcoin verifyTx "{\"OutPoint\":{\"Hash\":\"NxF/hGLGQZ6mTNyMWkYHPJ21E+2PMb1DV/beV7R9Gpk=\",\"Index\":1},\"Amount\":\"100000000\",\"BlockHash\":\"tPqsKekDOp5lW6QUl+YwlaD/3cmbQJwuUqgiNkqloQM=\",\"Address\":\"bcrt1qrnc097fuepeyrchganj4jzl2yuf5c0fg800uenr5h0d58emztxasusnk7p\",\"Confirmations\":\"21\"}"} --from validator -y -b block
+  axelarcli tx bitcoin verifyTx "{\"OutPoint\":{\"Hash\":\"NxF/hGLGQZ6mTNyMWkYHPJ21E+2PMb1DV/beV7R9Gpk=\",\"Index\":1},\"Amount\":\"100000000\",\"BlockHash\":\"tPqsKekDOp5lW6QUl+YwlaD/3cmbQJwuUqgiNkqloQM=\",\"Address\":\"bcrt1qrnc097fuepeyrchganj4jzl2yuf5c0fg800uenr5h0d58emztxasusnk7p\",\"Confirmations\":\"21\"}"}" --from validator -y -b block
   ```
 
   Wait for verification to be confirmed (~10 Axelar blocks, ~50 secs).
@@ -160,7 +165,7 @@ axelarcli q account {validator_addr}
   ```
   So use the above command, and just replace the `commandID` with your own.
 
-You can now open Metamask, add the custom asset (Bitcoin) with contract address (ask Axelar on discord if you can't find it) and see the minted Bitcoin tokens appear in it.
+You can now open Metamask, add the custom asset (`satoshi`) with contract address and see the minted Bitcoin tokens appear in it. We will use `0xF267edC09595683937d1560e512E9A79e09440FE` for the contract address on testnet, or ask Axelar on discord if you can't find it. See [here](https://axelar-static.s3.us-east-2.amazonaws.com/satoshi.png) for an example.
 
 ### Burn ERC20 wrapped Bitcoin tokens and obtain native Satoshi
 
@@ -184,7 +189,9 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   "successfully linked {0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E} and {tb1qq8wnre6rzctec9wycrl2dq00m3avravslahc8v}"
   ```
 
-2. External: send wrapped tokens to deposit address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. Wait for 30 Ethereum block confirmations.
+2. External: send wrapped tokens to deposit address (e.g. with Metamask**. You need to have some Ropsten testnet Ether on the address to send transactions, and you can use https://faucet.ropsten.be/ for that. Wait for 30 Ethereum block confirmations.
+
+**Note**: again, wait until you see at least 30 confirmations before proceeding to the next step.
 
 3. Verify the Ethereum transaction
 
