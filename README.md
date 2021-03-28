@@ -1,6 +1,7 @@
 # axelarate-community
 Tools to join the axelar network
 
+This tutorial will take 30-60 minutes of dev time and 2-4 hours of waiting for blockchain sync.
 
 ## Disclaimer
 Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
@@ -25,7 +26,7 @@ docker rm $(docker ps -a -q)
 ## What you need
 - Bitcoin testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/
 - Metamask
-- Ethereum Ropsten address (generate via Metamask)
+- Ethereum Ropsten address with some Ether (generate account via Metamask)
 
 
 ## Joining the Axelar testnet
@@ -70,7 +71,7 @@ These instructions are a step by step guide to run commands to move an asset fro
 To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, and a destination Ethereum address on the Ethereum Ropsten Testnet.
 
 ### Generating a key on Axelar
-1. Enter Axelar node:
+1. On a new terminal window, enter the Axelar node command line:
 
 ```
 docker exec -it axelar-core sh
@@ -86,7 +87,7 @@ axelarcli keys show validator -a
 
 4. Check that you received the funds.
 
-NOTE: the local Axelar node needs to be fully caught up with the nextwork in order for the following command to work. The current Avg Block Time is ~5.6 second, so if you see `height=xxx` log message from your local Axelar node is much faster than that, you should probably wait for a couple of hours.
+NOTE: At this point, you should wait for your local Axelar node to fully catch up with the network, or the following commands will give errors. The average block time is ~5.6 sesconds, so if your local node is writing log messages such as `height=xxx` much faster, you should wait and come back in a few hours. 
 
 ```
 axelarcli q account {validator_addr}
@@ -96,7 +97,7 @@ axelarcli q account {validator_addr}
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
 
-1. Create a deposit address on Bitcoin (to which you'll deposit coins later). You can connect your Metamask to Ropsten and copy your address, as this [example](https://axelar-static.s3.us-east-2.amazonaws.com/metamask-ropsten.png).
+1. Use Axelar to create a deposit address on Bitcoin testnet (to which you'll deposit coins later). You can connect your Metamask to Ropsten and copy your address, as this [example](https://axelar-static.s3.us-east-2.amazonaws.com/metamask-ropsten.png).
 
   ```
   axelarcli tx bitcoin link ethereum {ethereum Ropsten dst addr} --from validator -y -b block
@@ -109,9 +110,9 @@ axelarcli q account {validator_addr}
   axelarcli tx bitcoin link ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52 --from validator -y -b block
   ```
 
-  Look for `chain: Bitcoin, address: {btcaddress}`
+  Look for `chain: Bitcoin, address: {btcaddress}` and copy the btc address.
 
-2. External: send a TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). You can use https://testnet-faucet.mempool.co/ for that.
+2. External: send a TEST BTC on Bitcoin testnet to the deposit address specific above using https://testnet-faucet.mempool.co/, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). 
   - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/ .
   - **NOTE**: Please ensure you are seeting 6 confirmations before moving to the next steps. Axelar network will verify until at least 6 confirmations.
   - **ALERT**: DO NOT SEND ANY REAL ASSET.
@@ -122,22 +123,29 @@ axelarcli q account {validator_addr}
   axelarcli q bitcoin txInfo {blockhash} {txID}:{voutIdx}
   -> returns json of verification info for the given outpoint (copy the escaped string)
   ```
+    e.g.,
 
-Explanation of the arguments: (See [here](https://axelar-static.s3.us-east-2.amazonaws.com/blockstream.png) for an example)
+  ```
+  axelarcli q bitcoin txInfo 00000000000000162fb45caa03a03d0d9cfd1ef1158b231589f4014bc143faec  da5b2e8037ce4b95f40ada01c6c2cd3ccb806d0a952906130eb9b806f7887590:1
+  ```
+  See [here](https://axelar-static.s3.us-east-2.amazonaws.com/blockstream.png) for an example of where to find the arguments.
+
+Explanation of the arguments: 
 - txID: ID of the trasaction;
 - blockhash: the hash of the block containing this transaction;
-- voutIdx: the index of the vout (output portions of the trasaction).
+- voutIdx: the index of the vout (output portions of the transaction).
 
-  e.g.,
-
-  ```
-  axelarcli q bitcoin txInfo 4ac9dc50dc1b952cb1efca1e634216da2f5e3a12b4a4a802ce0f6b1271876bd2  da5b2e8037ce4b95f40ada01c6c2cd3ccb806d0a952906130eb9b806f7887590:1
-  ```
-
-4. Verify the Bitcoin outpoint
+Copy the first line of the output, with the string escape characters.
+    e.g.,
 
   ```
-  axelarcli tx bitcoin verifyTx {"verification info" (first line of output of previous cmd)} --from validator -y -b block
+  {\"OutPoint\":{\"Hash\":\"CF/uMuFKIMVGJBu+OJ3TT2rG/pKCftubmiRRoCX9W9o=\",\"Index\":0},\"Amount\":\"100000\",\"BlockHash\":\"7PpDwUsB9IkVI4sV8R79nA09oAOqXLQvFgAAAAAAAAA=\",\"Address\":\"tb1qy0g49zge4kcajk7j2f9yamzeyzcmsgqpxnq4p29lyyjkcqv0fu0sta59cc\",\"Confirmations\":\"7\"}
+  ```
+
+4. Verify the Bitcoin outpoint using the copied verification info above
+
+  ```
+  axelarcli tx bitcoin verifyTx "{verification info}" --from validator -y -b block
   ```
 
   e.g.,
@@ -159,7 +167,7 @@ Explanation of the arguments: (See [here](https://axelar-static.s3.us-east-2.ama
   -> wait for sign protocol to complete (~10 blocks)
   ```
 
-  Look for commandID and its valud in the output: `"key": "commandID",
+  Look for commandID and its value in the output: `"key": "commandID",
     "value": "d5e993e407ff399cf2770a1d42bc2baf5308f46632fcbe209318acb09776599f"`
 
 6. Send the previous command to Ethereum
@@ -190,13 +198,13 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   axelarcli tx ethereum link bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator -y -b block
   ```
 
-  Look for the Ethereum deposit address as the first outout in this line (`0x5CFE...`):
+  Look for the Ethereum deposit address. In the example below, it would be (`0x5CFE...`):
 
   ```
   "successfully linked {0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E} and {tb1qq8wnre6rzctec9wycrl2dq00m3avravslahc8v}"
   ```
 
-2. External: send wrapped tokens to deposit address (e.g. with Metamask**. You need to have some Ropsten testnet Ether on the address to send transactions, and you can use https://faucet.ropsten.be/ for that. Wait for 30 Ethereum block confirmations.
+2. External: send wrapped tokens to the deposit address above (e.g. with Metamask**). You need to have some Ropsten testnet Ether on the address to send transactions, and you can use https://faucet.ropsten.be/ for that. Wait for 30 Ethereum block confirmations (5 - 30 minutes). You can track the number of block confirmations using https://ropsten.etherscan.io/ and the txID from the Activity tab of Metamask.
 
 **Note**: again, wait until you see at least 30 confirmations before proceeding to the next step.
 
@@ -207,19 +215,19 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   -> wait for verification to be confirmed (~10 Axelar blocks)
   ```
 
-  Here, amount should be specific in Satoshi. (For instance, 0.0001BTC = 10000)
+  Here, amount should be specific in Satoshi. (For instance, 0.0001BTC = 10000 Satoshi)
   e.g.,
 
   ```
   axelarcli tx ethereum verify-erc20-deposit 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000  0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
-  -> wait for verification to be confirmed (~10 Axelar blocks)
+  -> wait for verification to be confirmed (~10 Axelar blocks, 1 minute)
   ```
 
 4. Trigger signing of all pending transfers to Bitcoin
 
   ```
   axelarcli tx bitcoin sign-pending-transfers {tx fee} --from validator -b block -y
-  -> wait for sign protocol to complete (~10 Axelar blocks)
+  -> wait for sign protocol to complete (~10 Axelar blocks, 1 minute)
   ```
 
  e.g.,
@@ -233,6 +241,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   axelarcli q bitcoin send
   -> returns tx ID
   ```
+  You can monitor the status of your transfer using the bitcoin testnet explorer: https://blockstream.info/testnet/ .
 
 🛑 **IMPORTANT: Verify outpoints of previous withdrawal tx (repeat for each outpoint)**
 
