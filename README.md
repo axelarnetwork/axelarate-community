@@ -180,6 +180,8 @@ Copy the first line of the output, with the string escape characters.
   ```
   So use the above command, and just replace the `commandID` with your own.
 
+  If you see an `ERROR: eth bridge error: could not send transaction: authentication needed` please visit our discord channel and ask the team to unlock the Ethereum account used for sending out transactions.
+
 You can now open Metamask, add the custom asset (`satoshi`) with contract address and see the minted Bitcoin tokens appear in it. We will use `0xF267edC09595683937d1560e512E9A79e09440FE` for the contract address on testnet, or ask Axelar on discord if you can't find it. See [here](https://axelar-static.s3.us-east-2.amazonaws.com/satoshi.png) for an example.
 
 ### Burn ERC20 wrapped Bitcoin tokens and obtain native Satoshi
