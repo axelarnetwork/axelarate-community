@@ -98,10 +98,14 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     axelarcli tx bitcoin link ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52 --from validator -y -b block
     ```
     Look for `chain: Bitcoin, address: {btcaddress}` and copy the btc address.
-2. External: send a TEST BTC on Bitcoin testnet to the deposit address specific above using https://testnet-faucet.mempool.co/, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
-    - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/ .
-    - **NOTE**: Please ensure you are seeting 6 confirmations before moving to the next steps. Axelar network will verify until at least 6 confirmations.
-    - **ALERT**: DO NOT SEND ANY REAL ASSET.
+2. Deposit TEST BTC for conversion into ERC20 BTC into the address from the previous command's output.
+
+    You can choose to send to the TEST BTC to the specific deposit address above directly from the testnet faucet https://testnet-faucet.mempool.co/ or you can send TEST BTC from the faucet to your own testnet BTC wallet first and then forward only the amount you want to mint from your testnet BTC wallet to the specific deposit address above.
+
+    After depositing the TEST BTC wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
+        - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/ .
+        - **NOTE**: Please ensure you are seeting 6 confirmations before moving to the next steps. Axelar network will verify until at least 6 confirmations.
+        - **ALERT**: DO NOT SEND ANY REAL ASSET.
 3. Create verification json object for Axelar
     ```
     axelarcli q bitcoin txInfo {blockhash} {txID}:{voutIdx}
@@ -140,7 +144,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     ```
 5. Trigger signing of the transfers to Ethereum:
     ```
-    axelarcli tx ethereum sign-pending-transfers --from validator -y -b block
+    axelarcli tx ethereum sign-pending-transfers --gas="auto" --gas-adjustment=1.15 --from validator -y -b block
     -> returns commandID of signed tx
     -> wait for sign protocol to complete (~10 blocks)
     ```
@@ -166,9 +170,12 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
 To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
-1. Create a deposit address on Ethereum
+1. Create a deposit address on Ethereum:
+
+    **Note**: The BTC testnet address here is where your testnet BTC will be withdrawn to. If you sent TEST BTC from your own wallet when minting the ERC20 wrapped Bitcoin above, then you should put your testnet BTC wallet address here as the withdrawal address, otherwise you should set the withrawal address to the faucet address (e.g. `mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt`) to send the TEST BTC back to the testnet faucet (https://testnet-faucet.mempool.co/).
+
     ```
-    axelarcli tx ethereum link bitcoin {bitcoin addr} satoshi --from validator -y -b block
+    axelarcli tx ethereum link bitcoin {bitcoin withdrawal addr} satoshi --from validator -y -b block
     -> returns deposit address
     ```
     e.g.,
@@ -195,12 +202,12 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
     ```
 4. Trigger signing of all pending transfers to Bitcoin
     ```
-    axelarcli tx bitcoin sign-pending-transfers {tx fee} --from validator -b block -y
+    axelarcli tx bitcoin sign-pending-transfers {tx fee} --gas="auto" --gas-adjustment=1.15 --from validator -b block -y
     -> wait for sign protocol to complete (~10 Axelar blocks, 1 minute)
     ```
     e.g.,
     ```
-    axelarcli tx bitcoin sign-pending-transfers 0.0001btc --from validator -b block -y
+    axelarcli tx bitcoin sign-pending-transfers 0.0001btc --gas="auto" --gas-adjustment=1.15 --from validator -b block -y
     ```
 5. Submit the transfer to Bitcoin
     ```
