@@ -220,6 +220,8 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
     axelarcli tx bitcoin sign-pending-transfers 0.0001btc --gas="auto" --gas-adjustment=1.15 --from validator -b block -y
     ```
 
+    **Note**: If you are having gas error issue `out of gas: out of gas in location: WriteFlat; gasWanted: 200000, gasUsed: 200780"`, try to increment the `gas-adjustement` to a higher value `1.2` or `1.3`. With more deposits, the transaction become larger and hence requires more gas
+
 3. Submit the transfer to Bitcoin
     ```
     axelarcli q bitcoin send
