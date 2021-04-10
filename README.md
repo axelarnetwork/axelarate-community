@@ -230,6 +230,8 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
     You can monitor the status of your transfer using the bitcoin testnet explorer: https://blockstream.info/testnet/ .
 
 #### 🛑 **IMPORTANT: Verify outpoints of previous withdrawal tx (repeat for each outpoint)**
+    Bitcoin identifies transactions using a hash and an outpoint is a hash and index pair in which the index simply identifies which output a given transaction is intended.
+    
     Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and verify the outpoints!
 
 1. Create verification json object for Axelar
