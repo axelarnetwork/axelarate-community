@@ -227,12 +227,12 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
     axelarcli q bitcoin send
     -> returns tx ID
     ```
-    You can monitor the status of your transfer using the bitcoin testnet explorer: https://blockstream.info/testnet/ .
+    You can monitor the status of your transfer using the bitcoin testnet explorer: https://blockstream.info/testnet/
 
 #### 🛑 **IMPORTANT: Verify outpoints of previous withdrawal tx (repeat for each outpoint)**
-    Bitcoin identifies transactions using a hash and an outpoint is a hash and index pair in which the index simply identifies which output a given transaction is intended.
+    Every Bitcoin transaction can have multiple outputs. Similarly, on your withdrawal transactions you will see multiple outputs even if you processed one withdrawal (the other outputs are used for internal controller functions). Please verify all outputs (i.e., {transaction hash, index} pairs) in your withdrawal transaction.
     
-    Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and verify the outpoints!
+    Without this step, other users of the testnet will **not** be able to withdraw their wrapped tokens. Be a good citizen and verify the outpoints!
 
 1. Create verification json object for Axelar
     ```
