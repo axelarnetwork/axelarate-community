@@ -98,14 +98,17 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     axelarcli tx bitcoin link ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52 --from validator -y -b block
     ```
     Look for `chain: Bitcoin, address: {btcaddress}` and copy the btc address.
+
 2. Deposit TEST BTC for conversion into ERC20 BTC into the address from the previous command's output.
 
     You can choose to send to the TEST BTC to the specific deposit address above directly from the testnet faucet https://testnet-faucet.mempool.co/ or you can send TEST BTC from the faucet to your own testnet BTC wallet first and then forward only the amount you want to mint from your testnet BTC wallet to the specific deposit address above.
 
-    After depositing the TEST BTC wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
-        - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/ .
-        - **NOTE**: Please ensure you are seeting 6 confirmations before moving to the next steps. Axelar network will verify until at least 6 confirmations.
-        - **ALERT**: DO NOT SEND ANY REAL ASSET.
+    After depositing the TEST BTC wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
+  
+    **NOTE**: Please ensure you are seeting 6 confirmations before moving to the next steps. Axelar network will verify until at least 6 confirmations.
+  
+    **ALERT**: DO NOT SEND ANY REAL ASSET.
+
 3. Create verification json object for Axelar
     ```
     axelarcli q bitcoin txInfo {blockhash} {txID}:{voutIdx}
@@ -118,9 +121,9 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     See [here](https://axelar-static.s3.us-east-2.amazonaws.com/blockstream.png) for an example of where to find the arguments.
 
     Explanation of the arguments:
-        - txID: ID of the trasaction;
-        - blockhash: the hash of the block containing this transaction;
-        - voutIdx: the index of the vout (output portions of the transaction).
+    - `txID` : ID of the trasaction;
+    - `blockhash` : the hash of the block containing this transaction;
+    - `voutIdx` : the index of the vout (output portions of the transaction).
 
     Copy the first line of the output, with the string escape characters.
 
@@ -128,6 +131,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     ```
     {\"OutPoint\":{\"Hash\":\"CF/uMuFKIMVGJBu+OJ3TT2rG/pKCftubmiRRoCX9W9o=\",\"Index\":0},\"Amount\":\"100000\",\"BlockHash\":\"7PpDwUsB9IkVI4sV8R79nA09oAOqXLQvFgAAAAAAAAA=\",\"Address\":\"tb1qy0g49zge4kcajk7j2f9yamzeyzcmsgqpxnq4p29lyyjkcqv0fu0sta59cc\",\"Confirmations\":\"7\"}
     ```
+
 4. Verify the Bitcoin outpoint using the copied verification info above
     ```
     axelarcli tx bitcoin verifyTx "{verification info}" --from validator -y -b block
@@ -142,6 +146,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     ```
     threshold of 2/3 has been met for bitcoinVerifyTx7d097730bbeba835e21dc0d953d4b1c3e42a6bf0da03e70f01a6bb0c1b71183c:1:
     ```
+
 5. Trigger signing of the transfers to Ethereum:
     ```
     axelarcli tx ethereum sign-pending-transfers --gas="auto" --gas-adjustment=1.15 --from validator -y -b block
@@ -152,6 +157,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     ```
     "key": "commandID", "value": "d5e993e407ff399cf2770a1d42bc2baf5308f46632fcbe209318acb09776599f"
     ```
+
 6. Send the previous command to Ethereum:
     ```
     axelarcli q ethereum sendCommand {commandID} {address of account that should send this tx}
@@ -186,8 +192,11 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
     ```
     "successfully linked {0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E} and {tb1qq8wnre6rzctec9wycrl2dq00m3avravslahc8v}"
     ```
+
 2. External: send wrapped tokens to the deposit address above (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions, and you can use https://faucet.ropsten.be/ for that. Wait for 30 Ethereum block confirmations (5 - 30 minutes). You can track the number of block confirmations using https://ropsten.etherscan.io/ and the txID from the Activity tab of Metamask.
+
     **Note**: again, wait until you see at least 30 confirmations before proceeding to the next step.
+
 3. Verify the Ethereum transaction
     ```
     axelarcli tx ethereum verify-erc20-deposit {txID} {amount} {deposit addr} --from validator -y -b block
@@ -200,7 +209,8 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
     axelarcli tx ethereum verify-erc20-deposit 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000  0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
     -> wait for verification to be confirmed (~10 Axelar blocks, 1 minute)
     ```
-4. Trigger signing of all pending transfers to Bitcoin
+
+2. Trigger signing of all pending transfers to Bitcoin
     ```
     axelarcli tx bitcoin sign-pending-transfers {tx fee} --gas="auto" --gas-adjustment=1.15 --from validator -b block -y
     -> wait for sign protocol to complete (~10 Axelar blocks, 1 minute)
@@ -209,15 +219,22 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
     ```
     axelarcli tx bitcoin sign-pending-transfers 0.0001btc --gas="auto" --gas-adjustment=1.15 --from validator -b block -y
     ```
-5. Submit the transfer to Bitcoin
+
+    **Note**: If you are having gas error issue `out of gas: out of gas in location: WriteFlat; gasWanted: 200000, gasUsed: 200780"`, try to increment the `gas-adjustement` to a higher value `1.2` or `1.3`. With more deposits, the transaction become larger and hence requires more gas
+
+3. Submit the transfer to Bitcoin
     ```
     axelarcli q bitcoin send
     -> returns tx ID
     ```
-    You can monitor the status of your transfer using the bitcoin testnet explorer: https://blockstream.info/testnet/ .
+
+    You can monitor the status of your transfer using the bitcoin testnet explorer: https://blockstream.info/testnet/
 
 #### 🛑 **IMPORTANT: Verify outpoints of previous withdrawal tx (repeat for each outpoint)**
-Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and verify the outpoints!
+    
+Every Bitcoin transaction can have multiple outputs. Similarly, on your withdrawal transactions you will see multiple outputs even if you processed one withdrawal (the other outputs are used for internal controller functions). Please verify all outputs (i.e., {transaction hash, index} pairs) in your withdrawal transaction.
+
+Without this step, other users of the testnet will **not** be able to withdraw their wrapped tokens. Be a good citizen and verify the outpoints!
 
 1. Create verification json object for Axelar
     ```
@@ -228,6 +245,7 @@ Without this step, other users of the testnet will be unable to withdraw their w
     ```
     axelarcli q bitcoin txInfo 4ac9dc50dc1b952cb1efca1e634216da2f5e3a12b4a4a802ce0f6b1271876bd2 da5b2e8037ce4b95f40ada01c6c2cd3ccb806d0a952906130eb9b806f7887590:1
     ```
+
 2. Verify the Bitcoin outpoint
     ```
     axelarcli tx bitcoin verifyTx {"verification info" (output of previous cmd)} --from validator -y -b block
