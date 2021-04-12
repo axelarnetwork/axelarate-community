@@ -8,6 +8,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 
 ## Prerequisites
+- Mac OS or Ubuntu (tested on 18.04)
 - Docker (https://docs.docker.com/engine/install/)
 
 ## Useful links
