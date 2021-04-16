@@ -64,7 +64,14 @@ I[2021-03-17|02:56:59.682] Executed block                               module=s
 I[2021-03-17|02:56:59.691] Committed state                              module=state height=2738 txs=0 appHash=5867EC297F83BB40F419EEBF7EB1FD4405
 ...
 ```
-
+By default, the logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
+```
+join/joinTestnet.sh --axelar-core CORE_VERSION  --tofnd TOFND_VERSION &>> testnet.log
+```
+On a new terminal window, you could monitor the log in real time:
+```
+tail -f testnet.log 
+```
 ## Instructions to mint and burn tokens
 These instructions are a step by step guide to run commands to move an asset from a source to a destination chain and back. The assets are minted as wrapped ERC-20 assets on the destination chain. The commands are submitted to the Axelar Network that's responsible for (a) generating deposit/withdrawal addresses, (b) routing and finalizing transactions, and (c) minting/burning the corresponding assets.
 
