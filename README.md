@@ -179,6 +179,8 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 1. Create a deposit address on Ethereum:
 
     **Note**: The BTC testnet address here is where your testnet BTC will be withdrawn to. If you sent TEST BTC from your own wallet when minting the ERC20 wrapped Bitcoin above, then you should put your testnet BTC wallet address here as the withdrawal address, otherwise you should set the withrawal address to the faucet address (e.g. `mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt`) to send the TEST BTC back to the testnet faucet (https://testnet-faucet.mempool.co/).
+    
+    **Note**: Please withdraw less (e.g., 0.0001BTC = 10000 Satoshi less) than you transferred to cover the fees on Bitcoin. 
 
     ```
     axelarcli tx ethereum link bitcoin {bitcoin withdrawal addr} satoshi --from validator -y -b block
