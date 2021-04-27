@@ -90,7 +90,7 @@ docker run                                           \
   --env START_REST=true                              \
   --env PEERS_FILE=/root/shared/peers.txt            \
   --env INIT_SCRIPT=/root/shared/consumeGenesis.sh   \
-  --env CONFIG_PATH=/root/shared/config.toml         \
+  --env CONFIG_PATH=/root/shared/                    \
   -v "${ROOT_DIRECTORY}/.axelard:/root/.axelard"     \
   -v "${ROOT_DIRECTORY}/.axelarcli:/root/.axelarcli" \
   -v "${SHARED_DIRECTORY}:/root/shared"              \
