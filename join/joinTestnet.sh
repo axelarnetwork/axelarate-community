@@ -66,6 +66,10 @@ if [ ! -f "${SHARED_DIRECTORY}/config.toml" ]; then
   cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
 fi
 
+if [ ! -f "${SHARED_DIRECTORY}/app.toml" ]; then
+  cp "${GIT_ROOT}/join/app.toml" "${SHARED_DIRECTORY}/app.toml"
+fi
+
 if [ ! -f "${SHARED_DIRECTORY}/consumeGenesis.sh" ]; then
   cp "${GIT_ROOT}/join/consumeGenesis.sh" "${SHARED_DIRECTORY}/consumeGenesis.sh"
 fi
