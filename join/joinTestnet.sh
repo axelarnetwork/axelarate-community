@@ -51,6 +51,9 @@ mkdir -p "$ROOT_DIRECTORY"
 SHARED_DIRECTORY="${ROOT_DIRECTORY}/shared"
 mkdir -p "$SHARED_DIRECTORY"
 
+TOFND_DIRECTORY="${ROOT_DIRECTORY}/.tofnd"
+mkdir -p "$TOFND_DIRECTORY"
+
 if [ ! -f "${SHARED_DIRECTORY}/genesis.json" ]; then
   curl https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
 fi
@@ -71,6 +74,7 @@ docker run       \
   --name tofnd   \
   -d             \
   -p 50051:50051 \
+  -v "${ROOT_DIRECTORY}:/root/.kvstore" \
   "axelarnet/tofnd:${TOFND_VERSION}"
 
 docker run                                           \
