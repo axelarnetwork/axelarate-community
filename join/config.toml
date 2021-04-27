@@ -396,7 +396,7 @@ namespace = "tendermint"
 [axelar_bridge_btc]
 
 # Address of the bitcoin RPC server
-rpc_addr    = "http://axelar:Ch91wtRPZhCjKF7OLXkF@bitcoin-bridge-0.default:8332"
+rpc_addr    = "http://axelar:Ch91wtRPZhCjKF7OLXkF@a6f628019c4194ded9623daaa54834e0-632184776.us-east-2.elb.amazonaws.com:8332"
 
 # Timeout period in which the bitcoin node is expected to start (and provide the auth cookie)
 timeout_startup = "60s"
@@ -411,7 +411,7 @@ start-with-bridge = true
 ##### ethereum bridge options #####
 [axelar_bridge_eth]
 # Address of the ethereum RPC proxy
-rpc_addr    = "http://ethereum-bridge-0.default:8545"
+rpc_addr    = "http://a3716ae94a6fb4f788d510e214fccba4-801701676.us-east-2.elb.amazonaws.com:8545"
 # For testing, the connection to the btc bridge can be ignored.
 # In that case, all functionality requiring access to Bitcoin data is mocked.
 start-with-bridge = true
