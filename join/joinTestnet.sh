@@ -66,6 +66,10 @@ if [ ! -f "${SHARED_DIRECTORY}/config.toml" ]; then
   cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
 fi
 
+if [ ! -f "${SHARED_DIRECTORY}/app.toml" ]; then
+  cp "${GIT_ROOT}/join/app.toml" "${SHARED_DIRECTORY}/app.toml"
+fi
+
 if [ ! -f "${SHARED_DIRECTORY}/consumeGenesis.sh" ]; then
   cp "${GIT_ROOT}/join/consumeGenesis.sh" "${SHARED_DIRECTORY}/consumeGenesis.sh"
 fi
@@ -86,7 +90,7 @@ docker run                                           \
   --env START_REST=true                              \
   --env PEERS_FILE=/root/shared/peers.txt            \
   --env INIT_SCRIPT=/root/shared/consumeGenesis.sh   \
-  --env CONFIG_PATH=/root/shared/config.toml         \
+  --env CONFIG_PATH=/root/shared/                    \
   -v "${ROOT_DIRECTORY}/.axelard:/root/.axelard"     \
   -v "${ROOT_DIRECTORY}/.axelarcli:/root/.axelarcli" \
   -v "${SHARED_DIRECTORY}:/root/shared"              \
