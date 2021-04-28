@@ -18,7 +18,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
 
 ## Useful commands
-Axelar node runs in two containers (one with the core consensus engine and another with threshold crypto process). You can stop/remove all your containers using: 
+Axelar node runs in two containers (one with the core consensus engine and another with threshold crypto process). You can stop/remove all your containers using:
 ```
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
@@ -59,19 +59,21 @@ See https://hub.docker.com/repository/docker/axelarnet/axelar-core and https://h
 Once you join, at the terminal you should see blocks produced:
 
 ```
-I[2021-03-17|02:56:53.933] Executed block                               module=state height=2737 validTxs=0 invalidTxs=0
-I[2021-03-17|02:56:53.945] Committed state                              module=state height=2737 txs=0 appHash=DCFEB4C1574D6ADC1CC61CEBA8B119CBC0BBB87EB16B94507F19A10305D453CD
-I[2021-03-17|02:56:59.682] Executed block                               module=state height=2738 validTxs=0 invalidTxs=0
-I[2021-03-17|02:56:59.691] Committed state                              module=state height=2738 txs=0 appHash=5867EC297F83BB40F419EEBF7EB1FD4405
+2:00PM DBG indexed block txs height=2803 module=txindex num_txs=0
+2:00PM INF finalizing commit of block hash=CF38DD7953FC55492D8A2E7B85AFF0C897AD45F456332A1D474D13760628514E height=2804 module=consensus num_txs=0 root=3433AECFC589D7BB139492B8D2DA7119312270C58DFF9CBB15352342FA9178DF
+2:00PM INF committed state app_hash=AB9304858D45E9C2E3A922B93684B8B13E4FEA90D1406737A42C085A3A06EBC3 height=2804 module=state num_txs=0
+2:00PM DBG indexed block txs height=2804 module=txindex num_txs=0
+2:01PM INF finalizing commit of block hash=6098B3E6A4E1E74C69B37DD0C23A2009A08DED8AD8787FDCFE6A4FE84B517457 height=2805 module=consensus num_txs=0 root=AB9304858D45E9C2E3A922B93684B8B13E4FEA90D1406737A42C085A3A06EBC3
+2:01PM INF committed state app_hash=D55A2D71A5DC4C14FA3B1813C5C283EC2AEA404F442D95629239F3A4BECFA40A height=2805 module=state num_txs=0
 ...
 ```
 By default, logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
 ```
-join/joinTestnet.sh --axelar-core CORE_VERSION  --tofnd TOFND_VERSION &>> testnet.log
+join/joinTestnet.sh --axelar-core CORE_VERSION --tofnd TOFND_VERSION &>> testnet.log
 ```
 On a new terminal window, you could monitor the log file in real time:
 ```
-tail -f testnet.log 
+tail -f testnet.log
 ```
 ## Instructions to mint and burn tokens
 These instructions are a step by step guide to run commands to move an asset from a source to a destination chain and back. The assets are minted as wrapped ERC-20 assets on the destination chain. The commands are submitted to the Axelar Network that's responsible for (a) generating deposit/withdrawal addresses, (b) routing and finalizing transactions, and (c) minting/burning the corresponding assets.
@@ -112,41 +114,18 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     You can choose to send to the TEST BTC to the specific deposit address above directly from the testnet faucet https://testnet-faucet.mempool.co/ or you can send TEST BTC from the faucet to your own testnet BTC wallet first and then forward only the amount you want to mint from your testnet BTC wallet to the specific deposit address above.
 
     After depositing the TEST BTC wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
-  
-    **NOTE**: Please ensure you are seeting 6 confirmations before moving to the next steps. Axelar network will verify until at least 6 confirmations.
-  
+
+    **NOTE**: Please ensure you are seeting 6 confirmations before moving to the next steps. Axelar network will confirm with at least 6 confirmations.
+
     **ALERT**: DO NOT SEND ANY REAL ASSET.
 
-3. Create verification json object for Axelar
+3. Confirm the Bitcoin outpoint
     ```
-    axelarcli q bitcoin txInfo {blockhash} {txID}:{voutIdx}
-    -> returns json of verification info for the given outpoint (copy the escaped string)
-    ```
-    e.g.,
-    ```
-    axelarcli q bitcoin txInfo 00000000000000162fb45caa03a03d0d9cfd1ef1158b231589f4014bc143faec  da5b2e8037ce4b95f40ada01c6c2cd3ccb806d0a952906130eb9b806f7887590:1
-    ```
-    See [here](https://axelar-static.s3.us-east-2.amazonaws.com/blockstream.png) for an example of where to find the arguments.
-
-    Explanation of the arguments:
-    - `txID` : ID of the trasaction;
-    - `blockhash` : the hash of the block containing this transaction;
-    - `voutIdx` : the index of the vout (output portions of the transaction).
-
-    Copy the first line of the output, with the string escape characters.
-
-    e.g.,
-    ```
-    {\"OutPoint\":{\"Hash\":\"CF/uMuFKIMVGJBu+OJ3TT2rG/pKCftubmiRRoCX9W9o=\",\"Index\":0},\"Amount\":\"100000\",\"BlockHash\":\"7PpDwUsB9IkVI4sV8R79nA09oAOqXLQvFgAAAAAAAAA=\",\"Address\":\"tb1qy0g49zge4kcajk7j2f9yamzeyzcmsgqpxnq4p29lyyjkcqv0fu0sta59cc\",\"Confirmations\":\"7\"}
-    ```
-
-4. Verify the Bitcoin outpoint using the copied verification info above
-    ```
-    axelarcli tx bitcoin verifyTx "{verification info}" --from validator -y -b block
+    axelarcli tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
     ```
     e.g.,
     ```
-    axelarcli tx bitcoin verifyTx "{\"OutPoint\":{\"Hash\":\"NxF/hGLGQZ6mTNyMWkYHPJ21E+2PMb1DV/beV7R9Gpk=\",\"Index\":1},\"Amount\":\"100000000\",\"BlockHash\":\"tPqsKekDOp5lW6QUl+YwlaD/3cmbQJwuUqgiNkqloQM=\",\"Address\":\"bcrt1qrnc097fuepeyrchganj4jzl2yuf5c0fg800uenr5h0d58emztxasusnk7p\",\"Confirmations\":\"21\"}"}" --from validator -y -b block
+    axelarcli tx bitcoin confirmTxOut 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator -y -b block
     ```
     Wait for verification to be confirmed (~10 Axelar blocks, ~50 secs).
 
@@ -187,8 +166,8 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 1. Create a deposit address on Ethereum:
 
     **Note**: The BTC testnet address here is where your testnet BTC will be withdrawn to. If you sent TEST BTC from your own wallet when minting the ERC20 wrapped Bitcoin above, then you should put your testnet BTC wallet address here as the withdrawal address, otherwise you should set the withrawal address to the faucet address (e.g. `mkHS9ne12qx9pS9VojpwU5xtRd4T7X7ZUt`) to send the TEST BTC back to the testnet faucet (https://testnet-faucet.mempool.co/).
-    
-    **Note**: Please withdraw less (e.g., 0.0001BTC = 10000 Satoshi less) than you transferred to cover the fees on Bitcoin. 
+
+    **Note**: Please withdraw less (e.g., 0.0001BTC = 10000 Satoshi less) than you transferred to cover the fees on Bitcoin.
 
     ```
     axelarcli tx ethereum link bitcoin {bitcoin withdrawal addr} satoshi --from validator -y -b block
@@ -207,16 +186,16 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
     **Note**: again, wait until you see at least 30 confirmations before proceeding to the next step.
 
-3. Verify the Ethereum transaction
+3. Confirm the Ethereum transaction
     ```
-    axelarcli tx ethereum verify-erc20-deposit {txID} {amount} {deposit addr} --from validator -y -b block
+    axelarcli tx ethereum confirm-erc20-deposit {txID} {amount} {deposit addr} --from validator -y -b block
     -> wait for verification to be confirmed (~10 Axelar blocks)
     ```
     Here, amount should be specific in Satoshi. (For instance, 0.0001BTC = 10000 Satoshi)
 
     e.g.,
     ```
-    axelarcli tx ethereum verify-erc20-deposit 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000  0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
+    axelarcli tx ethereum confirm-erc20-deposit 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000  0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
     -> wait for verification to be confirmed (~10 Axelar blocks, 1 minute)
     ```
 
@@ -234,33 +213,23 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
 3. Submit the transfer to Bitcoin
     ```
-    axelarcli q bitcoin send
-    -> returns tx ID
+    axelarcli q bitcoin rawTx
+    -> Return raw transaction in hex encoding
     ```
-
+    You can then copy the raw transaction and send it to bitcoin testnet with bitcoin's JSON-RPC API, or a web interface such as https://live.blockcypher.com/btc/pushtx/
     You can monitor the status of your transfer using the bitcoin testnet explorer: https://blockstream.info/testnet/
 
-#### 🛑 **IMPORTANT: Verify outpoints of previous withdrawal tx (repeat for each outpoint)**
-    
-Every Bitcoin transaction can have multiple outputs. Similarly, on your withdrawal transactions you will see multiple outputs even if you processed one withdrawal (the other outputs are used for internal controller functions). Please verify all outputs (i.e., {transaction hash, index} pairs) in your withdrawal transaction.
+#### 🛑 **IMPORTANT: Confirm outpoints of previous withdrawal tx (repeat for each outpoint)**
 
-Without this step, other users of the testnet will **not** be able to withdraw their wrapped tokens. Be a good citizen and verify the outpoints!
+Every Bitcoin transaction can have multiple outputs. Similarly, on your withdrawal transactions you will see multiple outputs even if you processed one withdrawal (the other outputs are used for internal controller functions). Please confirm all outputs (i.e., {transaction hash, index} pairs) in your withdrawal transaction.
 
-1. Create verification json object for Axelar
+Without this step, other users of the testnet will **not** be able to withdraw their wrapped tokens. Be a good citizen and confirm the outpoints!
+
+1. Confirm the Bitcoin outpoint
     ```
-    axelarcli q bitcoin txInfo {blockhash} {txID}:{voutIdx}
-    -> returns json of verification info for the given outpoint (copy the escaped string)
+    axelarcli tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
     ```
     e.g.,
     ```
-    axelarcli q bitcoin txInfo 4ac9dc50dc1b952cb1efca1e634216da2f5e3a12b4a4a802ce0f6b1271876bd2 da5b2e8037ce4b95f40ada01c6c2cd3ccb806d0a952906130eb9b806f7887590:1
-    ```
-
-2. Verify the Bitcoin outpoint
-    ```
-    axelarcli tx bitcoin verifyTx {"verification info" (output of previous cmd)} --from validator -y -b block
-    ```
-    e.g.,
-    ```
-    axelarcli tx bitcoin verifyTx "{\"OutPoint\":{\"Hash\":\"NxF/hGLGQZ6mTNyMWkYHPJ21E+2PMb1DV/beV7R9Gpk=\",\"Index\":1},\"Amount\":\"100000000\",\"BlockHash\":\"tPqsKekDOp5lW6QUl+YwlaD/3cmbQJwuUqgiNkqloQM=\",\"Address\":\"bcrt1qrnc097fuepeyrchganj4jzl2yuf5c0fg800uenr5h0d58emztxasusnk7p\",\"Confirmations\":\"21\"}" --from validator -y -b block
+    axelarcli tx bitcoin confirmTxOut 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator -y -b block
     ```
