@@ -10,7 +10,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## What you need
 - Bitcoin testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/
-- Metamask 
+- Metamask ß
 - Ethereum Ropsten address (generate via Metamask) 
 
 ## Joining the Axelar testnet
@@ -21,7 +21,7 @@ Follow the instructions in `README.md` to make sure your node is up to date and 
 ### Generate a key on Axelar and get test tokens
 On a new terminal window, enter the c2d2 container:
 ```
-docker exec -it axelar-c2d2 sh
+docker exec -it c2d2 sh
 ```
 Create c2d2's Axelar blockchain account
 ```
@@ -39,7 +39,7 @@ c2d2cli keys show c2d2 -a
     ```
     c2d2cli deposit-btc ethereum [ethereum recipient address]
     ```
-    You will see the deposit Bitcoin testnet printed in the terminal
+    You will see the deposit Bitcoin address printed in the terminal
     ```
     > Please deposit Bitcoin to bcrt1qk4s6ya3gqakzmpv95tvgp00rhpkal9jyx243y8dr2dzmttkcdurq4dqj4t
     > Waiting for deposit transaction
@@ -49,8 +49,15 @@ c2d2cli keys show c2d2 -a
   - (https://testnet-faucet.mempool.co/)
   - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
 
+    You are free to exit c2d2 during the waiting period, c2d2 will resume unfinished jobs when you input the deposit-btc command with same recipient address.
 
-c2d2 automates all the signing and verification process, after  
+    ```
+    c2d2cli deposit-btc ethereum [ethereum recipient address]
+    ```
+ 3. c2d2 will automate all the signing and verification process.   evetually you can see a message says
+    ```
+    Mint command <commandId> completed at ethereum txID <transactionId>
+    ```
 You can now open Metamask, add the custom asset (Bitcoin) with contract address (ask Axelar on discord if you can't find it) and see the minted Bitcoin tokens appear in it. 
 
 ### Burn ERC20 wrapped Bitcoin tokens and obtain native Satoshi
@@ -62,4 +69,13 @@ You can now open Metamask, add the custom asset (Bitcoin) with contract address 
    ```
    c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 200satoshi
    ```
+   You will see the depost Ethereum address printed in the terminal
+   ```
+   > Please transfer satoshi tokens to 0xC21f7876a23E2E7EB7e4A92E1AF03cacf14B59d5
+   > Waiting for withdrawal transaction...
+   ```
 2. External: send wrapped tokens to deposit address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. Wait for 30 Ethereum block confirmations. 
+
+3. c2d2 will automate all the signing and verification process.
+
+(To be continued here)
