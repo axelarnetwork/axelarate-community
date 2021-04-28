@@ -10,7 +10,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## What you need
 - Bitcoin testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/
-- Metamask ß
+- Metamask
 - Ethereum Ropsten address (generate via Metamask) 
 
 ## Joining the Axelar testnet
@@ -54,7 +54,7 @@ c2d2cli keys show c2d2 -a
     ```
     c2d2cli deposit-btc ethereum [ethereum recipient address]
     ```
- 3. c2d2 will automate all the signing and verification process.   evetually you can see a message says
+ 3. c2d2 will automate all the signing and verification process. After completion, you can see a message says
     ```
     Mint command <commandId> completed at ethereum txID <transactionId>
     ```
