@@ -18,7 +18,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
 
 ## Useful commands
-Axelar node runs in two containers (one with the core consensus engine and another with threshold crypto process). You can stop/remove all your containers using: 
+Axelar node runs in two containers (one with the core consensus engine and another with threshold crypto process). You can stop/remove all your containers using:
 ```
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
@@ -53,20 +53,30 @@ See https://hub.docker.com/repository/docker/axelarnet/axelar-core and https://h
 Once you join, at the terminal you should see blocks produced:
 
 ```
-I[2021-03-17|02:56:53.933] Executed block                               module=state height=2737 validTxs=0 invalidTxs=0
-I[2021-03-17|02:56:53.945] Committed state                              module=state height=2737 txs=0 appHash=DCFEB4C1574D6ADC1CC61CEBA8B119CBC0BBB87EB16B94507F19A10305D453CD
-I[2021-03-17|02:56:59.682] Executed block                               module=state height=2738 validTxs=0 invalidTxs=0
-I[2021-03-17|02:56:59.691] Committed state                              module=state height=2738 txs=0 appHash=5867EC297F83BB40F419EEBF7EB1FD4405
+2:00PM DBG indexed block txs height=2803 module=txindex num_txs=0
+2:00PM INF finalizing commit of block hash=CF38DD7953FC55492D8A2E7B85AFF0C897AD45F456332A1D474D13760628514E height=2804 module=consensus num_txs=0 root=3433AECFC589D7BB139492B8D2DA7119312270C58DFF9CBB15352342FA9178DF
+2:00PM INF committed state app_hash=AB9304858D45E9C2E3A922B93684B8B13E4FEA90D1406737A42C085A3A06EBC3 height=2804 module=state num_txs=0
+2:00PM DBG indexed block txs height=2804 module=txindex num_txs=0
+2:01PM INF finalizing commit of block hash=6098B3E6A4E1E74C69B37DD0C23A2009A08DED8AD8787FDCFE6A4FE84B517457 height=2805 module=consensus num_txs=0 root=AB9304858D45E9C2E3A922B93684B8B13E4FEA90D1406737A42C085A3A06EBC3
+2:01PM INF committed state app_hash=D55A2D71A5DC4C14FA3B1813C5C283EC2AEA404F442D95629239F3A4BECFA40A height=2805 module=state num_txs=0
 ...
 ```
 By default, logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
 ```
-join/joinTestnet.sh --axelar-core CORE_VERSION  --tofnd TOFND_VERSION &>> testnet.log
+join/joinTestnet.sh --axelar-core CORE_VERSION --tofnd TOFND_VERSION &>> testnet.log
 ```
 On a new terminal window, you could monitor the log file in real time:
 ```
-tail -f testnet.log 
+tail -f testnet.log
 ```
+If you find the log containing too much noise and hard to find useful information, you can filter it as following
+```
+docker logs -f axelar-core 2>&1 | grep -e threshold -e num_txs -e proxies
+```
+
+## Ethereum account on testnet
+Axelar signs meta transactions for Ethereum, meaning that any Ethereum account can send transaction executing commands so long as the commands are signed by Axelar's key. In the exercises, all of the Ethereum-related transactions are sent from address `0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A` on Ropsten testnet.
+
 ### Generate a key on Axelar and get test tokens
 1. On a new terminal window, enter Axelar node:
     ```
