@@ -67,7 +67,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
   `threshold of 2/3 has been met for bitcoin_7d097730bbeba835e21dc0d953d4b1c3e42a6bf0da03e70f01a6bb0c1b71183c:1_1 for 4/5`
 
-  If you redirected your terminal output to a file, you can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`. 
+You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`. 
 
 5. Trigger signing of the transfers to Ethereum
 
