@@ -46,7 +46,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
 2. External: send a TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
   - ALERT: DO NOT SEND ANY REAL ASSETS
-  - (https://testnet-faucet.mempool.co/
+  - https://bitcoinfaucet.uo1.net/
   - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
 
 
@@ -67,6 +67,8 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
   `threshold of 2/3 has been met for bitcoin_7d097730bbeba835e21dc0d953d4b1c3e42a6bf0da03e70f01a6bb0c1b71183c:1_1 for 4/5`
 
+You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`. 
+
 5. Trigger signing of the transfers to Ethereum
 
   ```
@@ -78,6 +80,8 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
   Look for commandID and its value in the output: `"key": "commandID",
     "value": "d5e993e407ff399cf2770a1d42bc2baf5308f46632fcbe209318acb09776599f"`
 
+  You can search it using `docker logs -f axelar-core 2>&1 | grep -e command`. 
+    
 6. Send the previous command to Ethereum
   ```
   axelarcli q ethereum sendCommand {commandID} {address of account that should send this tx}
@@ -88,7 +92,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
   ```
   So use the above command, and just replace the `commandID` with your own.
 
-You can now open Metamask, select "Assets" => "Custom Token" and then paste the token contract address (ask Axelar on discord if you can't find it).
+You can now open Metamask, select "Assets" => "Custom Token" and then paste the token contract address (see `axelarate-community/TESTNET RELEASE.md`).
 
 ### Burn ERC20 wrapped Bitcoin tokens and obtain native Satoshi
 
