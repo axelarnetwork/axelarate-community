@@ -1,6 +1,8 @@
 # Exercise 2
-Transfer BTC to Ethereum (as a wrapped asset) and back via c2d2.\
-c2d2 is a axelar cross-chain dapp deamon which reduces the complecity of interacting with axelarcli.
+Transfer BTC to Ethereum (as a wrapped asset) and back using `c2d2cli`.
+
+C2D2 is the axelar cross-chain dapp deamon which coordinates the necessary transactions for cross-chain asset transfers.
+The C2D2 CLI automates the steps we performed manually in exercise 1.
 
 ## Disclaimer 
 Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template. 
@@ -17,9 +19,13 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 Follow the instructions in `README.md` to make sure your node is up to date and you received some test coins to your validator account. 
 
+### Enter the c2d2cli container
+On a new terminal window, enter the c2d2 container by running:
+```
+axelarate-community/c2d2/c2d2cli.sh
+```
 
 ### Generate a key on Axelar and get test tokens
-On a new terminal window, enter the c2d2 container:
 ```
 docker exec -it c2d2 sh
 ```
@@ -48,8 +54,7 @@ c2d2cli keys show c2d2 -a
   - ALERT: DO NOT SEND ANY REAL ASSETS
   - (https://testnet-faucet.mempool.co/)
   - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
-
-    You are free to exit c2d2 during the waiting period, c2d2 will resume unfinished jobs when you input the deposit-btc command with same recipient address.
+- Do not exit c2d2cli while you are waiting for your deposit to be confirmed. c2d2 will be watching for an event from the bitcoin bridge node that it needs to detect your transaction.
 
     ```
     c2d2cli deposit-btc ethereum [ethereum recipient address]
@@ -69,7 +74,7 @@ You can now open Metamask, add the custom asset (Bitcoin) with contract address 
    ```
    c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 200satoshi
    ```
-   You will see the depost Ethereum address printed in the terminal
+   You will see the deposit Ethereum address printed in the terminal
    ```
    > Please transfer satoshi tokens to 0xC21f7876a23E2E7EB7e4A92E1AF03cacf14B59d5
    > Waiting for withdrawal transaction...
