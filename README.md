@@ -90,6 +90,6 @@ Axelar signs meta transactions for Ethereum, meaning that any Ethereum account c
 
 4. Check that you received the funds
     ```
-    axelarcli q account {validator_addr}
+    axelarcli q bank balances {validator_addr}
     ```
 
