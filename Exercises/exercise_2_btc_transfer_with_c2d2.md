@@ -26,9 +26,7 @@ axelarate-community/c2d2/c2d2cli.sh
 ```
 
 ### Generate a key on Axelar and get test tokens
-```
-docker exec -it c2d2 sh
-```
+
 Create c2d2's Axelar blockchain account
 ```
 c2d2cli keys add c2d2
