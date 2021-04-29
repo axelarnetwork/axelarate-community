@@ -1,0 +1,37 @@
+[lcd]
+app-name = "axelar"
+host = "host.docker.internal"
+port = "1317"
+keyring-dir = "./data/keytest"
+keyring-backend = "test"
+node = "http://host.docker.internal:26657"
+chain-id = "axelar"
+
+[lcd.broadcast]
+broadcaster-account = "c2d2"
+keyring-passphrase = ""
+gas-adjustment = "0"
+max-retries = 8
+min-timeout = 500000000
+
+[db]
+data-dir = "./data/db"
+enable-logger = false
+
+[bitcoin]
+rpc_addr = "http://axelar:Ch91wtRPZhCjKF7OLXkF@a6f628019c4194ded9623daaa54834e0-632184776.us-east-2.elb.amazonaws.com:8332"
+rpc_user = "axelar"
+rpc_pass = "Ch91wtRPZhCjKF7OLXkF"
+timeout_rpc = "100s"
+zmq-publisher = "tcp://a6f628019c4194ded9623daaa54834e0-632184776.us-east-2.elb.amazonaws.com:28332"
+network = "test"
+confirmations = 6
+subscribe-rawtx = true
+
+[ethereum]
+rpc-url = "ws://a3716ae94a6fb4f788d510e214fccba4-801701676.us-east-2.elb.amazonaws.com:8546"
+network = "ropsten"
+networkId = 3
+sender = "0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A"
+sender-passphrase = "password"
+confirmation-height = 30
