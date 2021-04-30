@@ -23,6 +23,7 @@ Axelar node runs in two containers (one with the core consensus engine and anoth
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 ```
+If you did not add the `docker` user to the `sudo` group, you will have to prepend `sudo` to the previous commands.
 
 ## Joining the Axelar testnet
 
