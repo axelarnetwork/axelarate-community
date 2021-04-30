@@ -19,7 +19,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 Follow the instructions in `README.md` to make sure your node is up to date and you received some test coins to your validator account. 
 
-### Pull c2de docker image
+### Pull c2d2 docker image
 Check [TESTNET RELEASE.md](../TESTNET%20RELEASE.md) for the latest available c2d2 version of the docker images.
 
 ```
