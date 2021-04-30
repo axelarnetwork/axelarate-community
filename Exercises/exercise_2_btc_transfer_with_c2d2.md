@@ -19,10 +19,17 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 Follow the instructions in `README.md` to make sure your node is up to date and you received some test coins to your validator account. 
 
+### Pull c2de docker image
+Check [TESTNET RELEASE.md](../TESTNET%20RELEASE.md) for the latest available c2d2 version of the docker images.
+
+```
+docker pull axelarnet/c2d2:VERSION
+```
+
 ### Enter the c2d2cli container
 On a new terminal window, enter the c2d2 container by running:
 ```
-axelarate-community/c2d2/c2d2cli.sh
+./c2d2/c2d2cli.sh
 ```
 
 ### Generate a key on Axelar and get test tokens
@@ -70,7 +77,7 @@ You can now open Metamask, add the custom asset (Bitcoin) with contract address 
    ```
    e.g. 
    ```
-   c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 200satoshi
+   c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 10000satoshi
    ```
    You will see the deposit Ethereum address printed in the terminal
    ```
