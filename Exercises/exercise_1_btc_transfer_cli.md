@@ -153,7 +153,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   ```
   You can then copy the raw transaction and send it to bitcoin testnet with bitcoin's JSON-RPC API, or a web interface such as https://live.blockcypher.com/btc/pushtx/
 
-🛑 **IMPORTANT: Confirm the outpoint that returns the change (when in doubt, confirm all outpoints of this transaction)**
+🛑 **IMPORTANT: Confirm the outpoint that returns the change (when in doubt, try to confirm each outpoint of this transaction. Any outpoint that is not the change outpoint will immediately abort the confirmation.)**
 
 Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and confirm the outpoints!
 
