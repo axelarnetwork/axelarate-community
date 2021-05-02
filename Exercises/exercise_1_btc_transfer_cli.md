@@ -151,7 +151,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   axelarcli q bitcoin rawTx
   -> Return raw transaction in hex encoding
   ```
-  You can then copy the raw transaction and send it to bitcoin testnet with bitcoin's JSON-RPC API, or a web interface such as https://live.blockcypher.com/btc/pushtx/
+  You can then copy the raw transaction and send it to bitcoin testnet with bitcoin's JSON-RPC API, or a web interface such as https://live.blockcypher.com/btc/pushtx/. Note to select Bitcoin testnet as the chain, if you are using the Blockcypher interface.
 
 🛑 **IMPORTANT: Confirm the outpoint that returns the change (when in doubt, confirm all outpoints of this transaction)**
 
