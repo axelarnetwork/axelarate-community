@@ -155,7 +155,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
 6. Confirm the Bitcoin outpoint
 
-In this step, you will try to confirm all outpoint of the transfer transaction.
+In this step, you will try to confirm all outpoints of the transfer transaction. Be sure to wait until the transaction is 6 blocks deep in the Bitcoin network.
 
   ```
   axelarcli tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
