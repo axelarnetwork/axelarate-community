@@ -50,7 +50,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
   - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
 
 
-4. Confirm the Bitcoin outpoint
+3. Confirm the Bitcoin outpoint
 
   ```
   axelarcli tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
@@ -69,7 +69,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
 You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`. 
 
-5. Trigger signing of the transfers to Ethereum
+4. Trigger signing of the transfers to Ethereum
 
   ```
   axelarcli tx ethereum sign-pending-transfers --from validator -y -b block
@@ -82,7 +82,7 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`.
 
   You can search it using `docker logs -f axelar-core 2>&1 | grep -e command`. 
     
-6. Send the previous command to Ethereum
+5. Send the previous command to Ethereum
   ```
   axelarcli q ethereum sendCommand {commandID} {address of account that should send this tx}
   ```
@@ -92,7 +92,7 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`.
   ```
   So use the above command, and just replace the `commandID` with your own.
 
-You can now open Metamask, select "Assets" => "Custom Token" and then paste the token contract address (see `axelarate-community/TESTNET RELEASE.md`).
+You can now open Metamask, select "Assets" then "Add Token" then "Custom Token" and then paste the token contract address (see `axelarate-community/TESTNET RELEASE.md` and look for  `Ethereum token contract address` field).
 
 ### Burn ERC20 wrapped Bitcoin tokens and obtain native Satoshi
 
@@ -101,7 +101,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 1. Create a deposit address on Ethereum
 
   ```
-  axelarcli tx ethereum link bitcoin {bitcoin addr} satoshi --from validator -y -b block
+  axelarcli tx ethereum link bitcoin {destination bitcoin addr} satoshi --from validator -y -b block
   -> returns deposit address
   ```
 
@@ -110,13 +110,13 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   axelarcli tx ethereum link bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator -y -b block
   ```
 
-  Look for the Ethereum deposit address as the first outout in this line (`0x5CFE...`):
+  Look for the Ethereum deposit address as the first output in this line (`0x5CFE...`):
 
   ```
   "successfully linked {0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E} and {tb1qq8wnre6rzctec9wycrl2dq00m3avravslahc8v}"
   ```
 
-2. External: send wrapped tokens to deposit address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. Wait for 30 Ethereum block confirmations.
+2. External: send wrapped tokens to deposit address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. Wait for 30 Ethereum block confirmations. You can monitor the status of your deposit using the testnet explorer: https://ropsten.etherscan.io/
 
 3. Confirm the Ethereum transaction
 

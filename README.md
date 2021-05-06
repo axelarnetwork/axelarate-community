@@ -51,7 +51,7 @@ Optional flags:
 ```
 See https://hub.docker.com/repository/docker/axelarnet/axelar-core and https://hub.docker.com/repository/docker/axelarnet/tofnd for the latest available versions of the docker images.
 
-Once you join, at the terminal you should see blocks produced:
+Once you join, at the terminal you should see blocks produced quickly. Wait for your node to catch up with the network before proceeding (When block production slows down to every 10 seconds). This can take a while.
 
 ```
 2:00PM DBG indexed block txs height=2803 module=txindex num_txs=0
@@ -93,4 +93,7 @@ Axelar signs meta transactions for Ethereum, meaning that any Ethereum account c
     ```
     axelarcli q bank balances {validator_addr}
     ```
-
+    e.g.,
+    ```
+    axelarcli q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
+    ```
