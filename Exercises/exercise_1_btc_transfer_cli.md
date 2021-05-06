@@ -115,6 +115,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   ```
   "successfully linked {0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E} and {tb1qq8wnre6rzctec9wycrl2dq00m3avravslahc8v}"
   ```
+**Side note: Make sure to link a Bitcoin address that is controlled by you, e.g. if you link it to an address controlled by Axelar your withdrawal will be considered a donation and added to the pool of funds**
 
 2. External: send wrapped tokens to deposit address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. Wait for 30 Ethereum block confirmations. You can monitor the status of your deposit using the testnet explorer: https://ropsten.etherscan.io/
 
@@ -151,14 +152,18 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   axelarcli q bitcoin rawTx
   -> Return raw transaction in hex encoding
   ```
-  You can then copy the raw transaction and send it to bitcoin testnet with bitcoin's JSON-RPC API, or a web interface such as https://live.blockcypher.com/btc/pushtx/. Note to select Bitcoin testnet as the chain, if you are using the Blockcypher interface.
+  You can then copy the raw transaction and send it to bitcoin testnet with bitcoin's JSON-RPC API, or a web interface such as https://live.blockcypher.com/btc/pushtx/
+
+🛑 **IMPORTANT: Confirm the first outpoint of the transaction**
+
+The first outpoint of the transaction returns all remaining funds back to Axelar so they can be used for future transfers. Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and confirm the outpoint!
 
 6. Confirm the Bitcoin outpoint
 
 In this step, you will try to confirm all outpoints of the transfer transaction. Be sure to wait until the transaction is 6 blocks deep in the Bitcoin network.
 
   ```
-  axelarcli tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
+  axelarcli tx bitcoin confirmTxOut "{txID:0}" "{amount}btc" "{deposit address}" --from validator -y -b block
   ```
 e.g.,
   ```

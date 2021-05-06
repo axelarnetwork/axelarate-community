@@ -54,12 +54,12 @@ See https://hub.docker.com/repository/docker/axelarnet/axelar-core and https://h
 Once you join, at the terminal you should see blocks produced quickly. Wait for your node to catch up with the network before proceeding (When block production slows down to every 10 seconds). This can take a while.
 
 ```
-2:00PM DBG indexed block txs height=2803 module=txindex num_txs=0
-2:00PM INF finalizing commit of block hash=CF38DD7953FC55492D8A2E7B85AFF0C897AD45F456332A1D474D13760628514E height=2804 module=consensus num_txs=0 root=3433AECFC589D7BB139492B8D2DA7119312270C58DFF9CBB15352342FA9178DF
-2:00PM INF committed state app_hash=AB9304858D45E9C2E3A922B93684B8B13E4FEA90D1406737A42C085A3A06EBC3 height=2804 module=state num_txs=0
-2:00PM DBG indexed block txs height=2804 module=txindex num_txs=0
-2:01PM INF finalizing commit of block hash=6098B3E6A4E1E74C69B37DD0C23A2009A08DED8AD8787FDCFE6A4FE84B517457 height=2805 module=consensus num_txs=0 root=AB9304858D45E9C2E3A922B93684B8B13E4FEA90D1406737A42C085A3A06EBC3
-2:01PM INF committed state app_hash=D55A2D71A5DC4C14FA3B1813C5C283EC2AEA404F442D95629239F3A4BECFA40A height=2805 module=state num_txs=0
+9:13PM INF commit is for a block we do not know about; set ProposalBlock=nil commit=EF5F5089BC255CEA54707AF1A67E7056551B0EBF4440D0A3095217BF119346DA commit_round=0 height=33 module=consensus proposal=
+9:13PM INF received complete proposal block hash=EF5F5089BC255CEA54707AF1A67E7056551B0EBF4440D0A3095217BF119346DA height=33 module=consensus
+9:13PM INF finalizing commit of block hash=EF5F5089BC255CEA54707AF1A67E7056551B0EBF4440D0A3095217BF119346DA height=33 module=consensus num_txs=0 root=006CFAB3CC04E2196D06671ACCF4374C1D282393C302CC394F3124A7594295FF
+9:13PM INF minted coins from module account amount=2061stake from=mint module=x/bank
+9:13PM INF executed block height=33 module=state num_invalid_txs=0 num_valid_txs=0
+9:13PM INF commit synced commit=436F6D6D697449447B5B3135372031383420323030203934203832203734203233
 ...
 ```
 By default, logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
