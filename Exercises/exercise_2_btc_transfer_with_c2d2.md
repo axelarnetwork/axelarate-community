@@ -11,23 +11,23 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Complete all steps from `README.md`
 
 ## What you need
-- Bitcoin testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/
-- Metamask
-- Ethereum Ropsten address (generate via Metamask) 
+- Bitcoin testnet wallet with some tBTC (faucet [https://testnet-faucet.mempool.co/](https://testnet-faucet.mempool.co/))
+- Ethereum wallet on the Ropsten network (we reccomend Metamask)
+- Some Ropsten ETH (faucet [https://faucet.ropsten.be/](https://faucet.ropsten.be/))
 
 ## Joining the Axelar testnet
 
-Follow the instructions in `README.md` to make sure your node is up to date and you received some test coins to your validator account. 
+Follow the instructions in `README.md` to make sure your node is synchronized to the latest block, and you have received some test coins to your validator account. 
 
-### Pull c2d2 docker image
-Check [TESTNET RELEASE.md](../TESTNET%20RELEASE.md) for the latest available c2d2 version of the docker images.
+### Pull C2D2 docker image
+Check [TESTNET RELEASE.md](../TESTNET%20RELEASE.md) for the latest available C2D2 version of the docker images.
 
 ```
 docker pull axelarnet/c2d2:VERSION
 ```
 
-### Enter the c2d2cli container
-On a new terminal window, enter the c2d2 container by running:
+### Enter the `c2d2cli` container
+On a new terminal window, enter the `c2d2cli` container by running:
 ```
 ./c2d2/c2d2cli.sh
 ```
@@ -39,19 +39,19 @@ Create c2d2's Axelar blockchain account
 c2d2cli keys add c2d2
 ```
 
-Go to axelar faucet and fund your c2d2 account by providing the address to the
+Go to axelar faucet and fund your C2D2 account by providing the address to the
 facuet (http://faucet.testnet.axelar.network/).\ You can get c2d2's account
 address by running 
 
 ```
-c2d2cli keys show c2d2 -a
+c2d2cli keys show C2D2 -a
 ```
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
 1. Generate a Bitcoin deposit address. The Ethereum address you provide will be linked to the deposit address and receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 
 
     ```
-    c2d2cli deposit-btc ethereum [ethereum recipient address]
+    `c2d2cli` deposit-btc ethereum [ethereum recipient address]
     ```
 
     You will see the deposit Bitcoin address printed in the terminal
@@ -63,30 +63,30 @@ c2d2cli keys show c2d2 -a
 
 2. *External*: send some TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). 
 
-  - ALERT: **DO NOT SEND ANY REAL ASSETS***
+  - ALERT: **DO NOT SEND ANY REAL ASSETS**
   - Bitcoin testnet faucet [https://testnet-faucet.mempool.co/](https://testnet-faucet.mempool.co/)
   - You can monitor the status of your deposit using the testnet explorer: [https://blockstream.info/testnet/](https://blockstream.info/testnet/)
 
-Do not exit c2d2cli while you are waiting for your deposit to be confirmed. It will be watching for an event from the bitcoin bridge node which it needs to detect your transaction.
+Do not exit `c2d2cli` while you are waiting for your deposit to be confirmed. It will be watching for an event from the bitcoin bridge node which it needs to detect your transaction.
 
-If your bitcoin deposit transaction has at least one confirmation but is not
-detected, you can restart c2d2cli and append the `--bitcoin-tx-prompt` flag.
+If your bitcoin deposit transaction has at least 1 confirmation but is not
+detected, you can restart `c2d2cli` and append the `--bitcoin-tx-prompt` flag.
 The CLI will prompt you to enter the deposit tx info manually. The rest of the
 deposit procedure will still be automated.
 
     ```
-    c2d2cli deposit-btc ethereum [ethereum recipient address] --bitcoin-tx-prompt
+    `c2d2cli` deposit-btc ethereum [ethereum recipient address] --bitcoin-tx-prompt
     ```
 
-Once your transaction is detected, c2d2cli will wait until it has 6 confirmations before proceeding.
+Once your transaction is detected, `c2d2cli` will wait until it has 6 confirmations before proceeding.
 
- 3. c2d2 will automate the bitcoin deposit confirmation, and mint command signing and sending. Once the minting process completes you will see the following message:
+ 3. C2D2 will automate the bitcoin deposit confirmation, and mint command signing and sending. Once the minting process completes you will see the following message:
 
     ```
     Mint command <commandId> completed at ethereum txID <transactionId>
     ```
 
-You can now open Metamask and add the wrapped BTC contract address. c2d2cli will print the contract address like this:
+You can now open Metamask and add the wrapped BTC contract address. `c2d2cli` will print the contract address like this:
 
 ```
 Using satoshi token <address>
@@ -98,12 +98,12 @@ The contract will show in metamask as symbol 'Satoshi'. If your recipient addres
 1. Generate an ethereum withdrawal address. The Bitcoin address you provide will be uniquely linked to the deposit address and receive the withdrawn BTC on the Bitcoin testnet. 
 
    ```
-   c2d2cli withdraw-btc ethereum [bitcoin recipient address] [fee]
+   `c2d2cli` withdraw-btc ethereum [bitcoin recipient address] [fee]
    ```
 
 For example:
    ```
-   c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 10000satoshi
+   `c2d2cli` withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 10000satoshi
    ```
 
 You will see the deposit Ethereum address printed in the terminal.
@@ -113,11 +113,14 @@ You will see the deposit Ethereum address printed in the terminal.
    > Waiting for withdrawal transaction...
    ```
 
-2. External: send wrapped Satoshi tokens to withdrawal address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. 
+2. External: send wrapped Satoshi tokens to withdrawal address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions.
 
-3. Once your withdrawal transaction is detected, c2d2cli will wait for 30 Ethereum block confirmations before proceeding.
 
-4. c2d2 will automate the withdrawal confirmation, and bitcoin transaction signing and sending. It will then complete the bitcoin change outpoint confirmation and satoshi token burning.
+3. Once your withdrawal transaction is detected, `c2d2cli` will wait for 30 Ropsten block confirmations before proceeding.
+
+
+4. C2D2 will automate the withdrawal confirmation, and bitcoin transaction signing and sending. It will then complete the bitcoin change outpoint confirmation and satoshi token burning.
+
 
 5. Once your bitcoin is withdrawn and your Satoshi tokens have been burned, you will see this message:
 
