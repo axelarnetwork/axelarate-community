@@ -154,16 +154,12 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   ```
   You can then copy the raw transaction and send it to bitcoin testnet with bitcoin's JSON-RPC API, or a web interface such as https://live.blockcypher.com/btc/pushtx/. Note to select Bitcoin testnet as the chain, if you are using the Blockcypher interface.
 
-🛑 **IMPORTANT: Confirm the first outpoint of the transaction**
-
-The first outpoint of the transaction returns all remaining funds back to Axelar so they can be used for future transfers. Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and confirm the outpoint!
-
 6. Confirm the Bitcoin outpoint
 
 In this step, you will try to confirm all outpoints of the transfer transaction. Be sure to wait until the transaction is 6 blocks deep in the Bitcoin network.
 
   ```
-  axelarcli tx bitcoin confirmTxOut "{txID:0}" "{amount}btc" "{deposit address}" --from validator -y -b block
+  axelarcli tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
   ```
 e.g.,
   ```
@@ -174,6 +170,6 @@ Most of the confirmations will fail, and you will see:
 ```
 failed to execute message; message index: 0: outpoint address unknown
 ```
-as a response. This is normal. However, one of the confirmations should succeed. This is the outpoint that returns the remaining balance back to the axelar network key.
+as a response. This is normal. However, at least one of the confirmations should succeed. Among those is the outpoint that returns the remaining balance back to the Axelar network key.
 
 🛑 **IMPORTANT: Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and confirm the outpoints!**
