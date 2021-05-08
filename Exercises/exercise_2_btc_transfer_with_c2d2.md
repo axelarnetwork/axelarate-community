@@ -4,6 +4,12 @@ Transfer BTC to Ethereum (as a wrapped asset) and back using `c2d2cli`.
 C2D2 is the axelar cross-chain dapp deamon which coordinates the necessary transactions for cross-chain asset transfers.
 The C2D2 CLI automates the steps we performed manually in exercise 1.
 
+## Status
+Work in progress. 
+
+## Level 
+Intermediate
+
 ## Disclaimer 
 Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template. 
 

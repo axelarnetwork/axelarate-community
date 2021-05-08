@@ -1,6 +1,9 @@
 # Exercise 1
 Transfer BTC to Ethereum (as a wrapped asset) and back via Axelar Network CLI.
 
+## Level
+Intermediate 
+
 ## Disclaimer
 Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
 
