@@ -102,7 +102,7 @@ The contract will show in metamask as symbol 'Satoshi'. If your recipient addres
 
 For example:
    ```
-   c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 10000satoshi
+   c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 1000satoshi
    ```
 
 You will see the deposit Ethereum address printed in the terminal.
