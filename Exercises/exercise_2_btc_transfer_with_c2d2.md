@@ -57,7 +57,7 @@ c2d2cli keys show C2D2 -a
 1. Generate a Bitcoin deposit address. The Ethereum address you provide will be linked to the deposit address and receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 
 
     ```
-    `c2d2cli` deposit-btc ethereum [ethereum recipient address]
+    c2d2cli deposit-btc ethereum [ethereum recipient address]
     ```
 
     You will see the deposit Bitcoin address printed in the terminal
@@ -80,9 +80,7 @@ detected, you can restart `c2d2cli` and append the `--bitcoin-tx-prompt` flag.
 The CLI will prompt you to enter the deposit tx info manually. The rest of the
 deposit procedure will still be automated.
 
-    ```
-    `c2d2cli` deposit-btc ethereum [ethereum recipient address] --bitcoin-tx-prompt
-    ```
+    c2d2cli deposit-btc ethereum [ethereum recipient address] --bitcoin-tx-prompt
 
 Once your transaction is detected, `c2d2cli` will wait until it has 6 confirmations before proceeding.
 
@@ -95,6 +93,7 @@ Once your transaction is detected, `c2d2cli` will wait until it has 6 confirmati
 You can now open Metamask and add the wrapped BTC contract address. `c2d2cli` will print the contract address like this:
 
 ```
+Using AxelarGateway <address>
 Using satoshi token <address>
 ```
 
@@ -104,12 +103,12 @@ The contract will show in metamask as symbol 'Satoshi'. If your recipient addres
 1. Generate an ethereum withdrawal address. The Bitcoin address you provide will be uniquely linked to the deposit address and receive the withdrawn BTC on the Bitcoin testnet. 
 
    ```
-   `c2d2cli` withdraw-btc ethereum [bitcoin recipient address] [fee]
+   c2d2cli withdraw-btc ethereum [bitcoin recipient address] [fee]
    ```
 
 For example:
    ```
-   `c2d2cli` withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 10000satoshi
+   c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 1000satoshi
    ```
 
 You will see the deposit Ethereum address printed in the terminal.
