@@ -50,7 +50,7 @@ facuet (http://faucet.testnet.axelar.network/).\ You can get c2d2's account
 address by running 
 
 ```
-c2d2cli keys show C2D2 -a
+c2d2cli keys show c2d2 -a
 ```
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
@@ -67,7 +67,7 @@ c2d2cli keys show C2D2 -a
     > Waiting for deposit transaction
     ```
 
-2. *External*: send some TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). 
+2. **External**: send some TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). 
 
   - ALERT: **DO NOT SEND ANY REAL ASSETS**
   - Bitcoin testnet faucet [https://testnet-faucet.mempool.co/](https://testnet-faucet.mempool.co/)
@@ -118,13 +118,13 @@ You will see the deposit Ethereum address printed in the terminal.
    > Waiting for withdrawal transaction...
    ```
 
-2. External: send wrapped Satoshi tokens to withdrawal address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions.
+2. **External**: send wrapped Satoshi tokens to withdrawal address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions.
 
 
 3. Once your withdrawal transaction is detected, `c2d2cli` will wait for 30 Ropsten block confirmations before proceeding.
 
 
-4. C2D2 will automate the withdrawal confirmation, and bitcoin transaction signing and sending. It will then complete the bitcoin change outpoint confirmation and satoshi token burning.
+4. `c2d2cli` will automate the withdrawal confirmation, and bitcoin transaction signing and sending. It will then complete the bitcoin change outpoint confirmation and satoshi token burning.
 
 
 5. Once your bitcoin is withdrawn and your Satoshi tokens have been burned, you will see this message:
