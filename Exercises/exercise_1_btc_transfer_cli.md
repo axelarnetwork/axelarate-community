@@ -35,14 +35,14 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 1. Create a deposit address on Bitcoin (to which you'll deposit coins later)
 
   ```
-  axelarcli tx bitcoin link ethereum {ethereum Ropsten dst addr} --from validator -y -b block
+  axelard tx bitcoin link ethereum {ethereum Ropsten dst addr} --from validator -y -b block
 -> returns deposit address
   ```
 
   e.g.,
 
   ```
-  axelarcli tx bitcoin link ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52 --from validator -y -b block
+  axelard tx bitcoin link ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52 --from validator -y -b block
   ```
 
   Look for `chain: Bitcoin, address: {btcaddress}`
@@ -56,13 +56,13 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 3. Confirm the Bitcoin outpoint
 
   ```
-  axelarcli tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
+  axelard tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
   ```
 
   e.g.,
 
   ```
-  axelarcli tx bitcoin confirmTxOut 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator -y -b block
+  axelard tx bitcoin confirmTxOut 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator -y -b block
   ```
 
   Wait for transaction to be confirmed (~10 Axelar blocks, ~50 secs).
@@ -75,7 +75,7 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`.
 4. Trigger signing of the transfers to Ethereum
 
   ```
-  axelarcli tx ethereum sign-pending-transfers --from validator -y -b block
+  axelard tx ethereum sign-pending-transfers --from validator -y -b block
   -> returns commandID of signed tx
   -> wait for sign protocol to complete (~10 blocks)
   ```
@@ -87,11 +87,11 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`.
     
 5. Send the previous command to Ethereum
   ```
-  axelarcli q ethereum sendCommand {commandID} {address of account that should send this tx}
+  axelard q ethereum sendCommand {commandID} {address of account that should send this tx}
   ```
   e.g., for the testnet, we allow you to use our address as the sender = `0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A`
   ```
-  axelarcli q ethereum sendCommand 96c8dba428dbb0ce94ebd49eb342a13e8844630d28f80b8d8708324f0642cb3d 0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A
+  axelard q ethereum sendCommand 96c8dba428dbb0ce94ebd49eb342a13e8844630d28f80b8d8708324f0642cb3d 0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A
   ```
   So use the above command, and just replace the `commandID` with your own.
 
@@ -104,13 +104,13 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 1. Create a deposit address on Ethereum
 
   ```
-  axelarcli tx ethereum link bitcoin {destination bitcoin addr} satoshi --from validator -y -b block
+  axelard tx ethereum link bitcoin {destination bitcoin addr} satoshi --from validator -y -b block
   -> returns deposit address
   ```
 
   e.g.,
   ```
-  axelarcli tx ethereum link bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator -y -b block
+  axelard tx ethereum link bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator -y -b block
   ```
 
   Look for the Ethereum deposit address as the first output in this line (`0x5CFE...`):
@@ -125,7 +125,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 3. Confirm the Ethereum transaction
 
   ```
-  axelarcli tx ethereum confirm-erc20-deposit {txID} {amount} {deposit addr} --from validator -y -b block
+  axelard tx ethereum confirm-erc20-deposit {txID} {amount} {deposit addr} --from validator -y -b block
   -> wait for transaction to be confirmed (~10 Axelar blocks)
   ```
 
@@ -133,26 +133,26 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   e.g.,
 
   ```
-  axelarcli tx ethereum confirm-erc20-deposit 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
+  axelard tx ethereum confirm-erc20-deposit 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
   -> wait for transaction to be confirmed (~10 Axelar blocks)
   ```
 
 4. Trigger signing of all pending transfers to Bitcoin
 
   ```
-  axelarcli tx bitcoin sign-pending-transfers {tx fee} --from validator -b block -y
+  axelard tx bitcoin sign-pending-transfers {tx fee} --from validator -b block -y
   -> wait for sign protocol to complete (~10 Axelar blocks)
   ```
 
  e.g.,
 
   ```
-  axelarcli tx bitcoin sign-pending-transfers 0.0001btc --from validator -b block -y
+  axelard tx bitcoin sign-pending-transfers 0.0001btc --from validator -b block -y
   ```
 5. Submit the transfer to Bitcoin
 
   ```
-  axelarcli q bitcoin rawTx
+  axelard q bitcoin rawTx
   -> Return raw transaction in hex encoding
   ```
   You can then copy the raw transaction and send it to bitcoin testnet with bitcoin's JSON-RPC API, or a web interface such as https://live.blockcypher.com/btc/pushtx/. Note to select Bitcoin testnet as the chain, if you are using the Blockcypher interface.
@@ -162,11 +162,11 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 In this step, you will try to confirm all outpoints of the transfer transaction. Be sure to wait until the transaction is 6 blocks deep in the Bitcoin network.
 
   ```
-  axelarcli tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
+  axelard tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
   ```
 e.g.,
   ```
-  axelarcli tx bitcoin confirmTxOut 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator -y -b block
+  axelard tx bitcoin confirmTxOut 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator -y -b block
   ```
 
 Most of the confirmations will fail, and you will see:

@@ -85,15 +85,15 @@ Axelar signs meta transactions for Ethereum, meaning that any Ethereum account c
     ```
 2. By default, the node has an account named validator. Find its address:
     ```
-    axelarcli keys show validator -a
+    axelard keys show validator -a
     ```
 3. Go to axelar faucet and get some coins on your validator's address (Your node is not yet a validator for the purpose of this ceremony; it's just the name of the account). http://faucet.testnet.axelar.network/
 
 4. Check that you received the funds
     ```
-    axelarcli q bank balances {validator_addr}
+    axelard q bank balances {validator_addr}
     ```
     e.g.,
     ```
-    axelarcli q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
+    axelard q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
     ```
