@@ -92,6 +92,5 @@ docker run                                           \
   --env INIT_SCRIPT=/root/shared/consumeGenesis.sh   \
   --env CONFIG_PATH=/root/shared/                    \
   -v "${ROOT_DIRECTORY}/.axelard:/root/.axelard"     \
-  -v "${ROOT_DIRECTORY}/.axelarcli:/root/.axelarcli" \
   -v "${SHARED_DIRECTORY}:/root/shared"              \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
