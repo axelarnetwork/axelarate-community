@@ -69,9 +69,9 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
   Wait for transaction to be confirmed (~10 Axelar blocks, ~50 secs).
   Eventually, you'll see something like this in the node terminal:
 
-  `threshold of 2/3 has been met for bitcoin_7d097730bbeba835e21dc0d953d4b1c3e42a6bf0da03e70f01a6bb0c1b71183c:1_1 for 4/5`
+  `bitcoin outpoint confirmation result is`
 
-You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`.
+You can search it using `docker logs -f axelar-core 2>&1 | grep -e outpoint`.
 
 4. Trigger signing of the transfers to Ethereum
 
