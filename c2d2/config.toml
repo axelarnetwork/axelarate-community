@@ -1,10 +1,10 @@
 [lcd]
 app-name = "axelar"
-host = "host.docker.internal"
+host = "localhost"
 port = "1317"
 keyring-dir = "./data/keytest"
 keyring-backend = "test"
-node = "http://host.docker.internal:26657"
+node = "http://localhost:26657"
 chain-id = "axelar"
 denom = "axltest"
 
