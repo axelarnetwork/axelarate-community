@@ -89,9 +89,9 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`.
   ```
   axelard q ethereum sendCommand {commandID} {address of account that should send this tx}
   ```
-  e.g., for the testnet, we allow you to use our address as the sender = `0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A`
+  e.g., for the testnet, we allow you to use our address as the sender = `0x608a44895ccb488ef764597cbc2aa7f780409ac2`
   ```
-  axelard q ethereum sendCommand 96c8dba428dbb0ce94ebd49eb342a13e8844630d28f80b8d8708324f0642cb3d 0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A
+  axelard q ethereum sendCommand 96c8dba428dbb0ce94ebd49eb342a13e8844630d28f80b8d8708324f0642cb3d 0x608a44895ccb488ef764597cbc2aa7f780409ac2
   ```
   So use the above command, and just replace the `commandID` with your own.
 
