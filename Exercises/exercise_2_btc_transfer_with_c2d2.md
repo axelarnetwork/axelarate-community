@@ -25,17 +25,12 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 Follow the instructions in `README.md` to make sure your node is synchronized to the latest block, and you have received some test coins to your validator account. 
 
-### Pull C2D2 docker image
+### Pull and enter the `c2d2cli` container
 Check [TESTNET RELEASE.md](../TESTNET%20RELEASE.md) for the latest available C2D2 version of the docker images.
 
-```
-docker pull axelarnet/c2d2:VERSION
-```
-
-### Enter the `c2d2cli` container
 On a new terminal window, enter the `c2d2cli` container by running:
 ```
-./c2d2/c2d2cli.sh
+./c2d2/c2d2cli.sh --version VERSION
 ```
 
 ### Generate a key on Axelar and get some test tokens
