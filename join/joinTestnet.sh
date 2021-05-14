@@ -5,7 +5,7 @@ set -e
 AXELAR_CORE_VERSION=""
 TOFND_VERSION=""
 RESET_CHAIN=false
-ROOT_DIRECTORY=~/.axelar
+ROOT_DIRECTORY=~/.axelar_testnet
 GIT_ROOT="$(git rev-parse --show-toplevel)"
 
 for arg in "$@"; do
@@ -91,6 +91,6 @@ docker run                                           \
   --env PEERS_FILE=/root/shared/peers.txt            \
   --env INIT_SCRIPT=/root/shared/consumeGenesis.sh   \
   --env CONFIG_PATH=/root/shared/                    \
-  -v "${ROOT_DIRECTORY}/.axelard:/root/.axelard"     \
+  -v "${ROOT_DIRECTORY}/.axelar:/root/.axelar"     \
   -v "${SHARED_DIRECTORY}:/root/shared"              \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
