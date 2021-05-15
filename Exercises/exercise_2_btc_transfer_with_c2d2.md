@@ -25,17 +25,12 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 Follow the instructions in `README.md` to make sure your node is synchronized to the latest block, and you have received some test coins to your validator account. 
 
-### Pull C2D2 docker image
+### Pull and enter the `c2d2cli` container
 Check [TESTNET RELEASE.md](../TESTNET%20RELEASE.md) for the latest available C2D2 version of the docker images.
 
-```
-docker pull axelarnet/c2d2:VERSION
-```
-
-### Enter the `c2d2cli` container
 On a new terminal window, enter the `c2d2cli` container by running:
 ```
-./c2d2/c2d2cli.sh
+./c2d2/c2d2cli.sh --version VERSION
 ```
 
 ### Generate a key on Axelar and get some test tokens
@@ -52,6 +47,15 @@ address by running
 ```
 c2d2cli keys show c2d2 -a
 ```
+
+### Fund your ethereum sender account
+List C2D2's accounts:
+
+```
+c2d2cli eth-accounts
+```
+
+Account 0 will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH.
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
 1. Generate a Bitcoin deposit address. The Ethereum address you provide will be linked to the deposit address and receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 

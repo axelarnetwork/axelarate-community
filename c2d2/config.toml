@@ -30,7 +30,7 @@ confirmation-height = 6
 prompt-for-tx = false
 
 [ethereum]
-rpc-url = "ws://a3716ae94a6fb4f788d510e214fccba4-801701676.us-east-2.elb.amazonaws.com:8546"
+rpc-url = "https://ropsten.infura.io/v3/2be110f3450b494f8d637ed7bb6954e3"
 network = "ropsten"
 networkId = 3
 sender = "0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A"
