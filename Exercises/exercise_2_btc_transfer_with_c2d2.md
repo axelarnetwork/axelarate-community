@@ -55,13 +55,13 @@ List C2D2's accounts:
 c2d2cli eth-accounts
 ```
 
-Account 0 will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH.
+Account 0 will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH for the sender account.
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
 1. Generate a Bitcoin deposit address. The Ethereum address you provide will be linked to the deposit address and receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 
 
     ```
-    c2d2cli deposit-btc ethereum [ethereum recipient address]
+    c2d2cli deposit-btc ethereum [your ethereum recipient address]
     ```
 
     You will see the deposit Bitcoin address printed in the terminal
