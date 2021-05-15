@@ -3,6 +3,7 @@ set -e
 
 GIT_ROOT=$(git rev-parse --show-toplevel)
 config_dir=${C2D2_HOME:-"$HOME/.c2d2cli"}
+clef_dir=${CLEF_HOME:-"$HOME/.c2d2clef"}
 C2D2_VERSION=""
 IMAGE="axelarnet/c2d2"
 RESET_C2D2=false
@@ -43,4 +44,9 @@ if [ -z "$C2D2_VERSION" ]; then
 fi
 
 sh "${GIT_ROOT}"/c2d2/config.sh
-docker run -it --entrypoint=""  -v "${config_dir}":/root/.c2d2cli --net=host --add-host=host.docker.internal:host-gateway "${IMAGE}":"${C2D2_VERSION}" bash
+docker run -it \
+  --entrypoint="/entrypoint.sh"  \
+  -v "${config_dir}":/root/.c2d2cli \
+  -v "${config_dir}":/root/.clef \
+  --net=host --add-host=host.docker.internal:host-gateway \
+  "${IMAGE}":"${C2D2_VERSION}" bash
