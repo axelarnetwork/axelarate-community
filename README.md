@@ -53,8 +53,8 @@ See https://hub.docker.com/repository/docker/axelarnet/axelar-core and https://h
 
 You can get the latest version and save it to variables:
 ```
-TOFND_VERSION=`curl -s https://registry.hub.docker.com/v1/repositories/axelarnet/tofnd/tags | jq -r ".[-1].name"`
-CORE_VERSION=`curl -s https://registry.hub.docker.com/v1/repositories/axelarnet/axelar-core/tags | jq -r ".[-1].name"`
+TOFND_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/TESTNET%20RELEASE.md | grep tofnd | cut -d \` -f 4)
+CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/TESTNET%20RELEASE.md | grep axelar-core | cut -d \` -f 4)
 echo ${TOFND_VERSION} ${CORE_VERSION}
 ```
 
