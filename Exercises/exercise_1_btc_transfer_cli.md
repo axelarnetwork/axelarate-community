@@ -2,13 +2,14 @@
 Transfer BTC to Ethereum (as a wrapped asset) and back via Axelar Network CLI.
 
 ## Level
-Intermediate 
+Intermediate
 
 ## Disclaimer
 Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
 
 ## Prerequisites
 - Complete all steps from `README.md`
+- Have a Ethereum wallet setup with [MEW](https://www.myetherwallet.com/) and have an Ethereum address funded with some Ether (You can also choose to use the [Chrome plugin](https://chrome.google.com/webstore/detail/mew-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm?hl=en))
 
 ## Useful links
 - Axelar faucet: http://faucet.testnet.axelar.network/
@@ -70,7 +71,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
   `threshold of 2/3 has been met for bitcoin_7d097730bbeba835e21dc0d953d4b1c3e42a6bf0da03e70f01a6bb0c1b71183c:1_1 for 4/5`
 
-You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`. 
+You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`.
 
 4. Trigger signing of the transfers to Ethereum
 
@@ -83,17 +84,25 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -e threshold`.
   Look for commandID and its value in the output: `"key": "commandID",
     "value": "d5e993e407ff399cf2770a1d42bc2baf5308f46632fcbe209318acb09776599f"`
 
-  You can search it using `docker logs -f axelar-core 2>&1 | grep -e command`. 
-    
-5. Send the previous command to Ethereum
+  You can search it using `docker logs -f axelar-core 2>&1 | grep -e command`.
+
+5. Get the command data needs to be sent in an Ethereum transaction in order to execute the mint
   ```
-  axelard q ethereum sendCommand {commandID} {address of account that should send this tx}
+  axelard q ethereum command {commandID}
   ```
-  e.g., for the testnet, we allow you to use our address as the sender = `0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A`
   ```
-  axelard q ethereum sendCommand 96c8dba428dbb0ce94ebd49eb342a13e8844630d28f80b8d8708324f0642cb3d 0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A
+  ~/scripts # axelard q ethereum command 28a523a4d5836df2cdc3af5beffc10ca946e62497d609521504462e043a38fdc
+09c5eabe000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000003800000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000002a00000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000000128a523a4d5836df2cdc3af5beffc10ca946e62497d609521504462e043a38fdc00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000b6465706c6f79546f6b656e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000775f05a07400000000000000000000000000000000000000000000000000000000000000000075361746f7368690000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000077361746f736869000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000041077ccf6dd4edabe7944ac6291f04defb8bd2082c480fd071966f0c48f3f8da7815f82d99f489de9816aa17194d68596c439deb6be3b7e6c919b1698af945d7871b00000000000000000000000000000000000000000000000000000000000000
   ```
   So use the above command, and just replace the `commandID` with your own.
+
+6. Send the Ethereum transaction wrapping the command data to execute the mint
+
+Open your MEW wallet, and navigate to the "Send Transaction" page, with the advanced options open, too. Now, you need to send a transaction to the Gateway smart contract with **0** Ether, and with data field being the command data you retrieved in the previous step. Your screen should look similar to following and you can just send the transaction to execute and mint your tokens.
+
+<img width="987" alt="MEW" src="https://user-images.githubusercontent.com/1995809/118490096-2753c480-b750-11eb-9c9d-5eb478194ae4.png">
+
+(Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find at https://github.com/axelarnetwork/axelarate-community/blob/main/TESTNET%20RELEASE.md, and the "Add Data" field is the command data you got from the previous step)
 
 You can now open Metamask, select "Assets" then "Add Token" then "Custom Token" and then paste the token contract address (see `axelarate-community/TESTNET RELEASE.md` and look for  `Ethereum token contract address` field).
 
