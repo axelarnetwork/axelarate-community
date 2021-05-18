@@ -10,6 +10,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## Prerequisites
 - Mac OS or Ubuntu (tested on 18.04)
 - Docker (https://docs.docker.com/engine/install/)
+- Minimum hardware requirements: 4 cores, 8-16GB RAM, 512 GB drive. Recommended 6-8 cores, 16-32 GB RAM, 1 TB+ drive.
 
 ## Useful links
 - Axelar faucet: http://faucet.testnet.axelar.network/
