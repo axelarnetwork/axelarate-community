@@ -52,6 +52,13 @@ Optional flags:
 ```
 See https://hub.docker.com/repository/docker/axelarnet/axelar-core and https://hub.docker.com/repository/docker/axelarnet/tofnd for the latest available versions of the docker images.
 
+You can get the latest version and save it to variables:
+```
+TOFND_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/TESTNET%20RELEASE.md | grep tofnd | cut -d \` -f 4)
+CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/TESTNET%20RELEASE.md | grep axelar-core | cut -d \` -f 4)
+echo ${TOFND_VERSION} ${CORE_VERSION}
+```
+
 Once you join, at the terminal you should see blocks produced quickly. Wait for your node to catch up with the network before proceeding (When block production slows down to every 10 seconds). This can take a while.
 
 ```
@@ -65,7 +72,7 @@ Once you join, at the terminal you should see blocks produced quickly. Wait for 
 ```
 By default, logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
 ```
-join/joinTestnet.sh --axelar-core CORE_VERSION --tofnd TOFND_VERSION &>> testnet.log
+join/joinTestnet.sh --axelar-core ${CORE_VERSION} --tofnd ${TOFND_VERSION} &>> testnet.log
 ```
 On a new terminal window, you could monitor the log file in real time:
 ```
