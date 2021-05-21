@@ -2,6 +2,14 @@
 
 All notable changes to Axelar testnet will be documented in this file.
 
+## [0.3.4](https://github.com/axelarnetwork/axelar-core/releases/tag/v0.3.4) (2021-05-21)
+- axelar-core: `v0.3.4`
+- logs include timestamps in RFC3339 format (date + time of day) instead of just time of day
+
+## [0.3.3](https://github.com/axelarnetwork/axelar-core/releases/tag/v0.3.3) (2021-05-14)
+- axelar-core: `v0.3.3`
+- Additional query to return a signed ethereum command
+
 ## [0.3.2](https://github.com/axelarnetwork/axelar-core/releases/tag/v0.3.2) (2021-05-06)
 - axelar-core: `v0.3.2`
 - AxelarGateway contract address: `0x269b1cAe3a0AA6B0740543eD1067CecacF5bA0FC`

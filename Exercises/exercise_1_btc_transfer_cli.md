@@ -71,7 +71,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
   `bitcoin outpoint confirmation result is`
 
-You can search it using `docker logs -f axelar-core 2>&1 | grep -e outpoint`.
+You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 
 4. Trigger signing of the transfers to Ethereum
 
@@ -84,7 +84,7 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -e outpoint`.
   Look for commandID and its value in the output: `"key": "commandID",
     "value": "d5e993e407ff399cf2770a1d42bc2baf5308f46632fcbe209318acb09776599f"`
 
-  You can search it using `docker logs -f axelar-core 2>&1 | grep -e command`.
+  You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e command`.
 
 5. Get the command data needs to be sent in an Ethereum transaction in order to execute the mint
   ```
