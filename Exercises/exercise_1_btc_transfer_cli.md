@@ -158,6 +158,16 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   ```
   axelard tx bitcoin sign-pending-transfers 0.0001btc --from validator -b block -y
   ```
+  If everything succedeed, go to Step 5. 
+
+  If you got an error `failed to execute message; message index: 0: previous consolidation transaction must be confirmed first: btc bridge error`, then one of the following happened: 
+  a) The previous withdrawal/consolidation transaction was signed but not submitted to the Bitcoin testnet, or
+  b) The previous withdrawal/consolidation transaction was signed and submitted to the Bitcoin testnet, but it was *not* confirmed (either because it's not 6-blocks deep yet or another testnet participant didn't complete Step 6). 
+
+  In any case, please try to complete Steps 5 and 6 below (you're doing it for someone else's withdrawal first) and come back and complete Step 4-6 for your own withdrawal. 
+  
+  (Note, while submitting the previous withdrawal transaction to Bitcoin testnet in Step 5, if you see an error similar to `hash [hash] already exists`, then the previous testnet user completed Step 5, but failed to complete Step 6. Regardless, make sure the transaction is 6-blocks deep, complete Step 6, and come back to complete Steps 4-6 for your own withdrawal). 
+
 5. Submit the transfer to Bitcoin
 
   ```
@@ -185,3 +195,4 @@ failed to execute message; message index: 0: outpoint address unknown
 as a response. This is normal. However, at least one of the confirmations should succeed. Among those is the outpoint that returns the remaining balance back to the Axelar network key.
 
 🛑 **IMPORTANT: Without this step, other users of the testnet will be unable to withdraw their wrapped tokens. Be a good citizen and confirm the outpoints!**
+
