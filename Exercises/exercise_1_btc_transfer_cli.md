@@ -160,7 +160,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   ```
   If everything succedeed, go to Step 5. 
 
-  If you get an error `failed to execute message; message index: 0: previous consolidation transaction must be confirmed first: btc bridge error`, then one of the following happened: 
+  If you got an error `failed to execute message; message index: 0: previous consolidation transaction must be confirmed first: btc bridge error`, then one of the following happened: 
   a) The previous withdrawal/consolidation transaction was signed but not submitted to the Bitcoin testnet, or
   b) The previous withdrawal/consolidation transaction was signed and submitted to the Bitcoin testnet, but it was confirmed (either because it's not 6-blocks deep yet or another testnet didn't complete Step 6). 
 
