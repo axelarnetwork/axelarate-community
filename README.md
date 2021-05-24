@@ -26,6 +26,11 @@ docker rm $(docker ps -a -q)
 ```
 If you did not add the `docker` user to the `sudo` group, you will have to prepend `sudo` to the previous commands.
 
+If you joined Axelar testnet before and the testnet has been reset for a upgrade, you may want to clean up your previous testnet data:
+```
+sudo rm -rf ~/.axelar_testnet
+```
+
 ## Joining the Axelar testnet
 
 Clone the repository to use the script and configs:
