@@ -47,10 +47,10 @@ Mandatory flags:
 Optional flags:
 -r, --root          Local directory to store testnet data in (IMPORTANT: this directory is removed and recreated if --reset-chain is set)
 
---reset-chain       Delete local data to do a clean connect to the testnet
+--reset-chain       Delete local data to do a clean connect to the testnet (If you participated in an older version of the testnet)
 
 ```
-See https://hub.docker.com/repository/docker/axelarnet/axelar-core and https://hub.docker.com/repository/docker/axelarnet/tofnd for the latest available versions of the docker images.
+See TESTNET RELEASE.md for the latest available versions of the docker images.
 
 You can get the latest version and save it to variables:
 ```
@@ -84,10 +84,30 @@ If you find the log containing too much noise and hard to find useful informatio
 docker logs -f axelar-core 2>&1 | grep -a -e threshold -e num_txs -e proxies
 ```
 
+## Stop and restart testnet
+To leave the Axelar node CLI, type `exit`.
+To stop the node from syncing, press Control C, then 
+    ```
+    docker stop $(docker ps -a -q)
+    ```
+
+To restart the node, use two terminals to run
+    ```
+    docker start axelar-core -a
+    ```
+    ```
+    docker start tofnd -a
+    ```
+To enter Axelar node CLI again
+    ```
+    docker exec -it axelar-core sh
+    ```
+
+
 ## Ethereum account on testnet
 Axelar signs meta transactions for Ethereum, meaning that any Ethereum account can send transaction executing commands so long as the commands are signed by Axelar's key. In the exercises, all of the Ethereum-related transactions are sent from address `0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A` on Ropsten testnet.
 
-### Generate a key on Axelar and get test tokens
+## Generate a key on Axelar and get test tokens
 1. On a new terminal window, enter Axelar node:
     ```
     docker exec -it axelar-core sh
