@@ -5,6 +5,8 @@ All notable changes to Axelar testnet will be documented in this file.
 ## [0.3.4](https://github.com/axelarnetwork/axelar-core/releases/tag/v0.3.4) (2021-05-21)
 - axelar-core: `v0.3.4`
 - logs include timestamps in RFC3339 format (date + time of day) instead of just time of day
+- AxelarGateway contract address: `0x72F7568BACf01e240615723dca54A65d4FdaD148`
+- Satoshi token contract address: `0x4FEc9d55F1Bb681cAE731c07748ee7B775551d12`
 
 ## [0.3.3](https://github.com/axelarnetwork/axelar-core/releases/tag/v0.3.3) (2021-05-14)
 - axelar-core: `v0.3.3`
@@ -26,4 +28,3 @@ All notable changes to Axelar testnet will be documented in this file.
 - tofnd: `v0.2.0`
 - AxelarGateway contract address: `0x34D0b73b9572E9c702a786708671ec520Ee5972A`
 - Satoshi token contract address: `0xb55df21ad7fd0a0895c931b55ce55de74ea33a5a`
-
