@@ -55,4 +55,4 @@ docker run -it \
   -v "${config_dir}":/root/.c2d2cli \
   -v "${config_dir}":/root/.clef \
   --net=host --add-host=host.docker.internal:host-gateway \
-  "${IMAGE}":"${C2D2_VERSION}" bash
+  "${IMAGE}":"${C2D2_VERSION}"

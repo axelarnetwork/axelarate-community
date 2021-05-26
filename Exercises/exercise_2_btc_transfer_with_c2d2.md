@@ -55,7 +55,7 @@ List C2D2's accounts:
 c2d2cli eth-accounts
 ```
 
-Account 0 will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH for the sender account.
+Account index `0` will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH for the sender account.
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
 1. Generate a Bitcoin deposit address. The Ethereum address you provide will be linked to the deposit address and receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 
@@ -77,14 +77,11 @@ Account 0 will be used to send transactions. Go to [https://faucet.ropsten.be/](
   - Bitcoin testnet faucet [https://testnet-faucet.mempool.co/](https://testnet-faucet.mempool.co/)
   - You can monitor the status of your deposit using the testnet explorer: [https://blockstream.info/testnet/](https://blockstream.info/testnet/)
 
-Do not exit `c2d2cli` while you are waiting for your deposit to be confirmed. It will be watching for an event from the bitcoin bridge node which it needs to detect your transaction.
-
-If your bitcoin deposit transaction has at least 1 confirmation but is not
-detected, you can restart `c2d2cli` and append the `--bitcoin-tx-prompt` flag.
-The CLI will prompt you to enter the deposit tx info manually. The rest of the
-deposit procedure will still be automated.
-
-    c2d2cli deposit-btc ethereum [ethereum recipient address] --bitcoin-tx-prompt
+Do not exit `c2d2cli` while you are waiting for your deposit to be confirmed. It will be watching the bitcoin blockchain to detect your transaction. 
+- If `c2d2cli` crashes or is closed during this step you can re-run the `deposit-btc` command with the same recipient address to resume.
+- If your transaction has 6 confirmations but `c2d2cli` has not detected it, you can restart `c2d2cli` and append the `--bitcoin-tx-prompt` flag.
+    - The CLI will prompt you to enter the deposit tx info manually. The rest of the deposit procedure will still be automated.
+    - `c2d2cli deposit-btc ethereum [ethereum recipient address] --bitcoin-tx-prompt`
 
 Once your transaction is detected, `c2d2cli` will wait until it has 6 confirmations before proceeding.
 
@@ -128,11 +125,12 @@ You will see the deposit Ethereum address printed in the terminal.
 3. Once your withdrawal transaction is detected, `c2d2cli` will wait for 30 Ropsten block confirmations before proceeding.
 
 
-4. `c2d2cli` will automate the withdrawal confirmation, and bitcoin transaction signing and sending. It will then complete the bitcoin change outpoint confirmation and satoshi token burning.
+4. `c2d2cli` will automate the withdrawal confirmation, and satoshi token (wrapped BTC) burning. 
 
-
-5. Once your bitcoin is withdrawn and your Satoshi tokens have been burned, you will see this message:
+5. Once your Satoshi tokens have been burned, you will see this message:
 
 ```
 Burn command <command id> completed at ethereum txID <tx hash>
 ```
+
+6. Your withdrawn BTC will be spendable by your recipient address once Bitcoin withdrawal consolidation occurs. Consolidation will be completed by a separate process.
