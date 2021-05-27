@@ -1,3 +1,5 @@
+cli-level = "info"
+
 [lcd]
 app-name = "axelar"
 host = "localhost"
@@ -33,8 +35,6 @@ prompt-for-tx = false
 rpc-url = "wss://ropsten.infura.io/ws/v3/2be110f3450b494f8d637ed7bb6954e3"
 network = "ropsten"
 networkId = 3
-sender = "0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A"
-sender-passphrase = "password"
 confirmation-height = 30
 monitor-rpc-url = "wss://ropsten.infura.io/ws/v3/0c3ef74b4cc34cbfade5e1be829fb237"
 height-sync-tolerance = 5
