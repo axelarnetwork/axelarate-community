@@ -8,9 +8,11 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 
 ## Prerequisites
+
 - Mac OS or Ubuntu (tested on 18.04)
 - Docker (https://docs.docker.com/engine/install/)
 - Minimum hardware requirements: 4 cores, 8-16GB RAM, 512 GB drive. Recommended 6-8 cores, 16-32 GB RAM, 1 TB+ drive.
+
 
 ## Useful links
 - Axelar faucet: http://faucet.testnet.axelar.network/
@@ -59,7 +61,7 @@ CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate
 echo ${TOFND_VERSION} ${CORE_VERSION}
 ```
 
-Once you join, at the terminal you should see blocks produced quickly. Wait for your node to catch up with the network before proceeding (When block production slows down to every 10 seconds). This can take a while.
+Once you join, at the terminal you should see blocks produced quickly.
 
 ```
 2021-05-21T20:22:10Z INF received proposal module=consensus proposal={"Type":32,"block_id":{"hash":"EFC59CDAF641E5C12FC85B352B06F8E1188D57D6CF5E4C629B6D5E51FEB9A675","parts":{"hash":"2B0E54FA353D22606BF526E4341F1698C7495FA448E28E62E40679793B289D6D","total":1}},"height":229885,"pol_round":-1,"round":0,"signature":"Cqepe/A+mxHNySEMRuAqi97Ah8TiuJNQvMpmQaVrcgA11p5kzt+Fein3A8XZ2TDH4fy6Qv8XBxmrI2HT1cEUBg==","timestamp":"2021-05-21T20:22:10.854851854Z"}
@@ -71,6 +73,30 @@ Once you join, at the terminal you should see blocks produced quickly. Wait for 
 2021-05-21T20:22:11Z INF committed state app_hash=6FD1FA7ACD8ACDAE027034ACCE8634BEC570E9839B6F9A7C6DC2011BD61780CF height=229885 module=state num_txs
 ...
 ```
+ Wait for your node to catch up with the network before proceeding. This can take a while. 
+ You can check the sync status by running:
+ ```shell script
+curl localhost:26657/status | jq '.result.sync_info'
+```
+Note: Install `jq` for json processing, on Ubuntu you can install it by running: `sudo apt-get install jq`
+
+**Output:**
+ ```json
+{
+  "latest_block_hash": "0B64D2A0EDAB6CEF229510E52F137130134D94AAD64EACB553D51D01B0D1A446",
+  "latest_app_hash": "FA3730F49F491DCFF38687F2603CF154563AFA9C77331AF75340C554CB555EFC",
+  "latest_block_height": "17051",
+  "latest_block_time": "2021-06-01T23:41:43.161261874Z",
+  "earliest_block_hash": "080E6B9FC64778F3E0671E046575D3460984F5B1F584E1F2D467341061C7627A",
+  "earliest_app_hash": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+  "earliest_block_height": "1",
+  "earliest_block_time": "2021-05-31T21:05:12.032466392Z",
+  "catching_up": true
+}
+```
+Wait for `catching_up` to become `false`
+
+## Logging to file
 By default, logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
 ```
 join/joinTestnet.sh --axelar-core ${CORE_VERSION} --tofnd ${TOFND_VERSION} &>> testnet.log
@@ -120,9 +146,10 @@ Axelar signs meta transactions for Ethereum, meaning that any Ethereum account c
 
 4. Check that you received the funds
     ```
-    axelard q bank balances {validator_addr}
+    axelard q bank balances {output_addr_from_step_2}
     ```
     e.g.,
     ```
     axelard q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
     ```
+**Note:** Balance will appear only after you are fully synced with the network
