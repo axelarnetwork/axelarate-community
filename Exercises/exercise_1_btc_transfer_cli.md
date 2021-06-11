@@ -98,7 +98,9 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 
 6. Send the Ethereum transaction wrapping the command data to execute the mint
 
-Open your MEW wallet, and navigate to the "Send Transaction" page, with the advanced options open, too. Now, you need to send a transaction to the Gateway smart contract with **0** Ether, and with data field being the command data you retrieved in the previous step. Your screen should look similar to following and you can just send the transaction to execute and mint your tokens.
+Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet. Keep in mind not to transfer any tokens, you just need to input the data from the above `commandID` and send it to the Gateway smart contract which you can find below. While doing this please make sure the gas price in Metamask is updated once you paste in the data.
+
+Alternatively you can open your MEW wallet, and navigate to the "Send Transaction" page, with the advanced options open, too. Now, you need to send a transaction to the Gateway smart contract with **0** Ether, and with data field being the command data you retrieved in the previous step. Your screen should look similar to following and you can just send the transaction to execute and mint your tokens.
 
 <img width="987" alt="MEW" src="https://user-images.githubusercontent.com/1995809/118490096-2753c480-b750-11eb-9c9d-5eb478194ae4.png">
 
