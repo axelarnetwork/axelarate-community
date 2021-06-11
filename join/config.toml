@@ -408,8 +408,11 @@ timeout_rpc = "100s"
 # In that case, all functionality requiring access to Bitcoin data is mocked.
 start-with-bridge = true
 
-##### ethereum bridge options #####
-[axelar_bridge_eth]
+##### EVM bridges options #####
+[[axelar_bridge_evm]]
+
+# Chain name
+name = "Ethereum"
 # Address of the ethereum RPC proxy
 rpc_addr    = "https://ropsten.infura.io/v3/2be110f3450b494f8d637ed7bb6954e3"
 # For testing, the connection to the btc bridge can be ignored.
