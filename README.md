@@ -110,26 +110,6 @@ If you find the log containing too much noise and hard to find useful informatio
 docker logs -f axelar-core 2>&1 | grep -a -e threshold -e num_txs -e proxies
 ```
 
-## Stop and restart testnet
-To leave the Axelar node CLI, type `exit`.
-To stop the node from syncing, press Control C, then 
-    ```
-    docker stop $(docker ps -a -q)
-    ```
-
-To restart the node, use two terminals to run
-    ```
-    docker start axelar-core -a
-    ```
-    ```
-    docker start tofnd -a
-    ```
-To enter Axelar node CLI again
-    ```
-    docker exec -it axelar-core sh
-    ```
-
-
 ## Ethereum account on testnet
 Axelar signs meta transactions for Ethereum, meaning that any Ethereum account can send transaction executing commands so long as the commands are signed by Axelar's key. In the exercises, all of the Ethereum-related transactions are sent from address `0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A` on Ropsten testnet.
 
@@ -153,3 +133,22 @@ Axelar signs meta transactions for Ethereum, meaning that any Ethereum account c
     axelard q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
     ```
 **Note:** Balance will appear only after you are fully synced with the network
+
+## Stop and restart testnet
+To leave the Axelar node CLI, type `exit`.
+To stop the node from syncing, press Control C, then 
+    ```
+    docker stop $(docker ps -a -q)
+    ```
+
+To restart the node, use two terminals to run
+    ```
+    docker start axelar-core -a
+    ```
+    ```
+    docker start tofnd -a
+    ```
+To enter Axelar node CLI again
+    ```
+    docker exec -it axelar-core sh
+    ```

@@ -46,11 +46,11 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
   axelard tx bitcoin link ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52 --from validator -y -b block
   ```
 
-  Look for `chain: Bitcoin, address: {btcaddress}`
+  Look for `successfully linked {bitcoin deposit address} and {ethereum Ropsten dst addr}`
 
 2. External: send a TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
   - ALERT: DO NOT SEND ANY REAL ASSETS
-  - https://bitcoinfaucet.uo1.net/
+  - You can use a bitcoin faucet such as https://bitcoinfaucet.uo1.net/ to send TEST BTC to the deposit address
   - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
 
 
@@ -76,7 +76,7 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 4. Trigger signing of the transfers to Ethereum
 
   ```
-  axelard tx ethereum sign-pending-transfers --from validator -y -b block
+  axelard tx evm sign-pending-transfers ethereum --from validator -y -b block --gas 400000
   -> returns commandID of signed tx
   -> wait for sign protocol to complete (~10 blocks)
   ```
@@ -88,13 +88,15 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 
 5. Get the command data needs to be sent in an Ethereum transaction in order to execute the mint
   ```
-  axelard q ethereum command {commandID}
+  axelard q evm command ethereum {commandID}
   ```
+  
+  e.g.,
+
   ```
-  ~/scripts # axelard q ethereum command 28a523a4d5836df2cdc3af5beffc10ca946e62497d609521504462e043a38fdc
-09c5eabe000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000003800000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000002a00000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000140000000000000000000000000000000000000000000000000000000000000000128a523a4d5836df2cdc3af5beffc10ca946e62497d609521504462e043a38fdc00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000b6465706c6f79546f6b656e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000775f05a07400000000000000000000000000000000000000000000000000000000000000000075361746f7368690000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000077361746f736869000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000041077ccf6dd4edabe7944ac6291f04defb8bd2082c480fd071966f0c48f3f8da7815f82d99f489de9816aa17194d68596c439deb6be3b7e6c919b1698af945d7871b00000000000000000000000000000000000000000000000000000000000000
+  axelard q evm command ethereum 28a523a4d5836df2cdc3af5beffc10ca946e62497d609521504462e043a38fdc
   ```
-  So use the above command, and just replace the `commandID` with your own.
+  The command data will be displayed as output.
 
 6. Send the Ethereum transaction wrapping the command data to execute the mint
 
@@ -115,13 +117,13 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 1. Create a deposit address on Ethereum
 
   ```
-  axelard tx ethereum link bitcoin {destination bitcoin addr} satoshi --from validator -y -b block
+  axelard tx evm link ethereum bitcoin {destination bitcoin addr} satoshi --from validator -y -b block
   -> returns deposit address
   ```
 
   e.g.,
   ```
-  axelard tx ethereum link bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator -y -b block
+  axelard tx evm link ethereum bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator -y -b block
   ```
 
   Look for the Ethereum deposit address as the first output in this line (`0x5CFE...`):
@@ -136,7 +138,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 3. Confirm the Ethereum transaction
 
   ```
-  axelard tx ethereum confirm-erc20-deposit {txID} {amount} {deposit addr} --from validator -y -b block
+  axelard tx evm confirm-erc20-deposit ethereum {txID} {amount} {deposit addr} --from validator -y -b block
   -> wait for transaction to be confirmed (~10 Axelar blocks)
   ```
 
@@ -144,7 +146,7 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
   e.g.,
 
   ```
-  axelard tx ethereum confirm-erc20-deposit 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
+  axelard tx evm confirm-erc20-deposit ethereum 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
   -> wait for transaction to be confirmed (~10 Axelar blocks)
   ```
 
