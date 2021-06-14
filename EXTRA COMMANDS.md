@@ -21,7 +21,7 @@ Returns the bitcoin address associated with the Bitcoin Master Key.
 
 ### Query Ethereum Gateway Address
 ```
-axelard q evm master-addr ethereum
+axelard q evm master-address ethereum
 ```
 
 Returns the ethereum address of the deployed Axelar Gateway contract. The Gateway acts as the Axelar hub on ethereum. It manages and deploys ERC20 token contracts which represents assets from other chains, such as bitcoin.
@@ -31,6 +31,8 @@ Returns the ethereum address of the deployed Axelar Gateway contract. The Gatewa
 ```
 axelard q evm token-address ethereum [symbol]
 ```
+eg)
+
 ```
 axelard q evm token-address ethereum satoshi
 ```
@@ -43,9 +45,7 @@ Returns the ethereum address of the deployed ERC20 token contract, which represe
 axelard q bitcoin minWithdraw
 ```
 
-Returns the minimum amount of bitcoin required for a withdraw transaction, denominated in satoshi.
-
-During the workflow, withdraw refers to the process of depositing the ERC20 wBTC token on ethereum, and getting BTC back on a bitcoin recipient address. The minimum withdraw balance is used by Axelar to pay for bitcoin transaction fees, and is deducted from the total amount returned to the bitcoin recipient address.
+Returns the minimum amount that can be withdrawn on Bitcoin, denominated in satoshi. Withdraw refers to the process of depositing the ERC20 wBTC token on ethereum, and getting BTC back on a bitcoin recipient address. If a Bitcoin outpoint value is below Bitcoin's dust amount the transaction is not going to be mined, therefore we enforce this minimum.
 
 
 ### Query the Last Consolidation Transaction
@@ -53,7 +53,7 @@ During the workflow, withdraw refers to the process of depositing the ERC20 wBTC
 axelard q bitcoin rawTx
 ```
 
-Returns the signed bitcoin consolidation transaction. The transaction can then be submitted to bitcoin network.
+Returns the signed bitcoin consolidation transaction. It can then be submitted to bitcoin network. This transaction consolidates all current deposits on the axelar network and pays out any outstanding withdrawal requests.
 
 
 ### Query the State of the Last Consolidation Transaction
@@ -69,6 +69,8 @@ For a bitcoin deposit address and ethereum recipient address:
 ```
 axelard q bitcoin deposit-addr [chain] [recipient address]
 ```
+eg)
+
 ```
 axelard q bitcoin deposit-addr ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52
 ```
@@ -77,6 +79,8 @@ For an ethereum deposit address and bitcoin recipient address:
 ```
 axelard q evm deposit-addr ethereum [chain] [recipient address] [symbol]
 ```
+eg)
+
 ```
 axelard q evm deposit-addr ethereum bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi
 ```
@@ -88,6 +92,8 @@ Returns the native chain deposit address for a linked, cross chain recipient adr
 ```
 axelard q bitcoin txState [txID:vout]
 ```
+eg)
+
 ```
 axelard q bitcoin txState 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0
 ```
