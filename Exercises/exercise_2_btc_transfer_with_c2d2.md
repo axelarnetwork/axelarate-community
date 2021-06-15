@@ -41,7 +41,7 @@ c2d2cli keys add c2d2
 ```
 
 Go to axelar faucet and fund your C2D2 account by providing the address to the
-facuet (http://faucet.testnet.axelar.network/).\ You can get c2d2's account
+facuet (http://faucet.testnet.axelar.network/). You can get c2d2's account
 address by running 
 
 ```
@@ -52,7 +52,7 @@ c2d2cli keys show c2d2 -a
 List C2D2's accounts:
 
 ```
-c2d2cli eth-accounts
+c2d2cli bridge evm accounts ethereum
 ```
 
 Account index `0` will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH for the sender account.
@@ -60,15 +60,14 @@ Account index `0` will be used to send transactions. Go to [https://faucet.ropst
 ### Mint ERC20 Bitcoin tokens on Ethereum
 1. Generate a Bitcoin deposit address. The Ethereum address you provide will be linked to the deposit address and receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 
 
-    ```
-    c2d2cli deposit-btc ethereum [your ethereum recipient address]
-    ```
+   ```
+   c2d2cli transfer satoshi [ethereum recipient address] --source-chain bitcoin --dest-chain ethereum
+   ```
 
     You will see the deposit Bitcoin address printed in the terminal
 
     ```
-    > Please deposit Bitcoin to bcrt1qk4s6ya3gqakzmpv95tvgp00rhpkal9jyx243y8dr2dzmttkcdurq4dqj4t
-    > Waiting for deposit transaction
+      action:  (2/7) Please deposit Bitcoin to tb1qgfk6v2ut9flwwkraj6t3syvpq22g0xhh2m73atfe79jv3msjwvzqtpuvfc
     ```
 
 2. **External**: send some TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). 
@@ -81,14 +80,14 @@ Do not exit `c2d2cli` while you are waiting for your deposit to be confirmed. It
 - If `c2d2cli` crashes or is closed during this step you can re-run the `deposit-btc` command with the same recipient address to resume.
 - If your transaction has 6 confirmations but `c2d2cli` has not detected it, you can restart `c2d2cli` and append the `--bitcoin-tx-prompt` flag.
     - The CLI will prompt you to enter the deposit tx info manually. The rest of the deposit procedure will still be automated.
-    - `c2d2cli deposit-btc ethereum [ethereum recipient address] --bitcoin-tx-prompt`
+    - `c2d2cli transfer satoshi [ethereum recipient address] --source-chain bitcoin --dest-chain ethereum  --bitcoin-tx-prompt`
 
 Once your transaction is detected, `c2d2cli` will wait until it has 6 confirmations before proceeding.
 
  3. C2D2 will automate the bitcoin deposit confirmation, and mint command signing and sending. Once the minting process completes you will see the following message:
 
     ```
-    Mint command <commandId> completed at ethereum txID <transactionId>
+    Transferred satoshi to Ethereum address [ethereum recipient address]
     ```
 
 You can now open Metamask and add the wrapped BTC contract address. `c2d2cli` will print the contract address like this:
@@ -104,19 +103,19 @@ The contract will show in metamask as symbol 'Satoshi'. If your recipient addres
 1. Generate an ethereum withdrawal address. The Bitcoin address you provide will be uniquely linked to the deposit address and receive the withdrawn BTC on the Bitcoin testnet. 
 
    ```
-   c2d2cli withdraw-btc ethereum [bitcoin recipient address] [fee]
+   c2d2cli transfer satoshi [bitcoin recipient address] --source-chain ethereum --dest-chain bitcoin
    ```
 
-For example:
+   For example:
    ```
-   c2d2cli withdraw-btc ethereum tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln 1000satoshi
+   c2d2cli transfer satoshi tb1qwtrclv55yy26awl2n40u57uck5xgty4w4h9eww --source-chain ethereum --dest-chain bitcoin
    ```
 
-You will see the deposit Ethereum address printed in the terminal.
+   You will see the deposit Ethereum address printed in the terminal.
 
    ```
-   > Please transfer satoshi tokens to 0xC21f7876a23E2E7EB7e4A92E1AF03cacf14B59d5
-   > Waiting for withdrawal transaction...
+   action:  (2/5) Please transfer satoshi tokens to Ethereum address 0xf5fccEeF24358fE24C53c1963d5d497BCD3ddF48
+     | ✓ Waiting for a withdrawal transaction
    ```
 
 2. **External**: send wrapped Satoshi tokens to withdrawal address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions.
@@ -129,8 +128,8 @@ You will see the deposit Ethereum address printed in the terminal.
 
 5. Once your Satoshi tokens have been burned, you will see this message:
 
-```
-Burn command <command id> completed at ethereum txID <tx hash>
-```
+    ```
+    Transferred 5000 satoshi tokens to Bitcoin address [bitcoin recipient address]
+    ```
 
 6. Your withdrawn BTC will be spendable by your recipient address once Bitcoin withdrawal consolidation occurs. Consolidation will be completed by a separate process.
