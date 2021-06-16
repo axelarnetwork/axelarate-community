@@ -28,6 +28,12 @@ docker rm $(docker ps -a -q)
 ```
 If you did not add the `docker` user to the `sudo` group, you will have to prepend `sudo` to the previous commands.
 
+
+If you see an error related to insufficient gas at any point during the workflow, add the flags
+```
+--gas=auto --gas-adjustment 1.2
+```
+
 ## Joining the Axelar testnet
 
 Clone the repository to use the script and configs:
