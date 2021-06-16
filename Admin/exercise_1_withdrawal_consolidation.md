@@ -2,7 +2,7 @@
 
 While doing exercise 1, testnet users will submit withdrawals on Ethereum back to Bitcoin. However, to trigger their withdrawals on the Bitcoin network, we need to `sign-pending-transfers`, submit the transaction to the Bitcoin, and then confirm it on the Axelar network. Since Bitcoin is slow, we don't want users to execute these steps concurrently and then have to resolve state transitions between them. So periodically, once a day, we'll trigger these admin commands. (In the next release, this task will be handled by automated service). 
 
-1. Trigger signing of all pending transfers to Bitcoin. Note that you need to include a small Bitcoin fee (not the amount that was transferred) in this transaction (0.0001btc seems enouugh in most cases. See the testnet for the latest fees included in Bitcoin blocks).
+1. Trigger signing of all pending transfers to Bitcoin. Note that you need to include an arbitrary Bitcoin fee in this transaction (e.g. 0.0001btc) so the command is properly parsed. The fee argument is required as input but ignored by Axelar. It is going to be removed with the next release.
 
   ```
   axelard tx bitcoin sign-pending-transfers {tx fee} --from validator -b block -y
