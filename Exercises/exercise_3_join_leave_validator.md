@@ -78,7 +78,7 @@ As an Axelar Network validator, your Axelar node will vote on the status of Bitc
 
   ```
   axelard tx staking create-validator --yes \
-    --amount "600000axltest" \
+    --amount "6000000axltest" \
     --moniker "testvalidator1" \
     --commission-rate="0.10" \
     --commission-max-rate="0.20" \
@@ -89,7 +89,7 @@ As an Axelar Network validator, your Axelar node will vote on the status of Bitc
     -b block
   ```
 
-  Here `amount` refers to the amount of coins to stake, with a minimum of 500,000 axltest. You can change the amount, but leave some coins on the account to fund commands.
+  Here `amount` refers to the amount of coins to stake, with a minimum of 5,000,000 axltest. You can change the amount, but leave some coins on the account to fund commands.
   `moniker` refers to the nickname of your validator. You can give it any nickname you like.
 
 4. Search through the output from the previous step and find the address beginning with `axelarvaloper`. Copy this address and save it as it is needed later.
@@ -126,7 +126,7 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
   eg)
 
   ```
-  axelard tx staking unbond axelarvaloper1e3wky8ypx2yx5wmatvhdq9m2088j76k7s62n6p "600000axltest" --from validator -y -b block
+  axelard tx staking unbond axelarvaloper1e3wky8ypx2yx5wmatvhdq9m2088j76k7s62n6p "6000000axltest" --from validator -y -b block
   ```
 
   The `axelarvaloper address` refers to the address saved from step 5 during the join workflow.
