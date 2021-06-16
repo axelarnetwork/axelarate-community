@@ -3,9 +3,8 @@ set -e
 
 GIT_ROOT=$(git rev-parse --show-toplevel)
 config_dir=${C2D2_HOME:-"$HOME/.c2d2cli"}
-clef_dir=${CLEF_HOME:-"$HOME/.c2d2clef"}
 C2D2_VERSION=""
-CHAIN_ID="3"
+ETH_CHAIN_ID="3"
 IMAGE="axelarnet/c2d2"
 RESET_C2D2=false
 
@@ -29,8 +28,8 @@ for arg in "$@"; do
       IMAGE="$2"
     shift
     ;;
-    --chain-id)
-      CHAIN_ID="$2"
+    --eth-chain-id)
+      ETH_CHAIN_ID="$2"
     shift
     ;;
     *)
@@ -51,8 +50,8 @@ fi
 sh "${GIT_ROOT}"/c2d2/config.sh
 docker run -it \
   --entrypoint="/entrypoint.sh"  \
-  --env CLEF_CHAINID="$CHAIN_ID"             \
+  --env CLEF_CHAINID="$ETH_CHAIN_ID" \
+  --env CLEF_HOME="root/.c2d2cli/ethereum" \
   -v "${config_dir}":/root/.c2d2cli \
-  -v "${config_dir}":/root/.clef \
   --net=host --add-host=host.docker.internal:host-gateway \
   "${IMAGE}":"${C2D2_VERSION}"
