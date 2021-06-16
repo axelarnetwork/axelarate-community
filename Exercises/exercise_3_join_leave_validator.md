@@ -92,15 +92,7 @@ As an Axelar Network validator, your Axelar node will vote on the status of Bitc
   Here `amount` refers to the amount of coins to stake, with a minimum of 5,000,000 axltest. You can change the amount, but leave some coins on the account to fund commands.
   `moniker` refers to the nickname of your validator. You can give it any nickname you like.
 
-4. Search through the output from the previous step and find the address beginning with `axelarvaloper`. Copy this address and save it as it is needed later.
-
-  eg)
-
-  ```
-  axelarvaloper1e3wky8ypx2yx5wmatvhdq9m2088j76k7s62n6p 
-  ```
-
-5. Register the broadcaster account as a proxy for your validator.
+4. Register the broadcaster account as a proxy for your validator.
 
   ```
   axelard tx broadcast registerProxy broadcaster --from validator --yes
@@ -118,7 +110,18 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
 
 2. Wait until the next key rotation for the changes to take place. In this release, we're triggering key rotation about once a day. So come back in 24 hours, and continue to the next step. If you still get an error after 24 hours, reach out to a team member.
 
-3. Release your staked coins
+3. Find the validator address beginning with `axelarvaloper` and copy it.
+  ```
+  axelard keys show validator --bech val
+  ```
+
+  eg)
+
+  ```
+  address: axelarvaloper1m5zz27hlext2tnp6yknnse8effn5mvkfm27sh4
+  ```
+
+4. Release your staked coins.
   ```
   axelard tx staking unbond {axelarvaloper address} {amount} --from validator -y -b block
   ```
@@ -129,7 +132,6 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
   axelard tx staking unbond axelarvaloper1e3wky8ypx2yx5wmatvhdq9m2088j76k7s62n6p "6000000axltest" --from validator -y -b block
   ```
 
-  The `axelarvaloper address` refers to the address saved from step 5 during the join workflow.
   `amount` refers to how many coins you wish to remove from the stake. You can change the amount.
 
   To preserve network stability, the staked coins are held for 21 days starting from the unbond request before being unlocked and returned to the `validator` account.
