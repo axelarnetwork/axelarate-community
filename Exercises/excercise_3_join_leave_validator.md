@@ -1,7 +1,7 @@
 # Exercise 3
 Join and leave the Axelar Network as a validator node.
 
-Convert an existing Axelar Network node into a validator by staking tokens. A validator participates in block creation, transaction signing, and voting
+Convert an existing Axelar Network node into a validator by staking tokens. A validator participates in block creation, transaction signing, and voting.
 
 ## Level
 Intermediate
@@ -11,33 +11,32 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Prerequisites
 - Complete all steps from `README.md`
+- RPC endpoints for your Bitcoin and Ethereum nodes
 
 ## Joining the Axelar testnet
 Follow the instructions in `README.md` to make sure your node is up to date and you received some test coins to your validator account.
 
-## Set up Bitcoin and Ethereum RPC nodes (optional)
-As an Axelar Network validator, your Axelar node will vote on the status of Bitcoin and Ethereum transations. To do so, it needs to be configured with your Bitcoin and Ethereum nodes using the RPC endpoint.
+## Set up Bitcoin and Ethereum RPC nodes
+As an Axelar Network validator, your Axelar node will vote on the status of Bitcoin and Ethereum transactions. To do so, it needs to be configured with your Bitcoin and Ethereum nodes using the RPC endpoint.
 
-The Axelar team also maintains a Bitcoin and Ethereum testnet node, which is provided by default. If you are happy with using the default nodes, skip this step and continue to **Joining the Network as a Validator**
 
 1. Have an Axelar node fully caught up and running by completing the steps in `README.md`.
 
-2. Go to your home directory and open `~/.axelar_testnet/shared/config.toml`
-
-3. Scroll to the bottom of the file, and look for `##### bitcoin bridge options #####` and `##### EVM bridges options #####`
-
-4. Find the `rpc_addr` line and replace the default RPC URL with the URL of your node, for both Bitcoin and Ethereum. Save the file.
-
-5. Restart your Axelar node for the changes to take effect.
-
-  Go to the command line where the Axelar node is syncing and stop it with `Control + C`.
+2. Go to the command line where the Axelar node is syncing and stop it with `Control + C`.
 
   Stop the container.
   ```
   docker stop $(docker ps -a -q)
   ```
 
-  Start the node again, running each command in a seperate terminal.
+3. Go to your home directory and open `~/.axelar_testnet/shared/config.toml`.
+
+4. Scroll to the bottom of the file, and look for `##### bitcoin bridge options #####` and `##### EVM bridges options #####`.
+
+5. Find the `rpc_addr` line and replace the default RPC URL with the URL of your node, for both Bitcoin and Ethereum. Save the file.
+
+6. Start your Axelar node for the changes to take effect. Run each command in a separate terminal.
+
   ```
   docker start axelar-core -a
   ```
@@ -48,14 +47,12 @@ The Axelar team also maintains a Bitcoin and Ethereum testnet node, which is pro
 
 ## Joining the Network as a Validator
 
-1. Have an Axelar node fully caught up and running by completing the steps in `README.md`.
-
-2. Enter Axelar node CLI
+1. Enter Axelar node CLI
   ```
   docker exec -it axelar-core sh
   ```
 
-3. Load funds onto your `broadcaster` account, which you will use later.
+2. Load funds onto your `broadcaster` account, which you will use later.
 
   Find the address with
 
@@ -77,7 +74,7 @@ The Axelar team also maintains a Bitcoin and Ethereum testnet node, which is pro
   axelard q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
   ```
 
-4. Make your `validator` account a validator by staking some coins.
+3. Make your `validator` account a validator by staking some coins.
 
   ```
   axelard tx staking create-validator --yes \
@@ -95,7 +92,7 @@ The Axelar team also maintains a Bitcoin and Ethereum testnet node, which is pro
   Here `amount` refers to the amount of coins to stake, with a minimum of 500,000 axltest. You can change the amount, but leave some coins on the account to fund commands.
   `moniker` refers to the nickname of your validator. You can give it any nickname you like.
 
-5. Search through the output from the previous step and find the address beginning with `axelarvaloper`. Copy this address and save it as it is needed later.
+4. Search through the output from the previous step and find the address beginning with `axelarvaloper`. Copy this address and save it as it is needed later.
 
   eg)
 
@@ -103,18 +100,18 @@ The Axelar team also maintains a Bitcoin and Ethereum testnet node, which is pro
   axelarvaloper1e3wky8ypx2yx5wmatvhdq9m2088j76k7s62n6p 
   ```
 
-6. Register the broadcaster account as a proxy for your validator.
+5. Register the broadcaster account as a proxy for your validator.
 
   ```
   axelard tx broadcast registerProxy broadcaster --from validator --yes
   ```
 
-Your node is now a validator! Stay for as long as you'd like, then follow the instructions to stop being a validator.
+Your node is now a validator! If you wish to stop being a validator, follow the instructions in the next section.
 
 
 ## Leaving the Network as a Validator
 
-1. Deregister your account from the validator pool
+1. Deregister your account from the validator pool.
   ```
   axelard tx tss deregister --from validator -y -b block
   ```
