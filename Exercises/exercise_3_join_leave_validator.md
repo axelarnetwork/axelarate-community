@@ -110,18 +110,7 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
 
 2. Wait until the next key rotation for the changes to take place. In this release, we're triggering key rotation about once a day. So come back in 24 hours, and continue to the next step. If you still get an error after 24 hours, reach out to a team member.
 
-3. Find the validator address beginning with `axelarvaloper` and copy it.
-  ```
-  axelard keys show validator --bech val
-  ```
-
-  eg)
-
-  ```
-  address: axelarvaloper1m5zz27hlext2tnp6yknnse8effn5mvkfm27sh4
-  ```
-
-4. Release your staked coins.
+3. Release your staked coins.
   ```
   axelard tx staking unbond {axelarvaloper address} {amount} --from validator -y -b block
   ```
@@ -129,7 +118,7 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
   eg)
 
   ```
-  axelard tx staking unbond axelarvaloper1e3wky8ypx2yx5wmatvhdq9m2088j76k7s62n6p "6000000axltest" --from validator -y -b block
+  axelard tx staking unbond "$(axelard keys show validator --bech val -a)" "6000000axltest" --from validator -y -b block
   ```
 
   `amount` refers to how many coins you wish to remove from the stake. You can change the amount.
