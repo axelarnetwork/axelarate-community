@@ -52,7 +52,7 @@ As an Axelar Network validator, your Axelar node will vote on the status of Bitc
   docker exec -it axelar-core sh
   ```
 
-2. Load funds onto your `broadcaster` account, which you will use later. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
+2. Load funds onto your `broadcaster` account, which you will use later.
 
   Find the address with
 
@@ -122,7 +122,7 @@ As an Axelar Network validator, your Axelar node will vote on the status of Bitc
   axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "6000000axltest" --from validator -y
   ```
 
-5. Register the broadcaster account as a proxy for your validator.
+5. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
 
   ```
   axelard tx broadcast registerProxy broadcaster --from validator -y
