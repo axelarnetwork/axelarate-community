@@ -15,6 +15,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Axelar faucet: http://faucet.testnet.axelar.network/
 - Latest docker images: https://hub.docker.com/repository/docker/axelarnet/axelar-core,
   https://hub.docker.com/repository/docker/axelarnet/tofnd
+- Extra commands to query Axelar Network state: https://github.com/axelarnetwork/axelarate-community/blob/main/EXTRA%20COMMANDS.md
 
 ## What you need
 - Bitcoin testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/

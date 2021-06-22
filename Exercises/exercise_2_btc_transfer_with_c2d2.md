@@ -16,6 +16,9 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## Prerequisites
 - Complete all steps from `README.md`
 
+## Useful links
+- Extra commands to query Axelar Network state: https://github.com/axelarnetwork/axelarate-community/blob/main/EXTRA%20COMMANDS.md
+
 ## What you need
 - Bitcoin testnet wallet with some tBTC (faucet [https://testnet-faucet.mempool.co/](https://testnet-faucet.mempool.co/))
 - Ethereum wallet on the Ropsten network (we reccomend Metamask)
