@@ -13,6 +13,9 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Complete all steps from `README.md`
 - RPC endpoints for your Bitcoin and Ethereum nodes
 
+## Useful links
+- Extra commands to query Axelar Network state: https://github.com/axelarnetwork/axelarate-community/blob/main/EXTRA%20COMMANDS.md
+
 ## Joining the Axelar testnet
 Follow the instructions in `README.md` to make sure your node is up to date and you received some test coins to your validator account.
 
