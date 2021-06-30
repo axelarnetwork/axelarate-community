@@ -19,94 +19,45 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 Follow the instructions in `README.md` to make sure your node is up to date and you received some test coins to your validator account.
 
 ## Set up Bitcoin and Ethereum nodes
-As an Axelar Network validator, your Axelar node will vote on the status of Bitcoin and Ethereum transactions. To do so, you must first set up your Bitcoin and Ethereum testnet nodes, and then provide the RPC endpoints to Axelar.
+As an Axelar Network validator, your Axelar node will vote on the status of Bitcoin and Ethereum transactions. To do so, you must first set up and configure your Bitcoin and Ethereum testnet nodes, and then provide the RPC endpoints to Axelar.
 
-### Bitcoin testnet node
-We suggest running your bitcoin testnet node using the `bitcoind` CLI command from `Bitcoin Core`.
+If you do not already have a Bitcoin testnet node and Ethereum Ropsten testnet node running, follow the instructions in `BTC ETH NODE SETUP.md` to do so.
 
-1. Download Bitcoin Core.
+Bitcoin and Ethereum node configuration will vary for different systems. Detailed configuration instructions for a local machine running `macOS` `Bitcoin Core` and `Geth` can be found in `BTC ETH NODE SETUP.md` and used as a reference.
 
-  Find the installation guide for your machine from the [Github Repo](https://github.com/bitcoin/bitcoin/tree/master/doc). Follow the instructions to download the binary executable commands, including `bitcoind`. Do not use the `bitcoind` command to start downloading the blockchain until later.
+### Bitcoin testnet node configuration
 
-2. Find the directory where the `bitcoind` command executable is located. This is typically in the cloned bitcoin repo, under the `src` folder. `cd` into the directory so you can use the `bitcoind` command.
+1. Ensure your Bitcoin testnet node is up to date. Stop the node before making any configuration changes.
 
-3. Check that `bitcoind` is installed properly
+2. Enable the following configurations.
+
+  * Enable the `RPC Server`.
+  * Generate the `RPC Auth` value by supplying a username and password (make sure to save the username and password somewhere, you will need it later). An example `RPC Auth` value is 
+  ```
+  rpcauth=jacky:a8e51174a095fe52491f4f487d41053a$9336f388b175ef3a8a63b248446aa3ccd0c8644bbb85ab005d447e164b7e9712
+  ```
+  * Set `RPC Allow IP Address` as `0.0.0.0/0`.
+
+3. Find the RPC endpoint of your Bitcoin node for Axelar to connect to.
+
+  Your Bitcoin testnet node's RPC endpoint should be
 
   ```
-  ./bitcoind --help
+  http://{USERNAME}:{PASSWORD}@{IPADDRESS}:{PORT}
   ```
 
-4. [Find the default data directory](https://en.bitcoin.it/wiki/Data_directory) of your Bitcoin node. Create a file called `bitcoin.conf` inside this directory.
-
-  eg) For macOS
-
-  ```
-  mkdir -p "/Users/jacky/Library/Application Support/Bitcoin"
-  touch "/Users/jacky/Library/Application Support/Bitcoin/bitcoin.conf"
-  chmod 600 "/Users/jacky/Library/Application Support/Bitcoin/bitcoin.conf"
-  ```
-
-  Use the above commands and change the folder path to be the data directory of your system.
-
-5. Generate the Bitcoin node configuration file used by `bitcoind`.
-
-  Use [this tool](https://jlopp.github.io/bitcoin-core-config-generator/) to create the contents of your `bitcoin.conf` file.
-  Note: The following settings are general guidelines that work for most setups. Your setup may require some changes.
-
-  Set the following:
-  * At the top, set your operating system.
-  * Under `Bitcoin Core`, enable `Daemon Mode`.
-  * Under `RPC API`, enable `RPC Server`.
-  * Under `RPC API`, look for `RPC Auth`. Follow the link and provide a username and password. Write down the username and password as you will need it later. Copy the generated value and paste it back into the `RPC Auth` field.
-  * Under `RPC API`, set `RPC Allow IP Address` as `0.0.0.0/0`.
-
-  Copy the contents of the generated `bitcoin.conf` file and paste it into the file you created in the last step.
-
-  Under `# Options only for testnet [test]` add the following two lines, then save.
-
-  ```
-  # Listen for JSON-RPC connections on this port
-  rpcport=8332
-  ```
-
-6. Start downloading the bitcoin testnet chain. Go back to the directory where the `bitcoind` binary is located to run the following.
-
-  ```
-  ./bitcoind -testnet
-  ```
-
-  You should see a message `Bitcoin Core starting`. Wait for the Bitcoin testnet chain to download, this could take a few hours.
-  If you want to look at the progress, find the `debug.log` file within the default Bitcoin data directory.
-
-  eg) For macOS, you can run
-  ```
-  tail -10 ~/Library/Application\ Support/Bitcoin/testnet3/debug.log
-  ```
-
-  To stop the Bitcoin testnet node from downloading and syncing
-  ```
-  ./bitcoin-cli -testnet stop
-  ```
-
-7. Find the RPC endpoint for Axelar to connect.
-
-  If you used the above settings, your RPC endpoint should be 
-
-  ```
-  http://{USERNAME}:{PASSWORD}@host.docker.internal:8332
-  ```
-
+  If your node is running on `localhost`, use `host.docker.internal` as the `IPADDRESS` since Axelar runs in a docker container.
   eg)
 
   ```
-  http://jacky:mypassword@host.docker.internal:8332
+  http://jacky:mypassword@host.docker.internal:18332
   ```
 
-  The `username` and `password` fields are the values you provided to the `RPC Auth` setting in step 5. Write down the Bitcoin RPC endpoint as you will need it later.
+  The `username` and `password` fields are the values you provided to the `RPC Auth` setting earlier. Write down the Bitcoin RPC endpoint as you will need it later.
 
-8. OPTIONAL: Test your Bitcoin node.
+4. OPTIONAL: Test your Bitcoin node.
 
-  After your Bitcoin node is fully synced, you can send an RPC request to it using cURL. Use the following and replace the RPC endpoint username and password.
+  To test your setup, you can send an RPC request to your Bitcoin node using cURL. Use the following and replace the RPC endpoint.
 
   ```
   curl -X POST http://jacky:mypassword@localhost:8332 \
@@ -115,57 +66,34 @@ We suggest running your bitcoin testnet node using the `bitcoind` CLI command fr
   ```
 
 
-### Ethereum Ropsten testnet node
-We suggest running your Ethereum Ropsten testnet node using `geth`. Alternatively, you can use `infura` if it is configured properly.
+### Ethereum Ropsten testnet node configuration
 
-1. [Install Geth](https://geth.ethereum.org/docs/install-and-build/installing-geth).
+1. Ensure your Ropsten testnet node is up to date. Stop the node before making any configuration changes.
 
-2. Start downloading the Ethereum Ropsten testnet chain. This may take many hours.
+2. Enable the following configurations.
 
-  ```
-  geth --ropsten --syncmode "snap" --http --http.vhosts "*"
-  ```
+  * Enable the `HTTP-RPC Server` for RPC communication.
+  * Set `HTTP-RPC virtual address` as `*`
+  * Set `HTTP-RPC listening address` as `0.0.0.0`.
 
-  First, the majority of the blocks will be downloaded. Then your node will synchronize as the last few blocks catch up. This second part may take a long time. 
+3. Find the RPC endpoint of your Bitcoin node for Axelar to connect to.
 
-  To stop the node from downloading, press `Control C`.
-  
-3. Check the status of your node.
-
-  First find the path to your node's `ipc` which is located in 
-  ```
-  {Path to Default Ethereum Data Storage}/ropsten/geth.ipc
-  ```
-
-  eg) on macOS
+  Your Ethereum Ropsten testnet node's RPC endpoint should be
 
   ```
-  /Users/jacky/Library/Ethereum/ropsten/geth.ipc
+  http://{IPADDRESS}:{PORT}
   ```
 
-  Open a new terminal and run the following. Replace the `ipc` path with your own.
-  ```
-  geth attach ipc:/Users/jacky/Library/Ethereum/ropsten/geth.ipc
-  ```
-
-  Check the status of your Ethereum node.
-  ```
-  eth.syncing
-  ```
-
-4. Find the RPC endpoint for Axelar to connect.
-
-  If you used the above settings, your RPC endpoint should be 
+  If your node is running on `localhost`, use `host.docker.internal` as the `IPADDRESS` since Axelar runs in a docker container.
+  eg)
 
   ```
-  http://host.docker.internal:8545
+  http://host.docker.internal:8332
   ```
 
-  Write down the RPC endpoint, you will need it later.
+4. OPTIONAL: Test your Ethereum node.
 
-5. OPTIONAL: Test your Ethereum node.
-
-  After your Ethereum node is fully synced, you can send an RPC request to it using cURL. 
+  To test your setup, you can send an RPC request to your Ethereum node using cURL. Use the following and replace the RPC endpoint.
 
   ```
   curl -X POST http://localhost:8545 \
@@ -174,7 +102,7 @@ We suggest running your Ethereum Ropsten testnet node using `geth`. Alternativel
   ```
 
 
-## Connect Bitcoin and Ethereum RPC nodes
+## Connect Bitcoin and Ethereum nodes to Axelar
 
 1. Have an Axelar node fully caught up and running by completing the steps in `README.md`. Ensure you have some testnet coins on your validator address.
 
