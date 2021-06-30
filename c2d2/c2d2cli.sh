@@ -49,7 +49,7 @@ fi
 
 sh "${GIT_ROOT}"/c2d2/config.sh
 docker run -it \
-  --entrypoint="/entrypoint.sh"  \
+  --entrypoint="bash"  \
   --env CLEF_CHAINID="$ETH_CHAIN_ID" \
   --env CLEF_HOME="root/.c2d2cli/ethereum" \
   -v "${config_dir}":/root/.c2d2cli \
