@@ -63,8 +63,8 @@ You will be asked to enter a password for the account. Make a note of your passw
 
 If you used a different password than `passwordpassword` you will need to either:
 1. enter your password manually during the transfer procedure
-2. Provide your password to each `c2d2cli` command by adding the flag `--evm-passphrase YOUR_PASSWORD`
-3. Configure your password by editing the `/root/.c2d2cli/config.toml` file.
+2. **Or** provide your password to each `c2d2cli` command by adding the flag `--evm-passphrase YOUR_PASSWORD`
+3. **Or** configure your password by editing the `/root/.c2d2cli/config.toml` file.
    - Change the value in the `sender-passphrase=` key to your password.
 
 List C2D2's accounts:
