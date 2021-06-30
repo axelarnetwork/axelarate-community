@@ -4,7 +4,6 @@ cli-level = "info"
 app-name = "axelar"
 host = "localhost"
 port = "1317"
-keyring-dir = "./data/keytest"
 keyring-backend = "test"
 node = "http://localhost:26657"
 chain-id = "axelar"
@@ -32,6 +31,8 @@ confirmation-height = 6
 prompt-for-tx = false
 
 [ethereum]
+keystore-path = "evm/ethereum"
+sender-passphrase = "passwordpassword"
 rpc-url = "wss://ropsten.infura.io/ws/v3/2be110f3450b494f8d637ed7bb6954e3"
 network = "ropsten"
 networkId = 3
