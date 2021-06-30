@@ -21,7 +21,7 @@ Follow the instructions in `README.md` to make sure your node is up to date and 
 ## Set up Bitcoin and Ethereum nodes
 As an Axelar Network validator, your Axelar node will vote on the status of Bitcoin and Ethereum transactions. To do so, you must first set up and configure your Bitcoin and Ethereum testnet nodes, and then provide the RPC endpoints to Axelar.
 
-If you do not already have a Bitcoin testnet node and Ethereum Ropsten testnet node running, follow the instructions in `BTC ETH NODE SETUP.md` to do so.
+If you do not already have a Bitcoin testnet node and Ethereum Ropsten testnet node running, follow the instructions in `BTC ETH NODE SETUP.md` to set up and configure them, then skip to the next section `Connect Bitcoin and Ethereum nodes to Axelar`.
 
 Bitcoin and Ethereum node configuration will vary for different systems. Detailed configuration instructions for a local machine running `macOS` `Bitcoin Core` and `Geth` can be found in `BTC ETH NODE SETUP.md` and used as a reference.
 
