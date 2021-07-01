@@ -128,7 +128,7 @@ As an Axelar Network validator, your Axelar node will vote on the status of Bitc
 5. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
 
   ```
-  axelard tx broadcast registerProxy broadcaster --from validator -y
+  axelard tx snapshot registerProxy broadcaster --from validator -y
   ```
 
 Your node is now a validator! If you wish to stop being a validator, follow the instructions in the next section.
@@ -136,9 +136,9 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
 
 ## Leaving the Network as a Validator
 
-1. Deregister your account from the validator pool.
+1. Deactivate your broadcaster account.
   ```
-  axelard tx tss deregister --from validator -y -b block
+  axelard tx snapshot deactivateProxy --from validator -y -b block
   ```
 
 2. Wait until the next key rotation for the changes to take place. In this release, we're triggering key rotation about once a day. So come back in 24 hours, and continue to the next step. If you still get an error after 24 hours, reach out to a team member.
