@@ -13,6 +13,16 @@ reset_c2d2 () {
   rm $config_dir/config.toml
 }
 
+usage () {
+  echo "Usage:  c2d2cli.sh --version vX.Y.Z [--reset,--image]"
+  echo ""
+  echo "Options:"
+  printf "  --reset\treset store (clear persisted transfer jobs)\n"
+  printf "  --version\tc2d2 image version tag\n"
+  printf "  --image\tc2d2 image\n"
+  echo "" 1>&2; exit 1;
+}
+
 for arg in "$@"; do
   case $arg in
     --reset)
@@ -27,8 +37,6 @@ for arg in "$@"; do
       IMAGE="$2"
     shift
     ;;
-    shift
-    ;;
     *)
     shift
     ;;
@@ -40,8 +48,8 @@ if [ $RESET_C2D2 = true ]; then
 fi
 
 if [ -z "$C2D2_VERSION" ]; then
-  echo "'--version vX.Y.Z' is required"
-  exit 1
+  echo "Flag '--version vX.Y.Z' is required"
+  usage
 fi
 
 sh "${GIT_ROOT}"/c2d2/config.sh
