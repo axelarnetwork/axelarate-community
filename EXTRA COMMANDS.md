@@ -13,7 +13,7 @@ This document lists out additional commands that can be run at different points 
 
 ### Query Bitcoin Master Address
 ```
-axelard q bitcoin master-addr
+axelard q bitcoin master-address
 ```
 
 Returns the bitcoin address associated with the Bitcoin Master Key.
@@ -21,7 +21,7 @@ Returns the bitcoin address associated with the Bitcoin Master Key.
 
 ### Query Ethereum Gateway Address
 ```
-axelard q evm master-address ethereum
+axelard q evm gateway-address ethereum
 ```
 
 Returns the ethereum address of the deployed Axelar Gateway contract. The Gateway acts as the Axelar hub on ethereum. It manages and deploys ERC20 token contracts which represents assets from other chains, such as bitcoin.
@@ -67,22 +67,22 @@ Returns the state of the consolidation transaction (whether its been confirmed o
 ### Query the Deposit Address for a Linked Recipient Address
 For a bitcoin deposit address and ethereum recipient address:
 ```
-axelard q bitcoin deposit-addr [chain] [recipient address]
+axelard q bitcoin deposit-address [chain] [recipient address]
 ```
 eg)
 
 ```
-axelard q bitcoin deposit-addr ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52
+axelard q bitcoin deposit-address ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52
 ```
 
 For an ethereum deposit address and bitcoin recipient address:
 ```
-axelard q evm deposit-addr ethereum [chain] [recipient address] [symbol]
+axelard q evm deposit-address ethereum [chain] [recipient address] [symbol]
 ```
 eg)
 
 ```
-axelard q evm deposit-addr ethereum bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi
+axelard q evm deposit-address ethereum bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi
 ```
 
 Returns the native chain deposit address for a linked, cross chain recipient adress. Axelar must have previously linked the two addresses.
