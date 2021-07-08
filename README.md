@@ -132,7 +132,7 @@ Axelar signs meta transactions for Ethereum, meaning that any Ethereum account c
 
 4. Check that you received the funds
     ```
-    axelard q bank balances {output_addr_from_step_2}
+    axelard q bank balances $(axelard keys show validator -a)
     ```
     e.g.,
     ```
