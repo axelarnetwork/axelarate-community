@@ -122,10 +122,10 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
 6. Start your Axelar node for the changes to take effect. Run each command in a separate terminal.
 
   ```
-  docker start axelar-core -a
-  ```
-  ```
   docker start tofnd -a
+  ```
+  ```
+  docker start axelar-core -a
   ```
 
 
