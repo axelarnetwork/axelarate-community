@@ -122,10 +122,10 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
 6. Start your Axelar node for the changes to take effect. Run each command in a separate terminal.
 
   ```
-  docker start axelar-core -a
-  ```
-  ```
   docker start tofnd -a
+  ```
+  ```
+  docker start axelar-core -a
   ```
 
 
@@ -171,7 +171,7 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
   eg)
   If the dashboard displays `3k` `Bonded Tokens`, the minimum amount is `3000 * 1000000 / 200 = 15000000`.
 
-  To be safe, stake more than the minimum amount, in case the total staking pool increases in the future. Remember to still leave some coins in your account to fund commands.
+  :warning: **Important:** Key shares for signing transactions on other chains are distributed proportionally to the validators' stakes on Axelar. In order to keep the number of key shares low for now, please delegate a similar amount of stake as existing validators have, i.e. `100000000axltest`.
 
 4. Make your `validator` account a validator by staking some coins.
 
@@ -179,7 +179,7 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
 
   ```
   axelard tx staking create-validator --yes \
-    --amount "6000000axltest" \
+    --amount "100000000axltest" \
     --moniker "testvalidator1" \
     --commission-rate="0.10" \
     --commission-max-rate="0.20" \
@@ -203,13 +203,13 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
   eg)
 
   ```
-  axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "6000000axltest" --from validator -y
+  axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000axltest" --from validator -y
   ```
 
 5. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
 
   ```
-  axelard tx broadcast registerProxy broadcaster --from validator -y
+  axelard tx snapshot registerProxy broadcaster --from validator -y
   ```
 
 Your node is now a validator! If you wish to stop being a validator, follow the instructions in the next section.
@@ -217,9 +217,9 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
 
 ## Leaving the Network as a Validator
 
-1. Deregister your account from the validator pool.
+1. Deactivate your broadcaster account.
   ```
-  axelard tx tss deregister --from validator -y -b block
+  axelard tx snapshot deactivateProxy --from validator -y -b block
   ```
 
 2. Wait until the next key rotation for the changes to take place. In this release, we're triggering key rotation about once a day. So come back in 24 hours, and continue to the next step. If you still get an error after 24 hours, reach out to a team member.
@@ -232,7 +232,7 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
   eg)
 
   ```
-  axelard tx staking unbond "$(axelard keys show validator --bech val -a)" "6000000axltest" --from validator -y -b block
+  axelard tx staking unbond "$(axelard keys show validator --bech val -a)" "100000000axltest" --from validator -y -b block
   ```
 
   `amount` refers to how many coins you wish to remove from the stake. You can change the amount.

@@ -22,7 +22,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## What you need
 - Bitcoin testnet wallet with some tBTC (faucet [https://testnet-faucet.mempool.co/](https://testnet-faucet.mempool.co/))
 - Ethereum wallet on the Ropsten network (we reccomend Metamask)
-- Some Ropsten ETH (faucet [https://faucet.ropsten.be/](https://faucet.ropsten.be/))
+- Some Ropsten ETH (faucet [https://faucet.ropsten.be/](https://faucet.ropsten.be/) or [https://faucet.dimensions.network/](https://faucet.dimensions.network/))
 
 ## Joining the Axelar testnet
 
@@ -47,24 +47,39 @@ Go to axelar faucet and fund your C2D2 account by providing the address to the
 facuet (http://faucet.testnet.axelar.network/). You can get c2d2's account
 address by running 
 
-```
+```shell
 c2d2cli keys show c2d2 -a
 ```
 
 ### Fund your ethereum sender account
+Add an ethereum account to c2d2cli. When prompted enter the password `passwordpassword`.
+```shell
+c2d2cli bridge evm accounts add ethereum 
+```
+
+You will be asked to enter a password for the account. Make a note of your password.
+
+
+
+If you used a different password than `passwordpassword` you will need to either:
+1. enter your password manually during the transfer procedure
+2. **Or** provide your password to each `c2d2cli` command by adding the flag `--evm-passphrase YOUR_PASSWORD`
+3. **Or** configure your password by editing the `/root/.c2d2cli/config.toml` file.
+   - Change the value in the `sender-passphrase=` key to your password.
+
 List C2D2's accounts:
 
 ```
-c2d2cli bridge evm accounts ethereum
+c2d2cli bridge evm accounts list ethereum
 ```
 
-Account index `0` will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH for the sender account.
+Account index `0` (the first address in the list) will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH for the sender account.
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
 1. Generate a Bitcoin deposit address. The Ethereum address you provide will be linked to the deposit address and receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 
 
    ```
-   c2d2cli transfer satoshi [ethereum recipient address] --source-chain bitcoin --dest-chain ethereum
+   c2d2cli transfer satoshi [ethereum recipient address] --source-chain bitcoin --dest-chain ethereum --gas=auto --gas-adjustment=1.4
    ```
 
     You will see the deposit Bitcoin address printed in the terminal
@@ -83,7 +98,7 @@ Do not exit `c2d2cli` while you are waiting for your deposit to be confirmed. It
 - If `c2d2cli` crashes or is closed during this step you can re-run the `deposit-btc` command with the same recipient address to resume.
 - If your transaction has 6 confirmations but `c2d2cli` has not detected it, you can restart `c2d2cli` and append the `--bitcoin-tx-prompt` flag.
     - The CLI will prompt you to enter the deposit tx info manually. The rest of the deposit procedure will still be automated.
-    - `c2d2cli transfer satoshi [ethereum recipient address] --source-chain bitcoin --dest-chain ethereum  --bitcoin-tx-prompt`
+    - `c2d2cli transfer satoshi [ethereum recipient address] --source-chain bitcoin --dest-chain ethereum  --bitcoin-tx-prompt --gas=auto --gas-adjustment=1.4`
 
 Once your transaction is detected, `c2d2cli` will wait until it has 6 confirmations before proceeding.
 
@@ -106,12 +121,12 @@ The contract will show in metamask as symbol 'Satoshi'. If your recipient addres
 1. Generate an ethereum withdrawal address. The Bitcoin address you provide will be uniquely linked to the deposit address and receive the withdrawn BTC on the Bitcoin testnet. 
 
    ```
-   c2d2cli transfer satoshi [bitcoin recipient address] --source-chain ethereum --dest-chain bitcoin
+   c2d2cli transfer satoshi [bitcoin recipient address] --source-chain ethereum --dest-chain bitcoin --gas=auto --gas-adjustment=1.4
    ```
 
    For example:
    ```
-   c2d2cli transfer satoshi tb1qwtrclv55yy26awl2n40u57uck5xgty4w4h9eww --source-chain ethereum --dest-chain bitcoin
+   c2d2cli transfer satoshi tb1qwtrclv55yy26awl2n40u57uck5xgty4w4h9eww --source-chain ethereum --dest-chain bitcoin --gas=auto --gas-adjustment=1.4
    ```
 
    You will see the deposit Ethereum address printed in the terminal.
@@ -136,3 +151,12 @@ The contract will show in metamask as symbol 'Satoshi'. If your recipient addres
     ```
 
 6. Your withdrawn BTC will be spendable by your recipient address once Bitcoin withdrawal consolidation occurs. Consolidation will be completed by a separate process.
+
+An automated service processes all pending transfers from the Axelar network to Bitcoin a few times a day. Come back 24 hours to check your coins at the destination Bitcoin address on the testnet.  
+
+## Additional Notes
+If your local axelar node fails, meaning `c2d2cli` cannot connect to it to broadcast transactions, you may use an Axelar public node to broadcast transactions by adding the config file flag `--conf /config.testnet.toml` like so:
+
+```shell
+   c2d2cli transfer satoshi [bitcoin recipient address] --source-chain ethereum --dest-chain bitcoin --conf /config.testnet.toml --gas=auto --gas-adjustment=1.4
+```
