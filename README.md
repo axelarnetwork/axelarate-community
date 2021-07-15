@@ -142,18 +142,16 @@ Axelar signs meta transactions for Ethereum, meaning that any Ethereum account c
 
 ## Stop and restart testnet
 To leave the Axelar node CLI, type `exit`.
-To stop the node from syncing, press Control C, then 
+To stop the node, open a new CLI terminal and run
     ```
     docker stop $(docker ps -a -q)
     ```
+    ```
+    docker rm $(docker ps -a -q)
+    ```
 
-To restart the node, use two terminals to run
-    ```
-    docker start axelar-core -a
-    ```
-    ```
-    docker start tofnd -a
-    ```
+To restart the node, run the `join/joinTestnet.sh` script again, with the same `--axelar-core`, `--tofnd` (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning.
+
 To enter Axelar node CLI again
     ```
     docker exec -it axelar-core sh

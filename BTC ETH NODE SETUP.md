@@ -39,6 +39,7 @@ Set up a Bitcoin testnet node using `bitcoind` from `Bitcoin Core`.
   * Under `RPC API`, enable `RPC Server`.
   * Under `RPC API`, look for `RPC Auth`. Follow the link and provide a username and password. Write down the username and password as you will need it later. Copy the generated value and paste it back into the `RPC Auth` field.
   * Under `RPC API`, set `RPC Allow IP Address` as `0.0.0.0/0`.
+  * Under `RPC API`, set `Bind RPC Address` as the public IP address of the bitcoin node.
 
   Copy the contents of the generated `bitcoin.conf` file and paste it into the file you created in the last step.
 
@@ -152,4 +153,3 @@ Set up an Ethereum Ropsten testnet node using `Geth`.
   -H "Content-Type: application/json" \
   --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
   ```
-  
