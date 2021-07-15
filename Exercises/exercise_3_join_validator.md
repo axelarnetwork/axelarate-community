@@ -106,11 +106,13 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
 
 1. Have an Axelar node fully caught up and running by completing the steps in `README.md`. Ensure you have some testnet coins on your validator address.
 
-2. Go to the command line where the Axelar node is syncing and stop it with `Control + C`.
+2. Stop the Axelar node. Open a new terminal and run
 
-  Stop the container.
   ```
   docker stop $(docker ps -a -q)
+  ```
+  ```
+  docker rm $(docker ps -a -q)
   ```
 
 3. Go to your home directory and open `~/.axelar_testnet/shared/config.toml`.
@@ -119,14 +121,7 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
 
 5. Find the `rpc_addr` line and replace the default RPC URL with the URL of your node, for both Bitcoin and Ethereum. Save the file. This RPC URL was found and written down during the Bitcoin and Ethereum node setup section.
 
-6. Start your Axelar node for the changes to take effect. Run each command in a separate terminal.
-
-  ```
-  docker start tofnd -a
-  ```
-  ```
-  docker start axelar-core -a
-  ```
+6. Start your Axelar node for the changes to take effect. Run the `join/joinTestnet.sh` script again, with the same `--axelar-core`, `--tofnd` (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning.
 
 
 ## Joining the Network as a Validator
@@ -212,7 +207,64 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
   axelard tx snapshot registerProxy broadcaster --from validator -y
   ```
 
-Your node is now a validator! If you wish to stop being a validator, follow the instructions in the next section.
+6. Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` container will talk with your `tofnd` container through the `vald` module. This is important when events such as key rotation happens on the network.
+
+  First, check that the vald process is running. Run the following commands in a new terminal.
+
+  ```
+  docker exec axelar-core ps
+  ```
+
+  Look for a process called `vald-start`. If you see it, then your `vald` module has successfully started and connected with `tofnd`. You're good to go! 
+
+  If the process was missing, check if `tofnd` is running. Install the `nmap` command if you do not have it, and check the tofnd port
+
+  ```
+  nmap -p 50051 localhost
+  ```
+
+  Look for the `STATE` of the port, which should be `open` or `closed`. If the port is `closed`, restart your node and ensure tofnd is running. If the port is `open`, then there is a connection issue between vald and tofnd.
+
+  To fix the connectivity issue, find the `tofnd` container address manually and provide it to `vald`.
+  Find the `tofnd` address.
+
+  ```
+  docker inspect tofnd
+  ```
+
+  Near the bottom of the JSON output, look for `Networks`, then `bridge`, `IPAddress`, and copy the address listed.
+  Next, ping the IP Address from inside `Axelar Core` to see if it works.
+
+  ```
+  docker exec axelar-core ping {your tofnd IP Address}
+  ```
+
+  eg)
+
+  ```
+  docker exec axelar-core ping 172.17.0.2
+  ```
+
+  You should see entries starting to appear one by one if the connection succeeded. Stop the ping with `Control + C`.
+  Provide this IP Address to `Vald`.
+
+  ```
+  docker exec axelar-core axelard vald-start --tofnd-host {your tofnd IP Address} --validator-addr {your validator address} 
+  ```
+
+  You can find your validator address with
+  
+  ```
+  docker exec axelar-core axelard keys show validator --bech val -a
+  ```
+
+  Now, your vald should be connected properly. Confirm this by running the following and looking for an `vald-start` entry.
+  ```
+  docker exec axelar-core ps
+  ```
+
+
+Your node is now a validator! Stay as a validator and keep your node running for at least a day. If you wish to stop being a validator, follow the instructions in the next section.
 
 
 ## Leaving the Network as a Validator
@@ -237,4 +289,4 @@ Your node is now a validator! If you wish to stop being a validator, follow the 
 
   `amount` refers to how many coins you wish to remove from the stake. You can change the amount.
 
-  To preserve network stability, the staked coins are held for 21 days starting from the unbond request before being unlocked and returned to the `validator` account.
+  To preserve network stability, the staked coins are held for roughly 1 day starting from the unbond request before being unlocked and returned to the `validator` account.
