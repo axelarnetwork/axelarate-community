@@ -233,7 +233,7 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
   ```
 
   Near the bottom of the JSON output, look for `Networks`, then `bridge`, `IPAddress`, and copy the address listed.
-  Next, ping the IP Address from inside `Axelar Core` to see if it works.
+  Next, ping the IP Address from inside `Axelar Core` to see if it works. Install the `ping` command if it does not exist already.
 
   ```
   docker exec axelar-core ping {your tofnd IP Address}
