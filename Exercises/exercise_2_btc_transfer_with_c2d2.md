@@ -76,7 +76,7 @@ c2d2cli bridge evm accounts list ethereum
 Account index `0` (the first address in the list) will be used to send transactions. Go to [https://faucet.ropsten.be/](https://faucet.ropsten.be/) to get some Ropsten ETH for the sender account.
 
 ### Mint ERC20 Bitcoin tokens on Ethereum
-1. Generate a Bitcoin deposit address. The Ethereum address you provide will be linked to the deposit address and receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 
+1. Generate a Bitcoin deposit address. For this step you will need to supply an Ethereum address that you have the private key for. This will be the `[ethereum recipient address]` in the example command below. This address will then be linked to the Bitcoin deposit address generated and will receive the pegged bitcoin (Satoshi tokens) on the Ethereum testnet. 
 
    ```
    c2d2cli transfer satoshi [ethereum recipient address] --source-chain bitcoin --dest-chain ethereum --gas=auto --gas-adjustment=1.4
