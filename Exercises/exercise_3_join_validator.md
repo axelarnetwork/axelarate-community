@@ -216,6 +216,8 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
   ```
 
   Look for a process called `vald-start`. If you see it, then your `vald` module has successfully started and connected with `tofnd`. You're good to go! 
+  
+### Start-up troubleshoot
 
   If the process was missing, check if `tofnd` is running. Install the `nmap` command if you do not have it, and check the tofnd port
 
@@ -246,19 +248,27 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
   ```
 
   You should see entries starting to appear one by one if the connection succeeded. Stop the ping with `Control + C`.
-  Provide this IP Address to `Vald`.
+  Save this IP address.
+  
+  Next, query your validator address with   
+  ```
+  docker exec axelar-core axelard keys show validator --bech val -a
+  ```
+  ⚠️ Make sure the validator address that is returned starts with `axelarvaloper`
+  
+  Now, start `vald`, providing the IP address and validator address:
 
   ```
   docker exec axelar-core axelard vald-start --tofnd-host {your tofnd IP Address} --validator-addr {your validator address} 
   ```
-
-  You can find your validator address with
+  eg)
+  ```
+  docker exec axelar-core axelard vald-start --tofnd-host 172.17.0.2 --validator-addr axelarvaloper1y4vplrpdaqplje8q4p4j32t3cqqmea9830umwl
+  ```
   
-  ```
-  docker exec axelar-core axelard keys show validator --bech val -a
-  ```
+ 
 
-  Now, your vald should be connected properly. Confirm this by running the following and looking for an `vald-start` entry.
+  Your vald should be connected properly. Confirm this by running the following and looking for an `vald-start` entry.
   ```
   docker exec axelar-core ps
   ```
