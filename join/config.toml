@@ -396,7 +396,7 @@ namespace = "tendermint"
 [axelar_bridge_btc]
 
 # Address of the bitcoin RPC server
-rpc_addr    = "http://axelar:Ch91wtRPZhCjKF7OLXkF@a6f628019c4194ded9623daaa54834e0-632184776.us-east-2.elb.amazonaws.com:8332"
+rpc_addr    = "http://axelar:Ch91wtRPZhCjKF7OLXkF@bitcoin-node.testnet.axelar.dev:8332"
 
 # Timeout period in which the bitcoin node is expected to start (and provide the auth cookie)
 timeout_startup = "60s"
