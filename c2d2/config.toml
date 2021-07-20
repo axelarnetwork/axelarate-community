@@ -21,11 +21,11 @@ data-dir = "./data/db"
 enable-logger = false
 
 [bitcoin]
-rpc_addr = "http://axelar:Ch91wtRPZhCjKF7OLXkF@a6f628019c4194ded9623daaa54834e0-632184776.us-east-2.elb.amazonaws.com:8332"
+rpc_addr = "http://axelar:Ch91wtRPZhCjKF7OLXkF@bitcoin-node.testnet.axelar.dev:8332"
 rpc_user = "axelar"
 rpc_pass = "Ch91wtRPZhCjKF7OLXkF"
 timeout_rpc = "100s"
-zmq-publisher = "tcp://a6f628019c4194ded9623daaa54834e0-632184776.us-east-2.elb.amazonaws.com:28332"
+zmq-publisher = "tcp://bitcoin-node.testnet.axelar.dev:28332"
 network = "test"
 confirmation-height = 6
 prompt-for-tx = false
