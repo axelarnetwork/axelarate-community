@@ -67,10 +67,10 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
   axelard tx bitcoin confirmTxOut 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator -y -b block
   ```
 
-  Wait for transaction to be confirmed (~10 Axelar blocks, ~50 secs).
+  Wait for transaction to be confirmed.
   Eventually, you'll see something like this in the node terminal:
 
-  `bitcoin outpoint confirmation result is`
+  `bitcoin outpoint confirmation result is {result}`
 
 You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 
@@ -140,7 +140,6 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
   ```
   axelard tx evm confirm-erc20-deposit ethereum {txID} {amount} {deposit addr} --from validator -y -b block
-  -> wait for transaction to be confirmed (~10 Axelar blocks)
   ```
 
   Here, amount should be specific in Satoshi. (For instance, 0.0001BTC = 10000)
@@ -148,7 +147,13 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
   ```
   axelard tx evm confirm-erc20-deposit ethereum 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
-  -> wait for transaction to be confirmed (~10 Axelar blocks)
   ```
+Wait for transaction to be confirmed.
+  Eventually, you'll see something like this in the node terminal:
+
+  `Ethereum deposit confirmation result is {result}`
+
+You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`.
+
 
 You're done! In the next step, a withdrawal must be signed and submitted to the Bitcoin network. In this release, we're triggering these commands about once a day. So come back in 24 hours, and check the balance on the Bitcoin testnet address to which you submitted the withdrawal. 
