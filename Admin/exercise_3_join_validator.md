@@ -11,6 +11,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Prerequisites
 - Complete all steps from `README.md`
+- Received permission from a testnet moderator or Axelar team member to run a validator
 
 ## Useful links
 - Extra commands to query Axelar Network state: https://github.com/axelarnetwork/axelarate-community/blob/main/EXTRA%20COMMANDS.md
