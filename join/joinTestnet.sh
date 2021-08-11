@@ -78,7 +78,7 @@ docker run       \
   --name tofnd   \
   -d             \
   -p 50051:50051 \
-  -v "${ROOT_DIRECTORY}:/root/.kvstore" \
+  -v "${ROOT_DIRECTORY}:/root/.tofnd" \
   "axelarnet/tofnd:${TOFND_VERSION}"
 
 docker run                                           \
