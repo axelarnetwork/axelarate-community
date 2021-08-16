@@ -1,3 +1,9 @@
+---
+id: e1
+sidebar_position: 1
+sidebar_label: Exercise 1
+slug: /exercises/e1
+---
 # Trigger Manual Consolidation / Withdrawal 
 
 While doing exercise 1, testnet users will submit withdrawals on Ethereum back to Bitcoin. However, to trigger their withdrawals on the Bitcoin network, we need to `sign-pending-transfers`, submit the transaction to the Bitcoin, and then confirm it on the Axelar network. Since Bitcoin is slow, we don't want users to execute these steps concurrently and then have to resolve state transitions between them. So periodically, once a day, we'll trigger these admin commands. (In the next release, this task will be handled by automated service). 
