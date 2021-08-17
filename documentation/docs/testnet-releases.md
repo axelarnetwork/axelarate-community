@@ -1,3 +1,10 @@
+---
+id: testnet-releases
+sidebar_position: 8
+sidebar_label: Testnet Release
+slug: /testnet-releases
+---
+
 # Info about the Axelar testnet
 
 Variable  | Value

@@ -1,18 +1,26 @@
+---
+id: extra-commands
+sidebar_position: 4
+sidebar_label: Extra Commands
+slug: /extra-commands
+---
 # Extra Commands
 Extra commands to query Axelar network's internal state. For those interested in learning more.
 
 ## Disclaimer
+:::warning
 Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
+:::
 
 ## Prerequisites
-- Complete all steps from `README.md`
-- Attempted or completed `Excercise 1` and have a basic understanding of the asset transfer workflow
+- Complete all steps from [Setup](/setup.md)
+- Attempted or completed [Excercise 1](/exercises/e1) and have a basic understanding of the asset transfer workflow
 
 ## Commands
-This document lists out additional commands that can be run at different points during the `Excercise 1` workflow. The commands are not neccesary to complete the asset transfer, but display additional information about the current network state, and can be useful for debugging or learning more about the network.
+This document lists out additional commands that can be run at different points during the [Excercise 1](/exercises/e1) workflow. The commands are not neccesary to complete the asset transfer, but display additional information about the current network state, and can be useful for debugging or learning more about the network.
 
 ### Query Bitcoin Master Address
-```
+```bash
 axelard q bitcoin master-address
 ```
 
@@ -20,7 +28,7 @@ Returns the bitcoin address associated with the Bitcoin Master Key.
 
 
 ### Query Ethereum Gateway Address
-```
+```bash
 axelard q evm gateway-address ethereum
 ```
 
@@ -28,12 +36,12 @@ Returns the ethereum address of the deployed Axelar Gateway contract. The Gatewa
 
 
 ### Query Ethereum Token Address
-```
+```bash
 axelard q evm token-address ethereum [symbol]
 ```
 eg)
 
-```
+```bash
 axelard q evm token-address ethereum satoshi
 ```
 
@@ -41,7 +49,7 @@ Returns the ethereum address of the deployed ERC20 token contract, which represe
 
 
 ### Query Bitcoin Minimum Withdraw Balance
-```
+```bash
 axelard q bitcoin minWithdraw
 ```
 
@@ -49,7 +57,7 @@ Returns the minimum amount that can be withdrawn on Bitcoin, denominated in sato
 
 
 ### Query the Last Consolidation Transaction
-```
+```bash
 axelard q bitcoin rawTx
 ```
 
@@ -57,7 +65,7 @@ Returns the signed bitcoin consolidation transaction. It can then be submitted t
 
 
 ### Query the State of the Last Consolidation Transaction
-```
+```bash
 axelard q bitcoin consolidationTxState
 ```
 
@@ -66,22 +74,22 @@ Returns the state of the consolidation transaction (whether its been confirmed o
 
 ### Query the Deposit Address for a Linked Recipient Address
 For a bitcoin deposit address and ethereum recipient address:
-```
+```bash
 axelard q bitcoin deposit-address [chain] [recipient address]
 ```
 eg)
 
-```
+```bash
 axelard q bitcoin deposit-address ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52
 ```
 
 For an ethereum deposit address and bitcoin recipient address:
-```
+```bash
 axelard q evm deposit-address ethereum [chain] [recipient address] [symbol]
 ```
 eg)
 
-```
+```bash
 axelard q evm deposit-address ethereum bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi
 ```
 
@@ -89,12 +97,12 @@ Returns the native chain deposit address for a linked, cross chain recipient adr
 
 
 ### Query the State of a Bitcoin Deposit Transaction
-```
+```bash
 axelard q bitcoin txState [txID:vout]
 ```
 eg)
 
-```
+```bash
 axelard q bitcoin txState 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0
 ```
 
