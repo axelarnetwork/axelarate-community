@@ -22,7 +22,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - While the network is in development, check in and receive an 'okay' from a testnet moderator or Axelar team member before starting
 
 ## Useful links
-- [Extra commands to query Axelar Network state](/useful-commands)
+- [Extra commands to query Axelar Network state](/extra-commands)
 
 ## Joining the Axelar testnet
 Follow the instructions in `README.md` to make sure your node is up to date and you received some test coins to your validator account.
