@@ -1,8 +1,8 @@
 ---
-id: useful-commands
+id: extra-commands
 sidebar_position: 4
-sidebar_label: Useful Commands
-slug: /useful-commands
+sidebar_label: Extra Commands
+slug: /extra-commands
 ---
 # Extra Commands
 Extra commands to query Axelar network's internal state. For those interested in learning more.
