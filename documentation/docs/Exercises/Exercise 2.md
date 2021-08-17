@@ -26,7 +26,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Complete all steps from [Setup](/setup.md)
 
 ## Useful links
-- [Extra commands to query Axelar Network state](/useful-commands)
+- [Extra commands to query Axelar Network state](/extra-commands)
 
 ## What you need
 - Bitcoin testnet wallet with some tBTC (faucet [https://testnet-faucet.mempool.co/](https://testnet-faucet.mempool.co/))
