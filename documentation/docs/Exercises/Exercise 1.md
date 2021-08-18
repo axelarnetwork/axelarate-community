@@ -121,7 +121,7 @@ Alternatively you can open your MEW wallet, and navigate to the "Send Transactio
 
 ![](https://user-images.githubusercontent.com/1995809/118490096-2753c480-b750-11eb-9c9d-5eb478194ae4.png)
 
-(Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find [here](https://github.com/axelarnetwork/axelarate-community/blob/main/TESTNET%20RELEASE.md), and the "Add Data" field is the command data you got from the previous step)
+(Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases), and the "Add Data" field is the command data you got from the previous step)
 
 You can now open Metamask, select "Assets" then "Add Token" then "Custom Token" and then paste the token contract address (see `axelarate-community/TESTNET RELEASE.md` and look for  `Ethereum token contract address` field).
 
