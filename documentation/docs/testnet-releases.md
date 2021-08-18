@@ -12,5 +12,5 @@ Variable  | Value
 `axelar-core` version | `v0.5.2`
 `tofnd` version | `v0.4.0`
 `c2d2` version | `v0.3.1`
-Ethereum Axelar Gateway contract address | `0x2A1165BA03e10F2ce86c011f7771b9fA11f26274`
-Ethereum token contract address | `0x817CB378496E5dA59b7D56ae0C91E89B19E821cE`
+Ethereum Axelar Gateway contract address | `0xfeb67aebA01fBca4A13a832ba358425b07D484F7`
+Ethereum token contract address | `0xfd6eC1a4A9387D112F7Eee59d7980Ec6f04AfF32`
