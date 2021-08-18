@@ -33,13 +33,11 @@ for arg in "$@"; do
 done
 
 if [ -z "$AXELAR_CORE_VERSION" ]; then
-  echo "'--axelar-core vX.Y.Z' is required"
-  exit 1
+  AXELAR_CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/TESTNET%20RELEASE.md | grep axelar-core | cut -d \` -f 4)
 fi
 
 if [ -z "$TOFND_VERSION" ]; then
-  echo "'--tofnd vX.Y.Z' is required"
-  exit 1
+  TOFND_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/TESTNET%20RELEASE.md | grep tofnd | cut -d \` -f 4)
 fi
 
 if $RESET_CHAIN; then
