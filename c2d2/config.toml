@@ -7,7 +7,7 @@ port = "1317"
 keyring-backend = "test"
 node = "http://localhost:26657"
 chain-id = "axelar"
-denom = "axltest"
+denom = "uaxl"
 
 [lcd.broadcast]
 broadcaster-account = "c2d2"
