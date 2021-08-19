@@ -168,22 +168,22 @@ To become a full fledged validator that participates in threshold multi-party si
 
 Go into the Axelar discord server and find the `testnet` channel. Open up the `pinned` messages at the top right corner and scroll down to the very first pinned message, which contains many links. Find the link for `Monitoring` as well as the testnet user login credentials and use it to sign in.
 
-Once you are signed in to the monitoring dashboard, look for an entry called `Bonded Tokens`. This is the total pool of staked tokens in the network, denominated in `axltest`. However, later when you use the CLI, it actually accepts denominations in micro `axltest` where 1 `axltest` = 1,000,000 micro `axltest`. 
+Once you are signed in to the monitoring dashboard, look for an entry called `Bonded Tokens`. This is the total pool of staked tokens in the network, denominated in `axl`. However, later when you use the CLI, it actually accepts denominations in micro `axl` (`uaxl`) where 1 `axl` = 1,000,000 `uaxl`. 
 
 So to find the minimum amount of coins you need to stake in the next step, calculate `{total pool} * 1000000 / 200`.
 
 eg)
 If the dashboard displays `3k` `Bonded Tokens`, the minimum amount is `3000 * 1000000 / 200 = 15000000`.
 
-:warning: **Important:** Key shares for signing transactions on other chains are distributed proportionally to the validators' stakes on Axelar. In order to keep the number of key shares low for now, please delegate a similar amount of stake as existing validators have, i.e. `100000000axltest`.
+:warning: **Important:** Key shares for signing transactions on other chains are distributed proportionally to the validators' stakes on Axelar. In order to keep the number of key shares low for now, please delegate a similar amount of stake as existing validators have, i.e. `100000000uaxl`.
 
 4. Make your `validator` account a validator by staking some coins.
 
-Use the following command, but change the `amount` to be larger than the minimum stake amount calculated in the last step. Remember that this is actually denominated in micro `axltest`. Also change the `moniker` to be a descriptive nickname for your validator.
+Use the following command, but change the `amount` to be larger than the minimum stake amount calculated in the last step. Remember that this is actually denominated in `uaxl`. Also change the `moniker` to be a descriptive nickname for your validator.
 
 ```bash
 axelard tx staking create-validator --yes \
---amount "100000000axltest" \
+--amount "100000000uaxl" \
 --moniker "testvalidator1" \
 --commission-rate="0.10" \
 --commission-max-rate="0.20" \
@@ -207,7 +207,7 @@ axelard tx staking delegate {axelarvaloper address} {amount} --from validator -y
 eg)
 
 ```bash
-axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000axltest" --from validator -y
+axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y
 ```
 
 5. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
@@ -306,7 +306,7 @@ axelard tx staking unbond {axelarvaloper address} {amount} --from validator -y -
 eg)
 
 ```bash
-axelard tx staking unbond "$(axelard keys show validator --bech val -a)" "100000000axltest" --from validator -y -b block
+axelard tx staking unbond "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y -b block
 ```
 
 `amount` refers to how many coins you wish to remove from the stake. You can change the amount.
