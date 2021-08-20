@@ -51,8 +51,8 @@ mkdir -p "$ROOT_DIRECTORY"
 SHARED_DIRECTORY="${ROOT_DIRECTORY}/shared"
 mkdir -p "$SHARED_DIRECTORY"
 
-TOFND_DIRECTORY="${ROOT_DIRECTORY}/.tofnd"
-mkdir -p "$TOFND_DIRECTORY"
+CORE_DIRECTORY="${ROOT_DIRECTORY}/.core"
+mkdir -p "$CORE_DIRECTORY"
 
 if [ ! -f "${SHARED_DIRECTORY}/genesis.json" ]; then
   curl https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
@@ -74,23 +74,15 @@ if [ ! -f "${SHARED_DIRECTORY}/consumeGenesis.sh" ]; then
   cp "${GIT_ROOT}/join/consumeGenesis.sh" "${SHARED_DIRECTORY}/consumeGenesis.sh"
 fi
 
-docker run       \
-  --name tofnd   \
-  -d             \
-  -p 50051:50051 \
-  -v "${ROOT_DIRECTORY}:/root/.tofnd" \
-  "axelarnet/tofnd:${TOFND_VERSION}"
-
 docker run                                           \
   --name axelar-core                                 \
   -p 1317:1317                                       \
   -p 26656-26658:26656-26658                         \
   -p 26660:26660                                     \
-  --env TOFND_HOST=host.docker.internal              \
   --env START_REST=true                              \
   --env PEERS_FILE=/root/shared/peers.txt            \
   --env INIT_SCRIPT=/root/shared/consumeGenesis.sh   \
   --env CONFIG_PATH=/root/shared/                    \
-  -v "${ROOT_DIRECTORY}/.axelar:/root/.axelar"     \
+  -v "${CORE_DIRECTORY}/:/root/.axelar"              \
   -v "${SHARED_DIRECTORY}:/root/shared"              \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
