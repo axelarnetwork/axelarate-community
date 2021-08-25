@@ -82,7 +82,7 @@ In this example, the validator participated in generating the keys with ID `btc-
 With the help of the key IDs, you can now retrieve the recovery data for the keys:
 
 ```
-axelard q tss recover $(axelard keys show validator --bech val -a) testkey btc-secondary --output json > recovery.json
+axelard q tss recover $(axelard keys show validator --bech val -a) btc-master btc-secondary --output json > recovery.json
 ```
 
 The command above will fetch the recovery info for the aforementioned keys and store it to the `recovery.json` file.
