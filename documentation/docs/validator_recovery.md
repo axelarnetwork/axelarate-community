@@ -54,6 +54,68 @@ Its contents should look something like:
 purchase arrow sword basic gasp category hundred town layer snow mother roast digital fragile repeat monitor wrong combine awful nature damage rib skull chalk
 ```
 
+#### Mnemonic options
+
+Tofnd can be executed with a mnemonic option as a command-line argument:
+```
+cargo run -- -m <option>
+```
+
+Currently, the following mnemonic options are supported:
+
+* `create` (default): Creates a new mnemonic if there none exists, otherwise does nothing. The new passphrase is written under the file *./tofnd/export*.
+
+* `import`: Adds a new mnemonic from file *.tofnd/import*; Succeeds when there is no other mnemonic already imported, fails otherwise.
+
+* `export`: Writes the existing mnemonic to file *.tofnd/export*; Succeeds when there is an existing mnemonic, fails otherwise.
+
+* `update`: Updates existing mnemonic from file *./tofnd/import*; Succeeds when there is an existing mnemonic, fails otherwise. The old passphrase is written to file *.tofnd/export*.
+
+#### Recovering mnemonic for tofnd binaries
+
+An exercise for creating and recovering your mnemonic using tofnd binary is the following:
+1. Start tofnd and produce a mnemonic
+    ```
+    # cargo run is equivilent to cargo run -- -m create
+    cargo run
+    ```
+    The output should be something similar to the following:
+    ```
+    tofnd listen addr 0.0.0.0:50051, use ctrl+c to shutdown
+    Creating mnemonic
+    kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
+    kv_manager cannot open existing db [.tofnd/kvstore/mnemonic]. creating new db
+    Mnemonic successfully added in kv store
+    Mnemonic written in file .tofnd/export
+    ```
+
+2. Store the mnemonic which has been created in *./tofnd/export*. Remember to delete the *./tofnd/export* file after you have safely stored the mnemonic.
+
+    **Attention:** Be sure you save your mnemonic at an offline safe place. If it's lost, you will not be able to recover your shares.
+3. Delete your *.tofnd* folder. This will delete your mnemonic and all your shares.
+    ```
+    rm -rf .tofnd
+    ```
+4. Create an new empty *.tofnd* folder, and write your mnemonic into a file under the name *import*. Put this file in *./tofnd/import*. 
+    ```
+    mkdir .tofnd && cd .tofnd
+    touch import
+    # write your mnemonic at the `import` file
+    ```
+4. Start tofnd using the *import* option
+    ```
+    cargo run -- -m import
+    ```
+    The output should be something similar to the following:
+    ```
+    tofnd listen addr 0.0.0.0:50051, use ctrl+c to shutdown
+    Importing mnemonic
+    kv_manager cannot open existing db [.tofnd/kvstore/mnemonic]. creating new db
+    kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
+    Mnemonic successfully added in kv store
+    Mnemonic written in file .tofnd/export
+    ```
+
 ### Recovery data
 
 The recovery data is stored on chain, and enables a validator to recover key shares it created.
