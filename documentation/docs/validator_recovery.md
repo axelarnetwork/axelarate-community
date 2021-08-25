@@ -1,3 +1,10 @@
+---
+id: validator_recovery
+sidebar_position: 9
+sidebar_label: Validator Recovery
+slug: /validator_recovery
+---
+
 ### Overview
 
 This document describes the steps necessary to ensure that a validator node can be restored in case its state is lots. In order to achieve this, it is necessary that the following data is safely backed up:
