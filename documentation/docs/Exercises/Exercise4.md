@@ -1,11 +1,11 @@
 ---
-id: e3
-sidebar_position: 3
-sidebar_label: Exercise 3
-slug: /exercises/e3
+id: e4
+sidebar_position: 4
+sidebar_label: Exercise 4
+slug: /exercises/e4
 ---
-# Exercise 1
-IBC Transfer from Cosmos Hub to Axelar Network
+# Exercise 4
+Transfer Asset from Cosmos Hub to Ethereum via Axelar Network
 
 ## Level
 Intermediate
@@ -15,22 +15,23 @@ Intermediate
 Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
 :::
 
+## Prerequisites
+- Complete all steps from [Setup](/setup.md)
+- GO (Follow the [office docs](https://golang.org/doc/install) to install)
+
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup](/setup.md) to make sure your node is up to date and you received some test coins to your validator account.
+Follow the instructions in [Setup](/setup.md) to make sure your node is up to date, and you received some test coins to your validator account.
 
-## Connect to the Cosmos Hub testnet 
+## Connect to the Cosmos Hub testnet
 ### Setup gaia cli
 
-1. Clone gaia
+1. On a new terminal window, clone gaia repository from Github:
 
-Clone the repository from Github:
 ```
 git clone https://github.com/cosmos/gaia.git
 ```
-2. Build and Install
-
-Run the make command to build and install gaiad
+2. Run the make command to build and install gaiad
 ```
 cd gaia
 git checkout v5.0.5
@@ -40,41 +41,47 @@ verify it is properly installed:
 ```
 gaiad version 
 ```
-3. initialize the node
+4. Initialize the node
 ```
 gaiad init [moniker]
 ```
-4. use any text editor to open `$HOME/.gaia/config/client.toml`, edit `chain-id` and `node`
+5. Use any text editor to open `$HOME/.gaia/config/client.toml`, edit `chain-id` and `node` fields
 ```
 chain-id = "cosmoshub-testnet"
 node = "https://rpc.testnet.cosmos.network:443"
 ```
-verify you have access to the testnet
+Verify you have access to the testnet, you will see the latest block info
 ```
 gaiad q block
 ```
-5. create a key pair
+5. Create a key pair
 ```
 gaiad keys add [key name]
 ```
-6. request tokens from the faucet
+6. Request tokens from the faucet
 ```
-curl -X POST -d '{"address": "created address"}' https://faucet.testnet.cosmos.network
+curl -X POST -d '{"address": "your newly created address"}' https://faucet.testnet.cosmos.network
 ```
 When the tokens are sent, you see the following response:
 ```
 {"transfers":[{"coin":"100000000uphoton","status":"ok"}]}
 ```
-check tokens are arrived
+Check tokens are arrived
 ```
 gaiad q bank balances [address]
 ```
 ### Instructions to send token from Cosmoshub testnet to Axelar Network
-1. ibc transfer from Cosmoshub
+1. Send an IBC transfer from Cosmoshub testnet to Axelar Network 
+   
+   You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases)
 ```
-gaiad tx ibc-transfer transfer transfer channel-24 [axelar address] 1000000uphoton --from [key name] -y -b block
+gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] 1000000uphoton --from [key name] -y -b block
 ```
-2. On Axelar Node, check you received the funds
+2. On a new terminal window, enter Axelar node,
+```
+docker exec -it axelar-core sh
+```   
+3. Check you received the funds
 ```
 axelard q bank balances $(axelard keys show validator -a)
 ```
@@ -90,35 +97,39 @@ balances:
 ```
 axelard q ibc-transfer denom-traces
 ```
+You should see the base_denom is `uphoton`
 ### Instructions to send IBC transferred tokens from Axelar Network to Ethereum
 1. Create a deposit address on Axelar Network (to which you'll deposit coins later)
 ```
 axelard tx axelarnet link ethereum [receipent address] uphoton --from validator
 ```
+Look for `successfully linked [Axelar Network deposit address] and [Ethereum Ropsten dst addr]`
 2.  send the IBC token on Axelar Network to the deposit address specific above
 ```
-axelard tx bank send $(axelard keys show validator -a) [linked address]  [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A"  --from validator
+axelard tx bank send $(axelard keys show validator -a) [Axelar Network deposit address] [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A"  --from validator
 ```
+
 3. Confirm the deposit transaction
 ```
-axelard tx axelarnet confirm-deposit [txID] [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A" [deposit addr] --from validator
+axelard tx axelarnet confirm-deposit [txhash] [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A" [deposit addr] --from validator
 ```
 4. Create transfers on Ethereum
 ```
-axelard tx evm create-pending-transfers ethereum --from validator
+axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2
 ```
 5. Trigger signing of the transfer on Ethereum
 ```
-axelard tx evm sign-commands ethereum --from validator
+axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
 ```
 6. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
 ```
 axelard q evm latest-batched-commands ethereum
 ```
+Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 7. Send the Ethereum transaction wrapping the command data to execute the mint
    
 Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet. Keep in mind not to transfer any tokens, you just need to input the data from the above `commandID` and send it to the Gateway smart contract (see [Testnet Release](/testnet-releases)). While doing this please make sure the gas price in Metamask is updated once you paste in the data.
 
 (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases), and the "Add Data" field is the command data you got from the previous step)
 
-You can now open Metamask, select "Assets" then "Add Token" then "Custom Token" and then paste the token contract address (see `axelarate-community/TESTNET RELEASE.md` and look for  `Ethereum token contract address` field).
+You can now open Metamask, select "Assets" then "Add Token" then "Custom Token" and then paste the Ethereum Phanton contract address (see `axelarate-community/TESTNET RELEASE.md` and look for  `Ethereum Phanton contract address` field).
