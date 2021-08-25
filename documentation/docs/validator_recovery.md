@@ -56,7 +56,7 @@ purchase arrow sword basic gasp category hundred town layer snow mother roast di
 
 ### Recovery data
 
-The recovery data is stored on chain, and enables a validator to recover the shares for the keys that it took part on generating and uses to sign data.
+The recovery data is stored on chain, and enables a validator to recover key shares it created.
 In order to obtain this data, first it is necessary to determine which keys the validator helped generate.
 If you do not know which keys the validator is associatef with, attach a terminal to the node's container and perform the command:
 
