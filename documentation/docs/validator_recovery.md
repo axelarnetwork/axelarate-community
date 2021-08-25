@@ -78,7 +78,8 @@ To query the blockchain for these key IDs, attach a terminal to the node's conta
   validator_address: axelarvaloper1mx627hm02xa8m57s0xutgjchp3fjhrjwp2dw4
 ```
 
-You can now levarage the information provided by the command to retrieve the recovery data for keys `btc-master` and `btc-secondary` as follows:
+In this example, the validator participated in generating the keys with ID `btc-master` and `btc-secondary`.
+With the help of the key IDs, you can now retrieve the recovery data for the keys:
 
 ```
 axelard q tss recover $(axelard keys show validator --bech val -a) testkey btc-secondary --output json > recovery.json
