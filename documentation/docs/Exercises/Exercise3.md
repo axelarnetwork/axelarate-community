@@ -21,28 +21,30 @@ Follow the instructions in [Setup](/setup.md) to make sure your node is up to da
 
 ## Connect to the Cosmos Hub testnet 
 ### Setup gaia cli
-#### Install by downloading
-####Clone gaia
+
+1. Clone gaia
+
 Clone the repository from Github:
 ```
 git clone https://github.com/cosmos/gaia.git
 ```
-####Build and Install
+2. Build and Install
+
 Run the make command to build and install gaiad
 ```
 cd gaia
 git checkout v5.0.5
 make install
 ```
-verify it was properly installed:
+verify it is properly installed:
 ```
 gaiad version 
 ```
-initialize
+3. initialize the node
 ```
 gaiad init [moniker]
 ```
-use any text editor to open `$HOME/.gaia/config/client.toml`, edit `chain-id` and `node`
+4. use any text editor to open `$HOME/.gaia/config/client.toml`, edit `chain-id` and `node`
 ```
 chain-id = "cosmoshub-testnet"
 node = "https://rpc.testnet.cosmos.network:443"
@@ -51,26 +53,26 @@ verify you have access to the testnet
 ```
 gaiad q block
 ```
-create a key pair
+5. create a key pair
 ```
 gaiad keys add [key name]
 ```
-request tokens from the faucet
+6. request tokens from the faucet
 ```
-curl -X POST -d '{"address": "address"}' https://faucet.testnet.cosmos.network
+curl -X POST -d '{"address": "created address"}' https://faucet.testnet.cosmos.network
 ```
 When the tokens are sent, you see the following response:
 ```
 {"transfers":[{"coin":"100000000uphoton","status":"ok"}]}
 ```
-check tokens arrived
+check tokens are arrived
 ```
-
+gaiad q bank balances [address]
 ```
 ### Instructions to send token from Cosmoshub testnet to Axelar Network
-1. ibc transfer
+1. ibc transfer from Cosmoshub
 ```
-gaiad tx ibc-transfer transfer transfer channel-23 [axelar address] 1000000uphoton --from [key name] 
+gaiad tx ibc-transfer transfer transfer channel-23 [axelar address] 1000000uphoton --from [key name] -y -b block
 ```
 2. On Axelar Node, check you received the funds
 ```
