@@ -1,11 +1,11 @@
 ---
-id: e1
-sidebar_position: 1
-sidebar_label: Exercise 1
-slug: /exercises/e1
+id: e3
+sidebar_position: 3
+sidebar_label: Exercise 3
+slug: /exercises/e3
 ---
 # Exercise 1
-Transfer BTC to Ethereum (as a wrapped asset) and back via Axelar Network CLI.
+IBC Transfer from Cosmos Hub to Axelar Network
 
 ## Level
 Intermediate
@@ -72,7 +72,7 @@ gaiad q bank balances [address]
 ### Instructions to send token from Cosmoshub testnet to Axelar Network
 1. ibc transfer from Cosmoshub
 ```
-gaiad tx ibc-transfer transfer transfer channel-23 [axelar address] 1000000uphoton --from [key name] -y -b block
+gaiad tx ibc-transfer transfer transfer channel-24 [axelar address] 1000000uphoton --from [key name] -y -b block
 ```
 2. On Axelar Node, check you received the funds
 ```
