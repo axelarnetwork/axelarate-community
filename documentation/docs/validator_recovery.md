@@ -85,5 +85,5 @@ With the help of the key IDs, you can now retrieve the recovery data for the key
 axelard q tss recover $(axelard keys show validator --bech val -a) btc-master btc-secondary --output json > recovery.json
 ```
 
-The command above will fetch the recovery info for the aforementioned keys and store it to the `recovery.json` file.
+The command above will fetch the recovery info for the aforementioned keys and store it to a `recovery.json` file.
 This file will contain the data necessary to perform share recovery.
