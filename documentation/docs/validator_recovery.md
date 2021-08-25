@@ -58,7 +58,7 @@ purchase arrow sword basic gasp category hundred town layer snow mother roast di
 
 The recovery data is stored on chain, and enables a validator to recover key shares it created.
 To obtain the recovery data for those key shares, you need to find out the corresponding key IDs first
-If you do not know which keys the validator is associatef with, attach a terminal to the node's container and perform the command:
+To query the blockchain for these key IDs, attach a terminal to the node's container and perform the command:
 
 ```
 ~/scripts # axelard q tss keySharesValidator $(axelard keys show validator --bech val -a)
