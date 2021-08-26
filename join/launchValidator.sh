@@ -4,6 +4,7 @@ set -e
 AXELAR_CORE_VERSION=""
 TOFND_VERSION=""
 ROOT_DIRECTORY=~/.axelar_testnet
+GIT_ROOT="$(git rev-parse --show-toplevel)"
 TOFND_MNEMONIC=""
 AXELAR_MNEMONIC=""
 RECOVERY_INFO=""
@@ -83,33 +84,41 @@ if [ -f "$TOFND_MNEMONIC" ]; then
   CMD=import
 fi
 
+if [ ! -f "${SHARED_DIRECTORY}/initVald.sh" ]; then
+  cp "${GIT_ROOT}/join/initVald.sh" "${SHARED_DIRECTORY}/initVald.sh"
+fi
+
 docker run                              \
   -d                                    \
   --rm                                  \
   --name tofnd                          \
+  --network axelarate_default           \
   --env MNEMONIC_CMD=$CMD               \
   -v "${TOFND_DIRECTORY}/:/root/.tofnd" \
   "axelarnet/tofnd:${TOFND_VERSION}"
 
-VALIDATOR=$(cat "$SHARED_DIRECTORY/validator.bech")
-BROADCASTER=$(cat "$SHARED_DIRECTORY/broadcaster.bech")
+VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")
 
 docker run                                        \
   -d                                              \
   --rm                                            \
   --name vald                                     \
+  --network axelarate_default                     \
   --env TOFND_HOST=tofnd                          \
   --env VALIDATOR_HOST=http://axelar-core:26657   \
   --env INIT_SCRIPT=/root/shared/initVald.sh      \
   --env CONFIG_PATH=/root/shared/                 \
-  --env SLEEP_TIME=20s                            \
+  --env SLEEP_TIME=2s                             \
   --env PEERS_FILE=/root/shared/peers.txt         \
   --env VALIDATOR_ADDR=$VALIDATOR                 \
   --env RECOVERY_FILE=/root/.axelar/recovery.json \
   --env AXELAR_MNEMONIC=$AXELAR_MNEMONIC          \
-  -v "${VALD_DIRECTORY}/.vald:/root/.axelar"      \
-  -v "${SHARED_DIRECTORY}:/root/shared"           \
-  "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
+  -v "${VALD_DIRECTORY}/:/root/.axelar"           \
+  -v "${SHARED_DIRECTORY}/:/root/shared"          \
+  "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startValdProc
+
+sleep 2s
+BROADCASTER=$(docker exec vald sh -c "axelard keys show broadcaster -a")
 
 echo
 echo "Tofnd & Vald running."
@@ -119,8 +128,8 @@ echo
 echo "To become a validator get some uaxl tokens from the faucet and stake them"
 echo
 
-docker exec axelar-core sh -c "cat /broadcaster.txt"
-docker exec axelar-core sh -c "rm -f /broadcaster.txt"
+docker exec vald sh -c "cat /broadcaster.txt"
+docker exec vald sh -c "rm -f /broadcaster.txt"
 echo
 echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export)"
 echo

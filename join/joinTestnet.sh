@@ -32,10 +32,6 @@ for arg in "$@"; do
     AXELAR_CORE_VERSION="$2"
     shift
     ;;
-    --tofnd)
-    TOFND_VERSION="$2"
-    shift
-    ;;
     *)
     shift
     ;;
@@ -44,11 +40,6 @@ done
 
 if [ -z "$AXELAR_CORE_VERSION" ]; then
   echo "'--axelar-core vX.Y.Z' is required"
-  exit 1
-fi
-
-if [ -z "$TOFND_VERSION" ]; then
-  echo "'--tofnd vX.Y.Z' is required"
   exit 1
 fi
 
@@ -88,6 +79,7 @@ docker run                                           \
   -d                                                 \
   --rm                                               \
   --name axelar-core                                 \
+  --network axelarate_default                        \
   -p 1317:1317                                       \
   -p 26656-26658:26656-26658                         \
   -p 26660:26660                                     \
@@ -99,7 +91,7 @@ docker run                                           \
   --env TENDERMINT_KEY=$TENDERMINT_KEY               \
   -v "${CORE_DIRECTORY}/:/root/.axelar"              \
   -v "${SHARED_DIRECTORY}:/root/shared"              \
-  "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
+  "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startNodeProc
 
 VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")
 
