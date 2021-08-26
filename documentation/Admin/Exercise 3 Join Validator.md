@@ -41,7 +41,7 @@ Bitcoin and Ethereum node configuration will vary for different systems. Detaile
 2. Enable the following configurations.
 
 * Enable the `RPC Server`.
-* Generate the `RPC Auth` value by supplying a username and password (make sure to save the username and password somewhere, you will need it later). An example `RPC Auth` value is 
+* Generate the `RPC Auth` value by supplying a username and password (make sure to save the username and password somewhere, you will need it later). An example `RPC Auth` value is
 ```bash
 rpcauth=jacky:a8e51174a095fe52491f4f487d41053a$9336f388b175ef3a8a63b248446aa3ccd0c8644bbb85ab005d447e164b7e9712
 ```
@@ -162,22 +162,7 @@ eg)
 axelard q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
 ```
 
-3. Find the minimum amount of coins you need to stake. 
-
-To become a full fledged validator that participates in threshold multi-party signatures, your validator needs to stake at least 0.5% or 1/200 of the total staking pool.
-
-Go into the Axelar discord server and find the `testnet` channel. Open up the `pinned` messages at the top right corner and scroll down to the very first pinned message, which contains many links. Find the link for `Monitoring` as well as the testnet user login credentials and use it to sign in.
-
-Once you are signed in to the monitoring dashboard, look for an entry called `Bonded Tokens`. This is the total pool of staked tokens in the network, denominated in `axl`. However, later when you use the CLI, it actually accepts denominations in micro `axl` (`uaxl`) where 1 `axl` = 1,000,000 `uaxl`. 
-
-So to find the minimum amount of coins you need to stake in the next step, calculate `{total pool} * 1000000 / 200`.
-
-eg)
-If the dashboard displays `3k` `Bonded Tokens`, the minimum amount is `3000 * 1000000 / 200 = 15000000`.
-
-:warning: **Important:** Key shares for signing transactions on other chains are distributed proportionally to the validators' stakes on Axelar. In order to keep the number of key shares low for now, please delegate a similar amount of stake as existing validators have, i.e. `100000000uaxl`.
-
-4. Make your `validator` account a validator by staking some coins.
+3. Make your `validator` account a validator by staking some coins.
 
 Use the following command, but change the `amount` to be larger than the minimum stake amount calculated in the last step. Remember that this is actually denominated in `uaxl`. Also change the `moniker` to be a descriptive nickname for your validator.
 
@@ -210,21 +195,64 @@ eg)
 axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y
 ```
 
-5. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
+4. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
 
 ```bash
 axelard tx snapshot registerProxy broadcaster --from validator -y
 ```
 
-6. Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` container will talk with your `tofnd` container through the `vald` module. This is important when events such as key rotation happens on the network.
+5. Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` container will talk with your `tofnd` container through the `vald` container. This is important when events such as key rotation happens on the network.
 
-First, check that the vald process is running. Run the following commands in a new terminal.
+First, check that the vald container is running. Run the following commands in a new terminal.
 
 ```bash
-docker exec axelar-core ps
+docker ps
 ```
 
-Look for a process called `vald-start`. If you see it, then your `vald` module has successfully started and connected with `tofnd`. You're good to go! 
+Look for a container called `vald`.
+
+Now exec into the vald container and ensure that it can communicate tofnd
+
+```bash
+docker exec -ti vald sh
+```
+
+From inside the container run
+```bash
+axelard tofnd-ping --tofnd-host tofnd
+```
+
+If you see a response like `PONG!` , then your `vald` container has successfully started and connected with `tofnd`.
+
+
+6. Find the minimum amount of coins you need to stake.
+
+To become a full-fledged validator that participates in threshold multi-party signatures, your validator needs to stake at least 2% or 1/50 of the total staking pool.
+
+Go into the Axelar discord server and find the `testnet` channel. Open up the `pinned` messages at the top right corner and scroll down to the very first pinned message, which contains many links. Find the link for `Monitoring` as well as the testnet user login credentials and use it to sign in.
+
+Once you are signed in to the monitoring dashboard, look for an entry called `Bonded Tokens`. This is the total pool of staked tokens in the network, denominated in `axl`. However, later when you use the CLI, it actually accepts denominations in micro `axl` (`uaxl`) where 1 `axl` = 1,000,000 `uaxl`.
+
+So to find the minimum amount of coins you need to stake in the next step, calculate `{total pool} * 1000000 / 50`.
+
+eg)
+If the dashboard displays `3k` `Bonded Tokens`, the minimum amount is `3000 * 1000000 / 50 = 60000000`.
+
+:warning: **Important:** Key shares for signing transactions on other chains are distributed proportionally to the validators' stakes on Axelar. In order to keep the number of key shares low for now, please delegate a similar amount of stake as existing validators have, i.e. `100000000uaxl`.
+
+7. Ping the Axelar team in the testnet channel to ask for more tokens. The team will verify that your validator is setup correctly and will send additional funds to your wallet. Once you have confirmation from the team that you have additional funds to stake, check that they are in your wallet and stake them.
+
+```bash
+axelard tx staking delegate {axelarvaloper address} {amount} --from validator -y
+```
+
+eg)
+
+```bash
+axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y
+```
+
+
 
 ### Start-up troubleshoot
 
@@ -260,7 +288,7 @@ You should see entries starting to appear one by one if the connection succeeded
 Save this IP address.
 
 Next, query your validator address with
- 
+
 ```bash
 docker exec axelar-core axelard keys show validator --bech val -a
 ```
@@ -271,7 +299,7 @@ Make sure the validator address that is returned starts with `axelarvaloper`
 Now, start `vald`, providing the IP address and validator address:
 
 ```bash
-docker exec axelar-core axelard vald-start --tofnd-host {your tofnd IP Address} --validator-addr {your validator address} 
+docker exec axelar-core axelard vald-start --tofnd-host {your tofnd IP Address} --validator-addr {your validator address} --node {your axelar-core IP address}
 ```
 eg)
 ```bash
