@@ -46,19 +46,19 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 1. Create a deposit address on Bitcoin (to which you'll deposit coins later)
 
 ```bash
-axelard tx bitcoin link ethereum {ethereum Ropsten dst addr} --from validator -y -b block
--> returns deposit address
+axelard tx bitcoin link ethereum {ethereum Ropsten dst addr} --from validator
+-> returns bitcoin deposit address
 ```
 
 e.g.,
 
 ```bash
-axelard tx bitcoin link ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52 --from validator -y -b block
+axelard tx bitcoin link ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1af2F52 --from validator
 ```
 
 Look for `successfully linked {bitcoin deposit address} and {ethereum Ropsten dst addr}`
 
-2. External: send a TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
+2. External: send some TEST BTC on Bitcoin testnet to the bitcoin deposit address specified above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
 - ALERT: DO NOT SEND ANY REAL ASSETS
 - You can use a bitcoin faucet such as https://bitcoinfaucet.uo1.net/ to send TEST BTC to the deposit address
 - You can monitor the status of your deposit using the testnet explorer: https://blockstream.info/testnet/
@@ -67,13 +67,13 @@ Look for `successfully linked {bitcoin deposit address} and {ethereum Ropsten ds
 3. Confirm the Bitcoin outpoint
 
 ```bash
-axelard tx bitcoin confirmTxOut "{txID:vout}" "{amount}btc" "{deposit address}" --from validator -y -b block
+axelard tx bitcoin confirm-tx-out "{txID:vout}" "{amount}btc" "{deposit address}" --from validator
 ```
 
 e.g.,
 
 ```bash
-axelard tx bitcoin confirmTxOut 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator -y -b block
+axelard tx bitcoin confirm-tx-out 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0 0.00088btc tb1qlteveekr7u2qf8faa22gkde37epngsx9d7vgk98ujtzw77c27k7qk2qvup --from validator
 ```
 
 Wait for transaction to be confirmed (~10 Axelar blocks, ~50 secs).
@@ -85,37 +85,26 @@ bitcoin outpoint confirmation result is
 
 You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 
-4. Trigger signing of the transfers to Ethereum
+4. Trigger signing of the transfers to Ethereum. First create the pending transfers, then sign it.
 
 ```bash
-axelard tx evm sign-pending-transfers ethereum --from validator -y -b block
--> returns commandID of signed tx
--> wait for sign protocol to complete (~10 blocks)
+axelard tx evm create-pending-transfers ethereum --from validator
 ```
-
-Look for commandID and its value in the output: 
-```json
-"key": "commandID",
-"value": "d5e993e407ff399cf2770a1d42bc2baf5308f46632fcbe209318acb09776599f"
+```bash
+axelard tx evm sign-commands ethereum --from validator
 ```
-
-You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e command`.
+Wait for sign protocol to complete (~10 Axelar blocks).
 
 5. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
-```bash
-axelard q evm command ethereum {commandID}
-```
-
-e.g.,
 
 ```bash
-axelard q evm command ethereum 28a523a4d5836df2cdc3af5beffc10ca946e62497d609521504462e043a38fdc
+axelard q evm latest-batched-commands ethereum
 ```
-The command data will be displayed as output.
+Look for the command data listed under `execute_data`. Copy and save it to use in the next step.
 
 6. Send the Ethereum transaction wrapping the command data to execute the mint
 
-Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet. Keep in mind not to transfer any tokens, you just need to input the data from the above `commandID` and send it to the Gateway smart contract (see [Testnet Release](/testnet-releases)). While doing this please make sure the gas price in Metamask is updated once you paste in the data.
+Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet. Keep in mind not to transfer any tokens, you just need to input the data from the above `execute_data` and send it to the Gateway smart contract (see [Testnet Release](/testnet-releases)). While doing this please make sure the gas price in Metamask is updated once you paste in the data.
 
 Alternatively you can open your MEW wallet, and navigate to the "Send Transaction" page, with the advanced options open, too. Now, you need to send a transaction to the Gateway smart contract with **0** Ether, and with data field being the command data you retrieved in the previous step. Your screen should look similar to following and you can just send the transaction to execute and mint your tokens.
 
@@ -123,7 +112,7 @@ Alternatively you can open your MEW wallet, and navigate to the "Send Transactio
 
 (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases), and the "Add Data" field is the command data you got from the previous step)
 
-You can now open Metamask, select "Assets" then "Add Token" then "Custom Token" and then paste the token contract address (see `axelarate-community/TESTNET RELEASE.md` and look for  `Ethereum token contract address` field).
+You can now open Metamask, select "Assets" then "Add Token" then "Custom Token" and then paste the token contract address (see [Testnet Release](/testnet-releases) and look for  `Ethereum token contract address` field).
 
 ### Burn ERC20 wrapped Bitcoin tokens and obtain native Satoshi
 
@@ -132,13 +121,12 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 1. Create a deposit address on Ethereum
 
 ```bash
-axelard tx evm link ethereum bitcoin {destination bitcoin addr} satoshi --from validator -y -b block
--> returns deposit address
+axelard tx evm link ethereum bitcoin {destination bitcoin addr} satoshi --from validator
 ```
 
 e.g.,
 ```bash
-axelard tx evm link ethereum bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator -y -b block
+axelard tx evm link ethereum bitcoin tb1qg2z5jatp22zg7wyhpthhgwvn0un05mdwmqgjln satoshi --from validator
 ```
 
 Look for the Ethereum deposit address as the first output in this line (`0x5CFE...`):
@@ -155,24 +143,27 @@ Make sure to link a Bitcoin address that is controlled by you, e.g. if you link 
 3. Confirm the Ethereum transaction
 
 ```bash
-axelard tx evm confirm-erc20-deposit ethereum {txID} {amount} {deposit addr} --from validator -y -b block
+axelard tx evm confirm-erc20-deposit ethereum {txID} {amount} {deposit addr} --from validator
 ```
 
 Here, amount should be specific in Satoshi. (For instance, 0.0001BTC = 10000)
 e.g.,
 
 ```bash
-axelard tx evm confirm-erc20-deposit ethereum 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator -y -b block
+axelard tx evm confirm-erc20-deposit ethereum 0x01b00d7ed8f66d558e749daf377ca30ed45f747bbf64f2fd268a6d1ea84f916a 10000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator
 ```
-Wait for transaction to be confirmed.	
-Eventually, you'll see something like this in the node terminal:
+Verify that the Ethereum deposit transaction confirmation was successful.
+
 ```bash
-Ethereum deposit confirmation result is {result}
+axelard q evm deposit-state ethereum {txID} {deposit addr}
 ```
 
-You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`.
+e.g.,
 
-You're done! In the next step, a withdrawal must be signed and submitted to the Bitcoin network. 
+```bash
+axelard q evm deposit-state ethereum 0xa959623013b5355de5f023fb3044dae02bf915d57b9440460ca59a98663741a8 0x7c5578F5cC4c9253F1E5495240785DD477843D80
+```
+You should see `deposit transaction is confirmed`.
 
 :::tip
 In this release, we're triggering these commands about once a day. So come back in 24 hours, and check the balance on the Bitcoin testnet address to which you submitted the withdrawal. 
