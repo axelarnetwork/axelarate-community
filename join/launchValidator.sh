@@ -5,22 +5,22 @@ AXELAR_CORE_VERSION=""
 TOFND_VERSION=""
 ROOT_DIRECTORY=~/.axelar_testnet
 GIT_ROOT="$(git rev-parse --show-toplevel)"
-TOFND_MNEMONIC=""
-AXELAR_MNEMONIC=""
-RECOVERY_INFO=""
+TOFND_MNEMONIC_PATH=""
+AXELAR_MNEMONIC_PATH=""
+RECOVERY_INFO_PATH=""
 
 for arg in "$@"; do
   case $arg in
     --proxy-mnemonic)
-    AXELAR_MNEMONIC="$2"
+    AXELAR_MNEMONIC_PATH="$2"
     shift
     ;;
     --tofnd-mnemonic)
-    TOFND_MNEMONIC="$2"
+    TOFND_MNEMONIC_PATH="$2"
     shift
     ;;
     --recovery-info)
-    RECOVERY_INFO="$2"
+    RECOVERY_INFO_PATH="$2"
     shift
     ;;
     -r|--root)
@@ -74,13 +74,13 @@ mkdir -p "$VALD_DIRECTORY"
 TOFND_DIRECTORY="${ROOT_DIRECTORY}/.tofnd"
 mkdir -p "$TOFND_DIRECTORY"
 
-if [ -f "$RECOVERY_INFO" ]; then
-  cp -f "$RECOVERY_INFO" "$VALD_DIRECTORY/recovery.json"
+if [ -f "$RECOVERY_INFO_PATH" ]; then
+  cp -f "$RECOVERY_INFO_PATH" "$VALD_DIRECTORY/recovery.json"
 fi
 
 CMD=create
-if [ -f "$TOFND_MNEMONIC" ]; then
-  cp -f "$TOFND_MNEMONIC" "$TOFND_DIRECTORY/import"
+if [ -f "$TOFND_MNEMONIC_PATH" ]; then
+  cp -f "$TOFND_MNEMONIC_PATH" "$TOFND_MNEMONIC_PATH/import"
   CMD=import
 fi
 
@@ -99,22 +99,22 @@ docker run                              \
 
 VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")
 
-docker run                                        \
-  -d                                              \
-  --rm                                            \
-  --name vald                                     \
-  --network axelarate_default                     \
-  --env TOFND_HOST=tofnd                          \
-  --env VALIDATOR_HOST=http://axelar-core:26657   \
-  --env INIT_SCRIPT=/root/shared/initVald.sh      \
-  --env CONFIG_PATH=/root/shared/                 \
-  --env SLEEP_TIME=2s                             \
-  --env PEERS_FILE=/root/shared/peers.txt         \
-  --env VALIDATOR_ADDR=$VALIDATOR                 \
-  --env RECOVERY_FILE=/root/.axelar/recovery.json \
-  --env AXELAR_MNEMONIC=$AXELAR_MNEMONIC          \
-  -v "${VALD_DIRECTORY}/:/root/.axelar"           \
-  -v "${SHARED_DIRECTORY}/:/root/shared"          \
+docker run                                         \
+  -d                                               \
+  --rm                                             \
+  --name vald                                      \
+  --network axelarate_default                      \
+  --env TOFND_HOST=tofnd                           \
+  --env VALIDATOR_HOST=http://axelar-core:26657    \
+  --env INIT_SCRIPT=/root/shared/initVald.sh       \
+  --env CONFIG_PATH=/root/shared/                  \
+  --env SLEEP_TIME=2s                              \
+  --env PEERS_FILE=/root/shared/peers.txt          \
+  --env VALIDATOR_ADDR=$VALIDATOR                  \
+  --env RECOVERY_FILE=/root/.axelar/recovery.json  \
+  --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH \
+  -v "${VALD_DIRECTORY}/:/root/.axelar"            \
+  -v "${SHARED_DIRECTORY}/:/root/shared"           \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startValdProc
 
 sleep 2s
