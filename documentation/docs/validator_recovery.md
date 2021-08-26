@@ -78,9 +78,9 @@ Currently, the following mnemonic options are supported:
 
 * `update`: Updates existing mnemonic from file *./tofnd/import*; Succeeds when there is an existing mnemonic, fails otherwise. The old passphrase is written to file *.tofnd/export*.
 
-#### Recovering mnemonic for tofnd binaries
+### Backup mnemonic for tofnd binaries
 
-An exercise for creating and recovering your mnemonic using tofnd binary is the following:
+An exercise for creating your mnemonic using tofnd binary is the following:
 1. Start tofnd and produce a mnemonic
     ```
     # cargo run is equivilent to cargo run -- -m create
@@ -103,13 +103,17 @@ An exercise for creating and recovering your mnemonic using tofnd binary is the 
     ```
     rm -rf .tofnd
     ```
-4. Create an new empty *.tofnd* folder, and write your mnemonic into a file under the name *import*. Put this file in *./tofnd/import*. 
+
+### Restore mnemonic for tofnd binaries
+
+An exercise for restoring your tofnd key using your mnemonic is the following:
+1. Create an new empty *.tofnd* folder, and write your mnemonic into a file under the name *import*. Put this file in *./tofnd/import*. 
     ```
     mkdir .tofnd && cd .tofnd
     touch import
     # write your mnemonic at the `import` file
     ```
-4. Start tofnd using the *import* option
+2. Start tofnd using the *import* option
     ```
     cargo run -- -m import
     ```
@@ -121,6 +125,10 @@ An exercise for creating and recovering your mnemonic using tofnd binary is the 
     kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
     Mnemonic successfully added in kv store
     Mnemonic written in file .tofnd/export
+    ```
+3. Delete your mnemonic import and export file
+    ```
+    rm .tofnd/export ./tofnd/import
     ```
 
 ### Recovery data
