@@ -1,10 +1,3 @@
----
-id: validator_recovery
-sidebar_position: 9
-sidebar_label: Validator Recovery
-slug: /validator_recovery
----
-
 ### Overview
 
 This document describes the steps necessary to ensure that a validator node can be restored in case its state is lost. In order to achieve this, it is necessary that the following data is safely backed up:
@@ -16,120 +9,7 @@ This document describes the steps necessary to ensure that a validator node can 
 
 Besides the data described above, it will also be necessary to retrieve the *recovery data* associated to all the key shares that the validator was responsible for maintaining.
 
-### Tendermint validator key
-
-The Tendermint validator key is created when a node is launched for the first time.
-It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` (or from the node's directory at `$NODE_DIRECTORY/.core/config/priv_validator_key.json`).
-Its contents should look something like:
-
-```
-{
-  "address": "98AF6E5D52BBB62BE6717DE8C55F16F5C013D7BE",
-  "pub_key": {
-    "type": "tendermint/PubKeyEd25519",
-    "value": "CcspC1QDG8vz7kIW/7nPvqQ35XFJ5JLn5+li2WshP+o="
-  },
-  "priv_key": {
-    "type": "tendermint/PrivKeyEd25519",
-    "value": "VCG8TTeOSv+n9TOyy465CnUQALnoD/WJG9bloPGX0XUJyykLVAMby/PuQhb/uc++pDflcUnkkufn6WLZayE/6g=="
-  }
-}
-```
-
-### Axelar mnemonics
-
-The Axelar mnemonics are created when an node/validator is launched for the first time and subsequently outputed to the terminal.
-The output looks something like:
-
-```
-**Important** write this mnemonic phrase in a safe place.
-It is the only way to recover your account if you ever forget your password.
-
-range elder logic subject never utility dutch novel sail vacuum model robust coin upper egg trophy track chimney garlic random fury laundry kiss sight
-```
-
-There should be one mnemonic for the Axelar validator key and other for the Axelar proxy key. 
-The former should be displayed after running `join/jointestnet.sh` with a clean slate, while the later should be displayed by `join/launchValidator.sh`.
-
-### Tofnd mnemonic
-
-The tofnd mnemonic is created when a validator is launched for the first time.
-It can be found within the tofnd container at `/.tofnd/export` (or from the node's directory at `$NODE_DIRECTORY/.tofnd/export`).
-Its contents should look something like:
-
-```
-purchase arrow sword basic gasp category hundred town layer snow mother roast digital fragile repeat monitor wrong combine awful nature damage rib skull chalk
-```
-
-#### Mnemonic options
-
-Tofnd can be executed with a mnemonic option as a command-line argument:
-```
-cargo run -- -m <option>
-```
-
-Currently, the following mnemonic options are supported:
-
-* `create` (default): Creates a new mnemonic if there none exists, otherwise does nothing. The new passphrase is written under the file *./tofnd/export*.
-
-* `import`: Adds a new mnemonic from file *.tofnd/import*; Succeeds when there is no other mnemonic already imported, fails otherwise.
-
-* `export`: Writes the existing mnemonic to file *.tofnd/export*; Succeeds when there is an existing mnemonic, fails otherwise.
-
-* `update`: Updates existing mnemonic from file *./tofnd/import*; Succeeds when there is an existing mnemonic, fails otherwise. The old passphrase is written to file *.tofnd/export*.
-
-### Backup mnemonic for tofnd binaries
-
-An exercise for creating your mnemonic using tofnd binary is the following:
-1. Start tofnd and produce a mnemonic
-    ```
-    # cargo run is equivilent to cargo run -- -m create
-    cargo run
-    ```
-    The output should be something similar to the following:
-    ```
-    tofnd listen addr 0.0.0.0:50051, use ctrl+c to shutdown
-    Creating mnemonic
-    kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
-    kv_manager cannot open existing db [.tofnd/kvstore/mnemonic]. creating new db
-    Mnemonic successfully added in kv store
-    Mnemonic written in file .tofnd/export
-    ```
-
-2. Store the mnemonic which has been created in *./tofnd/export*. Remember to delete the *./tofnd/export* file after you have safely stored the mnemonic.
-
-    **Attention:** Be sure you save your mnemonic at an offline safe place. If it's lost, you will not be able to recover your shares.
-3. Delete your *.tofnd* folder. This will delete your mnemonic and all your shares.
-    ```
-    rm -rf .tofnd
-    ```
-
-### Restore mnemonic for tofnd binaries
-
-An exercise for restoring your tofnd key using your mnemonic is the following:
-1. Create an new empty *.tofnd* folder, and write your mnemonic into a file under the name *import*. Put this file in *./tofnd/import*. 
-    ```
-    mkdir .tofnd && cd .tofnd
-    touch import
-    # write your mnemonic at the `import` file
-    ```
-2. Start tofnd using the *import* option
-    ```
-    cargo run -- -m import
-    ```
-    The output should be something similar to the following:
-    ```
-    tofnd listen addr 0.0.0.0:50051, use ctrl+c to shutdown
-    Importing mnemonic
-    kv_manager cannot open existing db [.tofnd/kvstore/mnemonic]. creating new db
-    kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
-    Mnemonic successfully added in kv store
-    Mnemonic written in file .tofnd/export
-    ```
-3. Delete your mnemonic import and export file
-    ```
-    rm .tofnd/export ./tofnd/import
-    ```
+For backup instructions, please see [backup](./validator_backup.md).
 
 ### Recovery data
 
@@ -188,3 +68,41 @@ In order to restore the Tofnd mnemonic and/or key shares, you can use the `--tof
 ```
 ./join/joinTestnet.sh --tofnd-mnemonic /path/to/tofnd/mnemonic/ --recovery-info /path/to/recovery/file/
 ```
+
+### Recover with tofnd binary
+
+In order to recover, you will need to execute tofnd in *import* mode. To do that, use the `import` command-line option:
+
+* `import`: Adds a new mnemonic from file *.tofnd/import*; Succeeds when there is no other mnemonic already imported, fails otherwise.
+
+All tofnd mnemonic options can be displayed by running
+```
+cargo run -- -h
+```
+
+#### Example
+An exercise for restoring your tofnd key using your mnemonic is the following:
+1. Create an new empty *.tofnd* folder, and write your mnemonic into a file under the name *import*. Put this file in *./tofnd/import*. 
+    ```
+    mkdir .tofnd && cd .tofnd
+    touch import
+    # write your mnemonic at the `import` file
+    ```
+2. Start tofnd using the *import* option
+    ```
+    cargo run -- -m import
+    ```
+    The output should be something similar to the following:
+    ```
+    tofnd listen addr 0.0.0.0:50051, use ctrl+c to shutdown
+    Importing mnemonic
+    kv_manager cannot open existing db [.tofnd/kvstore/mnemonic]. creating new db
+    kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
+    Mnemonic successfully added in kv store
+    Mnemonic written in file .tofnd/export
+    ```
+    **Note:** In order to successfully restore tofnd state, the validator you are running needs to have the `recover.json` file in place. For more information, see [Recovery Data](#RecoveryData).
+3. Delete your mnemonic import and export file
+    ```
+    rm .tofnd/export ./tofnd/import
+    ```
