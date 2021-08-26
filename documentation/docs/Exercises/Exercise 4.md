@@ -5,7 +5,7 @@ sidebar_label: Exercise 4
 slug: /exercises/e4
 ---
 # Exercise 4
-Transfer Asset from Cosmos Hub to Ethereum via Axelar Network
+Transfer Asset from Cosmos Hub to Axelar Network via Gaia CLI and Axelar Network CLI
 
 ## Level
 Intermediate
@@ -21,10 +21,9 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup](/setup.md) to make sure your node is up to date, and you received some test coins to your validator account.
+Follow the instructions in [Setup](/setup.md) to make sure your node is up to date, and you received some test coins to your account.
 
-## Connect to the Cosmos Hub testnet
-You can skip this section if you already setup in exercise 3
+## Connect to the Cosmoshub testnet
 
 ### Setup gaia cli
 
@@ -44,7 +43,7 @@ You can skip this section if you already setup in exercise 3
    ```
 4. Initialize the node
    
-   [moniker] could be any name you like 
+   [moniker] can be any name you like 
    ```
    gaiad init [moniker]
    ```
@@ -58,6 +57,7 @@ You can skip this section if you already setup in exercise 3
    gaiad q block
    ```
 5. Create a key pair
+   
    [cosmos-key-name] can be any name you like
    ```
    gaiad keys add [cosmos-key-name]
@@ -71,6 +71,7 @@ You can skip this section if you already setup in exercise 3
    {"transfers":[{"coin":"100000000uphoton","status":"ok"}]}
    ```
    Check tokens are arrived
+   
    [cosmoshub address] is the address you created in step 5, associates with the [cosmos-key-name]
    ```
    gaiad q bank balances [cosmoshub address]
@@ -84,7 +85,7 @@ You can skip this section if you already setup in exercise 3
    [cosmos-key-name] is the one you generated in setup 5 above.
 
    ```
-   gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] 1000000uphoton --from [cosmos-key-name] -y -b block
+   gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] [amount]uphoton --from [cosmos-key-name] -y -b block
    ```
    Wait ~10 secs for the relayer to relayer your transaction
 2. On a new terminal window, enter Axelar node,
@@ -93,7 +94,7 @@ You can skip this section if you already setup in exercise 3
    ```   
 3. Check you received the funds
 
-   [axelar address] is the address you generated in Exercise 3
+   [axelar address] is the address you generated in Exercise 3, and used in step 1 above
    ```
    axelard q bank balances [axelar address]
    ```

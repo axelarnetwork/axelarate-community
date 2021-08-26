@@ -55,7 +55,8 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
 2. Create a deposit address on Bitcoin (to which you'll deposit coins later)
    
-    The [Axelar Network dst addr] is the address you created in setp 1, assocaited with your [key-name]
+    The [axelar network dst addr] is the address you created in setp 1, assocaited with your [key-name]\
+    [key name] is the name you used in step1
     ```
     axelard tx bitcoin link axelarnet [Axelar Network dst addr] --from [key-name]
     -> returns deposit address
@@ -75,7 +76,8 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
 
 4. Confirm the Bitcoin outpoint
-
+   
+   [key name] is the name you used in step1
     ```bash
     axelard tx bitcoin confirm-tx-out "[txID:vout]" "[amount]btc" "[deposit address]" --from [key-name]
     ```
@@ -95,6 +97,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
     You can search it using `docker logs -f validator 2>&1 | grep -a -e outpoint`.
 5. Execute pending deposit on Axelar Network
+   [key name] is the name you used in step1
    ```
    axelard tx axelarnet execute-pending-transfers --from [key-name] --gas auto --gas-adjustment 1.2
    ```
@@ -116,7 +119,8 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
 1. Create a deposit address on Axelar Network
-
+   
+   [key name] is the name you used in step1
    ```bash
    axelard tx axelarnet link bitcoin [destination bitcoin addr] satoshi --from [key-name]
    -> returns deposit address
@@ -150,6 +154,13 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
 
 3. Confirm the deposit transaction
+   
+   [txhash] is from the above command
+   
+   [amount] is same as was sent
+
+   [key name] is the name you used in step1
+   
    ```
    axelard tx axelarnet confirm-deposit [txhash] [amount]satoshi [Axelar Network deposit address] --from [my-key]
    ```
