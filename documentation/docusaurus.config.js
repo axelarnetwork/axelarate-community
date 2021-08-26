@@ -52,12 +52,6 @@ module.exports = {
           label: "Testnet Release",
         },
         {
-          to: "/validator_recovery",
-          activeBasePath: "/validator_recovery",
-          position: "left",
-          label: "Validator Recovery",
-        },
-        {
           href: "https://github.com/axelarnetwork",
           className: "github",
           position: "right",
