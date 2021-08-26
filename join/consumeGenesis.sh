@@ -8,6 +8,7 @@ fi
 
 if [ -f "$AXELAR_MNEMONIC" ]; then
   axelard keys add validator --recover <"$AXELAR_MNEMONIC"
+  touch "/validator.txt"
 else
   axelard keys add validator >"/validator.txt" 2>&1
 fi

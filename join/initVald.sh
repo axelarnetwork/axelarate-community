@@ -6,6 +6,7 @@ shared_dir=/root/shared
 
 if [ -f "$AXELAR_MNEMONIC" ]; then
   axelard keys add broadcaster --recover <"$AXELAR_MNEMONIC"
+    touch "/broadcaster.txt"
 else
   axelard keys add broadcaster >"/broadcaster.txt" 2>&1
 fi
