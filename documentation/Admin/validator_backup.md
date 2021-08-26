@@ -12,7 +12,7 @@ For recover instructions, please see [recover](./validator_recover.md).
 ### Tendermint validator key
 
 The Tendermint validator key is created when a node is launched for the first time.
-It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` (or from the node's directory at `$NODE_DIRECTORY/.core/config/priv_validator_key.json`).
+It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` (or from the host's directory at `$NODE_DIRECTORY/.core/config/priv_validator_key.json`).
 
 #### Key backup 
 
@@ -56,7 +56,7 @@ The former should be displayed after running `join/jointestnet.sh` with a clean 
 ### Tofnd mnemonic
 
 The tofnd mnemonic is created when a validator is launched for the first time.
-It can be found within the tofnd container at `/.tofnd/export` (or from the node's directory at `$NODE_DIRECTORY/.tofnd/export`).
+It can be found within the tofnd container at `/.tofnd/export` (or from the host's directory at `$NODE_DIRECTORY/.tofnd/export`).
 
 Its contents should look something like:
 
