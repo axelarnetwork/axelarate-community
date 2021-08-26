@@ -85,6 +85,8 @@ if [ ! -f "${SHARED_DIRECTORY}/consumeGenesis.sh" ]; then
 fi
 
 docker run                                           \
+  -d                                                 \
+  --rm                                               \
   --name axelar-core                                 \
   -p 1317:1317                                       \
   -p 26656-26658:26656-26658                         \
@@ -98,3 +100,18 @@ docker run                                           \
   -v "${CORE_DIRECTORY}/:/root/.axelar"              \
   -v "${SHARED_DIRECTORY}:/root/shared"              \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
+
+VALIDATOR=$(cat "$SHARED_DIRECTORY/validator.bech")
+
+echo
+echo "Axelar node running."
+echo
+echo "Validator address: $VALIDATOR"
+echo
+docker exec axelar-core sh -c "cat /validator.txt"
+docker exec axelar-core sh -c "rm -f /validator.txt"
+echo
+echo "Do not forget to also backup the tendermint key (${CORE_DIRECTORY}/config/priv_validator_key.json)"
+echo
+echo "To follow execution, run `docker logs -f axelar-core`"
+echo "To stop the node, run `docker stop axelar-core`"

@@ -112,6 +112,19 @@ docker run                                        \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
 
 echo
-echo "Validator address: $VALIDATOR"
+echo "Tofnd & Vald running."
+echo
 echo "Proxy address: $BROADCASTER"
 echo
+echo "To become a validator get some uaxl tokens from the faucet and stake them"
+echo
+
+docker exec axelar-core sh -c "cat /broadcaster.txt"
+docker exec axelar-core sh -c "rm -f /broadcaster.txt"
+echo
+echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export)"
+echo
+echo "To follow tofnd execution, run `docker logs -f tofnd`"
+echo "To follow vald execution, run `docker logs -f vald`"
+echo "To stop tofnd, run `docker stop tofnd`"
+echo "To stop vald, run `docker stop vald`"

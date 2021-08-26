@@ -9,7 +9,7 @@ fi
 if [ -f "$AXELAR_MNEMONIC" ]; then
   axelard keys add validator --recover <"$AXELAR_MNEMONIC"
 else
-  axelard keys add validator
+  axelard keys add validator >"/validator.txt" 2>&1
 fi
 
 axelard keys show validator -a --bech val > "/root/shared/validator.bech"
