@@ -133,3 +133,40 @@ Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data a
 (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases), and the "Add Data" field is the command data you got from the previous step)
 
 You can now open Metamask, select "Assets" then "Add Token" then "Custom Token" and then paste the Ethereum Phanton contract address (see `axelarate-community/TESTNET RELEASE.md` and look for  `Ethereum Phanton contract address` field).
+
+###  Burn ERC20 wrapped Photon tokens and send back to Cosmoshub 
+1. Create a deposit address on Ethereum
+
+```
+axelard tx evm link ethereum axelarnet $(axelard keys show validator -a) uphoton --from validator
+```
+Look for `successfully linked [Ethereum Ropsten deposit address] and [Axelar Network dst addr]`
+2. External: send wrapped tokens to deposit address (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. Wait for 30 Ethereum block confirmations. You can monitor the status of your deposit using the testnet explorer: https://ropsten.etherscan.io/
+
+3. Confirm the Ethereum transaction
+
+```bash
+axelard tx evm confirm-erc20-deposit ethereum [txID] [amount] [deposit addr] --from validator
+```
+Here, amount should be specific in uphoton. (For instance, 1photon = 1000000uphoton)
+e.g.,
+
+```bash
+axelard tx evm confirm-erc20-deposit ethereum 0xb82e454a273cb32ed45a435767982293c12bf099ba419badc0a728e731f5825e 1000000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator
+```
+
+Wait for transaction to be confirmed.
+You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`.
+4. Execute pending deposit on Axelar Network
+```
+axelard tx axelarnet execute-pending-transfers --from validator --gas auto --gas-adjustment 1.2
+```
+5. Verify you revied the funds
+```
+axelard q bank balances $(axelard keys show validator -a)
+```
+You should see the deposited `ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A` token
+6. Send IBC token back to Cosmoshub
+```
+axelard tx ibc-transfer transfer transfer channel-0 [cosmoshub address] [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A"  --from validator
+```
