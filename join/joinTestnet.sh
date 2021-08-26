@@ -7,9 +7,19 @@ TOFND_VERSION=""
 RESET_CHAIN=false
 ROOT_DIRECTORY=~/.axelar_testnet
 GIT_ROOT="$(git rev-parse --show-toplevel)"
+TENDERMINT_KEY=""
+AXELAR_MNEMONIC=""
 
 for arg in "$@"; do
   case $arg in
+    --validator-mnemonic)
+    AXELAR_MNEMONIC="$2"
+    shift
+    ;;
+    --tendermint-key)
+    TENDERMINT_KEY="$2"
+    shift
+    ;;
     --reset-chain)
     RESET_CHAIN=true
     shift
@@ -83,6 +93,8 @@ docker run                                           \
   --env PEERS_FILE=/root/shared/peers.txt            \
   --env INIT_SCRIPT=/root/shared/consumeGenesis.sh   \
   --env CONFIG_PATH=/root/shared/                    \
+  --env AXELAR_MNEMONIC=$AXELAR_MNEMONIC             \
+  --env TENDERMINT_KEY=$TENDERMINT_KEY               \
   -v "${CORE_DIRECTORY}/:/root/.axelar"              \
   -v "${SHARED_DIRECTORY}:/root/shared"              \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
