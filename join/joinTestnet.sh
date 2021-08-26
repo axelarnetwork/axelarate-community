@@ -115,3 +115,4 @@ echo "Do not forget to also backup the tendermint key (${CORE_DIRECTORY}/config/
 echo
 echo "To follow execution, run 'docker logs -f axelar-core'"
 echo "To stop the node, run 'docker stop axelar-core'"
+echo

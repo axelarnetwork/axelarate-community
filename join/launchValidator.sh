@@ -128,3 +128,4 @@ echo "To follow tofnd execution, run 'docker logs -f tofnd'"
 echo "To follow vald execution, run 'docker logs -f vald'"
 echo "To stop tofnd, run 'docker stop tofnd'"
 echo "To stop vald, run 'docker stop vald'"
+echo
