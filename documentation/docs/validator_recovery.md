@@ -7,7 +7,7 @@ slug: /validator_recovery
 
 ### Overview
 
-This document describes the steps necessary to ensure that a validator node can be restored in case its state is lots. In order to achieve this, it is necessary that the following data is safely backed up:
+This document describes the steps necessary to ensure that a validator node can be restored in case its state is lost. In order to achieve this, it is necessary that the following data is safely backed up:
 
 * Tendermint validator key
 * Axelar validator mnemonic
