@@ -19,7 +19,7 @@ Besides the data described above, it will also be necessary to retrieve the *rec
 ### Tendermint validator key
 
 The Tendermint validator key is created when a node is launched for the first time.
-It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` (or from the node's root directory at `$ROOT_DIRECTORY/.core/config/priv_validator_key.json`).
+It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` (or from the node's directory at `$NODE_DIRECTORY/.core/config/priv_validator_key.json`).
 Its contents should look something like:
 
 ```
@@ -49,12 +49,12 @@ range elder logic subject never utility dutch novel sail vacuum model robust coi
 ```
 
 There should be one mnemonic for the Axelar validator key and other for the Axelar proxy key. 
-The former should be displayed by the node container, while the later should be displayed by vald container.
+The former should be displayed after running `join/jointestnet.sh` with a clean slate, while the later should be displayed by `join/launchValidator.sh`.
 
 ### Tofnd mnemonic
 
 The tofnd mnemonic is created when a validator is launched for the first time.
-It can be found within the tofnd container at `/.tofnd/export` (or from the node's root directory at `$ROOT_DIRECTORY/.tofnd/export`).
+It can be found within the tofnd container at `/.tofnd/export` (or from the node's directory at `$NODE_DIRECTORY/.tofnd/export`).
 Its contents should look something like:
 
 ```
@@ -126,11 +126,11 @@ An exercise for creating and recovering your mnemonic using tofnd binary is the 
 ### Recovery data
 
 The recovery data is stored on chain, and enables a validator to recover key shares it created.
-To obtain the recovery data for those key shares, you need to find out the corresponding key IDs first
+To obtain the recovery data for those key shares, you need to find out the corresponding key IDs first.
 To query the blockchain for these key IDs, attach a terminal to the node's container and perform the command:
 
 ```
-~/scripts # axelard q tss keySharesValidator $(axelard keys show validator --bech val -a)
+~/scripts # axelard q tss key-shares-validator $(axelard keys show validator --bech val -a)
 - key_chain: Bitcoin
   key_id: btc-master
   key_role: KEY_ROLE_MASTER_KEY
@@ -156,3 +156,27 @@ axelard q tss recover $(axelard keys show validator --bech val -a) btc-master bt
 
 The command above will fetch the recovery info for the aforementioned keys and store it to a `recovery.json` file.
 This file will contain the data necessary to perform share recovery.
+
+### Recovering an Axelar node
+
+In order to restore the Tendermint key and/or the Axelar validator key used by an Axelard node, you can use the `--tendermint-key` and `--validator-mnemonic` flags with `join/joinTestnet.sh` as follows:
+
+```
+./join/joinTestnet.sh --tendermint-key /path/to/tendermint/key/ --validator-mnemonic /path/to/axelar/mnemonic/
+```
+
+### Recovering the Vald process
+
+In order to restore the Axelar proxy key used by the Vald process, you can use the `--validator-mnemonic` flag with `join/launchValidator.sh` as follows:
+
+```
+./join/joinTestnet.sh --proxy-mnemonic /path/to/axelar/mnemonic/
+```
+
+### Recovering Tofnd state
+
+In order to restore the Tofnd mnemonic and/or key shares, you can use the `--tofnd-mnemonic` and `--recovery-info` flags with `join/launchValidator.sh` as follows:
+
+```
+./join/joinTestnet.sh --tofnd-mnemonic /path/to/axelar/mnemonic/ --recovery-info /path/to/recovery/file/
+```
