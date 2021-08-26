@@ -124,7 +124,7 @@ docker exec axelar-core sh -c "rm -f /broadcaster.txt"
 echo
 echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export)"
 echo
-echo "To follow tofnd execution, run `docker logs -f tofnd`"
-echo "To follow vald execution, run `docker logs -f vald`"
-echo "To stop tofnd, run `docker stop tofnd`"
-echo "To stop vald, run `docker stop vald`"
+echo "To follow tofnd execution, run 'docker logs -f tofnd'"
+echo "To follow vald execution, run 'docker logs -f vald'"
+echo "To stop tofnd, run 'docker stop tofnd'"
+echo "To stop vald, run 'docker stop vald'"
