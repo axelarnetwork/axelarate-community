@@ -186,5 +186,5 @@ In order to restore the Axelar proxy key used by the Vald process, you can use t
 In order to restore the Tofnd mnemonic and/or key shares, you can use the `--tofnd-mnemonic` and `--recovery-info` flags with `join/launchValidator.sh` as follows:
 
 ```
-./join/joinTestnet.sh --tofnd-mnemonic /path/to/axelar/mnemonic/ --recovery-info /path/to/recovery/file/
+./join/joinTestnet.sh --tofnd-mnemonic /path/to/tofnd/mnemonic/ --recovery-info /path/to/recovery/file/
 ```
