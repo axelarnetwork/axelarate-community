@@ -7,9 +7,6 @@ slug: /exercises/e3
 # Exercise 3
 Transfer BTC to Axelar Network (as a wrapped asset) and back via Axelar Network CLI.
 
-## Prerequisites
-- Complete all steps from [Setup](/setup.md)
-
 ## Level
 Intermediate
 
@@ -55,7 +52,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
 2. Create a deposit address on Bitcoin (to which you'll deposit coins later)
    
-    The [axelar network dst addr] is the address you created in setp 1, assocaited with your [key-name]\
+    The [axelar network dst addr] is the address you created in step 1, associated with your [key-name]\
     [key name] is the name you used in step1
     ```
     axelard tx bitcoin link axelarnet [Axelar Network dst addr] --from [key-name]
@@ -103,7 +100,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
    ```
 6. Check tokens are arrived
    
-   The [Axelar Network dst addr] is the address you created in setp 1, assocaited with your [key-name]
+   The [Axelar Network dst addr] is the address you created in step 1, associated with your [key-name]
    ```
    axelard q bank balances [Axelar Network dst addr]
    ```
