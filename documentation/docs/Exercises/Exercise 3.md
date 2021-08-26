@@ -144,6 +144,9 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
    ```
    axelard tx bank send $(axelard keys show my-key -a) axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v 10000satoshi --from my-key
    ```
+   :::tip
+   Please do not send the whole amount, you will need some satoshi in Exercise 5 
+   :::
 
 
 3. Confirm the deposit transaction
