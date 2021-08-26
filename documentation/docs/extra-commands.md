@@ -64,7 +64,7 @@ Returns the latest consolidation transaction for the given key role. This transa
 ### Query the Deposit Address for a Linked Recipient Address
 For a bitcoin deposit address and ethereum recipient address:
 ```bash
-axelard q bitcoin deposit-address [chain] [recipient address]
+axelard q bitcoin deposit-address [recipient chain] [recipient address]
 ```
 eg)
 
@@ -74,7 +74,7 @@ axelard q bitcoin deposit-address ethereum 0xc1c0c8D2131cC866834C6382096EaDFEf1a
 
 For an ethereum deposit address and bitcoin recipient address:
 ```bash
-axelard q evm deposit-address ethereum [chain] [recipient address] [symbol]
+axelard q evm deposit-address ethereum [recipient chain] [recipient address] [asset denomination]
 ```
 eg)
 
@@ -87,12 +87,12 @@ Returns the native chain deposit address for a linked, cross chain recipient adr
 
 ### Query the State of a Bitcoin Deposit Transaction
 ```bash
-axelard q bitcoin txState [txID:vout]
+axelard q bitcoin deposit-status [txID:vout]
 ```
 eg)
 
 ```bash
-axelard q bitcoin txState 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0
+axelard q bitcoin deposit-status 615df0b4d5053630d24bdd7661a13bea28af8bc1eb0e10068d39b4f4f9b6082d:0
 ```
 
 Returns the state of the deposit transaction (whether its been confirmed on bitcoin) as seen by Axelar network.
