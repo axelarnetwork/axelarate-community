@@ -73,7 +73,7 @@ gaiad q bank balances [address]
 ### Instructions to send token from Cosmoshub testnet to Axelar Network
 1. Send an IBC transfer from Cosmoshub testnet to Axelar Network 
    
-   You can find `Cosmoshub channel id` under [Testnet Release](/../testnet-releases.md)
+   You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases.md)
 ```
 gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] 1000000uphoton --from [key name] -y -b block
 ```
