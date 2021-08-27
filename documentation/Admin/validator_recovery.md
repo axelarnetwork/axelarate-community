@@ -22,7 +22,7 @@ In order to restore the Tendermint key and/or the Axelar validator key used by a
 
 The recovery data is stored on chain, and enables a validator to recover key shares it created.
 To obtain the recovery data for those key shares, you need to find out the corresponding key IDs first.
-To query the blockchain for these key IDs, attach a terminal to the node's container and perform the command:
+To query the blockchain for these key IDs - and assuming that the Axelar validator account has already been restored - attach a terminal to the node's container and perform the command:
 
 ```
 ~/scripts # axelard q tss key-shares-validator $(axelard keys show validator --bech val -a)
