@@ -11,6 +11,13 @@ Besides the data described above, it will also be necessary to retrieve the *rec
 
 For backup instructions, please see [backup](./validator_backup.md).
 
+### Recovering an Axelar node
+
+In order to restore the Tendermint key and/or the Axelar validator key used by an Axelard node, you can use the `--tendermint-key` and `--validator-mnemonic` flags with `join/joinTestnet.sh` as follows:
+
+```
+./join/joinTestnet.sh --tendermint-key /path/to/tendermint/key/ --validator-mnemonic /path/to/axelar/mnemonic/
+```
 ### Recovery data
 
 The recovery data is stored on chain, and enables a validator to recover key shares it created.
@@ -44,14 +51,6 @@ axelard q tss recover $(axelard keys show validator --bech val -a) btc-master bt
 
 The command above will fetch the recovery info for the aforementioned keys and store it to a `recovery.json` file.
 This file will contain the data necessary to perform share recovery.
-
-### Recovering an Axelar node
-
-In order to restore the Tendermint key and/or the Axelar validator key used by an Axelard node, you can use the `--tendermint-key` and `--validator-mnemonic` flags with `join/joinTestnet.sh` as follows:
-
-```
-./join/joinTestnet.sh --tendermint-key /path/to/tendermint/key/ --validator-mnemonic /path/to/axelar/mnemonic/
-```
 
 ### Recovering the vald process
 
