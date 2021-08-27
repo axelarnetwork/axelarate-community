@@ -55,11 +55,15 @@ The former should be displayed after running `join/joinTestnet.sh` with a clean 
 
 ### Tofnd mnemonic
 
-The tofnd mnemonic is created when a validator is launched for the first time.
-It can be found within the tofnd container at `/.tofnd/export` (or on the host at `$HOME/.axelar_testnet/.tofnd/export`).
+Tofnd needs to be provided with a mnemonic the first time it operates. From this mnemonic, an private key is derived and stored in tofnd's internal database. The private key is used to encrypt and decrypt the recovery information of the user. 
 
-Its contents should look something like:
+By default, a tofnd mnemonic is created when a validator is launched for the first time. Users can use this mnenonic to recover their information in case of data loss. Once a private key is created and stored at tofnd's internal database, the mnemonic file is no longer needed.
 
+If you are running tofnd in a **containerized environment**, the mnemonic can be found within the tofnd container at `/.tofnd/export`, or at the mounted volume at the host machine at `$HOME/.axelar_testnet/.tofnd/export`.
+
+If you are running tofnd as a **binary**, the mnemonic can be found under the directory from which you ran the executable, at `$TOFND_PATH/.tofnd/export`.
+
+The mnemonic file should look something like:
 ```
 purchase arrow sword basic gasp category hundred town layer snow mother roast digital fragile repeat monitor wrong combine awful nature damage rib skull chalk
 ```
