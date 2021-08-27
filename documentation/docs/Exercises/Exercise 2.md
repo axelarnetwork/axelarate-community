@@ -12,7 +12,7 @@ C2D2 is the axelar cross-chain dapp deamon which coordinates the necessary trans
 The C2D2 CLI automates the steps we performed manually in exercise 1.
 
 ## Status
-Work in progress. 
+Inactive/Completed
 
 ## Level 
 Intermediate
