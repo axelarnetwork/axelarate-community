@@ -59,7 +59,7 @@ Tofnd needs to be provided with a mnemonic the first time it operates. From this
 
 By default, a mnemonic is created when tofnd is launched for the first time. Users can use this mnenonic to recover their information in case of data loss. Once a private key is created and stored at tofnd's internal database, the mnemonic file is no longer needed.
 
-If you are running tofnd in a **containerized environment**, the mnemonic can be found within the tofnd container at `/.tofnd/export`, or at the mounted volume at the host machine at `$HOME/.axelar_testnet/.tofnd/export`.
+If you are running tofnd in a **containerized environment**, the mnemonic can be found within the tofnd container at `/.tofnd/export`, or on the mounted volume on the host machine at `$HOME/.axelar_testnet/.tofnd/export`.
 
 If you are running tofnd as a **binary**, the mnemonic can be found under the directory from which you ran the executable, at `$TOFND_PATH/.tofnd/export`.
 
