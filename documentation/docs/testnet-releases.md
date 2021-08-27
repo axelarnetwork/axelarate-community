@@ -9,8 +9,12 @@ slug: /testnet-releases
 
 Variable  | Value
 ------------- | -------------
-`axelar-core` version | `v0.5.2`
-`tofnd` version | `v0.4.0`
-`c2d2` version | `v0.3.1`
-Ethereum Axelar Gateway contract address | `0xfeb67aebA01fBca4A13a832ba358425b07D484F7`
-Ethereum token contract address | `0xfd6eC1a4A9387D112F7Eee59d7980Ec6f04AfF32`
+`axelar-core` version | `v0.7.1`
+`tofnd` version | `v0.6.0`
+`c2d2` version | `inactive`
+Ethereum Axelar Gateway contract address | `0x3AfaBBa14b765c0795dbbDBa5fA8eB2774975707`
+Ethereum axelarBTC token address | `0x696eF2982644496A0cc2C0F510Da9456deD76567`
+Ethereum AXL token address | `0x77B5f8E3852b6A94C0b6fe952E32cC7c7054C528`
+Ethereum axlPHOTON token address | `0x3F39AaB03A5898b3e1a6eFf1f4BA605852dFe0Ff`
+Cosmoshub channel id | `channel-30 `
+
