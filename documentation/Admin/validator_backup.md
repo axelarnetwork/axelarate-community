@@ -68,44 +68,4 @@ The mnemonic file should look something like:
 purchase arrow sword basic gasp category hundred town layer snow mother roast digital fragile repeat monitor wrong combine awful nature damage rib skull chalk
 ```
 
-**Attention:** Be sure to store this mnemonic at a safe, offline place.
-
-#### Mnemonic backup
-
-Tofnd can be executed with a mnemonic option as a command-line argument:
-```
-cargo run -- -m <option>
-```
-
-Currently, the following mnemonic options are supported for backup:
-
-* `create` (default): Creates a new mnemonic if there exists none, otherwise does nothing. The new passphrase is written into the file *./tofnd/export*.
-
-* `export`: Writes the existing mnemonic to file *.tofnd/export*; Succeeds when there is an existing mnemonic, fails otherwise.
-
-All tofnd mnemonic options can be displayed by running
-```
-cargo run -- -h
-```
-
-#### Using tofnd binaries
-
-An exercise for creating your mnemonic using tofnd binary is the following:
-1. Start tofnd and produce a mnemonic
-    ```
-    # cargo run is equivilent to cargo run -- -m create
-    cargo run
-    ```
-    The output should be something similar to the following:
-    ```
-    tofnd listen addr 0.0.0.0:50051, use ctrl+c to shutdown
-    Creating mnemonic
-    kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
-    kv_manager cannot open existing db [.tofnd/kvstore/mnemonic]. creating new db
-    Mnemonic successfully added in kv store
-    Mnemonic written in file .tofnd/export
-    ```
-
-2. Store the mnemonic which has been created in *./tofnd/export*. Remember to delete the *./tofnd/export* file after you have safely stored the mnemonic.
-
-    **Attention:** Be sure you save your mnemonic at a safe offline place. If it's lost, you will not be able to recover your shares.
+**Attention:** Be sure to store your mnemonic at a safe, offline place. After storing it, be sure it is deleted from tofnd's container or tofnd's host machine.
