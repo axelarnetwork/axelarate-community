@@ -56,7 +56,7 @@ The former should be displayed after running `join/jointestnet.sh` with a clean 
 ### Tofnd mnemonic
 
 The tofnd mnemonic is created when a validator is launched for the first time.
-It can be found within the tofnd container at `/.tofnd/export` (or from the host's directory at `$NODE_DIRECTORY/.tofnd/export`).
+It can be found within the tofnd container at `/.tofnd/export` (or from the host's directory at `$HOME/.axelar_testnet/.tofnd/export`).
 
 Its contents should look something like:
 
