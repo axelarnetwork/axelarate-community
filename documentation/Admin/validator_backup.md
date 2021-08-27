@@ -12,7 +12,7 @@ For recover instructions, please see [recover](./validator_recover.md).
 ### Tendermint validator key
 
 The Tendermint validator key is created when a node is launched for the first time.
-It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` (or from the host's directory at `$HOME/.axelar_testnet/.core/config/priv_validator_key.json`).
+It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` (or on the host at `$HOME/.axelar_testnet/.core/config/priv_validator_key.json`).
 
 #### Key backup 
 
@@ -48,15 +48,15 @@ range elder logic subject never utility dutch novel sail vacuum model robust coi
 
 #### Mnemonic backup 
 
-There should be one mnemonic for the Axelar validator key and other for the Axelar proxy key. 
-The former should be displayed after running `join/jointestnet.sh` with a clean slate, while the later should be displayed by `join/launchValidator.sh`.
+There should be one mnemonic for the Axelar validator key and another for the Axelar proxy key. 
+The former should be displayed after running `join/joinTestnet.sh` with a clean slate, while the latter should be displayed by `join/launchValidator.sh`.
 
 **Attention:** Be sure to store this mnemonic at a safe, offline place.
 
 ### Tofnd mnemonic
 
 The tofnd mnemonic is created when a validator is launched for the first time.
-It can be found within the tofnd container at `/.tofnd/export` (or from the host's directory at `$HOME/.axelar_testnet/.tofnd/export`).
+It can be found within the tofnd container at `/.tofnd/export` (or on the host at `$HOME/.axelar_testnet/.tofnd/export`).
 
 Its contents should look something like:
 
@@ -75,7 +75,7 @@ cargo run -- -m <option>
 
 Currently, the following mnemonic options are supported for backup:
 
-* `create` (default): Creates a new mnemonic if there none exists, otherwise does nothing. The new passphrase is written under the file *./tofnd/export*.
+* `create` (default): Creates a new mnemonic if there exists none, otherwise does nothing. The new passphrase is written into the file *./tofnd/export*.
 
 * `export`: Writes the existing mnemonic to file *.tofnd/export*; Succeeds when there is an existing mnemonic, fails otherwise.
 
@@ -104,4 +104,4 @@ An exercise for creating your mnemonic using tofnd binary is the following:
 
 2. Store the mnemonic which has been created in *./tofnd/export*. Remember to delete the *./tofnd/export* file after you have safely stored the mnemonic.
 
-    **Attention:** Be sure you save your mnemonic at an offline safe place. If it's lost, you will not be able to recover your shares.
+    **Attention:** Be sure you save your mnemonic at a safe offline place. If it's lost, you will not be able to recover your shares.

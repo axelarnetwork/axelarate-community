@@ -7,7 +7,7 @@ This document describes the steps necessary to ensure that a validator node can 
 * Axelar proxy mnemonic
 * Tofnd mnemonic
 
-Besides the data described above, it will also be necessary to retrieve the *recovery data* associated to all the key shares that the validator was responsible for maintaining.
+Besides the data described above, it will also be necessary to retrieve the *recovery data* associated with all the key shares that the validator was responsible for maintaining.
 
 For backup instructions, please see [backup](./validator_backup.md).
 
@@ -53,7 +53,7 @@ In order to restore the Tendermint key and/or the Axelar validator key used by a
 ./join/joinTestnet.sh --tendermint-key /path/to/tendermint/key/ --validator-mnemonic /path/to/axelar/mnemonic/
 ```
 
-### Recovering the Vald process
+### Recovering the vald process
 
 In order to restore the Axelar proxy key used by the Vald process, you can use the `--validator-mnemonic` flag with `join/launchValidator.sh` as follows:
 
