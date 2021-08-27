@@ -31,7 +31,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Useful commands
 Axelar nodes run up to three docker containers (`axelar-core` for the core consensus engine, `vald` for broadcasting transactions according to chain events, and `tofnd` for threshold crypto operations). 
-If running a non-validator node, only the `axelar-core` container needs to be running.
+If you are not running a validator node, only the `axelar-core` container is needed.
 
 You can stop/remove these containers using:
 ```bash
@@ -63,7 +63,7 @@ Mandatory flags:
 Optional flags:
 -r, --root           Local directory to store testnet data in (IMPORTANT: this directory is removed and recreated if --reset-chain is set)
 --tendermint-key     Path to the tendermint private key file. Used for recovering a node.
---validator-mnemonic Path to the Axelar validator key. User for recovering a node.
+--validator-mnemonic Path to the Axelar validator key. Used for recovering a node.
 --reset-chain        Delete local data to do a clean connect to the testnet (If you participated in an older version of the testnet)
 
 ```
