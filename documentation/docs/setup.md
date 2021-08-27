@@ -19,6 +19,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 - Mac OS or Ubuntu (tested on 18.04)
 - [Docker](https://docs.docker.com/engine/install/)
+- JQ command line tool (`apt-get install jq` on Ubuntu, `brew install jq` on Mac OS)
 - Minimum hardware requirements: 4 cores, 8-16GB RAM, 512 GB drive. Recommended 6-8 cores, 16-32 GB RAM, 1 TB+ drive.
 
 
@@ -29,13 +30,13 @@ Axelar Network is a work in progress. At no point in time should you transfer an
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
 
 ## Useful commands
-Axelar node runs in two containers (one with the core consensus engine and another with threshold crypto process). You can stop/remove all your containers using:
-```bash
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
-```
-If you did not add the `docker` user to the `sudo` group, you will have to prepend `sudo` to the previous commands.
+Axelar nodes run up to three docker containers (`axelar-core` for the core consensus engine, `vald` for broadcasting transactions according to chain events, and `tofnd` for threshold crypto operations). 
+If you are not running a validator node, only the `axelar-core` container is needed.
 
+You can stop/remove these containers using:
+```bash
+docker stop axelar-core vald tofnd
+```
 
 If you see an error related to insufficient gas at any point during the workflow, add the flags
 ```bash
@@ -58,43 +59,55 @@ Usage: joinTestnet.sh [flags]
 Mandatory flags:
 
 --axelar-core       Version of axelar-core docker image to run (Format: vX.Y.Z)
---tofnd             Version of tofnd docker image to run (Format: vX.Y.Z)
 
 Optional flags:
--r, --root          Local directory to store testnet data in (IMPORTANT: this directory is removed and recreated if --reset-chain is set)
-
---reset-chain       Delete local data to do a clean connect to the testnet (If you participated in an older version of the testnet)
+-r, --root           Local directory to store testnet data in (IMPORTANT: this directory is removed and recreated if --reset-chain is set)
+--tendermint-key     Path to the tendermint private key file. Used for recovering a node.
+--validator-mnemonic Path to the Axelar validator key. Used for recovering a node.
+--reset-chain        Delete local data to do a clean connect to the testnet (If you participated in an older version of the testnet)
 
 ```
 See [Testnet Release](/testnet-releases) for the latest available versions of the docker images.
 
 You can get the latest version and save it to variables:
 ```bash
-TOFND_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md | grep tofnd | cut -d \` -f 4)
 CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)
-echo ${TOFND_VERSION} ${CORE_VERSION}
+echo ${CORE_VERSION}
 ```
 
-Once you join, at the terminal you should see blocks produced quickly.
+After running `join/joinTestnet.sh`, you should see the following output:
 
 ```bash
-2021-05-21T20:22:10Z INF received proposal module=consensus proposal={"Type":32,"block_id":{"hash":"EFC59CDAF641E5C12FC85B352B06F8E1188D57D6CF5E4C629B6D5E51FEB9A675","parts":{"hash":"2B0E54FA353D22606BF526E4341F1698C7495FA448E28E62E40679793B289D6D","total":1}},"height":229885,"pol_round":-1,"round":0,"signature":"Cqepe/A+mxHNySEMRuAqi97Ah8TiuJNQvMpmQaVrcgA11p5kzt+Fein3A8XZ2TDH4fy6Qv8XBxmrI2HT1cEUBg==","timestamp":"2021-05-21T20:22:10.854851854Z"}
-2021-05-21T20:22:10Z INF received complete proposal block hash=EFC59CDAF641E5C12FC85B352B06F8E1188D57D6CF5E4C629B6D5E51FEB9A675 height=229885 module=consensus
-2021-05-21T20:22:11Z INF finalizing commit of block hash=EFC59CDAF641E5C12FC85B352B06F8E1188D57D6CF5E4C629B6D5E51FEB9A675 height=229885 module=consensus num_txs=0 root=34060CC7B7A742F051AA8C7940C431BD1A761AAD8700FB400067F83431E0D4E9
-2021-05-21T20:22:11Z INF minted coins from module account amount=2136stake from=mint module=x/bank
-2021-05-21T20:22:11Z INF executed block height=229885 module=state num_invalid_txs=0 num_valid_txs=0
-2021-05-21T20:22:11Z INF commit synced commit=436F6D6D697449447B5B31313120323039203235302031323220323035203133382032303520313734203220313132203532203137322032303620313334203532203139302031393720313132203233332031333120313535203131312031353420313234203130392031393420312032372032313420323320313238203230375D3A33383146447D
-2021-05-21T20:22:11Z INF committed state app_hash=6FD1FA7ACD8ACDAE027034ACCE8634BEC570E9839B6F9A7C6DC2011BD61780CF height=229885 module=state num_txs
-...
+Axelar node running.
+
+Validator address: axelarvaloper1hk3xagjvl4ee8lpdd736h6wcwsudrv0f59t0uk
+
+
+- name: validator
+  type: local
+  address: axelar1hk3xagjvl4ee8lpdd736h6wcwsudrv0f5ya2we
+  pubkey: axelarpub1addwnpepqf7m2d6rc00gq3dvn8wnxkv8ylx5swrrddclh23wdhtjurjmux0ucs33a0c
+  mnemonic: ""
+  threshold: 0
+  pubkeys: []
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+empower clinic rapid sibling chase measure satoshi search enable accuse drip small warrior visa grab only salute sound fun announce snap chuckle public heavy
+
+Do not forget to also backup the tendermint key (/Users/joaosousa/.axelar_testnet/.core/config/priv_validator_key.json)
+
+To follow execution, run 'docker logs -f axelar-core'
+To stop the node, run 'docker stop axelar-core'
 ```
- Wait for your node to catch up with the network before proceeding. This can take a while. 
+ Wait for your node to catch up with the network before proceeding.
+ Use `docker logs -f axelar-core` to keep an eye on the node's progress (this can take a while). 
+ 
  You can check the sync status by running:
  ```bash
 curl localhost:26657/status | jq '.result.sync_info'
-```
-Note: Install `jq` for json processing, on Ubuntu you can install it by running:
-```bash
- sudo apt-get install jq
 ```
 
 **Output:**
@@ -114,9 +127,9 @@ Note: Install `jq` for json processing, on Ubuntu you can install it by running:
 Wait for `catching_up` to become `false`
 
 ## Logging to file
-By default, logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
+By default, docker logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
 ```bash
-join/joinTestnet.sh --axelar-core ${CORE_VERSION} --tofnd ${TOFND_VERSION} &>> testnet.log
+docker logs -f axelar-core > testnet.log 2&>1
 ```
 On a new terminal window, you could monitor the log file in real time:
 ```bash
@@ -147,24 +160,20 @@ axelard q bank balances {output_addr_from_step_2}
 ```
 e.g.
 ```bash
-axelard q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
+axelard q bank balances axelar1hk3xagjvl4ee8lpdd736h6wcwsudrv0f5ya2we
 ```
 :::tip
 Balance will appear only after you are fully synced with the network
 :::
 
 ## Stop and restart testnet
-To leave the Axelar node CLI, type `exit`.
-To stop the node from syncing, press Control C, then 
-	To stop the node, open a new CLI terminal and run	
+To leave the Axelar node CLI, type `exit` or Control D.
+To stop the node, open a new CLI terminal and run	
 ```bash
 docker stop $(docker ps -a -q)	
-```	
-```bash
-docker rm $(docker ps -a -q)	
 ```
 
-To restart the node, run the `join/joinTestnet.sh` script again, with the same `--axelar-core`, `--tofnd` (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning.
+To restart the node, run the `join/joinTestnet.sh` script again, with the same `--axelar-core` version (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning (and if you haven't backed up your keys, they will be lost).
 	
 To enter Axelar node CLI again
 ```bash
