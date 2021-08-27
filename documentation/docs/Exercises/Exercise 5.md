@@ -70,7 +70,7 @@ The address associated with the key name is funded, and you suppose to have some
    ```
    Look for `successfully linked [Axelar Network deposit address] and [Ethereum Ropsten dst addr]`
    
-3. Send the IBC token on Axelar Network to the deposit address specific above
+3. Send the token on Axelar Network to the deposit address specific above
    ```
    axelard tx bank send [key-name] [Axelar Network deposit address] [amount]"[token]"
    ```
@@ -83,7 +83,7 @@ The address associated with the key name is funded, and you suppose to have some
    
    [txhash] is from the above command
    
-   [amount] and [token] is same as was sent.
+   [amount] and [token] are the same as were sent above.
 
    [Axelar Network deposit address] is the address above you deposited to 
 
@@ -92,7 +92,7 @@ The address associated with the key name is funded, and you suppose to have some
    ```
    e.g.,
    ```
-   axelard tx axelarnet confirm-deposit F72D180BD2CD80DB756494BB461DEFE93091A116D703982E91AC2418EC660752  1000000"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A" axelar1gmwk28m33m3gfcc6kr32egf0w8g6k7fvppspue --from [key-name]
+   axelard tx axelarnet confirm-deposit F72D180BD2CD80DB756494BB461DEFE93091A116D703982E91AC2418EC660752  1000000"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A" axelar1gmwk28m33m3gfcc6kr32egf0w8g6k7fvppspue --from my-key
    ```
 5. Create transfers on Ethereum
    ```

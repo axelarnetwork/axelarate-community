@@ -87,6 +87,7 @@ Follow the instructions in [Setup](/setup.md) to make sure your node is up to da
    You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases.md)
    
    [axelar address] is the address you generated in Exercise 3
+   
    [cosmos-key-name] is the one you generated in setup 5 above.
 
    ```
@@ -121,6 +122,7 @@ Follow the instructions in [Setup](/setup.md) to make sure your node is up to da
 1. Send IBC token back to Cosmoshub
  
    [cosmoshub address] is the address you generated in section `Setup gaia cli` step 5, associates with the [cosmos-key-name]
+   
    (You can check your cosmoshub address use command `gaiad keys list` in local terminal)
    
    [key-name] is the name you used in Exercise 3
