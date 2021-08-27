@@ -33,13 +33,10 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 Axelar nodes run up to three docker containers (`axelar-core` for the core consensus engine, `vald` for broadcasting transactions according to chain events, and `tofnd` for threshold crypto operations). 
 If running a non-validator node, only the `axelar-core` container needs to be running.
 
-You can stop/remove all your containers using:
+You can stop/remove these containers using:
 ```bash
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
+docker stop axelar-core vald tofnd
 ```
-If you did not add the `docker` user to the `sudo` group, you will have to prepend `sudo` to the previous commands.
-
 
 If you see an error related to insufficient gas at any point during the workflow, add the flags
 ```bash
