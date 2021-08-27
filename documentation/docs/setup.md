@@ -103,7 +103,7 @@ To follow execution, run 'docker logs -f axelar-core'
 To stop the node, run 'docker stop axelar-core'
 ```
  Wait for your node to catch up with the network before proceeding.
- Use 'docker logs -f axelar-core' to keep an eye on the node's progress (this can take a while). 
+ Use `docker logs -f axelar-core` to keep an eye on the node's progress (this can take a while). 
  
  You can check the sync status by running:
  ```bash
