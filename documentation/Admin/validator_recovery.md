@@ -86,12 +86,12 @@ In order to restore tofnd's private key and your key shares, you can use `join/l
 #### Running tofnd as binary
 
 If you are running a tofnd binary, follow the steps below:
-1. create your recovery json file from your vald process (see section [Recovery Data](#Recovery_Data)
-2. copy the json recovery file to `~/.axelar_testnet/.vald/recovery.json`
-3. navigate to the directory of your tofnd binary.
-4. create a folder under the name `.tofnd/`. 
-5. create a file `.tofnd/import` that contains your mnemonic passphrase.
-6. execute tofnd in *import* mode:
+1. Create your recovery json file from your vald process (see section [Recovery Data](#Recovery_Data)
+2. Copy the json recovery file to `~/.axelar_testnet/.vald/recovery.json`
+3. Navigate to the directory of your tofnd binary.
+4. Create a folder under the name `.tofnd/`. 
+5. Create a file `.tofnd/import` that contains your mnemonic passphrase.
+6. Execute tofnd in *import* mode:
     ```
     ./tofnd -m import
     ```
@@ -103,8 +103,8 @@ If you are running a tofnd binary, follow the steps below:
     kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
     Mnemonic successfully added in kv store
     ```
-7. restart vald 
-8. you should now see the following in your tofnd logs:
+7. Restart vald 
+8. You should now see the following in your tofnd logs:
     ```
     Recovering keypair for party X ...
     Finished recovering keypair for party X
