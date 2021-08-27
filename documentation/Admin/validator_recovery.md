@@ -62,48 +62,55 @@ In order to restore the Axelar proxy key used by the Vald process, you can use t
 
 ### Recovering Tofnd state
 
-In order to restore the node's key shares, you can use the `--tofnd-mnemonic` and `--recovery-info` flags with `join/launchValidator.sh` as follows:
+If you want to reset your tofnd (e.g. on a new machine, after unexpected data loss, etc), you will have to recover your tofnd state. Tofnd's state consists of the following:
+1. **your private key**: Internal tofnd key used to encrypt your recovery data. This private key is derived from a mnemonic that is generated automatically when tofnd is executed for the first time on your machine. You should have stored this mneminic safely, since it is the only passphrase that can be used to recover your key shares.
+2. **your key shares**: Data that is generated when you participate into a keygen and is used to perform sign. 
+
+Each time you participated in a keygen, your key shares were encrypted and stored on the blockchain. This means that you can easily fetch your shares, but you must have your private key (i.e. launch tofnd with your mnemonic) to successfully decrypt them.
+
+#### Running tofnd in a containerized environment
+
+In order to restore tofnd's private key and your key shares, you can use `join/launchValidator.sh` with the `--tofnd-mnemonic` and `--recovery-info` flags with as follows: 
 
 ```
-./join/joinTestnet.sh --tofnd-mnemonic /path/to/tofnd/mnemonic/ --recovery-info /path/to/recovery/file/
+./join/joinTestnet.sh --tofnd-mnemonic <mnemonic file> ---recovery-info <recover json file>
 ```
 
-If you also need to 
-
-### Recover with tofnd binary
-
-In order to recover, you will need to execute tofnd in *import* mode. To do that, use the `import` command-line option:
-
-* `import`: Adds a new mnemonic from file *.tofnd/import*; Succeeds when there is no other mnemonic already imported, fails otherwise.
-
-All tofnd mnemonic options can be displayed by running
-```
-cargo run -- -h
-```
-
-#### Example
-An exercise for restoring your tofnd key using your mnemonic is the following:
-1. Create an new empty *.tofnd* folder, and write your mnemonic into a file under the name *import*. Put this file in *./tofnd/import*. 
+1. `<mnemonic file>`: A file that contains your mnemonic passphrase  
+2. `<recover json file>`: The recovery information in json format you receive by executing 
     ```
-    mkdir .tofnd && cd .tofnd
-    touch import
-    # write your mnemonic at the `import` file
+    axelard q tss recover $(axelard keys show validator --bech val -a) btc-master btc-secondary --output json > recovery.json
     ```
-2. Start tofnd using the *import* option
+    after attaching to your validator container (see section [Recover Data](#Recovery_Data)).
+
+#### Running tofnd as binary
+
+If you are running a tofnd binary, follow the steps below:
+1. create your recovery json file from your vald process (see section [Recovery Data](#Recovery_Data)
+2. copy the json recovery file to `~/.axelar_testnet/.vald/recovery.json`
+3. navigate to the directory of your tofnd binary.
+4. create a folder under the name `.tofnd/`. 
+5. create a file `.tofnd/import` that contains your mnemonic passphrase.
+6. execute tofnd in *import* mode:
     ```
-    cargo run -- -m import
+    ./tofnd -m import
     ```
-    The output should be something similar to the following:
+    The output should be similar to the following:
     ```
     tofnd listen addr 0.0.0.0:50051, use ctrl+c to shutdown
     Importing mnemonic
     kv_manager cannot open existing db [.tofnd/kvstore/mnemonic]. creating new db
     kv_manager cannot open existing db [.tofnd/kvstore/shares]. creating new db
     Mnemonic successfully added in kv store
-    Mnemonic written in file .tofnd/export
     ```
-    **Note:** In order to successfully restore tofnd state, the validator you are running needs to have the `recover.json` file in place. For more information, see [Recovery Data](#RecoveryData).
-3. Delete your mnemonic import and export file
+7. restart vald 
+8. you should now see the following in your tofnd logs:
     ```
-    rm .tofnd/export ./tofnd/import
+    Recovering keypair for party X ...
+    Finished recovering keypair for party X
+    Recovery completed successfully!
     ```
+
+Tofnd has now re-created the private key that is derived from your mnemonic into tofnd's internal database, fetched your shares from the blockchain, decrypted them using your private key, and finally stored them at its internal tofnd database. Once recoverred, can remove your mnemonic file you used, as it is no longer needed. 
+
+**Attention**: Remember to still keep your mnemonic stored at an offline, secure place for future recoveries.
