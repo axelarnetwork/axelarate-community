@@ -22,9 +22,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
-- Latest docker images:
-- https://hub.docker.com/repository/docker/axelarnet/axelar-core,
-- https://hub.docker.com/repository/docker/axelarnet/tofnd
+- Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core
 - [Extra commands to query Axelar Network state](/extra-commands)
 
 ## What you need
@@ -43,8 +41,12 @@ The testnet currently supports:
 - `uphoton`(ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A)
 - `uaxl`
 
+:::note
+[key-name] mentioned in this exercise could be the key name you used in Exercise 3.
+The address associated with the key name is funded, and you suppose to have some `satoshi` and `uphoton`.
+:::
+
 1. Check you have balances on your account
-   The key name should be the name you generated in Exercise 3 
    ```
     axelard q bank balances $(axelard keys show [key-name] -a)
    ```
@@ -64,20 +66,17 @@ The testnet currently supports:
    
    [Ethereum Ropsten receipent address] is the address you want to receive the tokens
    ```
-   axelard tx axelarnet link ethereum [Ethereum Ropsten receipent address] [token] --from validator
+   axelard tx axelarnet link ethereum [Ethereum Ropsten receipent address] [token] --from [key-name]
    ```
    Look for `successfully linked [Axelar Network deposit address] and [Ethereum Ropsten dst addr]`
    
 3. Send the IBC token on Axelar Network to the deposit address specific above
-   
-    [key-name] is the name you used in Exercise 3
-    
    ```
-   axelard tx bank send $(axelard keys show [key-name] -a) [Axelar Network deposit address] [amount]"[token]"  --from [key-name]
+   axelard tx bank send [key-name] [Axelar Network deposit address] [amount]"[token]"
    ```
-   If you want to send uphoton,the token should be in IBC format e.g.,
+   If you want to send uphoton, the token should be in IBC format e.g.,
    ```
-   axelard tx bank send $(axelard keys show my-key -a) [Axelar Network deposit address] 10000"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A" --from my-key
+   axelard tx bank send my-key [Axelar Network deposit address] 10000"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A"
    ```
 
 4. Confirm the deposit transaction
@@ -86,8 +85,8 @@ The testnet currently supports:
    
    [amount] and [token] is same as was sent.
 
-   [key-name] is the name you used in Exercise 3
-   
+   [Axelar Network deposit address] is the address above you deposited to 
+
    ```
    axelard tx axelarnet confirm-deposit [txhash] [amount]"[token]" [Axelar Network deposit address] --from [key-name]
    ```
@@ -97,11 +96,11 @@ The testnet currently supports:
    ```
 5. Create transfers on Ethereum
    ```
-   axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2
+   axelard tx evm create-pending-transfers ethereum --from [key-name] --gas auto --gas-adjustment 1.2
    ```
 6. Trigger signing of the transfer on Ethereum
    ```
-   axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
+   axelard tx evm sign-commands ethereum --from [key-name] --gas auto --gas-adjustment 1.2
    ```
 7. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
    ```
@@ -112,21 +111,19 @@ The testnet currently supports:
 
    - Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet. 
 
-   - Go to metamask, send to `Gateway smart contract address` (see [Testnet Release](/testnet-releases)), paste hex from `execute_data` into Hex Data field, and send the transaction
+   - Go to metamask, send a transaction to `Gateway smart contract address`, paste hex from `execute_data` above into Hex Data field
      
-   Keep in mind not to transfer any tokens
+      Keep in mind not to transfer any tokens
 
-   (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases), and the "Add Data" field is the command data you got from the previous step)
+      (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases))
 
 You can now open Metamask, select "Assets", then "Add Token", then "Custom Token", and paste the Ethereum token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
 
 ### Burn ERC20 wrapped tokens and send back to Axelar Network
 1. Create a deposit address on Ethereum
    
-   [token] is one of `uaxl`, `satoshi`, and `uphoton`
+   [token] is what you minted before, one of `uaxl`, `satoshi`, and `uphoton`
    
-   [key-name] is the name you used in Exercise 3   
-
    ```
    axelard tx evm link ethereum axelarnet $(axelard keys show [key-name] -a) [token] --from [key-name]
    ```
@@ -143,14 +140,12 @@ You can now open Metamask, select "Assets", then "Add Token", then "Custom Token
    e.g.,
 
    ```bash
-   axelard tx evm confirm-erc20-deposit ethereum 0xb82e454a273cb32ed45a435767982293c12bf099ba419badc0a728e731f5825e 1000000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator
+   axelard tx evm confirm-erc20-deposit ethereum 0xb82e454a273cb32ed45a435767982293c12bf099ba419badc0a728e731f5825e 1000000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from my-key
    ```
 
    Wait for transaction to be confirmed.
-   You can search it using `docker logs -f validator 2>&1 | grep -a -e "deposit confirmation"`.
+   You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`.
 4. Execute pending deposit on Axelar Network
-   
-   [key-name] is the name you used in Exercise 3
    ```
    axelard tx axelarnet execute-pending-transfers --from [key-name] --gas auto --gas-adjustment 1.2
    ```

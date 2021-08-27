@@ -20,9 +20,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
-- Latest docker images:
-- https://hub.docker.com/repository/docker/axelarnet/axelar-core,
-- https://hub.docker.com/repository/docker/axelarnet/tofnd
+- Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core,
 - [Extra commands to query Axelar Network state](/extra-commands)
 
 ## What you need
@@ -52,7 +50,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 
 2. Create a deposit address on Bitcoin (to which you'll deposit coins later)
    
-    The [axelar network dst addr] is the address you created in step 1, associated with your [key-name]\
+    The [axelar network dst addr] is the address you created in step 1, associated with your [key-name]
     [key name] is the name you used in step1
     ```
     axelard tx bitcoin link axelarnet [Axelar Network dst addr] --from [key-name]
@@ -92,7 +90,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
     bitcoin outpoint confirmation result is
     ```
 
-    You can search it using `docker logs -f validator 2>&1 | grep -a -e outpoint`.
+    You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 5. Execute pending deposit on Axelar Network
    [key name] is the name you used in step1
    ```
@@ -139,11 +137,11 @@ To send wrapped Bitcoin back to Bitcoin, run the following commands:
 
 2. send the satoshi token on Axelar Network to the deposit address specific above
    ```
-   axelard tx bank send $(axelard keys show [key-name] -a) [Axelar Network deposit address] [amount]satoshi  --from [key-name]
+   axelard tx bank send [key-name] [Axelar Network deposit address] [amount]satoshi
    ```
    e.g.,
    ```
-   axelard tx bank send $(axelard keys show my-key -a) axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v 10000satoshi --from my-key
+   axelard tx bank send my-key axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v 10000satoshi
    ```
    :::tip
    Please do not send the whole amount, you will need some satoshi in Exercise 5 

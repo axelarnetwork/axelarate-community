@@ -19,6 +19,11 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Complete all steps from [Setup](/setup.md)
 - Golang (Follow the [office docs](https://golang.org/doc/install) to install)
 
+## Useful links
+- [Axelar faucet](http://faucet.testnet.axelar.network/)
+- Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core
+- [Extra commands to query Axelar Network state](/extra-commands)
+
 ## Joining the Axelar testnet
 
 Follow the instructions in [Setup](/setup.md) to make sure your node is up to date, and you received some test coins to your account.
@@ -90,7 +95,7 @@ Follow the instructions in [Setup](/setup.md) to make sure your node is up to da
    Wait ~10 secs for the relayer to relayer your transaction
 2. On a new terminal window, enter Axelar node,
    ```
-   docker exec -it validator sh
+   docker exec -it axelar-core sh
    ```   
 3. Check you received the funds
 
@@ -114,13 +119,15 @@ Follow the instructions in [Setup](/setup.md) to make sure your node is up to da
 ### Send back to Cosmoshub 
 
 1. Send IBC token back to Cosmoshub
+ 
+   [cosmoshub address] is the address you generated in section `Setup gaia cli` step 5, associates with the [cosmos-key-name]
+   (You can check your cosmoshub address use command `gaiad keys list` in local terminal)
    
    [key-name] is the name you used in Exercise 3
-   
-   [cosmoshub address] is the address you generated in section `Setup gaia cli` step 5, associates with the [cosmos-key-name]
    ```
    axelard tx ibc-transfer transfer transfer channel-0 [cosmoshub address] [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A"  --from [key-name]
    ```
+
    Wait ~10 secs for the relayer to relayer your transaction
    
    :::tip
@@ -128,7 +135,7 @@ Follow the instructions in [Setup](/setup.md) to make sure your node is up to da
    :::
 2. Go to your local terminal, verify you received uphoton
    
-   [cosmoshub address] is the address you created in step 5, associates with the [cosmos-key-name]
+   [cosmoshub address] is the address you used above
    ```
    gaiad q bank balances [cosmoshub address]
    ```
