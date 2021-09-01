@@ -1,15 +1,30 @@
 #!/bin/sh
-set -e
+shared_dir=/root/shared
 
-axelard init "$1" --chain-id "$2"
+ACCOUNTS=$(axelard keys list -n)
+for ACCOUNT in $ACCOUNTS; do
+  if [ "$ACCOUNT" == "broadcaster" ]; then
+    HAS_BROADCASTER=true
+  fi
+done
 
-if [ -f "$AXELAR_MNEMONIC" ]; then
-  axelard keys add broadcaster --recover <"$AXELAR_MNEMONIC"
-  touch "/broadcaster.txt"
-else
-  axelard keys add broadcaster > "/broadcaster.txt" 2>&1
+touch "/broadcaster.txt"
+if [ -z "$HAS_BROADCASTER" ]; then
+  if [ -f "$AXELAR_MNEMONIC" ]; then
+    axelard keys add broadcaster --recover <"$AXELAR_MNEMONIC"
+  else
+    axelard keys add broadcaster > "/broadcaster.txt" 2>&1
+  fi
 fi
 
-axelard keys show broadcaster -a > "/root/shared/broadcaster.bech"
-cp "/root/shared/genesis.json" "/root/.axelar/config/genesis.json"
+axelard keys show broadcaster -a > "${shared_dir}/broadcaster.bech"
 
+
+if [ -z "$VALIDATOR_ADDR" ]; then
+  until [ -f "${shared_dir}/validator.bech" ] ; do
+    echo "Waiting for validator address to be accessible in $shared_dir"
+    sleep 5
+  done
+  
+  export VALIDATOR_ADDR=$(cat "${shared_dir}/validator.bech")
+fi
