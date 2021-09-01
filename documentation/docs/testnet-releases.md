@@ -9,8 +9,8 @@ slug: /testnet-releases
 
 Variable  | Value
 ------------- | -------------
-`axelar-core` version | `v0.7.4`
-`tofnd` version | `v0.6.0`
+`axelar-core` version | `v0.7.5`
+`tofnd` version | `v0.6.1`
 `c2d2` version | `inactive`
 Ethereum Axelar Gateway contract address | `0x628dA636EA0ec7051eA548C3a050d0a603054D12`
 Ethereum axelarBTC token address | `0xec3dd31EecF0eFee8bAD22EBD76681d5dDB734c6`
