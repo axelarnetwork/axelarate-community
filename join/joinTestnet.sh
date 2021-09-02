@@ -7,6 +7,7 @@ ROOT_DIRECTORY=~/.axelar_testnet
 GIT_ROOT="$(git rev-parse --show-toplevel)"
 TENDERMINT_KEY_PATH=""
 AXELAR_MNEMONIC_PATH=""
+DOCKER_NETWORK="axelarate_default"
 
 for arg in "$@"; do
   case $arg in
@@ -47,6 +48,11 @@ if [ -n "$NODE_UP" ]; then
   exit 1
 fi
 
+NETWORK_PRESENT="$(docker network ls --format '{{.Name}}' | grep -w $DOCKER_NETWORK)"
+if [ -z "$NETWORK_PRESENT" ]; then
+  docker network create "$DOCKER_NETWORK" --driver=bridge --scope=local
+fi
+
 if $RESET_CHAIN; then
   rm -rf "$ROOT_DIRECTORY"
 fi
@@ -85,7 +91,7 @@ docker run                                             \
   -d                                                   \
   --rm                                                 \
   --name axelar-core                                   \
-  --network axelarate_default                          \
+  --network "$DOCKER_NETWORK"                          \
   -p 1317:1317                                         \
   -p 26656-26658:26656-26658                           \
   -p 26660:26660                                       \

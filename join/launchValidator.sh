@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 AXELAR_CORE_VERSION=""
 TOFND_VERSION=""
@@ -8,6 +7,7 @@ GIT_ROOT="$(git rev-parse --show-toplevel)"
 TOFND_MNEMONIC_PATH=""
 AXELAR_MNEMONIC_PATH=""
 RECOVERY_INFO_PATH=""
+DOCKER_NETWORK="axelarate_default"
 
 for arg in "$@"; do
   case $arg in
@@ -88,11 +88,13 @@ if [ ! -f "${SHARED_DIRECTORY}/initVald.sh" ]; then
   cp "${GIT_ROOT}/join/initVald.sh" "${SHARED_DIRECTORY}/initVald.sh"
 fi
 
+set -e
+
 docker run                              \
   -d                                    \
   --rm                                  \
   --name tofnd                          \
-  --network axelarate_default           \
+  --network "$DOCKER_NETWORK"           \
   --env MNEMONIC_CMD=$CMD               \
   -v "${TOFND_DIRECTORY}/:/root/.tofnd" \
   "axelarnet/tofnd:${TOFND_VERSION}"
@@ -103,7 +105,7 @@ docker run                                         \
   -d                                               \
   --rm                                             \
   --name vald                                      \
-  --network axelarate_default                      \
+  --network "$DOCKER_NETWORK"                      \
   --env TOFND_HOST=tofnd                           \
   --env VALIDATOR_HOST=http://axelar-core:26657    \
   --env PRESTART_SCRIPT=/root/shared/initVald.sh   \
