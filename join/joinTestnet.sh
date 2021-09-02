@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 AXELAR_CORE_VERSION=""
 TOFND_VERSION=""
 RESET_CHAIN=false
@@ -43,6 +41,12 @@ if [ -z "$AXELAR_CORE_VERSION" ]; then
   exit 1
 fi
 
+NODE_UP="$(docker ps --format '{{.Names}}' | grep -w 'axelar-core')"
+if [ -n "$NODE_UP" ]; then
+  echo "Node is already running"
+  exit 1
+fi
+
 if $RESET_CHAIN; then
   rm -rf "$ROOT_DIRECTORY"
 fi
@@ -75,22 +79,24 @@ if [ ! -f "${SHARED_DIRECTORY}/consumeGenesis.sh" ]; then
   cp "${GIT_ROOT}/join/consumeGenesis.sh" "${SHARED_DIRECTORY}/consumeGenesis.sh"
 fi
 
-docker run                                           \
-  -d                                                 \
-  --rm                                               \
-  --name axelar-core                                 \
-  --network axelarate_default                        \
-  -p 1317:1317                                       \
-  -p 26656-26658:26656-26658                         \
-  -p 26660:26660                                     \
-  --env START_REST=true                              \
-  --env PEERS_FILE=/root/shared/peers.txt            \
-  --env INIT_SCRIPT=/root/shared/consumeGenesis.sh   \
-  --env CONFIG_PATH=/root/shared/                    \
-  --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH   \
-  --env TENDERMINT_KEY_PATH=$TENDERMINT_KEY_PATH     \
-  -v "${CORE_DIRECTORY}/:/root/.axelar"              \
-  -v "${SHARED_DIRECTORY}:/root/shared"              \
+set -e
+
+docker run                                             \
+  -d                                                   \
+  --rm                                                 \
+  --name axelar-core                                   \
+  --network axelarate_default                          \
+  -p 1317:1317                                         \
+  -p 26656-26658:26656-26658                           \
+  -p 26660:26660                                       \
+  --env START_REST=true                                \
+  --env PEERS_FILE=/root/shared/peers.txt              \
+  --env PRESTART_SCRIPT=/root/shared/consumeGenesis.sh \
+  --env CONFIG_PATH=/root/shared/                      \
+  --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH     \
+  --env TENDERMINT_KEY_PATH=$TENDERMINT_KEY_PATH       \
+  -v "${CORE_DIRECTORY}/:/root/.axelar"                \
+  -v "${SHARED_DIRECTORY}:/root/shared"                \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startNodeProc
 
 VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")

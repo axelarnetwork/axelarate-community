@@ -106,10 +106,9 @@ docker run                                         \
   --network axelarate_default                      \
   --env TOFND_HOST=tofnd                           \
   --env VALIDATOR_HOST=http://axelar-core:26657    \
-  --env INIT_SCRIPT=/root/shared/initVald.sh       \
+  --env PRESTART_SCRIPT=/root/shared/initVald.sh   \
   --env CONFIG_PATH=/root/shared/                  \
   --env SLEEP_TIME=2s                              \
-  --env PEERS_FILE=/root/shared/peers.txt          \
   --env VALIDATOR_ADDR=$VALIDATOR                  \
   --env RECOVERY_FILE=/root/.axelar/recovery.json  \
   --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH \
