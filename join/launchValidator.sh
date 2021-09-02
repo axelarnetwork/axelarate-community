@@ -8,6 +8,7 @@ GIT_ROOT="$(git rev-parse --show-toplevel)"
 TOFND_MNEMONIC_PATH=""
 AXELAR_MNEMONIC_PATH=""
 RECOVERY_INFO_PATH=""
+DOCKER_NETWORK="axelarate_default"
 
 for arg in "$@"; do
   case $arg in
@@ -92,7 +93,7 @@ docker run                              \
   -d                                    \
   --rm                                  \
   --name tofnd                          \
-  --network axelarate_default           \
+  --network "$DOCKER_NETWORK"           \
   --env MNEMONIC_CMD=$CMD               \
   -v "${TOFND_DIRECTORY}/:/root/.tofnd" \
   "axelarnet/tofnd:${TOFND_VERSION}"
@@ -103,7 +104,7 @@ docker run                                         \
   -d                                               \
   --rm                                             \
   --name vald                                      \
-  --network axelarate_default                      \
+  --network "$DOCKER_NETWORK"                      \
   --env TOFND_HOST=tofnd                           \
   --env VALIDATOR_HOST=http://axelar-core:26657    \
   --env PRESTART_SCRIPT=/root/shared/initVald.sh   \
