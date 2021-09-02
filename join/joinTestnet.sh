@@ -48,7 +48,7 @@ if [ -n "$NODE_UP" ]; then
   exit 1
 fi
 
-NETWORK_PRESENT="$(docker network ls --format '{{.Name}}' | grep -w 'axelarate_default')"
+NETWORK_PRESENT="$(docker network ls --format '{{.Name}}' | grep -w $DOCKER_NETWORK)"
 if [ -z "$NETWORK_PRESENT" ]; then
   docker network create "$DOCKER_NETWORK" --driver=bridge --scope=local
 fi

@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 AXELAR_CORE_VERSION=""
 TOFND_VERSION=""
@@ -88,6 +87,8 @@ fi
 if [ ! -f "${SHARED_DIRECTORY}/initVald.sh" ]; then
   cp "${GIT_ROOT}/join/initVald.sh" "${SHARED_DIRECTORY}/initVald.sh"
 fi
+
+set -e
 
 docker run                              \
   -d                                    \
