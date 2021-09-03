@@ -153,7 +153,6 @@ set -x
     --home "${VALD_DIRECTORY}" \
     --validator-addr "${VALIDATOR_ADDR}" \
     "$RECOVERY" > "$LOGS_DIRECTORY/vald.log" 2>&1 &
-
 set +x
 
 BROADCASTER=$($AXELARD keys show broadcaster -a --home $VALD_DIRECTORY)
