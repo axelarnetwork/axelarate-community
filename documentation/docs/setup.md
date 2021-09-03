@@ -212,30 +212,20 @@ docker exec -it axelar-core sh
 
 ### Joining with Binaries
 
-Run the script `join/joinTestnet.sh`
+Run the script `./join/join-testnet-with-binaries.sh`
 ```bash
-Usage: joinTestnet.sh [flags]
-
-Mandatory flags:
-
---axelar-core       Version of axelar-core docker image to run (Format: vX.Y.Z)
+Usage: join-testnet-with-binaries.sh [flags]
 
 Optional flags:
 -r, --root           Local directory to store testnet data in (IMPORTANT: this directory is removed and recreated if --reset-chain is set)
+--bin-directory      Local directory where the downloaded binaries are stored. Defaults to <root_directory>/bin
+--axelar-core       Version of axelar-core docker image to run (Format: vX.Y.Z) (by default latest versions are used)
 --tendermint-key     Path to the tendermint private key file. Used for recovering a node.
 --validator-mnemonic Path to the Axelar validator key. Used for recovering a node.
 --reset-chain        Delete local data to do a clean connect to the testnet (If you participated in an older version of the testnet)
-
-```
-See [Testnet Release](/testnet-releases) for the latest available versions of the docker images.
-
-You can get the latest version and save it to variables:
-```bash
-CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)
-echo ${CORE_VERSION}
 ```
 
-After running `join/joinTestnet.sh`, you should see the following output:
+After running `./join/join-testnet-with-binaries.sh`, you should see the following output:
 
 ```bash
 Axelar node running.
@@ -257,13 +247,14 @@ It is the only way to recover your account if you ever forget your password.
 
 empower clinic rapid sibling chase measure satoshi search enable accuse drip small warrior visa grab only salute sound fun announce snap chuckle public heavy
 
-Do not forget to also backup the tendermint key (/Users/joaosousa/.axelar_testnet/.core/config/priv_validator_key.json)
+Do not forget to also backup the tendermint key (/Users/talalashraf/.axelar_testnet/.core/config/priv_validator_key.json)
 
-To follow execution, run 'docker logs -f axelar-core'
-To stop the node, run 'docker stop axelar-core'
+To follow execution, run 'tail -f /Users/talalashraf/.axelar_testnet/logs/axelard.log'
+To stop the node, run 'killall -9 "axelard"'
 ```
+
  Wait for your node to catch up with the network before proceeding.
- Use `docker logs -f axelar-core` to keep an eye on the node's progress (this can take a while).
+ Use `tail -f $HOME/axelar_testnet/logs/axelard.logs` to keep an eye on the node's progress (this can take a while). Your logs will be in `ROOT_DIRECTORY/logs` where `ROOT_DIRECTORY` is whatever you passed through the flag.
 
  You can check the sync status by running:
  ```bash
@@ -286,56 +277,36 @@ curl localhost:26657/status | jq '.result.sync_info'
 ```
 Wait for `catching_up` to become `false`
 
-## Logging to file
-By default, docker logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
-```bash
-docker logs -f axelar-core > testnet.log 2&>1
-```
-On a new terminal window, you could monitor the log file in real time:
-```bash
-tail -f testnet.log
-```
-If you find the log containing too much noise and hard to find useful information, you can filter it as following
-```bash
-docker logs -f axelar-core 2>&1 | grep -a -e threshold -e num_txs -e proxies
-```
-
 ## Ethereum account on testnet
 Axelar signs meta transactions for Ethereum, meaning that any Ethereum account can send transaction executing commands so long as the commands are signed by Axelar's key. In the exercises, all of the Ethereum-related transactions are sent from address `0xE3deF8C6b7E357bf38eC701Ce631f78F2532987A` on Ropsten testnet.
 
 ## Generate a key on Axelar and get test tokens
-1. On a new terminal window, enter Axelar node:
-```bash
-docker exec -it axelar-core sh
-```
-2. By default, the node has an account named validator. Find its address:
-```bash
-axelard keys show validator -a
-```
-3. Go to axelar faucet and get some coins on your validator's address (Your node is not yet a validator for the purpose of this ceremony; it's just the name of the account). http://faucet.testnet.axelar.network/
 
-4. Check that you received the funds
+You can add `$HOME/.axelar_testnet/bin` to your path. The bin directory will be different depending on your root directory. Alternatively you can use the full path to run the executable as mentioned in the instructions.
+
+1. By default, the node has an account named validator. Find its address:
 ```bash
-axelard q bank balances {output_addr_from_step_2}
+$HOME/.axelar_testnet/bin/axelard keys show validator -a --home ~/.axelar_testnet/.core
+```
+2. Go to axelar faucet and get some coins on your validator's address (Your node is not yet a validator for the purpose of this ceremony; it's just the name of the account). http://faucet.testnet.axelar.network/
+
+3. Check that you received the funds
+```bash
+$HOME/.axelar_testnet/bin/axelard q bank balances {output_addr_from_step_2} --home ~/.axelar_testnet/.core
 ```
 e.g.
 ```bash
-axelard q bank balances axelar1hk3xagjvl4ee8lpdd736h6wcwsudrv0f5ya2we
+$HOME/.axelar_testnet/bin/axelard q bank balances axelar1hk3xagjvl4ee8lpdd736h6wcwsudrv0f5ya2we --home ~/.axelar_testnet/.core
 ```
 :::tip
 Balance will appear only after you are fully synced with the network
 :::
 
 ## Stop and restart testnet
-To leave the Axelar node CLI, type `exit` or Control D.
+
 To stop the node, open a new CLI terminal and run
 ```bash
-docker stop $(docker ps -a -q)
+killall axelard
 ```
 
-To restart the node, run the `join/joinTestnet.sh` script again, with the same `--axelar-core` version (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning (and if you haven't backed up your keys, they will be lost).
-
-To enter Axelar node CLI again
-```bash
-docker exec -it axelar-core sh
-```
+To restart the node, run the `./join/join-testnet-with-binaries.sh` script again, with the same flags as you ran it the first time. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning (and if you haven't backed up your keys, they will be lost).
