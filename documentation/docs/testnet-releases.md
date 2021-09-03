@@ -12,8 +12,8 @@ Variable  | Value
 `axelar-core` version | `v0.7.6`
 `tofnd` version | `v0.6.1`
 `c2d2` version | `inactive`
-Ethereum Axelar Gateway contract address | `0x0a807A33afA27CBea975d3e6322545ecC125C9cA`
-Ethereum axelarBTC token address | `0x0a2F84C33cB77b597d92D0Cc918742Bb0dB325f3`
-Ethereum AXL token address | `0x19F33366B6904586e852367Ba3dfD3639AED318d`
-Ethereum axlPHOTON token address | `0x68191ae6b6b9b35d2850b20D34aA4431c724503d`
-Cosmoshub channel id | `channel-45`
+Ethereum Axelar Gateway contract address | `0x3f72345f00ffe52A4D164a7164683EA1486ba720`
+Ethereum axelarBTC token address | `0xffd3166c826C140acC66571025d76001D1293Df0`
+Ethereum AXL token address | `0xAd96647f62b0CD4836e320579F5Bd621b0385fb1`
+Ethereum axlPHOTON token address | `0x1e5Ed62682EA176969deF13f74AcB4C6e9F2D48C`
+Cosmoshub channel id | `channel-46`
