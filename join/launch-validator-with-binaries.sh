@@ -48,6 +48,16 @@ for arg in "$@"; do
   esac
 done
 
+if [ "$(ps aux | grep -c '[a]xelard vald-start')" -gt "0" ]; then
+  echo "Vald already running. ps aux | grep vald-start and kill process";
+  exit 1;
+fi
+
+if [ "$(ps aux | grep -c '[t]ofnd -m ')" -gt "0" ]; then
+  echo "Tofnd already running. ps aux | grep tofnd and kill process";
+  exit 1;
+fi
+
 if [ -z "$AXELAR_CORE_VERSION" ]; then
   echo "'--axelar-core vX.Y.Z' is required"
   exit 1
@@ -72,12 +82,27 @@ LOGS_DIRECTORY="${ROOT_DIRECTORY}/logs"
 mkdir -p "$LOGS_DIRECTORY"
 echo "Logs Directory: $LOGS_DIRECTORY"
 
+VALD_DIRECTORY="$ROOT_DIRECTORY/.vald"
+mkdir -p "$VALD_DIRECTORY"
+
+CONFIG_DIRECTORY="${VALD_DIRECTORY}/config"
+mkdir -p "$CONFIG_DIRECTORY"
+
 TOFND_BINARY="tofnd-${OS}-${ARCH}-${TOFND_VERSION}"
 if [ ! -f "${TOFND}" ]; then
   echo "Downloading tofnd binary $TOFND_BINARY"
   curl -s https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/${TOFND_VERSION}/${TOFND_BINARY} -o "${TOFND}" && chmod +x "${TOFND}"
 fi
 
+if [ ! -f "${CONFIG_DIRECTORY}/config.toml" ]; then
+  echo "Moving config.toml to config directory"
+  cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
+fi
+
+if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
+  echo "Moving app.toml to config directory"
+  cp "${GIT_ROOT}/join/app.toml" "${CONFIG_DIRECTORY}/app.toml"
+fi
 
 NODE_UP="$(ps aux | grep '[a]xelard start --home')"
 if [ -z "$NODE_UP" ]; then
@@ -85,8 +110,7 @@ if [ -z "$NODE_UP" ]; then
   exit 1
 fi
 
-VALD_DIRECTORY="$ROOT_DIRECTORY/.vald"
-mkdir -p "$VALD_DIRECTORY"
+
 
 CORE_DIRECTORY="${ROOT_DIRECTORY}/.core"
 
@@ -147,11 +171,14 @@ if [ -n "$RECOVERY_FILE" ] && [ -f "$RECOVERY_FILE" ]; then
     RECOVERY="--tofnd-recovery=$RECOVERY_FILE"
 fi
 
+export KEYRING_BACKEND=test
+
 set -x
 "$AXELARD" vald-start ${TOFND_HOST:+--tofnd-host "$TOFND_HOST"} \
     ${VALIDATOR_HOST:+--node "$VALIDATOR_HOST"} \
     --home "${VALD_DIRECTORY}" \
     --validator-addr "${VALIDATOR_ADDR}" \
+    --log_level debug \
     "$RECOVERY" > "$LOGS_DIRECTORY/vald.log" 2>&1 &
 set +x
 
@@ -174,3 +201,4 @@ echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.logs'"
 echo "To stop tofnd, run 'killall -9 tofnd'"
 echo "To stop vald, run 'killall -9 vald'"
 echo
+

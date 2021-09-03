@@ -146,6 +146,8 @@ if [ ! -f "$CONFIG_DIRECTORY/genesis.json" ]; then
   fi
 fi
 
+export START_REST=true
+
 "$AXELARD" start --home $CORE_DIRECTORY > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
 
 VALIDATOR=$("$AXELARD" keys show validator -a --bech val --home $CORE_DIRECTORY)
