@@ -120,7 +120,6 @@ export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar"}
 
 echo "Node moniker: $NODE_MONIKER"
 echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
-set -x
 ACCOUNTS=$($AXELARD keys list -n --home $CORE_DIRECTORY)
 for ACCOUNT in $ACCOUNTS; do
     if [ "$ACCOUNT" == "validator" ]; then
@@ -151,7 +150,6 @@ export START_REST=true
 "$AXELARD" start --home $CORE_DIRECTORY > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
 
 VALIDATOR=$("$AXELARD" keys show validator -a --bech val --home $CORE_DIRECTORY)
-set +x
 echo
 echo "Axelar node running."
 echo

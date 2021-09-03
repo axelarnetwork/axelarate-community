@@ -15,7 +15,6 @@ ARCH="$(uname -m)"
 
 
 set -e
-set -x
 for arg in "$@"; do
   case $arg in
     --proxy-mnemonic)
@@ -173,14 +172,12 @@ fi
 
 export KEYRING_BACKEND=test
 
-set -x
 "$AXELARD" vald-start ${TOFND_HOST:+--tofnd-host "$TOFND_HOST"} \
     ${VALIDATOR_HOST:+--node "$VALIDATOR_HOST"} \
     --home "${VALD_DIRECTORY}" \
     --validator-addr "${VALIDATOR_ADDR}" \
     --log_level debug \
     "$RECOVERY" > "$LOGS_DIRECTORY/vald.log" 2>&1 &
-set +x
 
 BROADCASTER=$($AXELARD keys show broadcaster -a --home $VALD_DIRECTORY)
 
