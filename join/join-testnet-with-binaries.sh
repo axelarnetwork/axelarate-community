@@ -2,14 +2,29 @@
 
 set -e
 
-AXELAR_CORE_VERSION=""
-TOFND_VERSION=""
+AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
 RESET_CHAIN=false
-ROOT_DIRECTORY=~/.axelar_testnet
+ROOT_DIRECTORY="$HOME/.axelar_testnet"
+TOFND_DIRECTORY="$HOME/.tofnd"
 GIT_ROOT="$(git rev-parse --show-toplevel)"
+TENDERMINT_KEY_PATH=""
+AXELAR_MNEMONIC_PATH=""
+BIN_DIRECTORY="$ROOT_DIRECTORY/bin"
+AXELARD="$BIN_DIRECTORY/axelard"
+AXELARD_CMD="$AXELARD"
+OS="$(uname | awk '{print tolower($0)}')"
+ARCH="$(uname -m)"
 
 for arg in "$@"; do
   case $arg in
+    --validator-mnemonic)
+    AXELAR_MNEMONIC_PATH="$2"
+    shift
+    ;;
+    --tendermint-key)
+    TENDERMINT_KEY_PATH="$2"
+    shift
+    ;;
     --reset-chain)
     RESET_CHAIN=true
     shift
@@ -22,8 +37,8 @@ for arg in "$@"; do
     AXELAR_CORE_VERSION="$2"
     shift
     ;;
-    --tofnd)
-    TOFND_VERSION="$2"
+    --bin-directory)
+    BIN_DIRECTORY="$2"
     shift
     ;;
     *)
@@ -32,65 +47,119 @@ for arg in "$@"; do
   esac
 done
 
+
+if [ "$(ps aux | grep -c '[a]xelard start --home')" -gt "0" ]; then
+  echo "Node already running. Run 'killall axelard' to kill node.";
+  exit 1;
+fi
+
 if [ -z "$AXELAR_CORE_VERSION" ]; then
   echo "'--axelar-core vX.Y.Z' is required"
   exit 1
 fi
 
-if [ -z "$TOFND_VERSION" ]; then
-  echo "'--tofnd vX.Y.Z' is required"
-  exit 1
-fi
+echo "Axelar Core Version: ${AXELAR_CORE_VERSION}"
+echo "OS: ${OS}"
+echo "Architecture: ${ARCH}"
+echo "Root Directory: ${ROOT_DIRECTORY}"
 
 if $RESET_CHAIN; then
   rm -rf "$ROOT_DIRECTORY"
+  rm -rf "$TOFND_DIRECTORY"
+  rm -rf ~/.axelar
 fi
 
 mkdir -p "$ROOT_DIRECTORY"
+mkdir -p "$BIN_DIRECTORY"
 
-SHARED_DIRECTORY="${ROOT_DIRECTORY}/shared"
-mkdir -p "$SHARED_DIRECTORY"
+LOGS_DIRECTORY="${ROOT_DIRECTORY}/logs"
+mkdir -p "$LOGS_DIRECTORY"
 
-TOFND_DIRECTORY="${ROOT_DIRECTORY}/.tofnd"
-mkdir -p "$TOFND_DIRECTORY"
+CONFIG_DIRECTORY="${ROOT_DIRECTORY}/config"
+mkdir -p "$CONFIG_DIRECTORY"
 
-if [ ! -f "${SHARED_DIRECTORY}/genesis.json" ]; then
-  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
+CORE_DIRECTORY="${ROOT_DIRECTORY}/.core"
+mkdir -p "$CORE_DIRECTORY"
+
+AXELARD_BINARY="axelard-${OS}-${ARCH}-${AXELAR_CORE_VERSION}"
+if [ ! -f "${AXELARD}" ]; then
+  echo "Downloading axelard binary $AXELARD_BINARY"
+  curl -s https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${AXELAR_CORE_VERSION}/${AXELARD_BINARY} -o "${AXELARD}" && chmod +x "${AXELARD}"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/peers.txt" ]; then
-  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/peers.txt -o "${SHARED_DIRECTORY}/peers.txt"
+if [ ! -f "${CONFIG_DIRECTORY}/genesis.json" ]; then
+  echo "Downloading genesis.json"
+  curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${CONFIG_DIRECTORY}/genesis.json"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/config.toml" ]; then
-  cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
+if [ ! -f "${CONFIG_DIRECTORY}/peers.txt" ]; then
+  echo "Downloading peers.txt"
+  curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/peers.txt -o "${CONFIG_DIRECTORY}/peers.txt"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/app.toml" ]; then
-  cp "${GIT_ROOT}/join/app.toml" "${SHARED_DIRECTORY}/app.toml"
+if [ ! -f "${CONFIG_DIRECTORY}/config.toml" ]; then
+  echo "Moving config.toml to config directory"
+  cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/consumeGenesis.sh" ]; then
-  cp "${GIT_ROOT}/join/consumeGenesis.sh" "${SHARED_DIRECTORY}/consumeGenesis.sh"
+if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
+  echo "Moving app.toml to config directory"
+  cp "${GIT_ROOT}/join/app.toml" "${CONFIG_DIRECTORY}/app.toml"
 fi
 
-# docker run       \
-#   --name tofnd   \
-#   -d             \
-#   -p 50051:50051 \
-#   -v "${ROOT_DIRECTORY}:/root/.tofnd" \
-#   "axelarnet/tofnd:${TOFND_VERSION}"
+addPeers() {
+  echo "Adding peers to config.toml"
+  sed "s/^seeds =.*/seeds = \"$1\"/g" "$CONFIG_DIRECTORY/config.toml" >"$CONFIG_DIRECTORY/config.toml.tmp" &&
+  mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
+}
 
-# docker run                                           \
-#   --name axelar-core                                 \
-#   -p 1317:1317                                       \
-#   -p 26656-26658:26656-26658                         \
-#   -p 26660:26660                                     \
-#   --env TOFND_HOST=host.docker.internal              \
-#   --env START_REST=true                              \
-#   --env PEERS_FILE=/root/shared/peers.txt            \
-#   --env INIT_SCRIPT=/root/shared/consumeGenesis.sh   \
-#   --env CONFIG_PATH=/root/shared/                    \
-#   -v "${ROOT_DIRECTORY}/.axelar:/root/.axelar"     \
-#   -v "${SHARED_DIRECTORY}:/root/shared"              \
-#   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}"
+addPeers "$(cat "${CONFIG_DIRECTORY}/peers.txt")"
+
+export NODE_MONIKER=${NODE_MONIKER:-"$(hostname)"}
+export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar"}
+
+echo "Node moniker: $NODE_MONIKER"
+echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
+set -x
+ACCOUNTS=$($AXELARD_CMD keys list -n --home $ROOT_DIRECTORY)
+for ACCOUNT in $ACCOUNTS; do
+    if [ "$ACCOUNT" == "validator" ]; then
+        HAS_VALIDATOR=true
+    fi
+done
+
+touch "$ROOT_DIRECTORY/validator.txt"
+if [ -z "$HAS_VALIDATOR" ]; then
+  if [ -f "$AXELAR_MNEMONIC_PATH" ]; then
+    "$AXELARD_CMD" keys add validator --recover --home $ROOT_DIRECTORY <"$AXELAR_MNEMONIC_PATH"
+  else
+    "$AXELARD_CMD" keys add validator --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/validator.txt" 2>&1
+  fi
+fi
+
+"$AXELARD_CMD" keys show validator -a --bech val --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/validator.bech"
+
+if [ ! -f "$CONFIG_DIRECTORY/genesis.json" ]; then
+  "$AXELARD_CMD" init "$NODE_MONIKER" --chain-id "$AXELARD_CHAIN_ID" --home $ROOT_DIRECTORY
+  if [ -f "$TENDERMINT_KEY_PATH" ]; then
+    cp -f "$TENDERMINT_KEY_PATH" "$CONFIG_DIRECTORY/priv_validator_key.json"
+  fi
+fi
+
+"$AXELARD_CMD" start --home $ROOT_DIRECTORY > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
+
+VALIDATOR=$("$AXELARD_CMD" keys show validator -a --bech val --home $ROOT_DIRECTORY)
+set +x
+echo
+echo "Axelar node running."
+echo
+echo "Validator address: $VALIDATOR"
+echo
+cat "$ROOT_DIRECTORY/validator.txt"
+rm "$ROOT_DIRECTORY/validator.txt"
+echo
+echo "Do not forget to also backup the tendermint key (${CONFIG_DIRECTORY}/priv_validator_key.json)"
+echo
+echo "To follow execution, run 'tail -f ${LOGS_DIRECTORY}/axelard.log'"
+echo "To stop the node, run 'killall \"axelard\"'"
+echo
