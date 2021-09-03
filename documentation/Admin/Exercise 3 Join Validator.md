@@ -145,15 +145,15 @@ docker exec -it axelar-core sh
 Find the address with
 
 ```bash
-axelard keys show broadcaster -a
+axelard keys show validator -a
 ```
 
-Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your broadcaster address.
+Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your validator address.
 
 Check that you received the funds
 
 ```bash
-axelard q bank balances {broadcaster address}
+axelard q bank balances {validator address}
 ```
 
 eg)
@@ -168,7 +168,7 @@ Use the following command, but change the `amount` to be larger than the minimum
 
 ```bash
 axelard tx staking create-validator --yes \
---amount "100000000uaxl" \
+--amount "1000000uaxl" \
 --moniker "testvalidator1" \
 --commission-rate="0.10" \
 --commission-max-rate="0.20" \
@@ -198,10 +198,10 @@ axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "1000
 4. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
 
 ```bash
-axelard tx snapshot registerProxy broadcaster --from validator -y
+axelard tx snapshot registerProxy "$(cat /root/shared/broadcaster.bech)" --from validator -y
 ```
 
-5. Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` container will talk with your `tofnd` container through the `vald` container. This is important when events such as key rotation happens on the network.
+5. Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` will talk with your `tofnd` through `vald`. This is important when events such as key rotation happens on the network.
 
 First, check that the vald container is running. Run the following commands in a new terminal.
 
