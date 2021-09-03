@@ -9,15 +9,13 @@ ROOT_DIRECTORY="$HOME/.axelar_testnet"
 GIT_ROOT="$(git rev-parse --show-toplevel)"
 BIN_DIRECTORY="$ROOT_DIRECTORY/bin"
 AXELARD="$BIN_DIRECTORY/axelard"
-AXELARD_CMD="$AXELARD"
 TOFND="$BIN_DIRECTORY/tofnd"
-TOFND_CMD="$TOFND"
 OS="$(uname | awk '{print tolower($0)}')"
 ARCH="$(uname -m)"
 
 
 set -e
-
+set -x
 for arg in "$@"; do
   case $arg in
     --proxy-mnemonic)
@@ -87,7 +85,7 @@ if [ -z "$NODE_UP" ]; then
   exit 1
 fi
 
-VALD_DIRECTORY="$HOME/.vald"
+VALD_DIRECTORY="$ROOT_DIRECTORY/.vald"
 mkdir -p "$VALD_DIRECTORY"
 
 TOFND_DIRECTORY="$HOME/.tofnd"
@@ -103,7 +101,7 @@ if [ -f "$TOFND_MNEMONIC_PATH" ]; then
   MNEMONIC_CMD=import
 fi
 
-ACCOUNTS=$($AXELARD_CMD keys list -n --home $ROOT_DIRECTORY)
+ACCOUNTS=$($AXELARD keys list -n --home $VALD_DIRECTORY)
 for ACCOUNT in $ACCOUNTS; do
   if [ "$ACCOUNT" == "broadcaster" ]; then
     HAS_BROADCASTER=true
@@ -113,15 +111,15 @@ done
 touch "$ROOT_DIRECTORY/broadcaster.txt"
 if [ -z "$HAS_BROADCASTER" ]; then
   if [ -f "$AXELAR_MNEMONIC_PATH" ]; then
-    $AXELARD_CMD keys add broadcaster --recover --home $ROOT_DIRECTORY < "$AXELAR_MNEMONIC_PATH"
+    $AXELARD keys add broadcaster --recover --home $VALD_DIRECTORY < "$AXELAR_MNEMONIC_PATH"
   else
-    $AXELARD_CMD keys add broadcaster --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/broadcaster.txt" 2>&1
+    $AXELARD keys add broadcaster --home $VALD_DIRECTORY > "$ROOT_DIRECTORY/broadcaster.txt" 2>&1
   fi
 fi
 
-$AXELARD_CMD keys show broadcaster -a --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/broadcaster.bech"
+$AXELARD keys show broadcaster -a --home $VALD_DIRECTORY > "$ROOT_DIRECTORY/broadcaster.bech"
 
-VALIDATOR_ADDR=$($AXELARD_CMD keys show validator -a --bech val --home $ROOT_DIRECTORY)
+VALIDATOR_ADDR=$($AXELARD keys show validator -a --bech val --home $ROOT_DIRECTORY)
 if [ -z "$VALIDATOR_ADDR" ]; then
   until [ -f "$ROOT_DIRECTORY/validator.bech" ] ; do
     echo "Waiting for validator address to be accessible in $shared_dir"
@@ -130,7 +128,7 @@ if [ -z "$VALIDATOR_ADDR" ]; then
 fi
 export VALIDATOR_ADDR=$(cat "$ROOT_DIRECTORY/validator.bech")
 
-"$BIN_DIRECTORY"/tofnd -m "$MNEMONIC_CMD" > "$LOGS_DIRECTORY/tofnd.log" 2>&1 &
+"$TOFND" -m "$MNEMONIC_CMD" > "$LOGS_DIRECTORY/tofnd.log" 2>&1 &
 
 sleep 5
 
@@ -147,14 +145,15 @@ if [ -n "$RECOVERY_FILE" ] && [ -f "$RECOVERY_FILE" ]; then
 fi
 
 set -x
-"$AXELARD_CMD" vald-start ${TOFND_HOST:+--tofnd-host "$TOFND_HOST"} \
+"$AXELARD" vald-start ${TOFND_HOST:+--tofnd-host "$TOFND_HOST"} \
     ${VALIDATOR_HOST:+--node "$VALIDATOR_HOST"} \
-    --home "${ROOT_DIRECTORY}" \
+    --home "${VALD_DIRECTORY}" \
     --validator-addr "${VALIDATOR_ADDR}" \
-    "$RECOVERY" > "$LOGS_DIRECTORY/vald.log" 2>&1 &
+    "$RECOVERY"
+    # > "$LOGS_DIRECTORY/vald.log" 2>&1 &
 set +x
 
-BROADCASTER=$($AXELARD_CMD keys show broadcaster -a --home $ROOT_DIRECTORY)
+BROADCASTER=$($AXELARD keys show broadcaster -a --home $VALD_DIRECTORY)
 
 echo
 echo "Tofnd & Vald running."
@@ -170,6 +169,6 @@ echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export
 echo
 echo "To follow tofnd execution, run 'tail -f ${LOGS_DIRECTORY}/tofnd.logs'"
 echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.logs'"
-echo "To stop tofnd, run 'killall tofnd'"
-echo "To stop vald, run 'killall vald'"
+echo "To stop tofnd, run 'killall -9 tofnd'"
+echo "To stop vald, run 'killall -9 vald'"
 echo

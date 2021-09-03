@@ -11,7 +11,6 @@ TENDERMINT_KEY_PATH=""
 AXELAR_MNEMONIC_PATH=""
 BIN_DIRECTORY="$ROOT_DIRECTORY/bin"
 AXELARD="$BIN_DIRECTORY/axelard"
-AXELARD_CMD="$AXELARD"
 OS="$(uname | awk '{print tolower($0)}')"
 ARCH="$(uname -m)"
 
@@ -47,6 +46,11 @@ for arg in "$@"; do
   esac
 done
 
+addPeers() {
+  echo "Adding peers to config.toml"
+  sed "s/^seeds =.*/seeds = \"$1\"/g" "$CONFIG_DIRECTORY/config.toml" >"$CONFIG_DIRECTORY/config.toml.tmp" &&
+  mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
+}
 
 if [ "$(ps aux | grep -c '[a]xelard start --home')" -gt "0" ]; then
   echo "Node already running. Run 'killall axelard' to kill node.";
@@ -107,11 +111,7 @@ if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
   cp "${GIT_ROOT}/join/app.toml" "${CONFIG_DIRECTORY}/app.toml"
 fi
 
-addPeers() {
-  echo "Adding peers to config.toml"
-  sed "s/^seeds =.*/seeds = \"$1\"/g" "$CONFIG_DIRECTORY/config.toml" >"$CONFIG_DIRECTORY/config.toml.tmp" &&
-  mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
-}
+
 
 addPeers "$(cat "${CONFIG_DIRECTORY}/peers.txt")"
 
@@ -121,7 +121,7 @@ export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar"}
 echo "Node moniker: $NODE_MONIKER"
 echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
 set -x
-ACCOUNTS=$($AXELARD_CMD keys list -n --home $ROOT_DIRECTORY)
+ACCOUNTS=$($AXELARD keys list -n --home $ROOT_DIRECTORY)
 for ACCOUNT in $ACCOUNTS; do
     if [ "$ACCOUNT" == "validator" ]; then
         HAS_VALIDATOR=true
@@ -131,24 +131,24 @@ done
 touch "$ROOT_DIRECTORY/validator.txt"
 if [ -z "$HAS_VALIDATOR" ]; then
   if [ -f "$AXELAR_MNEMONIC_PATH" ]; then
-    "$AXELARD_CMD" keys add validator --recover --home $ROOT_DIRECTORY <"$AXELAR_MNEMONIC_PATH"
+    "$AXELARD" keys add validator --recover --home $ROOT_DIRECTORY <"$AXELAR_MNEMONIC_PATH"
   else
-    "$AXELARD_CMD" keys add validator --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/validator.txt" 2>&1
+    "$AXELARD" keys add validator --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/validator.txt" 2>&1
   fi
 fi
 
-"$AXELARD_CMD" keys show validator -a --bech val --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/validator.bech"
+"$AXELARD" keys show validator -a --bech val --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/validator.bech"
 
 if [ ! -f "$CONFIG_DIRECTORY/genesis.json" ]; then
-  "$AXELARD_CMD" init "$NODE_MONIKER" --chain-id "$AXELARD_CHAIN_ID" --home $ROOT_DIRECTORY
+  "$AXELARD" init "$NODE_MONIKER" --chain-id "$AXELARD_CHAIN_ID" --home $ROOT_DIRECTORY
   if [ -f "$TENDERMINT_KEY_PATH" ]; then
     cp -f "$TENDERMINT_KEY_PATH" "$CONFIG_DIRECTORY/priv_validator_key.json"
   fi
 fi
 
-"$AXELARD_CMD" start --home $ROOT_DIRECTORY > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
+"$AXELARD" start --home $ROOT_DIRECTORY > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
 
-VALIDATOR=$("$AXELARD_CMD" keys show validator -a --bech val --home $ROOT_DIRECTORY)
+VALIDATOR=$("$AXELARD" keys show validator -a --bech val --home $ROOT_DIRECTORY)
 set +x
 echo
 echo "Axelar node running."
@@ -161,5 +161,5 @@ echo
 echo "Do not forget to also backup the tendermint key (${CONFIG_DIRECTORY}/priv_validator_key.json)"
 echo
 echo "To follow execution, run 'tail -f ${LOGS_DIRECTORY}/axelard.log'"
-echo "To stop the node, run 'killall \"axelard\"'"
+echo "To stop the node, run 'killall -9 \"axelard\"'"
 echo
