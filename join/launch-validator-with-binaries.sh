@@ -88,6 +88,8 @@ fi
 VALD_DIRECTORY="$ROOT_DIRECTORY/.vald"
 mkdir -p "$VALD_DIRECTORY"
 
+CORE_DIRECTORY="${ROOT_DIRECTORY}/.core"
+
 TOFND_DIRECTORY="$HOME/.tofnd"
 mkdir -p "$TOFND_DIRECTORY"
 
@@ -119,14 +121,15 @@ fi
 
 $AXELARD keys show broadcaster -a --home $VALD_DIRECTORY > "$ROOT_DIRECTORY/broadcaster.bech"
 
-VALIDATOR_ADDR=$($AXELARD keys show validator -a --bech val --home $ROOT_DIRECTORY)
+VALIDATOR_ADDR=$($AXELARD keys show validator -a --bech val --home $CORE_DIRECTORY)
 if [ -z "$VALIDATOR_ADDR" ]; then
   until [ -f "$ROOT_DIRECTORY/validator.bech" ] ; do
     echo "Waiting for validator address to be accessible in $shared_dir"
     sleep 5
   done
+  export VALIDATOR_ADDR=$(cat "$ROOT_DIRECTORY/validator.bech")
 fi
-export VALIDATOR_ADDR=$(cat "$ROOT_DIRECTORY/validator.bech")
+
 
 "$TOFND" -m "$MNEMONIC_CMD" > "$LOGS_DIRECTORY/tofnd.log" 2>&1 &
 
@@ -149,8 +152,8 @@ set -x
     ${VALIDATOR_HOST:+--node "$VALIDATOR_HOST"} \
     --home "${VALD_DIRECTORY}" \
     --validator-addr "${VALIDATOR_ADDR}" \
-    "$RECOVERY"
-    # > "$LOGS_DIRECTORY/vald.log" 2>&1 &
+    "$RECOVERY" > "$LOGS_DIRECTORY/vald.log" 2>&1 &
+
 set +x
 
 BROADCASTER=$($AXELARD keys show broadcaster -a --home $VALD_DIRECTORY)

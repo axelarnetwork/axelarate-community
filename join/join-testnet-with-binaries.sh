@@ -79,11 +79,11 @@ mkdir -p "$BIN_DIRECTORY"
 LOGS_DIRECTORY="${ROOT_DIRECTORY}/logs"
 mkdir -p "$LOGS_DIRECTORY"
 
-CONFIG_DIRECTORY="${ROOT_DIRECTORY}/config"
-mkdir -p "$CONFIG_DIRECTORY"
-
 CORE_DIRECTORY="${ROOT_DIRECTORY}/.core"
 mkdir -p "$CORE_DIRECTORY"
+
+CONFIG_DIRECTORY="${CORE_DIRECTORY}/config"
+mkdir -p "$CONFIG_DIRECTORY"
 
 AXELARD_BINARY="axelard-${OS}-${ARCH}-${AXELAR_CORE_VERSION}"
 if [ ! -f "${AXELARD}" ]; then
@@ -121,7 +121,7 @@ export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar"}
 echo "Node moniker: $NODE_MONIKER"
 echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
 set -x
-ACCOUNTS=$($AXELARD keys list -n --home $ROOT_DIRECTORY)
+ACCOUNTS=$($AXELARD keys list -n --home $CORE_DIRECTORY)
 for ACCOUNT in $ACCOUNTS; do
     if [ "$ACCOUNT" == "validator" ]; then
         HAS_VALIDATOR=true
@@ -131,24 +131,24 @@ done
 touch "$ROOT_DIRECTORY/validator.txt"
 if [ -z "$HAS_VALIDATOR" ]; then
   if [ -f "$AXELAR_MNEMONIC_PATH" ]; then
-    "$AXELARD" keys add validator --recover --home $ROOT_DIRECTORY <"$AXELAR_MNEMONIC_PATH"
+    "$AXELARD" keys add validator --recover --home $CORE_DIRECTORY <"$AXELAR_MNEMONIC_PATH"
   else
-    "$AXELARD" keys add validator --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/validator.txt" 2>&1
+    "$AXELARD" keys add validator --home $CORE_DIRECTORY > "$ROOT_DIRECTORY/validator.txt" 2>&1
   fi
 fi
 
-"$AXELARD" keys show validator -a --bech val --home $ROOT_DIRECTORY > "$ROOT_DIRECTORY/validator.bech"
+"$AXELARD" keys show validator -a --bech val --home $CORE_DIRECTORY > "$ROOT_DIRECTORY/validator.bech"
 
 if [ ! -f "$CONFIG_DIRECTORY/genesis.json" ]; then
-  "$AXELARD" init "$NODE_MONIKER" --chain-id "$AXELARD_CHAIN_ID" --home $ROOT_DIRECTORY
+  "$AXELARD" init "$NODE_MONIKER" --chain-id "$AXELARD_CHAIN_ID" --home $CORE_DIRECTORY
   if [ -f "$TENDERMINT_KEY_PATH" ]; then
     cp -f "$TENDERMINT_KEY_PATH" "$CONFIG_DIRECTORY/priv_validator_key.json"
   fi
 fi
 
-"$AXELARD" start --home $ROOT_DIRECTORY > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
+"$AXELARD" start --home $CORE_DIRECTORY > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
 
-VALIDATOR=$("$AXELARD" keys show validator -a --bech val --home $ROOT_DIRECTORY)
+VALIDATOR=$("$AXELARD" keys show validator -a --bech val --home $CORE_DIRECTORY)
 set +x
 echo
 echo "Axelar node running."
