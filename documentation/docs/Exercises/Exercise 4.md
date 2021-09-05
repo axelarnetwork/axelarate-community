@@ -99,7 +99,7 @@ You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases.md
 ```bash
 gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] packet-timeout-timestamp 0 [amount]uphoton --from [cosmos-key-name] -y -b block
 ```
-Wait ~10 secs for the relayer to relayer your transaction
+Wait ~20 secs for the relayer to relayer your transaction
 2. On a new terminal window, enter Axelar node,
 ```bash
 docker exec -it axelar-core sh
@@ -132,15 +132,16 @@ You should see the base_denom is `uphoton`
 (You can check your cosmoshub address use command `gaiad keys list` in local terminal)
 
 [key-name] is the name you used in Exercise 3
-```bash
-axelard tx ibc-transfer transfer transfer channel-0 [cosmoshub address] [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A"  --from [key-name]
-```
-
-Wait ~10 secs for the relayer to relayer your transaction
 
 :::tip
 Please do not send the whole amount, you will need some uphoton in Exercise 5
 :::
+```bash
+axelard tx ibc-transfer transfer transfer channel-0 [cosmoshub address] [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A" --packet-timeout-timestamp 0 --from [key-name]
+```
+
+Wait ~20 secs for the relayer to relay your transaction
+
 2. Go to your local terminal, verify you received uphoton
 
 [cosmoshub address] is the address you used above

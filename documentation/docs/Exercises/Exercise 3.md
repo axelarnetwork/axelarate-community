@@ -90,7 +90,10 @@ Eventually, you'll see something like this in the node terminal:
 bitcoin outpoint confirmation result is
 ```
 
-You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
+You can search it using 
+- `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`
+- `docker logs -f axelar-core 2>&1 | grep -B 1 -e axelar1... (address from step 1)`
+
 5. Execute pending deposit on Axelar Network
 [key name] is the name you used in step1
 ```bash
@@ -136,16 +139,18 @@ Make sure to link a Bitcoin address that is controlled by you, e.g. if you link 
 :::
 
 2. send the satoshi token on Axelar Network to the deposit address specific above
+
+:::tip
+Please do not send the whole amount, you will need some satoshi in Exercise 5
+:::
 ```bash
 axelard tx bank send [key-name] [Axelar Network deposit address] [amount]satoshi
 ```
 e.g.,
 ```bash
-axelard tx bank send my-key axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v 10000satoshi
+axelard tx bank send my-key axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v 5000satoshi
 ```
-:::tip
-Please do not send the whole amount, you will need some satoshi in Exercise 5 
-:::
+
 
 
 3. Confirm the deposit transaction
@@ -164,7 +169,7 @@ Here, amount should be specific in Satoshi. (For instance, 0.0001BTC = 10000)
 e.g.,
 
 ```bash
-axelard tx axelarnet confirm-deposit 12B7795C49905194C5433E3413AABBF3C6AA27BFD1F20303C66DA4319B143A91 10000satoshi axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v --from my-key
+axelard tx axelarnet confirm-deposit 12B7795C49905194C5433E3413AABBF3C6AA27BFD1F20303C66DA4319B143A91 5000satoshi axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v --from my-key
 ```
 
 You're done! In the next step, a withdrawal must be signed and submitted to the Bitcoin network.
