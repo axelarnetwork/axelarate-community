@@ -17,7 +17,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Prerequisites
 - Complete all steps from [Setup](/setup.md)
-- Golang (Follow the [office docs](https://golang.org/doc/install) to install)
+- Golang (Follow the [official docs](https://golang.org/doc/install) to install)
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
@@ -42,10 +42,16 @@ cd gaia
 git checkout v5.0.5
 make install
 ```
-Verify it is properly installed:
+3. Verify it is properly installed:
 ```bash
 gaiad version 
 ```
+:::tip
+If you get "-bash: gaiad: command not found", make sure you do the following (note to change it to match your user):
+export PATH=$PATH:/usr/local/go/bin:/home/YOUR-USER/go/bin
+source .profile
+:::
+
 4. Initialize the node
 
 [moniker] can be any name you like 
@@ -91,7 +97,7 @@ You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases.md
 [cosmos-key-name] is the one you generated in setup 5 above.
 
 ```bash
-gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] [amount]uphoton --from [cosmos-key-name] -y -b block
+gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] packet-timeout-timestamp 0 [amount]uphoton --from [cosmos-key-name] -y -b block
 ```
 Wait ~10 secs for the relayer to relayer your transaction
 2. On a new terminal window, enter Axelar node,
