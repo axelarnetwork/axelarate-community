@@ -97,7 +97,7 @@ You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases.md
 [cosmos-key-name] is the one you generated in setup 5 above.
 
 ```bash
-gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] packet-timeout-timestamp 0 [amount]uphoton --from [cosmos-key-name] -y -b block
+gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] --packet-timeout-timestamp 0 [amount]uphoton --from [cosmos-key-name] -y -b block
 ```
 Wait ~20 secs for the relayer to relayer your transaction
 2. On a new terminal window, enter Axelar node,
