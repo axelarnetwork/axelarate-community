@@ -67,6 +67,11 @@ if [ -z "$TOFND_VERSION" ]; then
   exit 1
 fi
 
+# override OS with amd64 for x86 arch
+if [ "x86_64" =  "$ARCH" ]; then
+  ARCH=amd64
+fi
+
 echo "TOFND Version: ${TOFND_VERSION}"
 echo "Axelar Core Version: ${AXELAR_CORE_VERSION}"
 echo "OS: ${OS}"
