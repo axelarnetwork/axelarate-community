@@ -52,6 +52,16 @@ addPeers() {
   mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
 }
 
+# override OS with amd64 for x86 arch
+if [ "x86_64" =  "$OS" ]; then
+  OS=amd64
+fi
+
+echo "Axelar Core Version: ${AXELAR_CORE_VERSION}"
+echo "OS: ${OS}"
+echo "Architecture: ${ARCH}"
+echo "Root Directory: ${ROOT_DIRECTORY}"
+
 if [ "$(ps aux | grep -c '[a]xelard start --home')" -gt "0" ]; then
   echo "Node already running. Run 'killall axelard' to kill node.";
   exit 1;
@@ -61,11 +71,6 @@ if [ -z "$AXELAR_CORE_VERSION" ]; then
   echo "'--axelar-core vX.Y.Z' is required"
   exit 1
 fi
-
-echo "Axelar Core Version: ${AXELAR_CORE_VERSION}"
-echo "OS: ${OS}"
-echo "Architecture: ${ARCH}"
-echo "Root Directory: ${ROOT_DIRECTORY}"
 
 if $RESET_CHAIN; then
   rm -rf "$ROOT_DIRECTORY"
