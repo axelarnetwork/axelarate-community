@@ -53,8 +53,8 @@ addPeers() {
 }
 
 # override OS with amd64 for x86 arch
-if [ "x86_64" =  "$OS" ]; then
-  OS=amd64
+if [ "x86_64" =  "$ARCH" ]; then
+  ARCH=amd64
 fi
 
 echo "Axelar Core Version: ${AXELAR_CORE_VERSION}"
