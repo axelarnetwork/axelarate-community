@@ -121,7 +121,7 @@ fi
 addPeers "$(cat "${CONFIG_DIRECTORY}/peers.txt")"
 
 export NODE_MONIKER=${NODE_MONIKER:-"$(hostname)"}
-export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar"}
+export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar-testnet-adelaide"}
 
 echo "Node moniker: $NODE_MONIKER"
 echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
