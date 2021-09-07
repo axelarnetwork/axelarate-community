@@ -145,6 +145,7 @@ axelard tx evm confirm-erc20-deposit ethereum 0xb82e454a273cb32ed45a435767982293
 
 Wait for transaction to be confirmed.
 You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`.
+
 4. Execute pending deposit on Axelar Network
 ```bash
 axelard tx axelarnet execute-pending-transfers --from [key-name] --gas auto --gas-adjustment 1.2
