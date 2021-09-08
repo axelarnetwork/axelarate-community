@@ -95,7 +95,7 @@ mkdir -p "$CONFIG_DIRECTORY"
 TOFND_BINARY="tofnd-${OS}-${ARCH}-${TOFND_VERSION}"
 if [ ! -f "${TOFND}" ]; then
   echo "Downloading tofnd binary $TOFND_BINARY"
-  curl -s https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/${TOFND_VERSION}/${TOFND_BINARY} -o "${TOFND}" && chmod +x "${TOFND}"
+  curl -s --fail https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/${TOFND_VERSION}/${TOFND_BINARY} -o "${TOFND}" && chmod +x "${TOFND}"
 fi
 
 if [ ! -f "${CONFIG_DIRECTORY}/config.toml" ]; then
