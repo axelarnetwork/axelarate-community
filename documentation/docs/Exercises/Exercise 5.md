@@ -42,11 +42,11 @@ The testnet currently supports:
 - `uaxl`
 
 :::note
-[key-name] mentioned in this exercise could be the key name you used in Exercise 3.
+[key-name] mentioned in this exercise can be the key name you used in Exercise 3.
 The address associated with the key name is funded, and you suppose to have some `satoshi` and `uphoton`.
 :::
 
-1. Check you have balances on your account
+1. Check that you have balances on your account
 ```bash
 axelard q bank balances $(axelard keys show [key-name] -a)
 ```
@@ -64,13 +64,13 @@ balances:
 
 [token] is one of `uaxl`, `satoshi`, and `uphoton`
 
-[Ethereum Ropsten receipent address] is the address you want to receive the tokens
+[Ethereum Ropsten receipent address] is the address you want to receive the tokens to
 ```bash
 axelard tx axelarnet link ethereum [Ethereum Ropsten receipent address] [token] --from [key-name]
 ```
 Look for `successfully linked [Axelar Network deposit address] and [Ethereum Ropsten dst addr]`
 
-3. Send the token on Axelar Network to the deposit address specific above
+3. Send the token on Axelar Network to the deposit address specified above
 ```bash
 axelard tx bank send [key-name] [Axelar Network deposit address] [amount]"[token]"
 ```
@@ -83,7 +83,7 @@ axelard tx bank send my-key [Axelar Network deposit address] 10000"ibc/287EE075B
 
 [txhash] is from the above command
 
-[amount] and [token] are the same as were sent above.
+[amount] and [token] are the same as in step 3 above
 
 [Axelar Network deposit address] is the address above you deposited to 
 
@@ -113,7 +113,7 @@ Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 
 - Go to metamask, send a transaction to `Gateway smart contract address`, paste hex from `execute_data` above into Hex Data field
  
-  Keep in mind not to transfer any tokens
+  Keep in mind not to transfer any tokens!
 
   (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases))
 
@@ -128,7 +128,7 @@ You can now open Metamask, select "Assets", then "Add Token", then "Custom Token
 axelard tx evm link ethereum axelarnet $(axelard keys show [key-name] -a) [token] --from [key-name]
 ```
 Look for `successfully linked [Ethereum Ropsten deposit address] and [Axelar Network dst addr]`
-2. External: send wrapped tokens to  [Ethereum Ropsten deposit address] (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send transactions. Wait for 30 Ethereum block confirmations. You can monitor the status of your deposit using the testnet explorer: https://ropsten.etherscan.io/
+2. External: send wrapped tokens to  [Ethereum Ropsten deposit address] (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send the transaction. Wait for 30 Ethereum block confirmations. You can monitor the status of your deposit using the testnet explorer: https://ropsten.etherscan.io/
 
 3. Confirm the Ethereum transaction
 
@@ -153,4 +153,4 @@ axelard tx axelarnet execute-pending-transfers --from [key-name] --gas auto --ga
 ```bash
 axelard q bank balances $(axelard keys show [key-name] -a)
 ```
-You should see the deposited token in your balance
+You should see the deposited token in your balance.
