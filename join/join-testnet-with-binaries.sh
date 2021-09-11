@@ -90,7 +90,7 @@ mkdir -p "$CORE_DIRECTORY"
 CONFIG_DIRECTORY="${CORE_DIRECTORY}/config"
 mkdir -p "$CONFIG_DIRECTORY"
 
-AXELARD_BINARY="axelard1-${OS}-${ARCH}-${AXELAR_CORE_VERSION}"
+AXELARD_BINARY="axelard-${OS}-${ARCH}-${AXELAR_CORE_VERSION}"
 if [ ! -f "${AXELARD}" ]; then
   echo "Downloading axelard binary $AXELARD_BINARY"
   curl -s --fail https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${AXELAR_CORE_VERSION}/${AXELARD_BINARY} -o "${AXELARD}" && chmod +x "${AXELARD}"
