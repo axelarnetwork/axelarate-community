@@ -52,7 +52,7 @@ addPeers() {
   mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
 }
 
-# override OS with amd64 for x86 arch
+# override ARCH with amd64 for x86 arch
 if [ "x86_64" =  "$ARCH" ]; then
   ARCH=amd64
 fi

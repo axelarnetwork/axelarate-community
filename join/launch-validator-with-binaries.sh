@@ -67,7 +67,7 @@ if [ -z "$TOFND_VERSION" ]; then
   exit 1
 fi
 
-# override OS with amd64 for x86 arch
+# override ARCH with amd64 for x86 arch
 if [ "x86_64" =  "$ARCH" ]; then
   ARCH=amd64
 fi
