@@ -52,9 +52,9 @@ addPeers() {
   mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
 }
 
-# override OS with amd64 for x86 arch
-if [ "x86_64" =  "$OS" ]; then
-  OS=amd64
+# override ARCH with amd64 for x86 arch
+if [ "x86_64" =  "$ARCH" ]; then
+  ARCH=amd64
 fi
 
 echo "Axelar Core Version: ${AXELAR_CORE_VERSION}"
@@ -93,17 +93,17 @@ mkdir -p "$CONFIG_DIRECTORY"
 AXELARD_BINARY="axelard-${OS}-${ARCH}-${AXELAR_CORE_VERSION}"
 if [ ! -f "${AXELARD}" ]; then
   echo "Downloading axelard binary $AXELARD_BINARY"
-  curl -s https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${AXELAR_CORE_VERSION}/${AXELARD_BINARY} -o "${AXELARD}" && chmod +x "${AXELARD}"
+  curl -s --fail https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${AXELAR_CORE_VERSION}/${AXELARD_BINARY} -o "${AXELARD}" && chmod +x "${AXELARD}"
 fi
 
 if [ ! -f "${CONFIG_DIRECTORY}/genesis.json" ]; then
   echo "Downloading genesis.json"
-  curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${CONFIG_DIRECTORY}/genesis.json"
+  curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${CONFIG_DIRECTORY}/genesis.json"
 fi
 
 if [ ! -f "${CONFIG_DIRECTORY}/peers.txt" ]; then
   echo "Downloading peers.txt"
-  curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/peers.txt -o "${CONFIG_DIRECTORY}/peers.txt"
+  curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/peers.txt -o "${CONFIG_DIRECTORY}/peers.txt"
 fi
 
 if [ ! -f "${CONFIG_DIRECTORY}/config.toml" ]; then
