@@ -85,7 +85,7 @@ axelard tx bank send my-key [Axelar Network deposit address] 10000"ibc/287EE075B
 
 [amount] and [token] are the same as in step 3 above
 
-[Axelar Network deposit address] is the address above you deposited to 
+[Axelar Network deposit address] is the address above you deposited to
 
 ```bash
 axelard tx axelarnet confirm-deposit [txhash] [amount]"[token]" [Axelar Network deposit address] --from [key-name]
@@ -94,25 +94,23 @@ e.g.,
 ```bash
 axelard tx axelarnet confirm-deposit F72D180BD2CD80DB756494BB461DEFE93091A116D703982E91AC2418EC660752  1000000"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A" axelar1gmwk28m33m3gfcc6kr32egf0w8g6k7fvppspue --from my-key
 ```
-5. Create transfers on Ethereum
+5. Create transfers on Ethereum and Sign
 ```bash
-axelard tx evm create-pending-transfers ethereum --from [key-name] --gas auto --gas-adjustment 1.2
+axelard tx evm create-pending-transfers ethereum --from [key-name] --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands ethereum --from [key-name] --gas auto --gas-adjustment 1.2
 ```
-6. Trigger signing of the transfer on Ethereum
+Look for `successfully started signing batched commands with ID {batched commands ID}`.
+
+6. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
 ```bash
-axelard tx evm sign-commands ethereum --from [key-name] --gas auto --gas-adjustment 1.2
-```
-7. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
-```bash
-axelard q evm latest-batched-commands ethereum
+axelard q evm batched-commands {batched commands ID from step 5}
 ```
 Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
-8. Send the Ethereum transaction wrapping the command data to execute the mint
+7. Send the Ethereum transaction wrapping the command data to execute the mint
 
-- Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet. 
+- Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet.
 
 - Go to metamask, send a transaction to `Gateway smart contract address`, paste hex from `execute_data` above into Hex Data field
- 
+
   Keep in mind not to transfer any tokens!
 
   (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases))
@@ -135,7 +133,7 @@ Look for `successfully linked [Ethereum Ropsten deposit address] and [Axelar Net
 ```bash
 axelard tx evm confirm-erc20-deposit ethereum [txID] [amount] [Ethereum Ropsten deposit address] --from [key-name]
 ```
-Here, amount should be specific in satoshi, uphoton or uaxl depends on what token you are sending. 
+Here, amount should be specific in satoshi, uphoton or uaxl depends on what token you are sending.
 (For instance, 1photon = 1000000uphoton,  1axl = 1000000uaxl)
 e.g.,
 

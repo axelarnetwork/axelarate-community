@@ -88,17 +88,14 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 4. Trigger signing of the transfers to Ethereum. First create the pending transfers, then sign it.
 
 ```bash
-axelard tx evm create-pending-transfers ethereum --from validator
+axelard tx evm create-pending-transfers ethereum --from validator && axelard tx evm sign-commands ethereum --from validator
 ```
-```bash
-axelard tx evm sign-commands ethereum --from validator
-```
-Wait for sign protocol to complete (~10 Axelar blocks).
+Look for `successfully started signing batched commands with ID {batched commands ID}` and wait for sign protocol to complete (~10 Axelar blocks).
 
 5. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
 
 ```bash
-axelard q evm latest-batched-commands ethereum
+axelard q evm batched-commands {batched commands ID from step 4}
 ```
 Look for the command data listed under `execute_data`. Copy and save it to use in the next step.
 
@@ -166,5 +163,5 @@ axelard q evm deposit-state ethereum 0xa959623013b5355de5f023fb3044dae02bf915d57
 You should see `deposit transaction is confirmed`.
 
 :::tip
-In this release, we're triggering these commands about once a day. So come back in 24 hours, and check the balance on the Bitcoin testnet address to which you submitted the withdrawal. 
+In this release, we're triggering these commands about once a day. So come back in 24 hours, and check the balance on the Bitcoin testnet address to which you submitted the withdrawal.
 :::
