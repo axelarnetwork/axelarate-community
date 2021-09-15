@@ -1,10 +1,13 @@
 ---
-id: secondary-key-tx
+id: btc-consolidation-tx
 sidebar_position: 1
-sidebar_label: Secondary-key Consolidation Transaction (Withdrawal Handling)
-slug: /secondary-key-tx
+sidebar_label: Bitcoin Consolidation Transaction
+slug: /btc-consolidation-tx
 ---
-# Trigger Manual Consolidation / Withdrawal
+# Master-Key Consolidation Transaction
+TBD
+
+# Secondary-Key Consolidation Transaction (Withdrawal)
 
 In order to handle user withdrawals on the Bitcoin network, we need to trigger the secondary-key consolidation transaction. To to so, we need to use commands `create-pending-transfers-tx`and `sign-tx`, and then submit the signed transaction to the Bitcoin network. A query command `latest-tx` is also available to check the status of the transaction, and it's ready to be sent when the status field is set to `TX_STATUS_SIGNED`.
 

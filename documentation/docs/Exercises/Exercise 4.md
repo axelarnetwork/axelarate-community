@@ -77,40 +77,40 @@ gaiad keys add [cosmos-key-name]
 ```bash
 curl -X POST -d '{"address": "your newly created address"}' https://faucet.testnet.cosmos.network
 ```
-When the tokens are sent, you see the following response:
+When the tokens are sent, you will see the following response:
 ```json
 {"transfers":[{"coin":"100000000uphoton","status":"ok"}]}
 ```
-Check tokens are arrived
+Check that tokens have arrived
 
-[cosmoshub address] is the address you created in step 5, associates with the [cosmos-key-name]
+[cosmoshub address] is the address you created in step 5, associated with the [cosmos-key-name]
 ```bash
 gaiad q bank balances [cosmoshub address]
 ```
-### Instructions to send token from Cosmoshub testnet to Axelar Network
+### Instructions to send tokens from Cosmoshub testnet to Axelar Network
 1. Send an IBC transfer from Cosmoshub testnet to Axelar Network 
 
 You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases.md)
 
 [axelar address] is the address you generated in Exercise 3
 
-[cosmos-key-name] is the one you generated in setup 5 above.
+[cosmos-key-name] is the one you generated in step 5 above
 
 ```bash
 gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] --packet-timeout-timestamp 0 [amount]uphoton --from [cosmos-key-name] -y -b block
 ```
-Wait ~20 secs for the relayer to relayer your transaction
-2. On a new terminal window, enter Axelar node,
+Wait ~20 secs for the relayer to relay your transaction.
+2. On a new terminal window, enter Axelar node:
 ```bash
 docker exec -it axelar-core sh
 ```   
-3. Check you received the funds
+3. Check that you received the funds
 
 [axelar address] is the address you generated in Exercise 3, and used in step 1 above
 ```bash
 axelard q bank balances [axelar address]
 ```
-You should see a balance with denomination starts with `ibc` e.g.
+You should see balance with denomination starting with `ibc` e.g.:
 ```bash
 balances:
 - amount: "100000"
@@ -127,9 +127,9 @@ You should see the base_denom is `uphoton`
 
 1. Send IBC token back to Cosmoshub
 
-[cosmoshub address] is the address you generated in section `Setup gaia cli` step 5, associates with the [cosmos-key-name]
+[cosmoshub address] is the address you generated in section `Setup gaia cli` in step 5, associated with the [cosmos-key-name]
 
-(You can check your cosmoshub address use command `gaiad keys list` in local terminal)
+(You can check your cosmoshub address with command `gaiad keys list` in local terminal)
 
 [key-name] is the name you used in Exercise 3
 
