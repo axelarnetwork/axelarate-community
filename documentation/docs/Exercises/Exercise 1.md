@@ -88,7 +88,7 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 4. Trigger signing of the transfers to Ethereum. First create the pending transfers, then sign it.
 
 ```bash
-axelard tx evm create-pending-transfers ethereum --from validator && axelard tx evm sign-commands ethereum --from validator
+axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
 ```
 Look for `successfully started signing batched commands with ID {batched commands ID}` and wait for sign protocol to complete (~10 Axelar blocks).
 
