@@ -102,7 +102,7 @@ Look for `successfully started signing batched commands with ID {batched command
 
 6. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
 ```bash
-axelard q evm batched-commands {batched commands ID from step 5}
+axelard q evm batched-commands ethereum {batched commands ID from step 5}
 ```
 Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 7. Send the Ethereum transaction wrapping the command data to execute the mint
