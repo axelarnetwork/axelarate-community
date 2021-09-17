@@ -95,7 +95,7 @@ Look for `successfully started signing batched commands with ID {batched command
 5. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
 
 ```bash
-axelard q evm batched-commands {batched commands ID from step 4}
+axelard q evm batched-commands ethereum {batched commands ID from step 4}
 ```
 Look for the command data listed under `execute_data`. Copy and save it to use in the next step.
 
