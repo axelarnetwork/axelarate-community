@@ -5,13 +5,14 @@ AXELAR_MNEMONIC_PATH=""
 RECOVERY_INFO_PATH=""
 AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
 TOFND_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep tofnd | cut -d \` -f 4)"
-ROOT_DIRECTORY="$HOME/.axelar_testnet"
+ROOT_DIRECTORY="$HOME/.axelar_devnet"
 GIT_ROOT="$(git rev-parse --show-toplevel)"
 BIN_DIRECTORY="$ROOT_DIRECTORY/bin"
 AXELARD="$BIN_DIRECTORY/axelard"
 TOFND="$BIN_DIRECTORY/tofnd"
 OS="$(uname | awk '{print tolower($0)}')"
 ARCH="$(uname -m)"
+AXELARD_CHAIN_ID="axelar-testnet-adelaide"
 
 
 set -e
@@ -176,6 +177,7 @@ if [ -n "$RECOVERY_FILE" ] && [ -f "$RECOVERY_FILE" ]; then
 fi
 
 export KEYRING_BACKEND=test
+export AXELARD_CHAIN_ID=$AXELARD_CHAIN_ID
 
 "$AXELARD" vald-start ${TOFND_HOST:+--tofnd-host "$TOFND_HOST"} \
     ${VALIDATOR_HOST:+--node "$VALIDATOR_HOST"} \
