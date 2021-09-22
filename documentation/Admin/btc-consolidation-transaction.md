@@ -52,9 +52,9 @@ to check the status of the transaction, and it's ready to be sent when the statu
    ```
 
    Get the address and check the balance in the most recent transaction on bitcoin explorer like blockstream.info.
-   Following the similar process, but replace `secondary` with `master` and check its balance. 
+   Following the similar process, but replace `secondary` with `master` and check its balance.
 
-   If most of the funds are on the `master` key, then send some (e.g 0.005) to the secondary key appending flag `--secondary-key-amount 0.005btc` to the command below. 
+   If most of the funds are on the `master` key, then send some (e.g 0.005) to the secondary key appending flag `--secondary-key-amount 0.005btc` to the command below.
 
    Create a new key. The new_key_id should be a sequence considering the output of the consolidation-address query above. So for example, the key_id from that query is `btc-primary-2`, you would choose `btc-primary-3` for the new_key_id.
 
