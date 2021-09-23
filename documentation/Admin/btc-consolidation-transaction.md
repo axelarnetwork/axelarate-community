@@ -18,6 +18,17 @@ In order to perform master-key consolidation transaction on the Bitcoin network,
 In order to send some coin from the secondary key to the master key, we need to use the `--master-key-amount` flag when
 performing `create-pending-transfers-tx`.
 
+Next, we'll need to generate and register external keys.
+
+Generation can be handled by KMS -- the following command will write a WIF-encoded private key to disk (to be used by
+the signing process) and print a hex-encoded public key to stdout (to register with Axelar).
+
+NOTE: Be sure to preserve private keys produced by each iteration so they can be used during key signing.
+
+```
+axelar-kms bitcoin keygen --force
+```
+
 In order to register external keys, we need to use command
 
 ```
