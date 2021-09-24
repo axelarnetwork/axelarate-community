@@ -105,6 +105,7 @@ Look for `successfully started signing batched commands with ID {batched command
 axelard q evm batched-commands ethereum {batched commands ID from step 5}
 ```
 Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
+
 7. Send the Ethereum transaction wrapping the command data to execute the mint
 
 - Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet.
@@ -126,6 +127,7 @@ You can now open Metamask, select "Assets", then "Add Token", then "Custom Token
 axelard tx evm link ethereum axelarnet $(axelard keys show [key-name] -a) [token] --from [key-name]
 ```
 Look for `successfully linked [Ethereum Ropsten deposit address] and [Axelar Network dst addr]`
+
 2. External: send wrapped tokens to  [Ethereum Ropsten deposit address] (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send the transaction. Wait for 30 Ethereum block confirmations. You can monitor the status of your deposit using the testnet explorer: https://ropsten.etherscan.io/
 
 3. Confirm the Ethereum transaction
