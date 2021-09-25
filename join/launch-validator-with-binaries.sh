@@ -198,8 +198,8 @@ cat "$ROOT_DIRECTORY/broadcaster.txt"
 rm -rf "$ROOT_DIRECTORY/broadcaster.txt"
 echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export)"
 echo
-echo "To follow tofnd execution, run 'tail -f ${LOGS_DIRECTORY}/tofnd.logs'"
-echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.logs'"
+echo "To follow tofnd execution, run 'tail -f ${LOGS_DIRECTORY}/tofnd.log'"
+echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.log'"
 echo "To stop tofnd, run 'killall -9 tofnd'"
 echo "To stop vald, run 'killall -9 vald'"
 echo

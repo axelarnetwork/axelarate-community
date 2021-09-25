@@ -46,8 +46,30 @@ After above setup, we can run commands `create-master-tx`, `sign-tx`, and `submi
 signed transaction to the Bitcoin network to complete the consolidation. A query command `latest-tx` is also available
 to check the status of the transaction, and it's ready to be sent when the status field is set to `TX_STATUS_SIGNED`.
 
-1. Create a master-key transaction and optionally use the flag `--secondary-key-amount` to send some coins back to the
-   secondary key. Note that you need to specify which key to use for sending the change output. If the key specified
+1. To calculate the amount to retain in new secondary key,first look for the current secondary key.
+   ```
+   axelard q bitcoin consolidation-address --key-role secondary
+   ```
+
+   Get the address and check the balance in the most recent transaction on bitcoin explorer like blockstream.info.
+
+   We want to send a very small amount (e.g 0.0001) to the master key and the rest will remain with the secondary key. So subtract 0.0001 from the balance on the secondary key to determine the value for the param `--secondary-key-amount`
+
+   First create a new key. The key id should be a sequence considering the output of the consolidation-address query above. So for example, the key_id from that query is `btc-primary-2`, you would choose `btc-primary-3` for the new key id.
+
+   ```
+   axelard tx tss start-keygen --id {key ID} --from validator --gas auto --gas-adjustment 1.2
+   ```
+
+   Check that the status of the key
+   ```
+   axelard q tss key <key_id>
+   ```
+
+   Create a master-key transaction and use the flag  `--secondary-key-amount` to send most coins back to the
+   secondary key.
+
+   Note that you need to specify which key to use for sending the change output. If the key specified
    does not match the current master key, a key assignment will occur at transaction creation and key rotation will
    occur after signing is finished. The command would fail if such a transaction is already created and is waiting to be
    signed. In such case, please wait until the system is available again.
