@@ -137,7 +137,11 @@ docker rm $(docker ps -a -q)
 6. Start your Axelar node for the changes to take effect. Run the `join/joinTestnet.sh` script again, with the same `--axelar-core`, `--tofnd` (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning.
 
 ### Setup using binaries
-1. Have an Axelar node fully caught up and running by completing the steps in `README.md`. Ensure you have some testnet coins on your validator address.
+1. Have an Axelar node fully caught up and running by completing the steps in `README.md`. Ensure you have some testnet coins on your validator address. Make sure you have the environment variables `CHAIN_ID` set.
+
+```bash
+export CHAIN_ID=axelar-testnet-adelaide
+```
 
 2. Stop the Axelar node. Open a new terminal and run
 
@@ -363,8 +367,9 @@ axelard tx staking create-validator --yes \
 --commission-max-rate="0.20" \
 --commission-max-change-rate="0.01" \
 --min-self-delegation="1" \
---pubkey "$(axelard tendermint show-validator)" \
---home ~/.axelard_testnet/.core \
+--pubkey "$(axelard tendermint show-validator  --home ~/.axelar_testnet/.core)" \
+--home ~/.axelar_testnet/.core \
+--chain-id axelar-testnet-adelaide \
 --from validator \
 -b block
 ```
