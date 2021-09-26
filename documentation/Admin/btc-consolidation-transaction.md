@@ -46,28 +46,29 @@ After above setup, we can run commands `create-master-tx`, `sign-tx`, and `submi
 signed transaction to the Bitcoin network to complete the consolidation. A query command `latest-tx` is also available
 to check the status of the transaction, and it's ready to be sent when the status field is set to `TX_STATUS_SIGNED`.
 
-1. To calculate the amount to retain in new secondary key,first look for the current secondary key.
+1. In case the secondary key doesn't have enough funds to process individual withdrawals, you might want to send some funds to it from the master. First look for the current secondary key.
    ```
    axelard q bitcoin consolidation-address --key-role secondary
    ```
 
    Get the address and check the balance in the most recent transaction on bitcoin explorer like blockstream.info.
+   Following the similar process, but replace `secondary` with `master` and check its balance. 
 
-   We want to send a very small amount (e.g 0.0001) to the master key and the rest will remain with the secondary key. So subtract 0.0001 from the balance on the secondary key to determine the value for the param `--secondary-key-amount`
+   If most of the funds are on the `master` key, then send some (e.g 0.005) to the secondary key appending flag `--secondary-key-amount 0.005btc` to the command below. 
 
-   First create a new key. The key id should be a sequence considering the output of the consolidation-address query above. So for example, the key_id from that query is `btc-primary-2`, you would choose `btc-primary-3` for the new key id.
+   Create a new key. The new_key_id should be a sequence considering the output of the consolidation-address query above. So for example, the key_id from that query is `btc-primary-2`, you would choose `btc-primary-3` for the new_key_id.
 
    ```
-   axelard tx tss start-keygen --id {key ID} --from validator --gas auto --gas-adjustment 1.2
+   axelard tx tss start-keygen --id {new_key_id} --from validator --gas auto --gas-adjustment 1.2
    ```
 
    Check that the status of the key
    ```
-   axelard q tss key <key_id>
+   axelard q tss key <new_key_id>
    ```
 
    Create a master-key transaction and use the flag  `--secondary-key-amount` to send most coins back to the
-   secondary key.
+   secondary key as described above.
 
    Note that you need to specify which key to use for sending the change output. If the key specified
    does not match the current master key, a key assignment will occur at transaction creation and key rotation will
