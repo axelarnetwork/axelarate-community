@@ -16,17 +16,17 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup](/documentation/docs/setup.md)
+- Complete all steps from [Setup](/setup.md)
 - Golang (Follow the [official docs](https://golang.org/doc/install) to install)
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
 - Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core
-- [Extra commands to query Axelar Network state](/documentation/docs/extra-commands.md)
+- [Extra commands to query Axelar Network state](/extra-commands)
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup](/documentation/docs/setup.md) to make sure your node is up to date, and you received some test coins to your account.
+Follow the instructions in [Setup](/setup.md) to make sure your node is up to date, and you received some test coins to your account.
 
 ## Connect to the Cosmoshub testnet
 
@@ -90,7 +90,7 @@ gaiad q bank balances [cosmoshub address]
 ### Instructions to send tokens from Cosmoshub testnet to Axelar Network
 1. Send an IBC transfer from Cosmoshub testnet to Axelar Network 
 
-You can find `Cosmoshub channel id` under [Testnet Release](/documentation/docs/testnet-releases.md)
+You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases.md)
 
 [axelar address] is the address you generated in Exercise 3
 
