@@ -48,11 +48,11 @@ gaiad version
 ```
 :::tip
 If you get "-bash: gaiad: command not found", make sure you do the following (note to change it to match your user):
-:::
 ```bash
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 source .profile
 ```
+:::
 
 4. Initialize the node
 
