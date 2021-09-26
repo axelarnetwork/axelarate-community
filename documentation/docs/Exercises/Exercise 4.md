@@ -47,7 +47,7 @@ make install
 gaiad version 
 ```
 :::tip
-If you get "-bash: gaiad: command not found", make sure you do the following (note to change it to match your user):
+If you get `-bash: gaiad: command not found`, make sure you do the following:
 ```bash
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 source .profile
