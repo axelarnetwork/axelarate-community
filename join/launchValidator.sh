@@ -96,7 +96,7 @@ docker run                              \
   --name tofnd                          \
   --network "$DOCKER_NETWORK"           \
   --env MNEMONIC_CMD=$CMD               \
-  -v "${TOFND_DIRECTORY}/:/root/.tofnd" \
+  -v "${TOFND_DIRECTORY}/:/.tofnd" \
   "axelarnet/tofnd:${TOFND_VERSION}"
 
 VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")
