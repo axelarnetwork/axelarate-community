@@ -12,7 +12,7 @@ For recover instructions, please see [recover](./validator_recover.md).
 ### Tendermint validator key
 
 The Tendermint validator key is created when a node is launched for the first time.
-It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` (or on the host at `$HOME/.axelar_testnet/.core/config/priv_validator_key.json`).
+It can be found within the node's container at `c` (or on the host at `$HOME/.axelar_testnet/.core/config/priv_validator_key.json`).
 
 #### Key backup
 

@@ -14,16 +14,16 @@ The C2D2 CLI automates the steps we performed manually in exercise 1.
 ## Status
 Inactive/Completed
 
-## Level 
+## Level
 Intermediate
 
-## Disclaimer 
+## Disclaimer
 :::warning
-Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template. 
+Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup](/setup.md)
+- Complete all steps from [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md)
 
 ## Useful links
 - [Extra commands to query Axelar Network state](/extra-commands)
@@ -35,7 +35,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup](/setup.md) to make sure your node is synchronized to the latest block, and you have received some test coins to your validator account. 
+Follow the instructions in [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md) to make sure your node is synchronized to the latest block, and you have received some test coins to your validator account.
 
 ### Pull and enter the c2d2cli container
 Check [Testnet Release](/testnet-releases) for the latest available C2D2 version of the docker images.
@@ -54,7 +54,7 @@ c2d2cli keys add c2d2
 
 Go to axelar faucet and fund your C2D2 account by providing the address to the
 [facuet](http://faucet.testnet.axelar.network/). You can get c2d2's account
-address by running 
+address by running
 
 ```bash
 c2d2cli keys show c2d2 -a
@@ -63,7 +63,7 @@ c2d2cli keys show c2d2 -a
 ### Fund your ethereum sender account
 Add an ethereum account to c2d2cli. When prompted enter the password `passwordpassword`.
 ```bash
-c2d2cli bridge evm accounts add ethereum 
+c2d2cli bridge evm accounts add ethereum
 ```
 
 You will be asked to enter a password for the account. Make a note of your password.
@@ -96,13 +96,13 @@ You will see the deposit Bitcoin address printed in the terminal
 action:  (2/7) Please deposit Bitcoin to tb1qgfk6v2ut9flwwkraj6t3syvpq22g0xhh2m73atfe79jv3msjwvzqtpuvfc
 ```
 
-2. **External**: send some TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain). 
+2. **External**: send some TEST BTC on Bitcoin testnet to the deposit address specific above, and wait for 6 confirmations (i.e. the transaction is 6 blocks deep in the Bitcoin chain).
 
 - ALERT: **DO NOT SEND ANY REAL ASSETS**
 - Bitcoin testnet faucet [https://testnet-faucet.mempool.co/](https://testnet-faucet.mempool.co/)
 - You can monitor the status of your deposit using the testnet explorer: [https://blockstream.info/testnet/](https://blockstream.info/testnet/)
 
-Do not exit `c2d2cli` while you are waiting for your deposit to be confirmed. It will be watching the bitcoin blockchain to detect your transaction. 
+Do not exit `c2d2cli` while you are waiting for your deposit to be confirmed. It will be watching the bitcoin blockchain to detect your transaction.
 - If `c2d2cli` crashes or is closed during this step you can re-run the `deposit-btc` command with the same recipient address to resume.
 - If your transaction has 6 confirmations but `c2d2cli` has not detected it, you can restart `c2d2cli` and append the `--bitcoin-tx-prompt` flag.
 - The CLI will prompt you to enter the deposit tx info manually. The rest of the deposit procedure will still be automated.
@@ -123,10 +123,10 @@ Using AxelarGateway <address>
 Using satoshi token <address>
 ```
 
-The contract will show in metamask as symbol 'Satoshi'. If your recipient address is in metamask, you will have an amount of satoshi tokens in metamask equal to your bitcoin deposit. 
+The contract will show in metamask as symbol 'Satoshi'. If your recipient address is in metamask, you will have an amount of satoshi tokens in metamask equal to your bitcoin deposit.
 
 ### Burn ERC20 wrapped Bitcoin tokens and obtain native Satoshi
-1. Generate an ethereum withdrawal address. The Bitcoin address you provide will be uniquely linked to the deposit address and receive the withdrawn BTC on the Bitcoin testnet. 
+1. Generate an ethereum withdrawal address. The Bitcoin address you provide will be uniquely linked to the deposit address and receive the withdrawn BTC on the Bitcoin testnet.
 
 ```bash
 c2d2cli transfer satoshi [bitcoin recipient address] --source-chain ethereum --dest-chain bitcoin --gas=auto --gas-adjustment=1.4
@@ -150,7 +150,7 @@ action:  (2/5) Please transfer satoshi tokens to Ethereum address 0xf5fccEeF2435
 3. Once your withdrawal transaction is detected, `c2d2cli` will wait for 30 Ropsten block confirmations before proceeding.
 
 
-4. `c2d2cli` will automate the withdrawal confirmation, and satoshi token (wrapped BTC) burning. 
+4. `c2d2cli` will automate the withdrawal confirmation, and satoshi token (wrapped BTC) burning.
 
 5. Once your Satoshi tokens have been burned, you will see this message:
 
@@ -160,7 +160,7 @@ Transferred 5000 satoshi tokens to Bitcoin address [bitcoin recipient address]
 
 6. Your withdrawn BTC will be spendable by your recipient address once Bitcoin withdrawal consolidation occurs. Consolidation will be completed by a separate process.
 
-An automated service processes all pending transfers from the Axelar network to Bitcoin a few times a day. Come back 24 hours to check your coins at the destination Bitcoin address on the testnet.  
+An automated service processes all pending transfers from the Axelar network to Bitcoin a few times a day. Come back 24 hours to check your coins at the destination Bitcoin address on the testnet.
 
 :::note
 If your local axelar node fails, meaning `c2d2cli` cannot connect to it to broadcast transactions, you may use an Axelar public node to broadcast transactions by adding the config file flag `--conf /config.testnet.toml` like so:

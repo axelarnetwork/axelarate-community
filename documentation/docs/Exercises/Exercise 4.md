@@ -16,7 +16,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup](/setup.md)
+- Complete all steps from [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md)
 - Golang (Follow the [official docs](https://golang.org/doc/install) to install)
 
 ## Useful links
@@ -26,7 +26,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup](/setup.md) to make sure your node is up to date, and you received some test coins to your account.
+Follow the instructions in [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md) to make sure your node is up to date, and you received some test coins to your account.
 
 ## Connect to the Cosmoshub testnet
 
@@ -44,7 +44,7 @@ make install
 ```
 3. Verify it is properly installed:
 ```bash
-gaiad version 
+gaiad version
 ```
 :::tip
 If you get `-bash: gaiad: command not found`, make sure you do the following:
@@ -56,7 +56,7 @@ source .profile
 
 4. Initialize the node
 
-[moniker] can be any name you like 
+[moniker] can be any name you like
 ```bash
 gaiad init [moniker]
 ```
@@ -90,7 +90,7 @@ Check that tokens have arrived
 gaiad q bank balances [cosmoshub address]
 ```
 ### Instructions to send tokens from Cosmoshub testnet to Axelar Network
-1. Send an IBC transfer from Cosmoshub testnet to Axelar Network 
+1. Send an IBC transfer from Cosmoshub testnet to Axelar Network
 
 You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases.md)
 
@@ -105,7 +105,7 @@ Wait ~20 secs for the relayer to relay your transaction.
 2. On a new terminal window, enter Axelar node:
 ```bash
 docker exec -it axelar-core sh
-```   
+```
 3. Check that you received the funds
 
 [axelar address] is the address you generated in Exercise 3, and used in step 1 above
@@ -125,7 +125,7 @@ axelard q ibc-transfer denom-traces
 ```
 You should see the base_denom is `uphoton`
 
-### Send back to Cosmoshub 
+### Send back to Cosmoshub
 
 1. Send IBC token back to Cosmoshub
 
