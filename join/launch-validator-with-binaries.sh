@@ -72,6 +72,9 @@ if [ "x86_64" =  "$ARCH" ]; then
   ARCH=amd64
 fi
 
+export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar-testnet-adelaide"}
+echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
+
 echo "TOFND Version: ${TOFND_VERSION}"
 echo "Axelar Core Version: ${AXELAR_CORE_VERSION}"
 echo "OS: ${OS}"
