@@ -16,7 +16,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup](/setup.md)
+- Complete all steps from [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md)
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
@@ -29,7 +29,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup](/setup.md) to make sure your node is up to date.
+Follow the instructions in [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md) to make sure your node is up to date.
 
 ## Instructions to mint and burn tokens
 These instructions are a step by step guide to run commands to move an asset from a source to a destination chain and back. The assets are minted as wrapped assets on the Axelar Network. The commands are submitted to the Axelar Network that's responsible for (a) generating deposit/withdrawal addresses, (b) routing and finalizing transactions, and (c) minting/burning the corresponding assets.
@@ -90,7 +90,7 @@ Eventually, you'll see something like this in the node terminal:
 bitcoin outpoint confirmation result is
 ```
 
-You can search it using 
+You can search it using
 - `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`
 - `docker logs -f axelar-core 2>&1 | grep -B 1 -e axelar1... (address from step 1)`
 
