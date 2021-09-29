@@ -256,7 +256,7 @@ eg)
 ```bash
 axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y
 ```
-**:Important: Post-Setup Checlist:**
+**:Important: Post-Setup Checklist**
 
 Check that: 
 

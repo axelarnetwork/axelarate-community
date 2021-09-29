@@ -300,7 +300,7 @@ eg)
 axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y --home ~/.axelar_testnet/.core
 ```
 
-**:Important: Post-Setup Checlist:**
+**:Important: Post-Setup Checklist**
 
 Check that: 
 
