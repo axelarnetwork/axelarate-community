@@ -7,7 +7,7 @@ This document describes the steps necessary to ensure that a validator node can 
 * Axelar proxy mnemonic
 * Tofnd mnemonic
 
-For recover instructions, please see [recover](./validator_recover.md).
+For recover instructions, please see [recover](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-recovery.md).
 
 ### Tendermint validator key
 
