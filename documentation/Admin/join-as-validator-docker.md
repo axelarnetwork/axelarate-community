@@ -265,7 +265,8 @@ Check that:
 3. Your external nodes (Bitcoin, Ethereum, etc) are running and correctly expose the endpoints. 
 4. You backed-up your mnemonics following [this manual](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-backup.md)
 5. After the team gives you enough stake and confirms that rotations are complete, you can explore various shares you hold following [this](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-extra-commands.md). 
-6. After that, you're an active validator and should guard your node and all keys with care.
+6. A reminder that you need at least `1 axl` to participate in consensus, and at least `2\%` of total bonded stake to participate in threshold MPC. 
+7. After that, you're an active validator and should guard your node and all keys with care.
 
 ### Start-up troubleshoot
 
