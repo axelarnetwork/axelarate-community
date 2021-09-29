@@ -152,13 +152,13 @@ axelard tx evm confirm-erc20-deposit ethereum 0x01b00d7ed8f66d558e749daf377ca30e
 Verify that the Ethereum deposit transaction confirmation was successful.
 
 ```bash
-axelard q evm deposit-state ethereum {txID} {deposit addr}
+axelard q evm deposit-state ethereum {txID} {deposit addr} {amount}
 ```
 
 e.g.,
 
 ```bash
-axelard q evm deposit-state ethereum 0xa959623013b5355de5f023fb3044dae02bf915d57b9440460ca59a98663741a8 0x7c5578F5cC4c9253F1E5495240785DD477843D80
+axelard q evm deposit-state ethereum 0xa959623013b5355de5f023fb3044dae02bf915d57b9440460ca59a98663741a8 0x7c5578F5cC4c9253F1E5495240785DD477843D80 10000
 ```
 You should see `deposit transaction is confirmed`.
 
