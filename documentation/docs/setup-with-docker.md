@@ -6,7 +6,7 @@ slug: /setup-docker
 ---
 
 # Testnet Node Setup
-Tools to join the axelar network using docker images. For binaries checkout [Setup with Binaries](/setup-with-binaries.md).
+Tools to join the axelar network using docker images. For binaries checkout [Setup with Binaries](/setup-binaries.md).
 
 This tutorial will take 30-60 minutes of dev time and 2-4 hours of waiting for blockchain sync. The tutorial includes steps for joining the axelar network using two ways. A docker based setup and a setup using binaries. As per your preference, follow the steps for one of the two options.
 

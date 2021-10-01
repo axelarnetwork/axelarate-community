@@ -16,7 +16,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md)
+- Complete all steps from [Setup with Docker](/setup-docker.md) or [Setup with Binaries](/setup-binaries.md)
 - Have a Ethereum wallet setup and have an Ethereum address funded with some Ether (You can also choose to use the [Chrome plugin](https://chrome.google.com/webstore/detail/mew-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm?hl=en))
 - Your Axelar Network address have`satoshi` and `uphoton (ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A)` balances. If you do not have these assets, please follow `Exercise 3` and `Exercise 4` to mint some.
 
@@ -31,7 +31,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md) to make sure your node is up to date and you received some test coins to your account.
+Follow the instructions in [Setup with Docker](/setup-docker.md) or [Setup with Binaries](/setup-binaries.md) to make sure your node is up to date and you received some test coins to your account.
 
 
 ### Sending tokens from Axelar Network to Ethereum

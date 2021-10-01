@@ -40,8 +40,8 @@ module.exports = {
       },
       items: [
         {
-          to: "/setup",
-          activeBasePath: "/setup",
+          to: "/setup-docker",
+          activeBasePath: "/setup-docker",
           position: "left",
           label: "Setup",
         },
@@ -100,7 +100,7 @@ module.exports = {
           items: [
             {
               label: "Setup",
-              to: "/setup",
+              to: "/setup-docker",
             },
             {
               label: "Testnet Release Versions",
