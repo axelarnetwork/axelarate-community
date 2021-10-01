@@ -16,7 +16,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup with Docker](/setup-docker.md) or [Setup with Binaries](/setup-binaries.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 - Have a Ethereum wallet setup with [MEW](https://www.myetherwallet.com/) and have an Ethereum address funded with some Ether (You can also choose to use the [Chrome plugin](https://chrome.google.com/webstore/detail/mew-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm?hl=en))
 
 ## Useful links
@@ -34,7 +34,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup with Docker](/setup-docker.md) or [Setup with Binaries](/setup-binaries.md) to make sure your node is up to date and you received some test coins to your validator account.
+Follow the instructions in [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries) to make sure your node is up to date and you received some test coins to your validator account.
 
 ## Instructions to mint and burn tokens
 These instructions are a step by step guide to run commands to move an asset from a source to a destination chain and back. The assets are minted as wrapped ERC-20 assets on the destination chain. The commands are submitted to the Axelar Network that's responsible for (a) generating deposit/withdrawal addresses, (b) routing and finalizing transactions, and (c) minting/burning the corresponding assets.

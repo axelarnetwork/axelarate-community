@@ -23,7 +23,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup with Docker](/setup-docker.md) or [Setup with Binaries](/setup-binaries.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 
 ## Useful links
 - [Extra commands to query Axelar Network state](/extra-commands)
@@ -35,7 +35,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup with Docker](/setup-docker.md) or [Setup with Binaries](/setup-binaries.md) to make sure your node is synchronized to the latest block, and you have received some test coins to your validator account.
+Follow the instructions in [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries) to make sure your node is synchronized to the latest block, and you have received some test coins to your validator account.
 
 ### Pull and enter the c2d2cli container
 Check [Testnet Release](/testnet-releases) for the latest available C2D2 version of the docker images.
