@@ -1,5 +1,5 @@
 ---
-id: p6
+id: p4
 sidebar_position: 6
 sidebar_label: Broadcaster account is not found
 slug: /faq/p4

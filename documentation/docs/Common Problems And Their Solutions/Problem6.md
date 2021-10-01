@@ -1,5 +1,5 @@
 ---
-id: p8
+id: p6
 sidebar_position: 8
 sidebar_label: Troubleshooting Bitcoin deposit (Mint)
 slug: /faq/p6
@@ -18,7 +18,7 @@ Bitcoin mint workflow is completed, but the wrapped test btc does not show up in
 ## Solution
 - Check if the bitcoin outpoint confirmation succeeded. See the Extra Commands document and find `Query the State of a Bitcoin Deposit Transaction`
 ```bash
-axelard q bitcoin txState [txID:vout]
+axelard q bitcoin deposit-status [txID:vout]
 ```
 - If the state is not `confirmed` then there was likely a typo in step 3. Double check the values of txID:vout, amount btc, and deposit address, then try to confirm the bitcoin outpoint again
 ```bash

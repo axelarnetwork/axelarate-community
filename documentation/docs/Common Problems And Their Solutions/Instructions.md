@@ -1,5 +1,5 @@
 ---
-id: p2
+id: instructions
 sidebar_position: 2
 sidebar_label: Checklist to ask for help
 slug: /faq/instructions

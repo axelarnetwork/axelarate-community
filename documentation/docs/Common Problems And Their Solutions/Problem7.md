@@ -1,5 +1,5 @@
 ---
-id: p9
+id: p7
 sidebar_position: 9
 sidebar_label: No pending transfer for chain ethereum 
 slug: /faq/p7
