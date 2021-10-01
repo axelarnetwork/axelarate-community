@@ -9,7 +9,7 @@ This document describes the steps necessary to ensure that a validator node can 
 
 Besides the data described above, it will also be necessary to retrieve the *recovery data* associated with all the key shares that the validator was responsible for maintaining.
 
-For backup instructions, please see [backup](./validator_backup.md).
+For backup instructions, please see [backup](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-backup.md).
 
 ### Recovering an Axelar node
 
