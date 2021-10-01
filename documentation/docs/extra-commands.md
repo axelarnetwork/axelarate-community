@@ -1,6 +1,6 @@
 ---
 id: extra-commands
-sidebar_position: 4
+sidebar_position: 5
 sidebar_label: Extra Commands
 slug: /extra-commands
 ---
@@ -13,7 +13,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 - Attempted or completed [Excercise 1](/exercises/e1) and have a basic understanding of the asset transfer workflow
 
 ## Commands

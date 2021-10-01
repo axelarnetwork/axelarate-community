@@ -16,7 +16,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 - Golang (Follow the [official docs](https://golang.org/doc/install) to install)
 
 ## Useful links
@@ -26,7 +26,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md) to make sure your node is up to date, and you received some test coins to your account.
+Follow the instructions in [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries) to make sure your node is up to date, and you received some test coins to your account.
 
 ## Connect to the Cosmoshub testnet
 

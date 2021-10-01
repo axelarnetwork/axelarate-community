@@ -16,7 +16,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
@@ -29,7 +29,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md) to make sure your node is up to date.
+Follow the instructions in [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries) to make sure your node is up to date.
 
 ## Instructions to mint and burn tokens
 These instructions are a step by step guide to run commands to move an asset from a source to a destination chain and back. The assets are minted as wrapped assets on the Axelar Network. The commands are submitted to the Axelar Network that's responsible for (a) generating deposit/withdrawal addresses, (b) routing and finalizing transactions, and (c) minting/burning the corresponding assets.

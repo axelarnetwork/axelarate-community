@@ -40,12 +40,6 @@ module.exports = {
       },
       items: [
         {
-          to: "/setup",
-          activeBasePath: "/setup",
-          position: "left",
-          label: "Setup",
-        },
-        {
           to: "/testnet-releases",
           activeBasePath: "/testnet-releases",
           position: "left",
@@ -92,23 +86,6 @@ module.exports = {
             {
               label: " Testnet Form Submission Portal",
               to: "https://axelar.knack.com/testnet-portal",
-            },
-          ],
-        },
-        {
-          title: "Docs",
-          items: [
-            {
-              label: "Setup",
-              to: "/setup",
-            },
-            {
-              label: "Testnet Release Versions",
-              to: "/testnet-releases",
-            },
-            {
-              label: "FAQs",
-              to: "/problem/p1",
             },
           ],
         },

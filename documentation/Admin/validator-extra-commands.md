@@ -13,7 +13,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup with Docker](/setup-with-docker.md) or [Setup with Binaries](/setup-with-binaries.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 - Attempted or completed [Excercise 3](/exercises/e3) to join the network as a validator, and have a basic understanding of the workflow
 
 ## Commands
