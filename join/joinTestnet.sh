@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-AXELAR_CORE_VERSION=""
-TOFND_VERSION=""
+AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
+TOFND_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep tofnd | cut -d \` -f 4)"
 RESET_CHAIN=false
 ROOT_DIRECTORY=~/.axelar_testnet
 GIT_ROOT="$(git rev-parse --show-toplevel)"
@@ -37,6 +37,12 @@ for arg in "$@"; do
   esac
 done
 
+addPersistentPeers() {
+  persistent_peers="$(cat $SHARED_DIRECTORY/persistent-peers.txt)"
+  sed "s/^persistent_peers =.*/persistent_peers = \"$persistent_peers\"/g" "${SHARED_DIRECTORY}/config.toml" > "${SHARED_DIRECTORY}/config.toml.tmp"
+  mv "${SHARED_DIRECTORY}/config.toml.tmp" "${SHARED_DIRECTORY}/config.toml"
+}
+
 if [ -z "$AXELAR_CORE_VERSION" ]; then
   echo "'--axelar-core vX.Y.Z' is required"
   exit 1
@@ -69,13 +75,15 @@ if [ ! -f "${SHARED_DIRECTORY}/genesis.json" ]; then
   curl https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/peers.txt" ]; then
-  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/peers.txt -o "${SHARED_DIRECTORY}/peers.txt"
+if [ ! -f "${SHARED_DIRECTORY}/persistent-peers.txt" ]; then
+  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${SHARED_DIRECTORY}/persistent-peers.txt"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/config.toml" ]; then
-  cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
-fi
+echo "Overwriting stale config.toml to config directory"
+cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
+
+echo "Adding persistent peers to config"
+addPersistentPeers
 
 if [ ! -f "${SHARED_DIRECTORY}/app.toml" ]; then
   cp "${GIT_ROOT}/join/app.toml" "${SHARED_DIRECTORY}/app.toml"
@@ -96,7 +104,6 @@ docker run                                             \
   -p 26656-26658:26656-26658                           \
   -p 26660:26660                                       \
   --env START_REST=true                                \
-  --env PEERS_FILE=/root/shared/peers.txt              \
   --env PRESTART_SCRIPT=/root/shared/consumeGenesis.sh \
   --env CONFIG_PATH=/root/shared/                      \
   --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH     \

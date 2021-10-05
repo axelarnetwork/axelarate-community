@@ -101,10 +101,8 @@ if [ ! -f "${TOFND}" ]; then
   curl -s --fail https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/${TOFND_VERSION}/${TOFND_BINARY} -o "${TOFND}" && chmod +x "${TOFND}"
 fi
 
-if [ ! -f "${CONFIG_DIRECTORY}/config.toml" ]; then
-  echo "Moving config.toml to config directory"
-  cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
-fi
+echo "Overwriting stale config.toml to config directory"
+cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
 
 if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
   echo "Moving app.toml to config directory"
