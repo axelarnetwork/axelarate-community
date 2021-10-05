@@ -23,6 +23,8 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Complete all steps from [Setup with Binaries](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/setup-with-binaries.md)
 - While the network is in development, check in and receive an 'okay' from a testnet moderator or Axelar team member before starting
 - Ensure you have the right tag checked out for the axelarate-community repo, check in the testnet-releases.md
+- Minimum validator hardware requirements: 16 cores, 16GB RAM, 1.5 TB drive. Recommended 32 cores, 32 GB RAM, 2 TB+ drive
+
 
 ## Useful links
 - [Extra commands to query Axelar Network state](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/extra-commands.md)
@@ -301,7 +303,7 @@ eg)
 axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y --home ~/.axelar_testnet/.core
 ```
 
-**:Important: Post-Setup Checklist**
+### **Important: Post-Setup Checklist**
 
 Check that:
 
