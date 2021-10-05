@@ -53,6 +53,11 @@ git clone https://github.com/axelarnetwork/axelarate-community.git
 cd axelarate-community
 ```
 
+Checkout the correct tag so the scripts work with the deployment. Find the right tag [here](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/testnet-releases.md).
+```bash
+git checkout <release-tag>
+```
+
 Run the script `join/joinTestnet.sh`
 ```bash
 Usage: joinTestnet.sh [flags]
