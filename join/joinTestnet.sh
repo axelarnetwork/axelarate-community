@@ -75,9 +75,8 @@ if [ ! -f "${SHARED_DIRECTORY}/genesis.json" ]; then
   curl https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/persistent-peers.txt" ]; then
-  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${SHARED_DIRECTORY}/persistent-peers.txt"
-fi
+echo "Downloading latest persistent peers"
+curl https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${SHARED_DIRECTORY}/persistent-peers.txt"
 
 echo "Overwriting stale config.toml to config directory"
 cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"

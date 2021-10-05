@@ -101,10 +101,8 @@ if [ ! -f "${CONFIG_DIRECTORY}/genesis.json" ]; then
   curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${CONFIG_DIRECTORY}/genesis.json"
 fi
 
-if [ ! -f "${CONFIG_DIRECTORY}/persistent-peers.txt" ]; then
-  echo "Downloading persistent-peers.txt"
-  curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${CONFIG_DIRECTORY}/persistent-peers.txt"
-fi
+echo "Downloading latest persistent-peers.txt"
+curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${CONFIG_DIRECTORY}/persistent-peers.txt"
 
 echo "Overwriting stale config.toml to config directory"
 cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
