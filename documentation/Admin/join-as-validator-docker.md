@@ -146,7 +146,7 @@ Here we assume you have a node running using the `join/joinTestnet.sh` script.
 docker exec -it axelar-core sh
 ```
 
-2. Load funds onto your `broadcaster` account, which you will use later.
+2. Load funds onto your `validator` account, which you will use later.
 
 Find the address with
 
