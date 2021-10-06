@@ -210,7 +210,7 @@ axelard keys show broadcaster -a --home ~/.axelar_testnet/.vald
 
 Then go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address.
 
-Check that you received the funds:  
+Check that you received the funds:
 
 ```bash
 axelard q bank balances {broadcaster address} --home ~/.axelar_testnet/.vald
@@ -249,13 +249,13 @@ axelard q staking validator <address-in-last-command> --home ~/.axelar_testnet/.
 
 If you wish to stake more coins after the initial validator creation.
 ```bash
-axelard tx staking delegate {axelarvaloper address} {amount} --from validator -y --home ~/.axelar_testnet/.core
+axelard tx staking delegate {axelarvaloper address} {amount} --chain-id axelar-testnet-adelaide --from validator -y --home ~/.axelar_testnet/.core
 ```
 
 eg)
 
 ```bash
-axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y --home ~/.axelar_testnet/.core
+axelard tx staking delegate "$(axelard keys show validator --bech val -a --home ~/.axelar_testnet/.core)" "100000000uaxl" --chain-id axelar-testnet-adelaide --from validator -y --home ~/.axelar_testnet/.core
 ```
 
 5. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
