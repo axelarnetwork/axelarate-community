@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 TOFND_MNEMONIC_PATH=""
 AXELAR_MNEMONIC_PATH=""
@@ -134,7 +135,7 @@ fi
 
 ACCOUNTS=$($AXELARD keys list -n --home $VALD_DIRECTORY)
 for ACCOUNT in $ACCOUNTS; do
-  if [ "$ACCOUNT" == "broadcaster" ]; then
+  if [ "$ACCOUNT" = "broadcaster" ]; then
     HAS_BROADCASTER=true
   fi
 done
@@ -158,7 +159,6 @@ if [ -z "$VALIDATOR_ADDR" ]; then
   done
   export VALIDATOR_ADDR=$(cat "$ROOT_DIRECTORY/validator.bech")
 fi
-
 
 "$TOFND" -m "$MNEMONIC_CMD" > "$LOGS_DIRECTORY/tofnd.log" 2>&1 &
 
