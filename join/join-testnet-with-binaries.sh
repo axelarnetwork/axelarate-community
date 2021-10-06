@@ -46,9 +46,9 @@ for arg in "$@"; do
   esac
 done
 
-addPeers() {
-  echo "Adding peers to config.toml"
-  sed "s/^seeds =.*/seeds = \"$1\"/g" "$CONFIG_DIRECTORY/config.toml" >"$CONFIG_DIRECTORY/config.toml.tmp" &&
+addPersistentPeers() {
+  persistent_peers="$(cat $CONFIG_DIRECTORY/persistent-peers.txt)"
+  sed "s/^persistent_peers =.*/persistent_peers = \"$persistent_peers\"/g" "$CONFIG_DIRECTORY/config.toml" > "$CONFIG_DIRECTORY/config.toml.tmp"
   mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
 }
 
@@ -101,24 +101,18 @@ if [ ! -f "${CONFIG_DIRECTORY}/genesis.json" ]; then
   curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${CONFIG_DIRECTORY}/genesis.json"
 fi
 
-if [ ! -f "${CONFIG_DIRECTORY}/peers.txt" ]; then
-  echo "Downloading peers.txt"
-  curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/peers.txt -o "${CONFIG_DIRECTORY}/peers.txt"
-fi
+echo "Downloading latest persistent-peers.txt"
+curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${CONFIG_DIRECTORY}/persistent-peers.txt"
 
-if [ ! -f "${CONFIG_DIRECTORY}/config.toml" ]; then
-  echo "Moving config.toml to config directory"
-  cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
-fi
+echo "Overwriting stale config.toml to config directory"
+cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
+echo "Adding persistent peers to config"
+addPersistentPeers
 
 if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
   echo "Moving app.toml to config directory"
   cp "${GIT_ROOT}/join/app.toml" "${CONFIG_DIRECTORY}/app.toml"
 fi
-
-
-
-addPeers "$(cat "${CONFIG_DIRECTORY}/peers.txt")"
 
 export NODE_MONIKER=${NODE_MONIKER:-"$(hostname)"}
 export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar-testnet-adelaide"}
