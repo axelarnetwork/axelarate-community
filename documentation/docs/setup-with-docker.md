@@ -28,6 +28,8 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Latest docker images:
   + https://hub.docker.com/repository/docker/axelarnet/axelar-core
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
+- Node setup [walkthrough video](https://youtu.be/QC7Gx-ydTtw) using Docker 
+  + Completed on Axelar core version v0.7.6, be careful of potential differences in the workflow
 
 ## Useful commands
 
