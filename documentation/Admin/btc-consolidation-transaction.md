@@ -147,7 +147,7 @@ transaction, and it's ready to be sent when the status field is set to `TX_STATU
    Usually, we want to first find the current Bitcoin Secondary Key ID, then create the secondary key transaction.
 
   ```
-  axelard q tss key-id bitcoin secondary --gas auto --gas-adjustment 1.2
+  axelard q tss key-id bitcoin secondary
   ```
 
   ```
