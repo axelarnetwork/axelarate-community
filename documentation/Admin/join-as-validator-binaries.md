@@ -202,19 +202,23 @@ To follow vald execution, run 'tail -f /Users/talalashraf/.axelar_testnet/logs/v
 To stop tofnd, run 'killall -9 tofnd'
 To stop vald, run 'killall -9 vald'
 ```
-
 Find the address with
 
 ```bash
 axelard keys show broadcaster -a --home ~/.axelar_testnet/.vald
 ```
 
-Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your broadcaster address.
+Then go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address.
 
-Check that you received the funds
+Check that you received the funds:
 
 ```bash
 axelard q bank balances {broadcaster address} --home ~/.axelar_testnet/.vald
+```
+eg)
+
+```bash
+axelard q bank balances axelar1xg93jnefgz3gsnuyqrmq2q288z8st3cf43jecs --home ~/.axelar_testnet/.vald
 ```
 
 4. Make your `validator` account a validator by staking some coins.
@@ -245,13 +249,13 @@ axelard q staking validator <address-in-last-command> --home ~/.axelar_testnet/.
 
 If you wish to stake more coins after the initial validator creation.
 ```bash
-axelard tx staking delegate {axelarvaloper address} {amount} --from validator -y --home ~/.axelar_testnet/.core
+axelard tx staking delegate {axelarvaloper address} {amount} --chain-id axelar-testnet-adelaide --from validator -y --home ~/.axelar_testnet/.core
 ```
 
 eg)
 
 ```bash
-axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y --home ~/.axelar_testnet/.core
+axelard tx staking delegate "$(axelard keys show validator --bech val -a --home ~/.axelar_testnet/.core)" "100000000uaxl" --chain-id axelar-testnet-adelaide --from validator -y --home ~/.axelar_testnet/.core
 ```
 
 5. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
@@ -260,7 +264,7 @@ axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "1000
 axelard tx snapshot register-proxy "$(cat ~/.axelar_testnet/broadcaster.bech)" --from validator -y --home ~/.axelar_testnet/.core
 ```
 
-5. Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` will talk with your `tofnd` through `vald`. This is important when events such as key rotation happens on the network.
+6. Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` will talk with your `tofnd` through `vald`. This is important when events such as key rotation happens on the network.
 
 First, check that the vald process is running
 
@@ -276,7 +280,7 @@ axelard tofnd-ping --tofnd-host localhost --home ~/.axelar_testnet/.vald
 If you see a response like `PONG!` , then your `vald` process has successfully started and is connected with `tofnd`.
 
 
-6. Find the minimum amount of coins you need to stake.
+7. Find the minimum amount of coins you need to stake.
 
 To become a full-fledged validator that participates in threshold multi-party signatures, your validator needs to stake at least 2% or 1/50 of the total staking pool.
 
@@ -291,7 +295,7 @@ If the dashboard displays `3k` `Bonded Tokens`, the minimum amount is `3000 * 10
 
 :warning: **Important:** Key shares for signing transactions on other chains are distributed proportionally to the validators' stakes on Axelar. In order to keep the number of key shares low for now, please delegate a similar amount of stake as existing validators have, i.e. `100000000uaxl`.
 
-7. Ping the Axelar team in the testnet channel to ask for more tokens. The Faucet will not be able to give you the required amount of tokens so the team will manually send them to your address. The team will want to verify that your validator is setup correctly and will send additional funds to your wallet. Once you have confirmation from the team that you have additional funds to stake, check that they are in your wallet and stake them.
+8. Ping the Axelar team in the testnet channel to ask for more tokens. The Faucet will not be able to give you the required amount of tokens so the team will manually send them to your address. The team will want to verify that your validator is setup correctly and will send additional funds to your wallet. Once you have confirmation from the team that you have additional funds to stake, check that they are in your wallet and stake them.
 
 ```bash
 axelard tx staking delegate {axelarvaloper address} {amount} --from validator -y --home ~/.axelar_testnet/.core
@@ -313,7 +317,8 @@ Check that:
 4. You backed-up your mnemonics following [this manual](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-backup.md)
 5. After the team gives you enough stake and confirms that rotations are complete, you can explore various shares you hold following [this](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-extra-commands.md).
 6. A reminder that you need at least `1 axl` to participate in consensus, and at least `2\%` of total bonded stake to participate in threshold MPC.
-7. After that, you're an active validator and should guard your node and all keys with care.
+7. Check that you have some `uaxl` on your `broadcaster` address. Use [Axelar faucet](http://faucet.testnet.axelar.network/) to get some coins if it is not funded.
+8. After that, you're an active validator and should guard your node and all keys with care.
 
 
 ## Leaving the Network as a Validator

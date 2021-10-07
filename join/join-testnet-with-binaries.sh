@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -e
 
 AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
@@ -121,7 +120,7 @@ echo "Node moniker: $NODE_MONIKER"
 echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
 ACCOUNTS=$($AXELARD keys list -n --home $CORE_DIRECTORY)
 for ACCOUNT in $ACCOUNTS; do
-    if [ "$ACCOUNT" == "validator" ]; then
+    if [ "$ACCOUNT" = "validator" ]; then
         HAS_VALIDATOR=true
     fi
 done
