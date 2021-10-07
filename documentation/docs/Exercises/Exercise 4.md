@@ -18,6 +18,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## Prerequisites
 - Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 - Golang (Follow the [official docs](https://golang.org/doc/install) to install)
+- For Ubuntu/Debian systems: install build-essential with `apt-get install build-essential`
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)

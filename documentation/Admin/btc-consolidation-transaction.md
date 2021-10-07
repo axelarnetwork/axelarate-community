@@ -142,7 +142,13 @@ transaction, and it's ready to be sent when the status field is set to `TX_STATU
    key to use for sending the change output. If the key specified does not match the current secondary key, a key
    assignment will occur at transaction creation and key rotation will occur after signing is finished. The command
    would fail if such a transaction is already created and is waiting to be signed. In such case, please wait until the
-   system is avaiable again.
+   system is available again.
+
+   Usually, we want to first find the current Bitcoin Secondary Key ID, then create the secondary key transaction.
+
+  ```
+  axelard q tss key-id bitcoin secondary
+  ```
 
   ```
   axelard tx bitcoin create-pending-transfers-tx {a key ID} --from validator --gas auto --gas-adjustment 1.2
