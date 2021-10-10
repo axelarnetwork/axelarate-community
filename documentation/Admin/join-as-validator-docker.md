@@ -125,11 +125,8 @@ curl -X POST http://localhost:8545 \
 ```bash
 docker stop $(docker ps -a -q)
 ```
-```bash
-docker rm $(docker ps -a -q)
-```
 
-3. Go to your home directory and open `~/.axelar_testnet/shared/config.toml`.
+3. Go to your home directory and open `~/axelarate-community/join/config.toml`.
 
 4. Scroll to the bottom of the file, and look for `##### bitcoin bridge options #####` and `##### EVM bridges options #####`.
 
