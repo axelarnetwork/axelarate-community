@@ -132,7 +132,7 @@ export AXELARD_CHAIN_ID=axelar-testnet-adelaide
 killall -9 axelard
 ```
 
-3. Go to your home directory and open `~/.axelar_testnet/.core/config/config.toml`.
+3. Go to your home directory and open `~/axelarate-community/join/config.toml`.
 
 4. Scroll to the bottom of the file, and look for `##### bitcoin bridge options #####` and `##### EVM bridges options #####`.
 
