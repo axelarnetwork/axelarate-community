@@ -23,7 +23,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
 - Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core
-- [Extra commands to query Axelar Network state](/extra-commands)
+- [Extra commands to query Axelar Network state](../extra-commands.md)
 
 ## What you need
 - Metamask
