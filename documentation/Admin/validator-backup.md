@@ -49,7 +49,7 @@ range elder logic subject never utility dutch novel sail vacuum model robust coi
 #### Mnemonic backup
 
 There should be one mnemonic for the Axelar validator key and another for the Axelar proxy key.
-The former should be displayed after running `join/joinTestnet.sh` with a clean slate, while the latter should be displayed by `join/launchValidator.sh`.
+The former should be displayed after running `join/join-testnet.sh` with a clean slate, while the latter should be displayed by `join/launch-validator.sh`.
 
 **Attention:** Be sure to store this mnemonic at a safe, offline place.
 

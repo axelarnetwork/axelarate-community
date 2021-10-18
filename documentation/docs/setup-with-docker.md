@@ -66,9 +66,9 @@ external_address = "123.123.123.123:26656"
 ```
 
 You should have port forwarding setup with your router. We recommend forwarding ports 1317, 26656-26658 and 26660.
-Run the script `join/joinTestnet.sh`
+Run the script `join/join-testnet.sh`
 ```bash
-Usage: joinTestnet.sh [flags]
+Usage: join-testnet.sh [flags]
 
 Mandatory flags:
 
@@ -89,7 +89,7 @@ CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate
 echo ${CORE_VERSION}
 ```
 
-After running `join/joinTestnet.sh`, you should see the following output:
+After running `join/join-testnet.sh`, you should see the following output:
 
 ```bash
 Axelar node running.
@@ -187,7 +187,7 @@ To stop the node, open a new CLI terminal and run
 docker stop $(docker ps -a -q)
 ```
 
-To restart the node, run the `join/joinTestnet.sh` script again, with the same `--axelar-core` version (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning (and if you haven't backed up your keys, they will be lost).
+To restart the node, run the `join/join-testnet.sh` script again, with the same `--axelar-core` version (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning (and if you haven't backed up your keys, they will be lost).
 
 To enter Axelar node CLI again
 ```bash

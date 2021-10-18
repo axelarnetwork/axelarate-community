@@ -78,6 +78,10 @@ fi
 echo "Downloading latest persistent peers"
 curl --silent https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${SHARED_DIRECTORY}/persistent-peers.txt"
 
+if [ ! -f "${SHARED_DIRECTORY}/seeds.txt" ]; then
+  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${SHARED_DIRECTORY}/seeds.txt"
+fi
+
 echo "Overwriting stale config.toml to config directory"
 cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
 
@@ -107,6 +111,7 @@ docker run                                             \
   --env CONFIG_PATH=/root/shared/                      \
   --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH     \
   --env TENDERMINT_KEY_PATH=$TENDERMINT_KEY_PATH       \
+  --env PEERS_FILE=/root/shared/seeds.txt              \
   -v "${CORE_DIRECTORY}/:/root/.axelar"                \
   -v "${SHARED_DIRECTORY}:/root/shared"                \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startNodeProc

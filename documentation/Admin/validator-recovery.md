@@ -13,13 +13,13 @@ For backup instructions, please see [backup](https://github.com/axelarnetwork/ax
 
 ### Recovering an Axelar node
 
-In order to restore the Tendermint key and/or the Axelar validator key used by an Axelard node, you can use the `--tendermint-key` and `--validator-mnemonic` flags with `join/joinTestnet.sh` as follows:
+In order to restore the Tendermint key and/or the Axelar validator key used by an Axelard node, you can use the `--tendermint-key` and `--validator-mnemonic` flags with `join/join-testnet.sh` as follows:
 
 ```
-./join/joinTestnet.sh --tendermint-key /path/to/tendermint/key/ --validator-mnemonic /path/to/axelar/mnemonic/
+./join/join-testnet.sh --tendermint-key /path/to/tendermint/key/ --validator-mnemonic /path/to/axelar/mnemonic/
 ```
 
-If you are using the binary, you can add the flags to the binary script, similar to joinTestnet.sh, for example:
+If you are using the binary, you can add the flags to the binary script, similar to join-testnet.sh, for example:
 ```bash
 ./join/join-testnet-with-binaries.sh --tendermint-key /path/to/tendermint/key/ --validator-mnemonic /path/to/axelar/mnemonic/
 ```
@@ -60,10 +60,10 @@ This file will contain the data necessary to perform share recovery.
 
 ### Recovering the vald process
 
-In order to restore the Axelar proxy key used by the Vald process, you can use the `--validator-mnemonic` flag with `join/launchValidator.sh` as follows:
+In order to restore the Axelar proxy key used by the Vald process, you can use the `--validator-mnemonic` flag with `join/launch-validator.sh` as follows:
 
 ```bash
-./join/joinTestnet.sh --proxy-mnemonic /path/to/axelar/mnemonic/
+./join/join-testnet.sh --proxy-mnemonic /path/to/axelar/mnemonic/
 ```
 
 ### Recovering Tofnd state
@@ -76,10 +76,10 @@ Each time you participated in a keygen, your key shares were encrypted and store
 
 #### Running tofnd in a containerized environment
 
-In order to restore tofnd's private key and your key shares, you can use `join/launchValidator.sh` with the `--tofnd-mnemonic` and `--recovery-info` flags with as follows:
+In order to restore tofnd's private key and your key shares, you can use `join/launch-validator.sh` with the `--tofnd-mnemonic` and `--recovery-info` flags with as follows:
 
 ```bash
-./join/joinTestnet.sh --tofnd-mnemonic <mnemonic file> ---recovery-info <recover json file>
+./join/join-testnet.sh --tofnd-mnemonic <mnemonic file> ---recovery-info <recover json file>
 ```
 
 1. `<mnemonic file>`: A file that contains your mnemonic passphrase
