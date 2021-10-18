@@ -51,6 +51,13 @@ addPersistentPeers() {
   mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
 }
 
+addSeeds() {
+  seeds="$(cat $CONFIG_DIRECTORY/seeds.txt)"
+  sed "s/^seeds =.*/seeds = \"$seeds\"/g" "$CONFIG_DIRECTORY/config.toml" >"$CONFIG_DIRECTORY/config.toml.tmp"
+  mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
+}
+
+
 # override ARCH with amd64 for x86 arch
 if [ "x86_64" =  "$ARCH" ]; then
   ARCH=amd64
@@ -72,9 +79,18 @@ if [ -z "$AXELAR_CORE_VERSION" ]; then
 fi
 
 if $RESET_CHAIN; then
-  rm -rf "$ROOT_DIRECTORY"
-  rm -rf "$TOFND_DIRECTORY"
-  rm -rf ~/.axelar
+  echo
+  echo "WARNING! This will erase all previously stored data. Your node will catch up from the beginning"
+  printf "Do you wish to proceed \"y/n\" ?  "
+  read -r REPLY
+  if [ $REPLY = "y" ]; then
+    echo "Resetting state"
+    rm -rf "$ROOT_DIRECTORY"
+    rm -rf "$TOFND_DIRECTORY"
+    rm -rf ~/.axelar
+  else
+    echo "Proceeding without resetting state"
+  fi
 fi
 
 mkdir -p "$ROOT_DIRECTORY"
@@ -103,10 +119,16 @@ fi
 echo "Downloading latest persistent-peers.txt"
 curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${CONFIG_DIRECTORY}/persistent-peers.txt"
 
+if [ ! -f "${CONFIG_DIRECTORY}/seeds.txt" ]; then
+  echo "Downloading seeds.txt"
+  curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${CONFIG_DIRECTORY}/seeds.txt"
+fi
+
 echo "Overwriting stale config.toml to config directory"
 cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
-echo "Adding persistent peers to config"
+echo "Adding persistent peers and seeds to config"
 addPersistentPeers
+addSeeds
 
 if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
   echo "Moving app.toml to config directory"

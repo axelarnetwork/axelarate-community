@@ -28,7 +28,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Latest docker images:
   + https://hub.docker.com/repository/docker/axelarnet/axelar-core
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
-- Node setup [walkthrough video](https://youtu.be/QC7Gx-ydTtw) using Docker 
+- Node setup [walkthrough video](https://youtu.be/QC7Gx-ydTtw) using Docker
   + Completed on Axelar core version v0.7.6, be careful of potential differences in the workflow
 
 ## Useful commands
@@ -60,9 +60,15 @@ Checkout the correct tag so the scripts work with the deployment. Find the right
 git checkout <release-tag>
 ```
 
-Run the script `join/joinTestnet.sh`
+Determine your public IP address. [This Website can help](https://whatismyipaddress.com/). Change the `external_address` field in the `join/config.toml` file and append the rpc port.
 ```bash
-Usage: joinTestnet.sh [flags]
+external_address = "123.123.123.123:26656"
+```
+
+You should have port forwarding setup with your router. We recommend forwarding ports 1317, 26656-26658 and 26660.
+Run the script `join/join-testnet.sh`
+```bash
+Usage: join-testnet.sh [flags]
 
 Mandatory flags:
 
@@ -83,7 +89,7 @@ CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate
 echo ${CORE_VERSION}
 ```
 
-After running `join/joinTestnet.sh`, you should see the following output:
+After running `join/join-testnet.sh`, you should see the following output:
 
 ```bash
 Axelar node running.
@@ -181,7 +187,7 @@ To stop the node, open a new CLI terminal and run
 docker stop $(docker ps -a -q)
 ```
 
-To restart the node, run the `join/joinTestnet.sh` script again, with the same `--axelar-core` version (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning (and if you haven't backed up your keys, they will be lost).
+To restart the node, run the `join/join-testnet.sh` script again, with the same `--axelar-core` version (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning (and if you haven't backed up your keys, they will be lost).
 
 To enter Axelar node CLI again
 ```bash

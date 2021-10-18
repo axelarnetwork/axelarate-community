@@ -132,12 +132,12 @@ docker stop $(docker ps -a -q)
 
 5. Find the `rpc_addr` line and replace the default RPC URL with the URL of your node, for both Bitcoin and Ethereum. Save the file. This RPC URL was found and written down during the Bitcoin and Ethereum node setup section.
 
-6. Start your Axelar node for the changes to take effect. Run the `join/joinTestnet.sh` script again, with the same `--axelar-core`, `--tofnd` (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning.
+6. Start your Axelar node for the changes to take effect. Run the `join/join-testnet.sh` script again, with the same `--axelar-core`, `--tofnd` (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning.
 
 
 ## Joining the Network as a Validator
 
-Here we assume you have a node running using the `join/joinTestnet.sh` script.
+Here we assume you have a node running using the `join/join-testnet.sh` script.
 
 1. Enter Axelar node CLI
 ```bash
@@ -201,7 +201,7 @@ axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "1000
 
 4. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
 
-Open a new terminal and run the ./join/launchValidator.sh script using the same parameters as before. Do NOT use the --reset-chain flag or your node will have to sync again from the beginning. The output should be something like this.
+Open a new terminal and run the ./join/launch-validator.sh script using the same parameters as before. Do NOT use the --reset-chain flag or your node will have to sync again from the beginning. The output should be something like this.
 
 ```bash
 Tofnd & Vald running.
@@ -232,13 +232,13 @@ To stop tofnd, run 'docker stop tofnd'
 To stop vald, run 'docker stop vald'
 ```
 
-Then go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address.  
+Then go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address.
 
 Enter Axelar node CLI:
 ```bash
 docker exec -it axelar-core sh
 ```
-Check that you received the funds: 
+Check that you received the funds:
 ```bash
 axelard q bank balances {broadcaster address}
 ```
