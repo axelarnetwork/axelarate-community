@@ -79,9 +79,18 @@ if [ -z "$AXELAR_CORE_VERSION" ]; then
 fi
 
 if $RESET_CHAIN; then
-  rm -rf "$ROOT_DIRECTORY"
-  rm -rf "$TOFND_DIRECTORY"
-  rm -rf ~/.axelar
+  echo
+  echo "WARNING! This will erase all previously stored data. Your node will catch up from the beginning"
+  printf "Do you wish to proceed \"y/n\" ?  "
+  read -r REPLY
+  if [ $REPLY = "y" ]; then
+    echo "Resetting state"
+    rm -rf "$ROOT_DIRECTORY"
+    rm -rf "$TOFND_DIRECTORY"
+    rm -rf ~/.axelar
+  else
+    echo "Proceeding without resetting state"
+  fi
 fi
 
 mkdir -p "$ROOT_DIRECTORY"
@@ -112,7 +121,7 @@ curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peer
 
 if [ ! -f "${CONFIG_DIRECTORY}/seeds.txt" ]; then
   echo "Downloading seeds.txt"
-  curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${CONFIG_DIRECTORY}/peers.txt"
+  curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${CONFIG_DIRECTORY}/seeds.txt"
 fi
 
 echo "Overwriting stale config.toml to config directory"

@@ -60,8 +60,18 @@ if [ -z "$NETWORK_PRESENT" ]; then
 fi
 
 if $RESET_CHAIN; then
-  rm -rf "$ROOT_DIRECTORY"
+  echo
+  echo "WARNING! This will erase all previously stored data. Your node will catch up from the beginning"
+  printf "Do you wish to proceed \"y/n\" ?  "
+  read -r REPLY
+  if [ $REPLY = "y" ]; then
+    echo "Resetting state"
+    rm -rf "$ROOT_DIRECTORY"
+  else
+    echo "Proceeding without resetting state"
+  fi
 fi
+
 
 mkdir -p "$ROOT_DIRECTORY"
 
@@ -72,11 +82,11 @@ CORE_DIRECTORY="${ROOT_DIRECTORY}/.core"
 mkdir -p "$CORE_DIRECTORY"
 
 if [ ! -f "${SHARED_DIRECTORY}/genesis.json" ]; then
-  curl --silent https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
+  curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
 fi
 
 echo "Downloading latest persistent peers"
-curl --silent https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${SHARED_DIRECTORY}/persistent-peers.txt"
+curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${SHARED_DIRECTORY}/persistent-peers.txt"
 
 if [ ! -f "${SHARED_DIRECTORY}/seeds.txt" ]; then
   curl https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${SHARED_DIRECTORY}/seeds.txt"
