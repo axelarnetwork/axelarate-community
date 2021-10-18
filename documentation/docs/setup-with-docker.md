@@ -28,7 +28,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Latest docker images:
   + https://hub.docker.com/repository/docker/axelarnet/axelar-core
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
-- Node setup [walkthrough video](https://youtu.be/QC7Gx-ydTtw) using Docker 
+- Node setup [walkthrough video](https://youtu.be/QC7Gx-ydTtw) using Docker
   + Completed on Axelar core version v0.7.6, be careful of potential differences in the workflow
 
 ## Useful commands
@@ -60,6 +60,12 @@ Checkout the correct tag so the scripts work with the deployment. Find the right
 git checkout <release-tag>
 ```
 
+Determine your public IP address. [This Website can help](https://whatismyipaddress.com/). Change the `external_address` field in the `join/config.toml` file and append the rpc port.
+```bash
+external_address = "123.123.123.123:26656"
+```
+
+You should have port forwarding setup with your router. We recommend forwarding ports 1317, 26656-26658 and 26660.
 Run the script `join/joinTestnet.sh`
 ```bash
 Usage: joinTestnet.sh [flags]
