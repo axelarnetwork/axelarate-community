@@ -37,12 +37,6 @@ for arg in "$@"; do
   esac
 done
 
-addPersistentPeers() {
-  persistent_peers="$(cat $SHARED_DIRECTORY/persistent-peers.txt)"
-  sed "s/^persistent_peers =.*/persistent_peers = \"$persistent_peers\"/g" "${SHARED_DIRECTORY}/config.toml" > "${SHARED_DIRECTORY}/config.toml.tmp"
-  mv "${SHARED_DIRECTORY}/config.toml.tmp" "${SHARED_DIRECTORY}/config.toml"
-}
-
 if [ -z "$AXELAR_CORE_VERSION" ]; then
   echo "'--axelar-core vX.Y.Z' is required"
   exit 1
@@ -85,18 +79,12 @@ if [ ! -f "${SHARED_DIRECTORY}/genesis.json" ]; then
   curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
 fi
 
-echo "Downloading latest persistent peers"
-curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/persistent-peers.txt -o "${SHARED_DIRECTORY}/persistent-peers.txt"
-
 if [ ! -f "${SHARED_DIRECTORY}/seeds.txt" ]; then
   curl https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${SHARED_DIRECTORY}/seeds.txt"
 fi
 
-echo "Overwriting stale config.toml to config directory"
+echo "Overwriting stale config.toml to config directory with latest seeds"
 cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
-
-echo "Adding persistent peers to config"
-addPersistentPeers
 
 if [ ! -f "${SHARED_DIRECTORY}/app.toml" ]; then
   cp "${GIT_ROOT}/join/app.toml" "${SHARED_DIRECTORY}/app.toml"
