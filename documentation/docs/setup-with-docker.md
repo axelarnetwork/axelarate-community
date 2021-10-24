@@ -55,7 +55,7 @@ git clone https://github.com/axelarnetwork/axelarate-community.git
 cd axelarate-community
 ```
 
-Checkout the correct tag so the scripts work with the deployment. Find the right tag [here](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/testnet-releases.md).
+Checkout the correct tag so the scripts work with the deployment. Find the right tag at [Testnet Releases](/testnet-releases).
 ```bash
 git checkout <release-tag>
 ```
@@ -81,7 +81,7 @@ Optional flags:
 --reset-chain        Delete local data to do a clean connect to the testnet (If you participated in an older version of the testnet)
 
 ```
-See [Testnet Release](/testnet-releases) for the latest available versions of the docker images.
+See [Testnet Releases](/testnet-releases) for the latest available versions of the docker images.
 
 You can get the latest version and save it to variables:
 ```bash
