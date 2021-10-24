@@ -141,7 +141,7 @@ Wait for `catching_up` to become `false`
 ## Logging to file
 By default, docker logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
 ```bash
-docker logs -f axelar-core > testnet.log 2&>1
+docker logs -f axelar-core 2&> testnet.log
 ```
 On a new terminal window, you could monitor the log file in real time:
 ```bash
