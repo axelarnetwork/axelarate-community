@@ -87,7 +87,7 @@ AXELAR_CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/ax
 echo ${AXELAR_CORE_VERSION}
 ```
 
-After running `join/join-testnet.sh`, you should see the following output:
+Run `join/join-testnet.sh`.  On a fresh install (or after `--reset-chain`) you should see the following output:
 
 ```bash
 Axelar node running.
