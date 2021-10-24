@@ -83,8 +83,8 @@ See [Testnet Releases](/testnet-releases) for the latest available versions of t
 
 You can get the latest version and save it to variables:
 ```bash
-CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)
-echo ${CORE_VERSION}
+AXELAR_CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)
+echo ${AXELAR_CORE_VERSION}
 ```
 
 After running `join/join-testnet.sh`, you should see the following output:
