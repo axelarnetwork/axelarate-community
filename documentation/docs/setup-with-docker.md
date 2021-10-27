@@ -67,7 +67,6 @@ external_address = "123.123.123.123:26656"
 
 You should have port forwarding setup with your router. We recommend forwarding ports 1317, 26656-26658 and 26660.
 Run the script `join/join-testnet.sh`
-_[TODO: from where is this usage info taken?]_
 ```bash
 Usage: join-testnet.sh [flags]
 
