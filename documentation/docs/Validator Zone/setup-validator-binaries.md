@@ -1,8 +1,8 @@
 ---
-id: join-as-validator-binaries
+id: setup-validator-with-binaries
 sidebar_position: 3
-sidebar_label: Joining as Validator using Binaries
-slug: /join-as-validator-binaries
+sidebar_label: Setup as Validator with Binaries
+slug: /validator-zone/setup-binaries
 ---
 # Running a Validator on the Axelar Network (Binaries)
 Join and leave the Axelar Network as a validator node.

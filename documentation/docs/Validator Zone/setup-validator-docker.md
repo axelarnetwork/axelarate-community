@@ -1,8 +1,8 @@
 ---
-id: join-as-validator-docker
-sidebar_position: 3
-sidebar_label: Joining as Validator using docker
-slug: /join-as-validator-docker
+id: setup-validator-with-docker
+sidebar_position: 2
+sidebar_label: Setup as Validator with Docker
+slug: /validator-zone/setup-docker
 ---
 # Running a Validator on the Axelar Network (Docker)
 Join and leave the Axelar Network as a validator node.
