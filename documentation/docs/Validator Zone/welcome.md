@@ -6,9 +6,21 @@ sidebar_position: 1
 # [DRAFT] Axelar Validator Zone
 ![img](../images/Axelar.png)
 
-Interested in becoming an Axelar validator?  Get started:
-* [Setup as Validator with Docker](/setup-validator-docker)
-* [Setup as Validator with Binaries](/setup-validator-binaries)
+Convert an existing Axelar network node into a validator by staking AXL tokens and attaching external blockchains (such as Bitcoin, EVM chains, Cosmos chains). A validator participates in block creation, multi-party cryptography protocols, and voting.
+
+:::warning
+Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
+:::
+
+## Prerequisites (TODO revise)
+- Complete all steps from [Setup with Docker](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/setup-with-docker.md) or [Setup with Binaries](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/setup-with-binaries.md)
+- While the network is in development, check in and receive an 'okay' from a testnet moderator or Axelar team member before starting
+- Ensure you have the right tag checked out for the axelarate-community repo, check in the testnet-releases.md
+- Minimum validator hardware requirements: 16 cores, 16GB RAM, 1.5 TB drive. Recommended 32 cores, 32 GB RAM, 2 TB+ drive
+
+## Become a validator
+
+1. [Stake AXL tokens on the Axelar network](/stake)
 
 # TODO
 
