@@ -114,9 +114,9 @@ Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 
   Keep in mind not to transfer any tokens!
 
-  (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases))
+  (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](https://axelardocs.vercel.app/testnet-releases))
 
-You can now open Metamask, select "Assets", then "Add Token", then "Custom Token", and paste the Ethereum token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
+You can now open Metamask, select "Assets", then "Add Token", then "Custom Token", and paste the Ethereum token contract address (see [Testnet Release](https://axelardocs.vercel.app/testnet-releases) and look for the corresponding token address).
 
 ### Burn ERC20 wrapped tokens and send back to Axelar Network
 1. Create a deposit address on Ethereum
