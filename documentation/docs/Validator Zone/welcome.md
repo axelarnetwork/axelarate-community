@@ -6,7 +6,9 @@ sidebar_position: 1
 # [DRAFT] Axelar Validator Zone
 ![img](../images/Axelar.png)
 
-Convert an existing Axelar network node into a validator by staking AXL tokens and attaching external blockchains (such as Bitcoin, EVM chains, Cosmos chains). A validator participates in block creation, multi-party cryptography protocols, and voting.
+An Axelar network validator participates in block creation, multi-party cryptography protocols, and voting.
+
+Convert an existing Axelar network node into a validator by staking AXL tokens and attaching external blockchains (such as Bitcoin, EVM chains, Cosmos chains).
 
 :::warning
 Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
@@ -21,6 +23,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## Become a validator
 
 1. [Stake AXL tokens on the Axelar network](/stake)
+2. [Register broadcaster proxy](register-proxy)
 
 # TODO
 
