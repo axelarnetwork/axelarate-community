@@ -5,7 +5,7 @@ slug: /validator-zone/external-chains
 
 # Set up external chain nodes
 
-As an Axelar Network validator, your Axelar node will vote on the status of external blockchains such as Bitcoin, EVM, Cosmos. Specifically:
+As a validator for the Axelar network, your Axelar node will vote on the status of external blockchains such as Bitcoin, EVM, Cosmos. Specifically:
 
 1. Select which external chains your Axelar node will support.  Set up and configure your own nodes for the chains you selected.
 2. Provide RPC endpoints for these nodes to your Axelar validator node and register as a maintainer for these chains on the Axelar network.
