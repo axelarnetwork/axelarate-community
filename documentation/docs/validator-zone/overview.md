@@ -28,7 +28,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Ensure you have the right tag checked out for the axelarate-community repo, check in the testnet-releases.md
 - Minimum validator hardware requirements: 16 cores, 16GB RAM, 1.5 TB drive. Recommended 32 cores, 32 GB RAM, 2 TB+ drive
 
-## Become a validator
+## Steps to become a validator
 
 1. [Set up external chains](/validator-zone/external-chains)
 2. [Stake AXL tokens on the Axelar network](/validator-zone/stake)
