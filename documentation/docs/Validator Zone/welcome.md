@@ -25,6 +25,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 1. [Set up external chains](/external-chains)
 2. [Stake AXL tokens on the Axelar network](/stake)
 3. [Register broadcaster proxy](/register-proxy)
+4. [Register as a maintainer of external chains](/register-chain-maintainer)
 
 # TODO
 
