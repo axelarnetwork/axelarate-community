@@ -9,8 +9,8 @@ slug: /validator-zone/stake
 
 You've already set up an ordinary (non-validator) Axelar node as per one of:
 
-* [Setup as Validator with Docker](../setup-validator-docker)
-* [Setup as Validator with Binaries](../setup-validator-binaries)
+* [Setup with Docker](../setup-docker)
+* [Setup with Binaries](../setup-binaries)
 
 Your Axelar node currently have an account named `validator` but so far that's just a name.  You've already funded your `validator` account with some AXL tokens from the [Axelar faucet](http://faucet.testnet.axelar.network/).
 
