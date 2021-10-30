@@ -38,11 +38,12 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## Useful links
 
 * [Health check](/validator-zone/health-check)
+* [Back-up your validator mnemonics and secret keys](/validator-zone/backup)
 * [Troubleshoot start-up](/validator-zone/troubleshoot)
 * [Leave as a validator](/validator-zone/leave)
 # TODO
 
-* Split bitcoin/ethereum node setup into separate pages
+* This draft covers only validator set up, not common tasks like key rotation, consolidation, etc.
 * Merge docker/binaries into a single doc?
     * If not then refactor repeated docs in docker/binaries into separate pages.  link to those pages from both docker and binaries instructions.
     * Is it possible to toggle which of docker/binary terminal commands are visible in the doc?  That way we have only 1 doc to maintain and yet docker/binary redundancy is eliminated.
