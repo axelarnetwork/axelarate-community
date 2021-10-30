@@ -38,6 +38,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## Useful links
 
 * [Troubleshoot start-up](/validator-zone/troubleshoot)
+* [Leave as a validator](/validator-zone/leave)
 # TODO
 
 * Split bitcoin/ethereum node setup into separate pages

@@ -1,11 +1,11 @@
 ---
-id: setup-validator-with-docker
-sidebar_position: 2
-sidebar_label: Setup as Validator with Docker
-slug: /validator-zone/setup-docker
+id: leave-validator
+sidebar_position: 7
+sidebar_label: Leave as a validator
+slug: /validator-zone/leave
 ---
 
-## Leaving the Network as a Validator
+# Leaving the Network as a Validator
 
 1. Deactivate your broadcaster account.
 ```bash
