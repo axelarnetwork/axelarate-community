@@ -37,6 +37,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Useful links
 
+* [Health check](/validator-zone/health-check)
 * [Troubleshoot start-up](/validator-zone/troubleshoot)
 * [Leave as a validator](/validator-zone/leave)
 # TODO

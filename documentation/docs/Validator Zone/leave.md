@@ -1,6 +1,6 @@
 ---
 id: leave-validator
-sidebar_position: 7
+sidebar_position: 8
 sidebar_label: Leave as a validator
 slug: /validator-zone/leave
 ---
