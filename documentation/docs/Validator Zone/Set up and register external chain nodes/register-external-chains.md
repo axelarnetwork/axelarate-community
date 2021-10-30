@@ -1,9 +1,11 @@
 ---
+id: external-chains
 sidebar_position: 1
+sidebar_label: Overview
 slug: /validator-zone/external-chains
 ---
 
-# Set up external chain nodes
+# Overview
 
 As a validator for the Axelar network, your Axelar node will vote on the status of external blockchains such as Bitcoin, EVM, Cosmos. Specifically:
 
