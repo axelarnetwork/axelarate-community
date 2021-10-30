@@ -117,22 +117,3 @@ Check that:
 6. A reminder that you need at least `1 axl` to participate in consensus, and at least `2\%` of total bonded stake to participate in threshold MPC.
 7. Check that you have some `uaxl` on your `broadcaster` address. Use [Axelar faucet](http://faucet.testnet.axelar.network/) to get some coins if it is not funded.
 8. After that, you're an active validator and should guard your node and all keys with care.
-
-## [move elsewhere] Get AXL tokens from a faucet
-
-Enter Axelar node CLI
-```bash
-docker exec -it axelar-core sh
-```
-Find the address of your `validator` account with
-```bash
-axelard keys show validator -a
-```
-Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and send some coins on your validator address.
-
-Check that you received the funds:
-```bash
-axelard q bank balances $(axelard keys show validator -a)
-# or paste your address:
-axelard q bank balances axelar1p5nl00z6h5fuzyzfylhf8w7g3qj6lmlyryqmhg
-```
