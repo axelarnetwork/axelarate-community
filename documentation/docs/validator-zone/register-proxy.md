@@ -50,9 +50,15 @@ To stop tofnd, run 'docker stop tofnd'
 To stop vald, run 'docker stop vald'
 ```
 
-_[TODO if you forgot to copy the broadcaster address from the terminal output then you can display your broadcaster address from vald container, not axelar-core.]_
+Save a copy of your `broadcaster` mnemonic in a safe place.
 
-_[TODO backup your broadcaster mnemonic [link to backup page].]_
+:::tip
+If you forgot to copy the `broadcaster` address from the terminal output then you can display it from the `vald` container, not `axelar-core`.
+```bash
+docker exec -it vald sh
+axelard keys show broadcaster -a
+```
+:::
 
 Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address. [link to faucet instructions]
 
@@ -67,16 +73,3 @@ For example:
 ```bash
 axelard tx snapshot register-proxy axelar1xg93jnefgz3gsnuyqrmq2q288z8st3cf43jecs --from validator -y
 ```
-
-## [move elsewhere] Post-Setup Checklist
-
-Check that:
-
-1. All three containers are running (`axelar-core`, `vald`, and `tofnd`).
-2. You can ping (see `tofnd-ping` above) `tofnd` from `vald` container.
-3. Your external nodes (Bitcoin, Ethereum, etc) are running and correctly expose the endpoints.
-4. You backed-up your mnemonics following [this manual](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-backup.md)
-5. After the team gives you enough stake and confirms that rotations are complete, you can explore various shares you hold following [this](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-extra-commands.md).
-6. A reminder that you need at least `1 axl` to participate in consensus, and at least `2\%` of total bonded stake to participate in threshold MPC.
-7. Check that you have some `uaxl` on your `broadcaster` address. Use [Axelar faucet](http://faucet.testnet.axelar.network/) to get some coins if it is not funded.
-8. After that, you're an active validator and should guard your node and all keys with care.
