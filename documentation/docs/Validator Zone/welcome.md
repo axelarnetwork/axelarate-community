@@ -18,17 +18,22 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites (TODO revise)
-- Complete all steps from [Setup with Docker](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/setup-with-docker.md) or [Setup with Binaries](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/setup-with-binaries.md)
+
+- Set up an ordinary (non-validator) Axelar node as per one of:
+    * [Setup with Docker](../setup-docker)
+    * [Setup with Binaries](../setup-binaries)
+
+    Your Axelar node currently have an account named `validator` but so far that's just a name.  You've already funded your `validator` account with some AXL tokens from the [Axelar faucet](http://faucet.testnet.axelar.network/).
 - While the network is in development, check in and receive an 'okay' from a testnet moderator or Axelar team member before starting
 - Ensure you have the right tag checked out for the axelarate-community repo, check in the testnet-releases.md
 - Minimum validator hardware requirements: 16 cores, 16GB RAM, 1.5 TB drive. Recommended 32 cores, 32 GB RAM, 2 TB+ drive
 
 ## Become a validator
 
-1. [Set up external chains](/external-chains)
-2. [Stake AXL tokens on the Axelar network](/stake)
-3. [Register broadcaster proxy](/register-proxy)
-4. [Register as a maintainer of external chains](/register-chain-maintainer)
+1. [Set up external chains](/validator-zone/external-chains)
+2. [Stake AXL tokens on the Axelar network](/validator-zone/stake)
+3. [Register broadcaster proxy](/validator-zone/register-proxy)
+4. [Register as a maintainer of external chains](/validator-zone/register-chain-maintainer)
 
 # TODO
 
