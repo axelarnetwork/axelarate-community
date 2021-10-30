@@ -22,8 +22,9 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Become a validator
 
-1. [Stake AXL tokens on the Axelar network](/stake)
-2. [Register broadcaster proxy](register-proxy)
+1. [Set up external chains](/external-chains)
+2. [Stake AXL tokens on the Axelar network](/stake)
+3. [Register broadcaster proxy](/register-proxy)
 
 # TODO
 

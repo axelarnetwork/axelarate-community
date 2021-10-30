@@ -1,6 +1,6 @@
 ---
 id: register-proxy
-sidebar_position: 3
+sidebar_position: 4
 sidebar_label: Register broadcaster proxy
 slug: /validator-zone/register-proxy
 ---
