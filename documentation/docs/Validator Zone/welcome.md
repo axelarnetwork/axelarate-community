@@ -35,6 +35,9 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 3. [Register broadcaster proxy](/validator-zone/register-proxy)
 4. [Register as a maintainer of external chains](/validator-zone/register-chain-maintainer)
 
+## Useful links
+
+* [Troubleshoot start-up](/validator-zone/troubleshoot)
 # TODO
 
 * Split bitcoin/ethereum node setup into separate pages
