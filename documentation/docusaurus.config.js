@@ -4,7 +4,7 @@ module.exports = {
   // to be replaced with the site deployed
   url: "https://axelar.network/",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "Axelar",

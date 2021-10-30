@@ -1,7 +1,5 @@
 ---
-id: register-external-chains
 sidebar_position: 1
-sidebar_label: Set up and register external chain nodes
 slug: /validator-zone/external-chains
 ---
 
