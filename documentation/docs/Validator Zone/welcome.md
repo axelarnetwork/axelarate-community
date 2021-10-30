@@ -1,9 +1,12 @@
 ---
-slug: /validator-zone
+id: validator-zone
 sidebar_position: 1
+sidebar_label: Overview
+slug: /validator-zone
 ---
 
-# [DRAFT] Axelar Validator Zone
+# Overview
+
 ![img](../images/Axelar.png)
 
 An Axelar network validator participates in block creation, multi-party cryptography protocols, and voting.
