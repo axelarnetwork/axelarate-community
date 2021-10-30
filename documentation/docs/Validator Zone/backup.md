@@ -14,14 +14,12 @@ This document describes the steps necessary to ensure that a validator node can 
 * Axelar proxy mnemonic
 * Tofnd mnemonic
 
-For recover instructions, please see [recover](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-recovery.md).
-
-### Tendermint validator key
+## Tendermint validator key
 
 The Tendermint validator key is created when a node is launched for the first time.
 It can be found within the node's container at `c` (or on the host at `$HOME/.axelar_testnet/.core/config/priv_validator_key.json`).
 
-#### Key backup
+### Key backup
 
 The content of the `priv_validator_key` file should look something like:
 
@@ -41,7 +39,7 @@ The content of the `priv_validator_key` file should look something like:
 
 **Attention:** Be sure to store the content of this file at a safe, offline place.
 
-### Axelar mnemonics
+## Axelar mnemonics
 
 The Axelar mnemonics are created when an node/validator is launched for the first time and subsequently outputed to the terminal.
 The output looks something like:
@@ -53,14 +51,14 @@ It is the only way to recover your account if you ever forget your password.
 range elder logic subject never utility dutch novel sail vacuum model robust coin upper egg trophy track chimney garlic random fury laundry kiss sight
 ```
 
-#### Mnemonic backup
+### Mnemonic backup
 
 There should be one mnemonic for the Axelar validator key and another for the Axelar proxy key.
 The former should be displayed after running `join/join-testnet.sh` with a clean slate, while the latter should be displayed by `join/launch-validator.sh`.
 
 **Attention:** Be sure to store this mnemonic at a safe, offline place.
 
-### Tofnd mnemonic
+## Tofnd mnemonic
 
 Tofnd needs to be provided with a mnemonic the first time it operates. From this mnemonic, a private key is derived and stored in tofnd's internal database. The private key is used to encrypt and decrypt the recovery information of the user.
 

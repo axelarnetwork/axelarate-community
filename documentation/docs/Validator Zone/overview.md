@@ -34,13 +34,14 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 2. [Stake AXL tokens on the Axelar network](/validator-zone/stake)
 3. [Register broadcaster proxy](/validator-zone/register-proxy)
 4. [Register as a maintainer of external chains](/validator-zone/register-chain-maintainer)
+5. [Health check](/validator-zone/health-check)
+6. [Back-up your validator mnemonics and secret keys](/validator-zone/backup)
 
-## Useful links
+## Other setup-related tasks
 
-* [Health check](/validator-zone/health-check)
-* [Back-up your validator mnemonics and secret keys](/validator-zone/backup)
 * [Troubleshoot start-up](/validator-zone/troubleshoot)
 * [Leave as a validator](/validator-zone/leave)
+* [Recover validator from mnemonic or secret keys](/validator-zone/recovery)
 # TODO
 
 * This draft covers only validator set up, not common tasks like key rotation, consolidation, etc.
