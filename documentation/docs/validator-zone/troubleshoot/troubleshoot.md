@@ -1,6 +1,6 @@
 ---
 id: troubleshoot-validator
-sidebar_position: 8
+sidebar_position: 2
 sidebar_label: Troubleshoot start-up
 slug: /validator-zone/troubleshoot
 ---

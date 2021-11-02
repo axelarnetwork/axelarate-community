@@ -2,7 +2,7 @@
 id: register-chain-maintainer
 sidebar_position: 5
 sidebar_label: Register as a maintainer of external chains
-slug: /validator-zone/register-chain-maintainer
+slug: /validator-zone/external-chains/register-chain-maintainer
 ---
 
 # Register as a maintainer of external chains

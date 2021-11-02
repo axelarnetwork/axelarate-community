@@ -1,6 +1,6 @@
 ---
 id: recovery
-sidebar_position: 10
+sidebar_position: 1
 sidebar_label: Recovery
 slug: /validator-zone/recovery
 ---

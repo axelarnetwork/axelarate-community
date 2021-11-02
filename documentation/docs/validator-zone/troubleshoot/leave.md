@@ -1,11 +1,15 @@
 ---
 id: leave-validator
-sidebar_position: 9
+sidebar_position: 3
 sidebar_label: Leave as a validator
-slug: /validator-zone/leave
+slug: /validator-zone/troubleshoot/leave
 ---
 
 # Leaving the Network as a Validator
+
+:::warning
+TODO 2 metrics: consensus bonded/active and tss bonded/active.
+:::
 
 1. Deactivate your broadcaster account.
 ```bash

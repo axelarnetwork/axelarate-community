@@ -1,8 +1,8 @@
 ---
 id: stake-axl-tokens
-sidebar_position: 3
+sidebar_position: 2
 sidebar_label: Stake AXL tokens
-slug: /validator-zone/stake
+slug: /validator-zone/setup/stake
 ---
 
 # Stake AXL tokens on the Axelar network

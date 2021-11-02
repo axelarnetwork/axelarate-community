@@ -2,7 +2,7 @@
 id: validator-zone
 sidebar_position: 1
 sidebar_label: Overview
-slug: /validator-zone
+slug: /validator-zone/setup
 ---
 
 # Overview

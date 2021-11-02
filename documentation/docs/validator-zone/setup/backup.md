@@ -1,8 +1,8 @@
 ---
 id: backup
-sidebar_position: 7
+sidebar_position: 5
 sidebar_label: Backup
-slug: /validator-zone/backup
+slug: /validator-zone/setup/backup
 ---
 
 # Back-up your validator mnemonics and secret keys
