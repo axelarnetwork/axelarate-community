@@ -20,9 +20,9 @@ Chain-specific details for the above steps are linked below:
 * [Ethereum and EVM-compatible chains](/validator-zone/external-chains/evm)
 * Cosmos chains (coming soon)
 
-## Connect your external chain node to your Axelar validator
+## [TODO fix] Connect your external chain node to your Axelar validator
 
-Stop your Axelar node. In a new terminal run
+Stop your Axelar node. _[TODO is it necessary to stop `validator`?  That's validator downtime!]_ In a new terminal run
 
 ```bash
 docker stop validator vald tofnd
@@ -33,4 +33,14 @@ Edit the file `~/axelarate-community/join/config.toml`: find the `rpc_addr` line
 Start your Axelar node:
 ```
 ./join/launch-validator.sh
+```
+
+## Register as a maintainer of external chains
+
+For each external blockchain you selected earlier you must inform the Axelar network of your intent to maintain that chain.  This is accomplished via the `register-chain-maintainer` command:
+
+Example: register your Axlear validator node as a chain maintainer for the Ethereum blockchain:
+
+```bash
+axelard tx nexus register-chain-maintainer ethereum --from broadcaster --node "$VALIDATOR_HOST" # eg VALIDATOR_HOST=http://127.0.0.1:26657
 ```

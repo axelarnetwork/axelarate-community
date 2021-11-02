@@ -2,7 +2,7 @@
 id: recovery
 sidebar_position: 1
 sidebar_label: Recovery
-slug: /validator-zone/recovery
+slug: /validator-zone/troubleshoot/recovery
 ---
 
 # Recover validator from mnemonic or secret keys

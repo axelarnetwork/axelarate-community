@@ -5,7 +5,7 @@ sidebar_label: Health check
 slug: /validator-zone/setup/health-check
 ---
 
-# Health check
+# [TODO update] Health check
 
 Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` will talk with your `tofnd` through `vald`. This is important when events such as key rotation happens on the network.
 
