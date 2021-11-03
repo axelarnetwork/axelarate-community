@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-AXELAR_CORE_VERSION=""
-TOFND_VERSION=""
+AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
+TOFND_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep tofnd | cut -d \` -f 4)"
 RESET_CHAIN=false
 ROOT_DIRECTORY=~/.axelar_testnet
 GIT_ROOT="$(git rev-parse --show-toplevel)"
@@ -54,8 +54,18 @@ if [ -z "$NETWORK_PRESENT" ]; then
 fi
 
 if $RESET_CHAIN; then
-  rm -rf "$ROOT_DIRECTORY"
+  echo
+  echo "WARNING! This will erase all previously stored data. Your node will catch up from the beginning"
+  printf "Do you wish to proceed \"y/n\" ?  "
+  read -r REPLY
+  if [ $REPLY = "y" ]; then
+    echo "Resetting state"
+    rm -rf "$ROOT_DIRECTORY"
+  else
+    echo "Proceeding without resetting state"
+  fi
 fi
+
 
 mkdir -p "$ROOT_DIRECTORY"
 
@@ -66,16 +76,15 @@ CORE_DIRECTORY="${ROOT_DIRECTORY}/.core"
 mkdir -p "$CORE_DIRECTORY"
 
 if [ ! -f "${SHARED_DIRECTORY}/genesis.json" ]; then
-  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
+  curl -s https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${SHARED_DIRECTORY}/genesis.json"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/peers.txt" ]; then
-  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/peers.txt -o "${SHARED_DIRECTORY}/peers.txt"
+if [ ! -f "${SHARED_DIRECTORY}/seeds.txt" ]; then
+  curl https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${SHARED_DIRECTORY}/seeds.txt"
 fi
 
-if [ ! -f "${SHARED_DIRECTORY}/config.toml" ]; then
-  cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
-fi
+echo "Overwriting stale config.toml to config directory with latest seeds"
+cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
 
 if [ ! -f "${SHARED_DIRECTORY}/app.toml" ]; then
   cp "${GIT_ROOT}/join/app.toml" "${SHARED_DIRECTORY}/app.toml"
@@ -97,11 +106,11 @@ docker run                                             \
   -p 26660:26660                                       \
   -p 9090:9090                                         \
   --env START_REST=true                                \
-  --env PEERS_FILE=/root/shared/peers.txt              \
   --env PRESTART_SCRIPT=/root/shared/consumeGenesis.sh \
   --env CONFIG_PATH=/root/shared/                      \
   --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH     \
   --env TENDERMINT_KEY_PATH=$TENDERMINT_KEY_PATH       \
+  --env PEERS_FILE=/root/shared/seeds.txt              \
   -v "${CORE_DIRECTORY}/:/root/.axelar"                \
   -v "${SHARED_DIRECTORY}:/root/shared"                \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startNodeProc

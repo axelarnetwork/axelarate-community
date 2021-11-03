@@ -21,3 +21,4 @@ yarn.lock
 .vercel
 /package-lock.json
 /.idea/
+.tofnd

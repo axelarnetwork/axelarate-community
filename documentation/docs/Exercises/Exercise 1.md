@@ -16,15 +16,17 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup](/setup.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 - Have a Ethereum wallet setup with [MEW](https://www.myetherwallet.com/) and have an Ethereum address funded with some Ether (You can also choose to use the [Chrome plugin](https://chrome.google.com/webstore/detail/mew-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm?hl=en))
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
 - Latest docker images:
-- https://hub.docker.com/repository/docker/axelarnet/axelar-core,
-- https://hub.docker.com/repository/docker/axelarnet/tofnd
-- [Extra commands to query Axelar Network state](/extra-commands)
+  + https://hub.docker.com/repository/docker/axelarnet/axelar-core
+  + https://hub.docker.com/repository/docker/axelarnet/tofnd
+- Exercise 1 [walkthrough video](https://youtu.be/QC7Gx-ydTtw) using Docker 
+  + Completed on Axelar core version v0.7.6, be careful of potential differences in the workflow
+- [Extra commands](/extra-commands) to query Axelar Network state
 
 ## What you need
 - Bitcoin testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/
@@ -34,7 +36,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup](/setup.md) to make sure your node is up to date and you received some test coins to your validator account.
+Follow the instructions in [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries) to make sure your node is up to date and you received some test coins to your validator account.
 
 ## Instructions to mint and burn tokens
 These instructions are a step by step guide to run commands to move an asset from a source to a destination chain and back. The assets are minted as wrapped ERC-20 assets on the destination chain. The commands are submitted to the Axelar Network that's responsible for (a) generating deposit/withdrawal addresses, (b) routing and finalizing transactions, and (c) minting/burning the corresponding assets.
@@ -88,17 +90,14 @@ You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
 4. Trigger signing of the transfers to Ethereum. First create the pending transfers, then sign it.
 
 ```bash
-axelard tx evm create-pending-transfers ethereum --from validator
+axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
 ```
-```bash
-axelard tx evm sign-commands ethereum --from validator
-```
-Wait for sign protocol to complete (~10 Axelar blocks).
+Look for `successfully started signing batched commands with ID {batched commands ID}` and wait for sign protocol to complete (~10 Axelar blocks).
 
 5. Get the command data that needs to be sent in an Ethereum transaction in order to execute the mint
 
 ```bash
-axelard q evm latest-batched-commands ethereum
+axelard q evm batched-commands ethereum {batched commands ID from step 4}
 ```
 Look for the command data listed under `execute_data`. Copy and save it to use in the next step.
 
@@ -155,16 +154,16 @@ axelard tx evm confirm-erc20-deposit ethereum 0x01b00d7ed8f66d558e749daf377ca30e
 Verify that the Ethereum deposit transaction confirmation was successful.
 
 ```bash
-axelard q evm deposit-state ethereum {txID} {deposit addr}
+axelard q evm deposit-state ethereum {txID} {deposit addr} {amount}
 ```
 
 e.g.,
 
 ```bash
-axelard q evm deposit-state ethereum 0xa959623013b5355de5f023fb3044dae02bf915d57b9440460ca59a98663741a8 0x7c5578F5cC4c9253F1E5495240785DD477843D80
+axelard q evm deposit-state ethereum 0xa959623013b5355de5f023fb3044dae02bf915d57b9440460ca59a98663741a8 0x7c5578F5cC4c9253F1E5495240785DD477843D80 10000
 ```
 You should see `deposit transaction is confirmed`.
 
 :::tip
-In this release, we're triggering these commands about once a day. So come back in 24 hours, and check the balance on the Bitcoin testnet address to which you submitted the withdrawal. 
+In this release, we're triggering these commands about once a day. So come back in 24 hours, and check the balance on the Bitcoin testnet address to which you submitted the withdrawal.
 :::
