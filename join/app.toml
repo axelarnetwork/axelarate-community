@@ -131,7 +131,7 @@ enabled-unsafe-cors = false
 [grpc]
 
 # Enable defines if the gRPC server should be enabled.
-enable = false
+enable = true
 
 # Address defines the gRPC server address to bind to.
 address = "0.0.0.0:9090"

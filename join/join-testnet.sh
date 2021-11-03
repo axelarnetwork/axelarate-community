@@ -104,6 +104,7 @@ docker run                                             \
   -p 1317:1317                                         \
   -p 26656-26658:26656-26658                           \
   -p 26660:26660                                       \
+  -p 9090:9090                                         \
   --env START_REST=true                                \
   --env PRESTART_SCRIPT=/root/shared/consumeGenesis.sh \
   --env CONFIG_PATH=/root/shared/                      \
