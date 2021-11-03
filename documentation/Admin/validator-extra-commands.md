@@ -13,11 +13,13 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup](/setup.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 - Attempted or completed [Excercise 3](/exercises/e3) to join the network as a validator, and have a basic understanding of the workflow
 
 ## Commands
 This document lists out additional commands providing information of interest for validator nodes. The commands expose the state of validators in the network and can be useful for troubleshooting.
+
+When running outside of docker, you will have to specify the home directory using the `--home` flag. Specially during the exercises.
 
 ### Query Your Validator Address
 ```bash
@@ -61,7 +63,7 @@ axelard q snapshot info latest
 axelard q snapshot info 2
 ```
 
-Returns information about a snapshot given the snapshot counter number. A snapshot is taken during each keygen event to capture the state of the network's validators and how many shares of the key each validator will hold. The `latest` keyword fetches the snapshot of the most recent keygen. 
+Returns information about a snapshot given the snapshot counter number. A snapshot is taken during each keygen event to capture the state of the network's validators and how many shares of the key each validator will hold. The `latest` keyword fetches the snapshot of the most recent keygen.
 
 
 ### Query All Validators

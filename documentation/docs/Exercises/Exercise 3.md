@@ -16,12 +16,14 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
-- Complete all steps from [Setup](/setup.md)
+- Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.network/)
 - Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core
-- [Extra commands to query Axelar Network state](/extra-commands)
+- Exercise 3 [walkthrough video](https://youtu.be/ggngYFa0AnQ) using Docker 
+  + Completed on Axelar core version v0.7.6, be careful of potential differences in the workflow
+- [Extra commands](/extra-commands) to query Axelar Network state
 
 ## What you need
 - Bitcoin testnet faucet to send some test BTC: https://testnet-faucet.mempool.co/
@@ -29,7 +31,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Joining the Axelar testnet
 
-Follow the instructions in [Setup](/setup.md) to make sure your node is up to date.
+Follow the instructions in [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries) to make sure your node is up to date.
 
 ## Instructions to mint and burn tokens
 These instructions are a step by step guide to run commands to move an asset from a source to a destination chain and back. The assets are minted as wrapped assets on the Axelar Network. The commands are submitted to the Axelar Network that's responsible for (a) generating deposit/withdrawal addresses, (b) routing and finalizing transactions, and (c) minting/burning the corresponding assets.
@@ -90,7 +92,10 @@ Eventually, you'll see something like this in the node terminal:
 bitcoin outpoint confirmation result is
 ```
 
-You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`.
+You can search it using
+- `docker logs -f axelar-core 2>&1 | grep -a -e outpoint`
+- `docker logs -f axelar-core 2>&1 | grep -B 1 -e axelar1... (address from step 1)`
+
 5. Execute pending deposit on Axelar Network
 [key name] is the name you used in step1
 ```bash
@@ -136,16 +141,18 @@ Make sure to link a Bitcoin address that is controlled by you, e.g. if you link 
 :::
 
 2. send the satoshi token on Axelar Network to the deposit address specific above
+
+:::tip
+Please do not send the whole amount, you will need some satoshi in Exercise 5
+:::
 ```bash
 axelard tx bank send [key-name] [Axelar Network deposit address] [amount]satoshi
 ```
 e.g.,
 ```bash
-axelard tx bank send my-key axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v 10000satoshi
+axelard tx bank send my-key axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v 5000satoshi
 ```
-:::tip
-Please do not send the whole amount, you will need some satoshi in Exercise 5 
-:::
+
 
 
 3. Confirm the deposit transaction
@@ -164,7 +171,7 @@ Here, amount should be specific in Satoshi. (For instance, 0.0001BTC = 10000)
 e.g.,
 
 ```bash
-axelard tx axelarnet confirm-deposit 12B7795C49905194C5433E3413AABBF3C6AA27BFD1F20303C66DA4319B143A91 10000satoshi axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v --from my-key
+axelard tx axelarnet confirm-deposit 12B7795C49905194C5433E3413AABBF3C6AA27BFD1F20303C66DA4319B143A91 5000satoshi axelar12xywfpt5cq3fgc6jtrumq5n46chuq9xzsajj5v --from my-key
 ```
 
 You're done! In the next step, a withdrawal must be signed and submitted to the Bitcoin network.

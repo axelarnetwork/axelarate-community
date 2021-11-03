@@ -1,7 +1,7 @@
 #!/bin/sh
 
-AXELAR_CORE_VERSION=""
-TOFND_VERSION=""
+AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
+TOFND_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep tofnd | cut -d \` -f 4)"
 ROOT_DIRECTORY=~/.axelar_testnet
 GIT_ROOT="$(git rev-parse --show-toplevel)"
 TOFND_MNEMONIC_PATH=""
@@ -96,7 +96,7 @@ docker run                              \
   --name tofnd                          \
   --network "$DOCKER_NETWORK"           \
   --env MNEMONIC_CMD=$CMD               \
-  -v "${TOFND_DIRECTORY}/:/root/.tofnd" \
+  -v "${TOFND_DIRECTORY}/:/.tofnd" \
   "axelarnet/tofnd:${TOFND_VERSION}"
 
 VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")
