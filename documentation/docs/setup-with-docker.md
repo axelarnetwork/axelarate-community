@@ -55,7 +55,7 @@ git clone https://github.com/axelarnetwork/axelarate-community.git
 cd axelarate-community
 ```
 
-Checkout the correct tag so the scripts work with the deployment. Find the right tag [here](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/docs/testnet-releases.md).
+Checkout the correct tag so the scripts work with the deployment. Find the right tag at [Testnet Releases](/testnet-releases).
 ```bash
 git checkout <release-tag>
 ```
@@ -70,26 +70,23 @@ Run the script `join/join-testnet.sh`
 ```bash
 Usage: join-testnet.sh [flags]
 
-Mandatory flags:
-
---axelar-core       Version of axelar-core docker image to run (Format: vX.Y.Z)
-
 Optional flags:
+--axelar-core        Version of axelar-core docker image to run (Format: vX.Y.Z) (Default: scraped from https://axelardocs.vercel.app/testnet-releases)
 -r, --root           Local directory to store testnet data in (IMPORTANT: this directory is removed and recreated if --reset-chain is set)
 --tendermint-key     Path to the tendermint private key file. Used for recovering a node.
 --validator-mnemonic Path to the Axelar validator key. Used for recovering a node.
 --reset-chain        Delete local data to do a clean connect to the testnet (If you participated in an older version of the testnet)
 
 ```
-See [Testnet Release](/testnet-releases) for the latest available versions of the docker images.
+See [Testnet Releases](/testnet-releases) for the latest available versions of the docker images.
 
 You can get the latest version and save it to variables:
 ```bash
-CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)
-echo ${CORE_VERSION}
+AXELAR_CORE_VERSION=$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)
+echo ${AXELAR_CORE_VERSION}
 ```
 
-After running `join/join-testnet.sh`, you should see the following output:
+Run `join/join-testnet.sh`.  On a fresh install (or after `--reset-chain`) you should see the following output:
 
 ```bash
 Axelar node running.
@@ -143,7 +140,7 @@ Wait for `catching_up` to become `false`
 ## Logging to file
 By default, docker logs output to stdout and stderr. You could redirect logs to a file for debugging and error reporting:
 ```bash
-docker logs -f axelar-core > testnet.log 2&>1
+docker logs -f axelar-core 2&> testnet.log
 ```
 On a new terminal window, you could monitor the log file in real time:
 ```bash
