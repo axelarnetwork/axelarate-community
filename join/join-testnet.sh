@@ -125,7 +125,7 @@ docker run                                             \
   -v "${SHARED_DIRECTORY}:/root/shared"                \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startNodeProc
 
-pause 5
+sleep 5
 
 VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")
 
