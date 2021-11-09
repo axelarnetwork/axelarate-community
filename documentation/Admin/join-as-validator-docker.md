@@ -152,7 +152,7 @@ Find the address with
 axelard keys show validator -a
 ```
 
-Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your validator address.
+Go to [Axelar faucet](http://faucet.testnet.axelar.dev/) and get some coins on your validator address.
 
 Check that you received the funds:
 
@@ -232,7 +232,7 @@ To stop tofnd, run 'docker stop tofnd'
 To stop vald, run 'docker stop vald'
 ```
 
-Then go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address.
+Then go to [Axelar faucet](http://faucet.testnet.axelar.dev/) and get some coins on your `broadcaster` address.
 
 Enter Axelar node CLI:
 ```bash
@@ -320,7 +320,7 @@ Check that:
 4. You backed-up your mnemonics following [this manual](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-backup.md)
 5. After the team gives you enough stake and confirms that rotations are complete, you can explore various shares you hold following [this](https://github.com/axelarnetwork/axelarate-community/blob/main/documentation/Admin/validator-extra-commands.md).
 6. A reminder that you need at least `1 axl` to participate in consensus, and at least `2\%` of total bonded stake to participate in threshold MPC.
-7. Check that you have some `uaxl` on your `broadcaster` address. Use [Axelar faucet](http://faucet.testnet.axelar.network/) to get some coins if it is not funded.
+7. Check that you have some `uaxl` on your `broadcaster` address. Use [Axelar faucet](http://faucet.testnet.axelar.dev/) to get some coins if it is not funded.
 8. After that, you're an active validator and should guard your node and all keys with care.
 
 ### Start-up troubleshoot
