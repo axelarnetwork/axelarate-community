@@ -20,7 +20,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Have a Ethereum wallet setup with [MEW](https://www.myetherwallet.com/) and have an Ethereum address funded with some Ether (You can also choose to use the [Chrome plugin](https://chrome.google.com/webstore/detail/mew-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm?hl=en))
 
 ## Useful links
-- [Axelar faucet](http://faucet.testnet.axelar.network/)
+- [Axelar faucet](http://faucet.testnet.axelar.dev/)
 - Latest docker images:
   + https://hub.docker.com/repository/docker/axelarnet/axelar-core
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
