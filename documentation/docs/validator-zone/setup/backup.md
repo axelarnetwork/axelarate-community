@@ -1,6 +1,6 @@
 ---
 id: backup
-sidebar_position: 2
+sidebar_position: 3
 sidebar_label: Backup
 slug: /validator-zone/setup/backup
 ---
