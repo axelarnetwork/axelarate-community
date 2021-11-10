@@ -27,14 +27,12 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Steps to become a validator
 
-1. [Launch companion processes](/validator-zone/setup/companion-processes)
-2. 
-
-1. [Stake AXL tokens on the Axelar network](/validator-zone/setup/stake)
-2. [Register broadcaster proxy](/validator-zone/setup/register-proxy)
-3. [Health check](/validator-zone/setup/health-check)
-4. [Back-up your validator mnemonics and secret keys](/validator-zone/setup/backup)
-5. [Set up external chains](/validator-zone/external-chains)
+1. [Launch companion processes for the first time](/validator-zone/setup/companion-processes)
+2. [Back-up your validator mnemonics and secret keys](/validator-zone/setup/backup)
+3. [Register broadcaster proxy](/validator-zone/setup/register-proxy)
+4. [Stake AXL tokens on the Axelar network](/validator-zone/setup/stake)
+5. [Health check](/validator-zone/setup/health-check)
+6. [Set up external chains](/validator-zone/external-chains)
 
 ## Other setup-related tasks
 
