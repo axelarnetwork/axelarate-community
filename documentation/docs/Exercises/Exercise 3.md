@@ -19,7 +19,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 
 ## Useful links
-- [Axelar faucet](http://faucet.testnet.axelar.network/)
+- [Axelar faucet](http://faucet.testnet.axelar.dev/)
 - Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core
 - Exercise 3 [walkthrough video](https://youtu.be/ggngYFa0AnQ) using Docker 
   + Completed on Axelar core version v0.7.6, be careful of potential differences in the workflow
@@ -43,7 +43,7 @@ To perform these tests, you'll need some test Bitcoins on the Bitcoin testnet, a
 ```bash
 axelard keys add [key-name]
 ```
-Go to axelar faucet and get some coins on your newly created address. http://faucet.testnet.axelar.network/
+Go to axelar faucet and get some coins on your newly created address. http://faucet.testnet.axelar.dev/
 
 Check that you received the funds
 ```bash

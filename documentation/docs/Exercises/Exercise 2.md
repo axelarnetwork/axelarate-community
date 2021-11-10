@@ -53,7 +53,7 @@ c2d2cli keys add c2d2
 ```
 
 Go to axelar faucet and fund your C2D2 account by providing the address to the
-[facuet](http://faucet.testnet.axelar.network/). You can get c2d2's account
+[facuet](http://faucet.testnet.axelar.dev/). You can get c2d2's account
 address by running
 
 ```bash

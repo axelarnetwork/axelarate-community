@@ -21,7 +21,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Your Axelar Network address have`satoshi` and `uphoton (ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A)` balances. If you do not have these assets, please follow `Exercise 3` and `Exercise 4` to mint some.
 
 ## Useful links
-- [Axelar faucet](http://faucet.testnet.axelar.network/)
+- [Axelar faucet](http://faucet.testnet.axelar.dev/)
 - Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core
 - [Extra commands to query Axelar Network state](/extra-commands)
 

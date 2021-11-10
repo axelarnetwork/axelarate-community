@@ -23,7 +23,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 - Minimum hardware requirements: 4 cores, 8-16GB RAM, 512 GB drive. Recommended 6-8 cores, 16-32 GB RAM, 1 TB+ drive.
 
 ## Useful links
-- [Axelar faucet](http://faucet.testnet.axelar.network/)
+- [Axelar faucet](http://faucet.testnet.axelar.dev/)
 - Latest docker images:
   + https://hub.docker.com/repository/docker/axelarnet/axelar-core
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
@@ -148,7 +148,7 @@ You can add `$HOME/.axelar_testnet/bin` to your path. The bin directory will be 
 ```bash
 $HOME/.axelar_testnet/bin/axelard keys show validator -a --home ~/.axelar_testnet/.core
 ```
-2. Go to axelar faucet and get some coins on your validator's address (Your node is not yet a validator for the purpose of this ceremony; it's just the name of the account). http://faucet.testnet.axelar.network/
+2. Go to axelar faucet and get some coins on your validator's address (Your node is not yet a validator for the purpose of this ceremony; it's just the name of the account). http://faucet.testnet.axelar.dev/
 
 3. Check that you received the funds
 ```bash

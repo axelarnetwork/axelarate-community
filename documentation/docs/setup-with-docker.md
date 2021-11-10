@@ -24,7 +24,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 
 ## Useful links
-- [Axelar faucet](http://faucet.testnet.axelar.network/)
+- [Axelar faucet](http://faucet.testnet.axelar.dev/)
 - Latest docker images:
   + https://hub.docker.com/repository/docker/axelarnet/axelar-core
   + https://hub.docker.com/repository/docker/axelarnet/tofnd
@@ -163,7 +163,7 @@ docker exec -it axelar-core sh
 ```bash
 axelard keys show validator -a
 ```
-3. Go to axelar faucet and get some coins on your validator's address (Your node is not yet a validator for the purpose of this ceremony; it's just the name of the account). http://faucet.testnet.axelar.network/
+3. Go to axelar faucet and get some coins on your validator's address (Your node is not yet a validator for the purpose of this ceremony; it's just the name of the account). http://faucet.testnet.axelar.dev/
 
 4. Check that you received the funds
 ```bash
