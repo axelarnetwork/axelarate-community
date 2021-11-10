@@ -1,6 +1,6 @@
 ---
 id: stake-axl-tokens
-sidebar_position: 2
+sidebar_position: 5
 sidebar_label: Stake AXL tokens
 slug: /validator-zone/setup/stake
 ---
@@ -10,8 +10,8 @@ slug: /validator-zone/setup/stake
 Decide how many AXL tokens you wish to stake.
 
 :::tip
-* You need at least `1 axl` to participate in consensus on the Axelar network
-* You need at least `2\%` of total bonded stake to participate in multi-party cryptography protocols with other validators.
+* You need at least 1 AXL to participate in consensus on the Axelar network
+* You need at least 2% of total bonded stake to participate in multi-party cryptography protocols with other validators.
 :::
 
 :::tip

@@ -1,43 +1,26 @@
 ---
 id: health-check
-sidebar_position: 4
+sidebar_position: 6
 sidebar_label: Health check
 slug: /validator-zone/setup/health-check
 ---
 
-# [TODO update] Health check
+# Health check
 
-Check that your node's `vald` and `tofnd` are connected properly. As a validator, your `axelar-core` will talk with your `tofnd` through `vald`. This is important when events such as key rotation happens on the network.
+Check the status of your validator.
 
-## Check: vald, tofnd containers running
+* `vald` and `tofnd` companion processes are properly connected.
+* Your `broadcaster` address is registered and adequately funded.
 
 In a new terminal:
 
 ```bash
-docker ps --format '{{.Names}}'
+axelard health-check
 ```
 
-Should see output like:
-```
-vald
-tofnd
-validator
-```
+You should see output like:
 
-## Check: vald can communicate with tofnd
-
-Etner the `vald` CLI:
-
-```bash
-docker exec -ti vald sh
 ```
-
-From inside the `vald` container run
-```bash
-axelard tofnd-ping --tofnd-host tofnd
-```
-
-You should see
-```
-PONG!
+tofnd check: passed
+broadcaster check: failed (no operator address specified)
 ```

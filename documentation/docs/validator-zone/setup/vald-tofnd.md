@@ -1,25 +1,13 @@
 ---
 id: vald-tofnd
-sidebar_position: 2
-sidebar_label: Launch companion processes
+sidebar_position: 3
+sidebar_label: Launch companion processes for the first time
 slug: /validator-zone/setup/companion-processes
 ---
 
-# Register broadcaster proxy
+# Launch companion processes for the first time
 
-Axelar validators exchange messages with one another via the Axelar blockchain.  Each validator sends these messages from a separate `broadcaster` account.
-
-:::warning
-Your validator will be slashed if you do not register a proxy.  A proxy is required in order to fulfill your obligations as a validator.
-:::
-
-Open a new terminal and run the `./join/launch-validator.sh` script with the same arguments you used when you ran `./join/join-testnet.sh`.
-
-:::warning
-Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning.
-:::
-
-The output should be something like:
+Axelar validators need two companion processes called `vald` and `tofnd`.  Launch these processes for the first time by running `./join/launch-validator.sh`.  The output should be something like:
 
 ```
 Tofnd & Vald running.
@@ -51,25 +39,3 @@ To stop vald, run 'docker stop vald'
 ```
 
 Save a copy of your `broadcaster` mnemonic in a safe place.
-
-:::tip
-If you forgot to copy the `broadcaster` address from the terminal output then you can display it from the `vald` container, not `axelar-core`.
-```bash
-docker exec -it vald sh
-axelard keys show broadcaster -a
-```
-:::
-
-Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address. [link to faucet instructions]
-
-Use the proxy address from above to register the broadcaster account as a proxy for your validator.
-
-```bash
-axelard tx snapshot register-proxy [proxy address] [flags]
-```
-
-For example:
-
-```bash
-axelard tx snapshot register-proxy axelar1xg93jnefgz3gsnuyqrmq2q288z8st3cf43jecs --from validator -y
-```
