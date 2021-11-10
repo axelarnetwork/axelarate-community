@@ -32,7 +32,7 @@ Edit the file `~/axelarate-community/join/config.toml`: find the `rpc_addr` line
 
 Start your Axelar node:
 ```
-./join/launch-validator.sh
+docker start validator vald tofnd
 ```
 
 ## Register as a maintainer of external chains
