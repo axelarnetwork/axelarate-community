@@ -78,10 +78,9 @@ if [ -f "$RECOVERY_INFO_PATH" ]; then
   cp -f "$RECOVERY_INFO_PATH" "$VALD_DIRECTORY/recovery.json"
 fi
 
-CMD=create
+CMD=auto
 if [ -f "$TOFND_MNEMONIC_PATH" ]; then
   cp -f "$TOFND_MNEMONIC_PATH" "$TOFND_MNEMONIC_PATH/import"
-  CMD=import
 fi
 
 if [ ! -f "${SHARED_DIRECTORY}/initVald.sh" ]; then

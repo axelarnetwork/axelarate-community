@@ -13,6 +13,7 @@ AXELARD="$BIN_DIRECTORY/axelard"
 TOFND="$BIN_DIRECTORY/tofnd"
 OS="$(uname | awk '{print tolower($0)}')"
 ARCH="$(uname -m)"
+TOFND_PASSWORD="$(echo ${PASSWORD})" # TODO: don't get password from env var
 
 
 set -e
@@ -120,17 +121,24 @@ fi
 
 CORE_DIRECTORY="${ROOT_DIRECTORY}/.core"
 
-TOFND_DIRECTORY="$HOME/.tofnd"
+TOFND_DIRECTORY="${ROOT_DIRECTORY}/.tofnd"
 mkdir -p "$TOFND_DIRECTORY"
 
 if [ -f "$RECOVERY_INFO_PATH" ]; then
   cp -f "$RECOVERY_INFO_PATH" "$VALD_DIRECTORY/recovery.json"
 fi
 
-MNEMONIC_CMD=create
 if [ -f "$TOFND_MNEMONIC_PATH" ]; then
-  cp -f "$TOFND_MNEMONIC_PATH" "$TOFND_MNEMONIC_PATH/import"
-  MNEMONIC_CMD=import
+  echo "Importing mnemonic to tofnd"
+  # run tofnd in "import" mode. This does not start the daemon
+  (echo "$TOFND_PASSWORD" && cat "$TOFND_MNEMONIC_PATH") | "$TOFND" -m import -d "$TOFND_DIRECTORY" > "$LOGS_DIRECTORY/tofnd.log" 2>&1
+else
+  echo "Creating new mnemonic for tofnd"
+  # run tofnd in "create" mode. This does not start the daemon
+  # "create" automatically writes the mnemonic to `export`
+  echo "$TOFND_PASSWORD" | "$TOFND" -m create -d "$TOFND_DIRECTORY" > "$LOGS_DIRECTORY/tofnd.log" 2>&1
+  # rename `export` file to `import` 
+  mv -f "$TOFND_DIRECTORY/export" "$TOFND_DIRECTORY/import" 
 fi
 
 ACCOUNTS=$($AXELARD keys list -n --home $VALD_DIRECTORY)
@@ -160,7 +168,7 @@ if [ -z "$VALIDATOR_ADDR" ]; then
   export VALIDATOR_ADDR=$(cat "$ROOT_DIRECTORY/validator.bech")
 fi
 
-"$TOFND" -m "$MNEMONIC_CMD" > "$LOGS_DIRECTORY/tofnd.log" 2>&1 &
+echo "$TOFND_PASSWORD" | "$TOFND" -m existing -d "$TOFND_DIRECTORY" > "$LOGS_DIRECTORY/tofnd.log" 2>&1 &
 
 sleep 5
 
