@@ -25,7 +25,6 @@ axelard tx staking create-validator --yes --amount "$STAKE_AMOUNT" --moniker "my
 ```
 
 Stake amount is denominated in `uaxl`.
-_[TODO Really? User can choose denomination, right? No need to enforce only `uaxl`.]_
 For example, to stake 33 AXL tokens set `--amount` as follows:
 ```bash
 --amount 33000000uaxl

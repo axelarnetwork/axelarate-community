@@ -37,7 +37,6 @@ axelard tx snapshot register-proxy axelar1xg93jnefgz3gsnuyqrmq2q288z8st3cf43jecs
 
 Output should be something like:
 ```
-/ # axelard tx snapshot register-proxy axelar1jkh7c338v0ktnuucc26r8kxt70dz20p7q0rh94 --from validator -y
 {"height":"1461","txhash":"3C38BD2F7020E42AE1F5A26DEC8FD2656B1B246AB9813CDC64CC09919C17FD8E","codespace":"","code":0,"data":"0A280A262F736E617073686F742E763162657461312E526567697374657250726F787952657175657374","raw_log":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"RegisterProxy\"},{\"key\":\"module\",\"value\":\"snapshot\"},{\"key\":\"action\",\"value\":\"registerProxy\"},{\"key\":\"sender\",\"value\":\"axelarvaloper1ylmsql3xc7t3qvgqjq44ntragzqn07p70j06j5\"},{\"key\":\"address\",\"value\":\"axelar1jkh7c338v0ktnuucc26r8kxt70dz20p7q0rh94\"}]}]}]","logs":[{"msg_index":0,"log":"","events":[{"type":"message","attributes":[{"key":"action","value":"RegisterProxy"},{"key":"module","value":"snapshot"},{"key":"action","value":"registerProxy"},{"key":"sender","value":"axelarvaloper1ylmsql3xc7t3qvgqjq44ntragzqn07p70j06j5"},{"key":"address","value":"axelar1jkh7c338v0ktnuucc26r8kxt70dz20p7q0rh94"}]}]}],"info":"","gas_wanted":"200000","gas_used":"65425","tx":null,"timestamp":""}
 ```
 
