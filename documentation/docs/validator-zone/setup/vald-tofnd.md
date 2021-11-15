@@ -38,4 +38,4 @@ To stop tofnd, run 'docker stop tofnd'
 To stop vald, run 'docker stop vald'
 ```
 
-Save a copy of your `broadcaster` mnemonic in a safe place.
+Save a copy of your `broadcaster` mnemonic in a safe place.  See [Backup](/validator-zone/setup/backup) for detailed instructions.

@@ -67,3 +67,16 @@ The mnemonic file should look something like:
 ```bash
 purchase arrow sword basic gasp category hundred town layer snow mother roast digital fragile repeat monitor wrong combine awful nature damage rib skull chalk
 ```
+
+Save a copy of your `tofnd` mnemonic in a safe place.  For example:
+```
+docker cp tofnd:.tofnd/import <your-desired-file-path>
+```
+
+**Attention**: be sure that `<your-desired-file-path>` contains a file with your tofnd mnemonic before you delete this mnemonic from `tofnd`.
+
+Now that you've safely backed up your `tofnd` mnemonic you can remove it from the `tofnd` container.  In the `tofnd` container:
+
+```
+$ rm .tofnd/import
+```
