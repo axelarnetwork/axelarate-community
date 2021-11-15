@@ -396,7 +396,8 @@ namespace = "tendermint"
 [axelar_bridge_btc]
 
 # Address of the bitcoin RPC server
-rpc_addr    = "<your-bitcoin-rpc-and-port>"
+# chain maintainers must set their own rpc endpoint
+rpc_addr=""
 
 # Timeout period in which the bitcoin node is expected to start (and provide the auth cookie)
 timeout_startup = "60s"
@@ -404,20 +405,18 @@ timeout_startup = "60s"
 # Timout period after startup in which the bitcoin node is expected to start servicing RPC calls
 timeout_rpc = "100s"
 
-# For testing, the connection to the btc bridge can be ignored.
-# In that case, all functionality requiring access to Bitcoin data is mocked.
-start-with-bridge = true
-
 ##### EVM bridges options #####
 [[axelar_bridge_evm]]
 
 # Chain name
 name = "Ethereum"
-# Address of the ethereum RPC proxy
+
+# Address of the ethereum RPC server
+# chain maintainers must set their own rpc endpoint
 rpc_addr    = "<your-ethereum-rpc>"
-# For testing, the connection to the btc bridge can be ignored.
-# In that case, all functionality requiring access to Bitcoin data is mocked.
-start-with-bridge = true
+
+# chain maintainers should set start-with-bridge to true
+start-with-bridge = false
 
 ##### message broadcasting options #####
 [broadcast]
