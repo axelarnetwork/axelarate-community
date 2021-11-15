@@ -5,7 +5,7 @@ sidebar_label: Recovery
 slug: /validator-zone/troubleshoot/recovery
 ---
 
-# Recover validator from mnemonic or secret keys
+# [TODO: test and verify] Recover validator from mnemonic or secret keys
 
 This document describes the steps necessary to ensure that a validator node can be restored in case its state is lost. In order to achieve this, it is necessary that the following data is safely backed up:
 

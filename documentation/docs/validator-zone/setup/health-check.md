@@ -13,16 +13,26 @@ Check the status of your validator.
 * Your `broadcaster` address is registered and adequately funded.
 * Your validator has recently posted a `heartbeat` transaction to the Axelar network
 
-In a new terminal:
+This step is not mandatory but it is good practice to help you detect and diagnose problems with your validator.
+
+In the `vald` container::
 
 ```bash
-axelard health-check
+axelard health-check --tofnd-host TOFND_HOST_NAME --operator-addr YOUR_VALIDATOR_ADDRESS --node AXELAR_CORE_HOST_NAME
+```
+
+For example
+
+```bash
+axelard health-check --tofnd-host tofnd --operator-addr $(cat /root/shared/validator.bech) --node http://axelar-core:26657
 ```
 
 You should see output like:
 
 ```
-TODO
+tofnd check: passed
+broadcaster check: passed
+operator check: passed
 ```
 
 :::tip

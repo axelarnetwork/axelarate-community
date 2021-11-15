@@ -38,7 +38,7 @@ The Axelar broadcaster mnemonic is created when an existing node becomes a valid
 The Tendermint validator key is created when a node is launched for the first time.
 This key is distinct from the validator mnemonic---it is used by your validator for signing network consensus messages.
 
-It can be found within the node's container at `c` or on the host at `~/.axelar_testnet/.core/config/priv_validator_key.json`.  The content of the `priv_validator_key` file should look something like:
+It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` or on the host at `~/.axelar_testnet/.core/config/priv_validator_key.json`.  The content of the `priv_validator_key.json` file should look something like:
 
 ```
 {
@@ -60,8 +60,8 @@ The tofnd mnemonic is distinct from Axelar mnemonics: it is stored and used only
 
 The tofnd mnemonic is created when tofnd is launched for the first time using `join/launch-validator.sh`.  This menmonic can be found here:
 
-* **Docker:** In the tofnd container at `/.tofnd/export`, or on the mounted volume on the host machine at `~/.axelar_testnet/.tofnd/export`.
-* **Binary:** In the directory from which you ran the executable.  Example: `$TOFND_PATH/.tofnd/export`.
+* **Docker:** In the tofnd container at `/.tofnd/import`, or on the mounted volume on the host machine at `~/.axelar_testnet/.tofnd/import`.
+* **Binary:** In the directory from which you ran the executable.  Example: `$TOFND_PATH/.tofnd/import`.
 
 The mnemonic file should look something like:
 ```bash
