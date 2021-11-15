@@ -1,7 +1,7 @@
 #!/bin/sh
 shared_dir=/root/shared
 
-ACCOUNTS=$(axelard keys list -n)
+ACCOUNTS=$(axelard keys list -n 2>&1)
 for ACCOUNT in $ACCOUNTS; do
   if [ "$ACCOUNT" == "broadcaster" ]; then
     HAS_BROADCASTER=true
