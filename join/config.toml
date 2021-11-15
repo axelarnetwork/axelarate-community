@@ -396,6 +396,7 @@ namespace = "tendermint"
 [axelar_bridge_btc]
 
 # Address of the bitcoin RPC server
+# chain maintainers must set their own rpc endpoint
 rpc_addr=""
 
 # Timeout period in which the bitcoin node is expected to start (and provide the auth cookie)
@@ -410,6 +411,7 @@ timeout_rpc = "100s"
 # Chain name
 name = "Ethereum"
 
+# Address of the ethereum RPC server
 # chain maintainers must set their own rpc endpoint
 rpc_addr    = "<your-ethereum-rpc>"
 
