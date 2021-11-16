@@ -413,7 +413,7 @@ name = "Ethereum"
 
 # Address of the ethereum RPC server
 # chain maintainers must set their own rpc endpoint
-rpc_addr    = "<your-ethereum-rpc>"
+rpc_addr    = ""
 
 # chain maintainers should set start-with-bridge to true
 start-with-bridge = false
