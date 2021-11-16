@@ -65,7 +65,7 @@ This file will contain the data necessary to perform share recovery.
 
 ## Recovering the vald process
 
-In order to restore the Axelar proxy key used by the Vald process, you can use the `--validator-mnemonic` flag with `join/launch-validator.sh` as follows:
+In order to restore the Axelar proxy key used by the Vald process, you can use the `--validator-mnemonic` flag with `join/launch-validator-tools.sh` as follows:
 
 ```bash
 ./join/join-testnet.sh --proxy-mnemonic /path/to/axelar/mnemonic/
@@ -81,7 +81,7 @@ Each time you participated in a keygen, your key shares were encrypted and store
 
 ### Running tofnd in a containerized environment
 
-In order to restore tofnd's private key and your key shares, you can use `join/launch-validator.sh` with the `--tofnd-mnemonic` and `--recovery-info` flags with as follows:
+In order to restore tofnd's private key and your key shares, you can use `join/launch-validator-tools.sh` with the `--tofnd-mnemonic` and `--recovery-info` flags with as follows:
 
 ```bash
 ./join/join-testnet.sh --tofnd-mnemonic <mnemonic file> ---recovery-info <recover json file>

@@ -7,7 +7,7 @@ slug: /validator-zone/setup/companion-processes
 
 # Launch companion processes for the first time
 
-Axelar validators need two companion processes called `vald` and `tofnd`.  Launch these processes for the first time by running `./join/launch-validator.sh`.  The output should be something like:
+Axelar validators need two companion processes called `vald` and `tofnd`.  Launch these processes for the first time by running `./join/launch-validator-tools.sh`.  The output should be something like:
 
 ```
 Tofnd & Vald running.
@@ -30,7 +30,7 @@ To become a validator get some uaxl tokens from the faucet and stake them
 It is the only way to recover your account if you ever forget your password.
 
 admit come proud swear view stomach industry elephant extend bracket reveal dinner july absorb beef stick say pact sick
-Do not forget to also backup the tofnd mnemonic (/Users/talalashraf/.tofnd/export)
+Do not forget to also backup the tofnd mnemonic (/Users/talalashraf/.tofnd/import)
 
 To follow tofnd execution, run 'docker logs -f tofnd'
 To follow vald execution, run 'docker logs -f vald'

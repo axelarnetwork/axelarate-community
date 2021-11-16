@@ -31,7 +31,7 @@ range elder logic subject never utility dutch novel sail vacuum model robust coi
 
 ## Axelar broadcaster mnemonic
 
-The Axelar broadcaster mnemonic is created when an existing node becomes a validator for the first time using `join/launch-validator.sh`.  This mnemonic is printed to the terminal just like the validator mnemonic (above).
+The Axelar broadcaster mnemonic is created when an existing node becomes a validator for the first time using `join/launch-validator-tools.sh`.  This mnemonic is printed to the terminal just like the validator mnemonic (above).
 
 ## Tendermint validator key
 
@@ -58,7 +58,7 @@ It can be found within the node's container at `/root/.axelar/config/priv_valida
 
 The tofnd mnemonic is distinct from Axelar mnemonics: it is stored and used only by tofnd to create and encrypt secret key material for validator multi-party cryptography protocols.
 
-The tofnd mnemonic is created when tofnd is launched for the first time using `join/launch-validator.sh`.  This menmonic can be found here:
+The tofnd mnemonic is created when tofnd is launched for the first time using `join/launch-validator-tools.sh`.  This menmonic can be found here:
 
 * **Docker:** In the tofnd container at `/.tofnd/import`, or on the mounted volume on the host machine at `~/.axelar_testnet/.tofnd/import`.
 * **Binary:** In the directory from which you ran the executable.  Example: `$TOFND_PATH/.tofnd/import`.

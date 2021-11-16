@@ -131,7 +131,7 @@ echo
 docker exec vald sh -c "cat /broadcaster.txt"
 docker exec vald sh -c "rm -f /broadcaster.txt"
 echo
-echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export)"
+echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/import)"
 echo
 echo "To follow tofnd execution, run 'docker logs -f tofnd'"
 echo "To follow vald execution, run 'docker logs -f vald'"
