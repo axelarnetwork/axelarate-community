@@ -17,7 +17,7 @@ As a validator for the Axelar network, your Axelar node will vote on the status 
 Chain-specific details for the above steps are linked below:
 
 * EVM-compatible chains
-    * [Ethereum](/validator-zone/external-chains/evm)
+    * [Ethereum](/validator-zone/external-chains/ethereum)
     * Avalanche (coming soon)
     * Fantom (coming soon)
     * Polygon (coming soon)
