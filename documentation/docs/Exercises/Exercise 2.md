@@ -5,7 +5,7 @@ sidebar_label: Exercise 2
 slug: /exercises/e2
 ---
 
-# Exercise 2
+# Exercise 2  (suspended)
 Transfer BTC to Ethereum (as a wrapped asset) and back using `c2d2cli`.
 
 C2D2 is the axelar cross-chain dapp deamon which coordinates the necessary transactions for cross-chain asset transfers.

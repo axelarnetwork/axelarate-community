@@ -4,7 +4,7 @@ sidebar_position: 1
 sidebar_label: Exercise 1
 slug: /exercises/e1
 ---
-# Exercise 1
+# Exercise 1 (suspended)
 Transfer BTC to Ethereum (as a wrapped asset) and back via Axelar Network CLI.
 
 ## Level

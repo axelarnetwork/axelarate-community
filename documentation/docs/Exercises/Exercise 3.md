@@ -4,7 +4,7 @@ sidebar_position: 3
 sidebar_label: Exercise 3
 slug: /exercises/e3
 ---
-# Exercise 3
+# Exercise 3 (suspended)
 Transfer BTC to Axelar Network (as a wrapped asset) and back via Axelar Network CLI.
 
 ## Level

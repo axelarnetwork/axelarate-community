@@ -4,7 +4,7 @@ sidebar_position: 5
 sidebar_label: Exercise 5
 slug: /exercises/e5
 ---
-# Exercise 5
+# Exercise 5 (suspended)
 Transfer assets from Axelar Network to Ethereum (as a wrapped asset) and back via Axelar Network CLI.
 
 ## Level

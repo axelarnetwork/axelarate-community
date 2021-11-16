@@ -4,7 +4,7 @@ sidebar_position: 4
 sidebar_label: Exercise 4
 slug: /exercises/e4
 ---
-# Exercise 4
+# Exercise 4 (suspended)
 Transfer Asset from Cosmos Hub to Axelar Network via Gaia CLI and Axelar Network CLI
 
 ## Level
