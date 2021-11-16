@@ -9,12 +9,12 @@ slug: /testnet-releases
 
 Variable  | Value
 ------------- | -------------
-`axelar-core` version | `v0.8.1`
+`axelar-core` version | `v0.8.2`
 `axelarate-community` version | `v0.7.0`
 `tofnd` version | `v0.7.1`
 `c2d2` version | `inactive`
-Ethereum Axelar Gateway contract address | `0x30D36e4f93D755bdf67C054E29562002Efe25a71`
+Ethereum Axelar Gateway contract address | `0x1Cb38EDEad314E091b8269A19eED78Ec35506E93`
 Ethereum axelarBTC token address | `inactive`
-Ethereum AXL token address | `0x0BDb9222AA2e8162Ce29688994E1fAbF473d0B84`
-Ethereum axelarUST token address | `0xA2A5f6a8112bFfEa2BEf7C3eF868fae033e9C1DC`
-Terra channel id | `channel-32`
+Ethereum AXL token address | `0x9888E0cf33F5CB25A52578dD9C3A02f1D7D0B89C`
+Ethereum axelarUST token address | `0x4d1Bff1D3e474A74DE98A149F5129cE1cd8CFcFB`
+Terra channel id | `channel-33`
