@@ -7,7 +7,7 @@ slug: /validator-zone/external-chains
 
 # Overview
 
-As a validator for the Axelar network, your Axelar node will vote on the status of external blockchains such as Bitcoin, EVM, Cosmos. Specifically:
+As a validator for the Axelar network, your Axelar node will vote on the status of external blockchains such as Ethereum, Cosmos, etc. Specifically:
 
 1. Select which external chains your Axelar node will support.  Set up and configure your own nodes for the chains you selected.
 2. Provide RPC endpoints for these nodes to your Axelar validator node and register as a maintainer for these chains on the Axelar network.
@@ -25,28 +25,11 @@ Chain-specific details for the above steps are linked below:
     * Nothing to do.  All Cosmos chains are automatically supported by default.
 * Bitcoin (inactive)
 
-## Connect your external chain node to your Axelar validator
+## Add external chain info to your validator's configuration
 
 You may skip this step if you already did it earlier.
 
-Stop your companion processes `vald`, `tofnd`.
-
-:::warning
-Do not stop the `axelar-core` container.  If you stop `axelar-core` then you risk downtime for Tendermint consensus, which can result in penalties.
-:::
-
-In a host terminal:
-
-```bash
-docker stop vald tofnd
-```
-
-Edit the file `~/axelarate-community/join/config.toml`: edit the `rpc_addr` and `start-with-bridge` entries corresponding to the external chain you wish to connect.  (See Ethereum example below.)
-
-Resume your companion processes `vald`, `tofnd`:
-```
-./join/launch-validator-tools.sh
-```
+Edit the file `~/axelarate-community/join/config.toml`: set the `rpc_addr` and `start-with-bridge` entries corresponding to the external chain you wish to connect.
 
 ### Example: Ethereum
 
@@ -67,7 +50,34 @@ rpc_addr    = "my_ethereum_host"
 start-with-bridge = true
 ```
 
-Substitute your Ethereum RPC address for `my_ethereum_host`.
+Substitute your Ethereum RPC address for `my_ethereum_host`.  Be sure to set `start-with-bridge` to `true`.
+
+## Restart your companion processes
+
+Stop your companion processes `vald`, `tofnd` and then restart them.
+
+:::warning
+Do not stop the `axelar-core` container.  If you stop `axelar-core` then you risk downtime for Tendermint consensus, which can result in penalties.
+:::
+
+:::warning
+If `vald`, `tofnd` are stopped for too long then your validator might fail to produce a heartbeat transaction when needed.  The risk of this event can be reduced to near-zero if you promptly restart these processes shortly after a recent round of heartbeat transactions.
+:::
+
+:::tip
+Heartbeat events are emitted every 50 blocks.  Your validator typically responds to heartbeat events within 1-2 blocks.  It should be safe to restart `vald`, `tofnd` at block heights that are 5-10 mod 50.
+:::
+
+In a host terminal:
+
+```bash
+docker stop vald tofnd
+```
+
+Immediately resume your companion processes `vald`, `tofnd`:
+```
+./join/launch-validator-tools.sh
+```
 
 ## Register as a maintainer of external chains
 

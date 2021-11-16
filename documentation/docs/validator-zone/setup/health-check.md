@@ -9,9 +9,9 @@ slug: /validator-zone/setup/health-check
 
 Check the status of your validator.
 
-* `vald` and `tofnd` companion processes are alive and properly connected.
-* Your `broadcaster` address is registered and adequately funded.
-* Your validator has recently posted a `heartbeat` transaction to the Axelar network
+* tofnd check: `tofnd` companion process is alive and accessible from `vald`.
+* broadcaster: Your `broadcaster` address is registered and adequately funded.
+* operator check: Your operator address is indeed an Axelar validator in good status. (Possible bad status includes: missed too many blocks, jail status, etc.)
 
 This step is not mandatory but it is good practice to help you detect and diagnose problems with your validator.
 
