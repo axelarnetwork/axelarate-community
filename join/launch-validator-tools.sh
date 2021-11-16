@@ -87,6 +87,9 @@ if [ ! -f "${SHARED_DIRECTORY}/initVald.sh" ]; then
   cp "${GIT_ROOT}/join/initVald.sh" "${SHARED_DIRECTORY}/initVald.sh"
 fi
 
+echo "Overwriting stale config.toml to config directory with latest chain RPCs"
+cp "${GIT_ROOT}/join/config.toml" "${SHARED_DIRECTORY}/config.toml"
+
 set -e
 
 docker run                              \
