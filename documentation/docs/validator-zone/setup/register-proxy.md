@@ -32,7 +32,7 @@ axelard tx snapshot register-proxy [proxy address] [flags]
 For example:
 
 ```bash
-axelard tx snapshot register-proxy axelar1xg93jnefgz3gsnuyqrmq2q288z8st3cf43jecs --from validator -y
+axelard tx snapshot register-proxy axelar1xg93jnefgz3gsnuyqrmq2q288z8st3cf43jecs --from validator
 ```
 
 Output should be something like:
