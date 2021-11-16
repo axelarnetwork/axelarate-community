@@ -37,11 +37,11 @@ In a host terminal:
 docker stop vald tofnd
 ```
 
-Edit the file `~/axelarate-community/join/config.toml`: find the `rpc_addr` line corresponding to the external chain you wish to connect and replace the default RPC URL with the URL of your external chain node node.  (See Ethereum example below.)
+Edit the file `~/axelarate-community/join/config.toml`: edit the `rpc_addr` and `start-with-bridge` entries corresponding to the external chain you wish to connect.  (See Ethereum example below.)
 
-Start your companion processes `vald`, `tofnd`:
+Resume your companion processes `vald`, `tofnd`:
 ```
-docker start vald tofnd
+./join/launch-validator-tools.sh
 ```
 
 ### Example: Ethereum
@@ -54,8 +54,13 @@ Your `config.toml` file should contain a snippet like the following:
 
 # Chain name
 name = "Ethereum"
-# Address of the ethereum RPC proxy
+
+# Address of the ethereum RPC server
+# chain maintainers must set their own rpc endpoint
 rpc_addr    = "my_ethereum_host"
+
+# chain maintainers should set start-with-bridge to true
+start-with-bridge = true
 ```
 
 Substitute your Ethereum RPC address for `my_ethereum_host`.
