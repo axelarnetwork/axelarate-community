@@ -16,5 +16,5 @@ Variable  | Value
 Ethereum Axelar Gateway contract address | `0x30D36e4f93D755bdf67C054E29562002Efe25a71`
 Ethereum axelarBTC token address | `inactive`
 Ethereum AXL token address | `0x0BDb9222AA2e8162Ce29688994E1fAbF473d0B84`
-Ethereum axelarPHOT token address | `TODO`
-Cosmoshub channel id | `TODO`
+Ethereum axelarUST token address | `0xA2A5f6a8112bFfEa2BEf7C3eF868fae033e9C1DC`
+Terra channel id | `channel-32`
