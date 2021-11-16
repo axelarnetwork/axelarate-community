@@ -1,8 +1,8 @@
 ---
-id: evm
+id: ethereum
 sidebar_position: 2
 sidebar_label: Ethereum
-slug: /validator-zone/external-chains/evm
+slug: /validator-zone/external-chains/ethereum
 ---
 
 # [TODO revise] Set up your Ethereum Ropsten testnet node
