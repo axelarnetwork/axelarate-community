@@ -15,6 +15,6 @@ Variable  | Value
 `c2d2` version | `inactive`
 Ethereum Axelar Gateway contract address | `0x30D36e4f93D755bdf67C054E29562002Efe25a71`
 Ethereum axelarBTC token address | `inactive`
-Ethereum AXL token address | `TODO`
+Ethereum AXL token address | `0x0BDb9222AA2e8162Ce29688994E1fAbF473d0B84`
 Ethereum axelarPHOT token address | `TODO`
 Cosmoshub channel id | `TODO`
