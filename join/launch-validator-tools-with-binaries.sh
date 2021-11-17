@@ -132,7 +132,7 @@ if [ -f "$TOFND_MNEMONIC_PATH" ]; then
   echo "Importing mnemonic to tofnd"
   # run tofnd in "import" mode. This does not start the daemon
   (echo "$TOFND_PASSWORD" && cat "$TOFND_MNEMONIC_PATH") | "$TOFND" -m import -d "$TOFND_DIRECTORY" > "$LOGS_DIRECTORY/tofnd.log" 2>&1
-else
+elif [ ! -f "$TOFND_DIRECTORY/kvstore/kv/db" ]; then
   echo "Creating new mnemonic for tofnd"
   # run tofnd in "create" mode. This does not start the daemon
   # "create" automatically writes the mnemonic to `export`
