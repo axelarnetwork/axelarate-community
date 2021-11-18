@@ -18,7 +18,7 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 ## Prerequisites
 - Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
 - Have a Ethereum wallet setup and have an Ethereum address funded with some Ether (You can also choose to use the [Chrome plugin](https://chrome.google.com/webstore/detail/mew-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm?hl=en))
-- Your Axelar Network address has a positive `uaxl` balance. You can get AXL tokens from the [Axelar faucet](http://faucet.testnet.axelar.dev/).
+- You must have some `uaxl` tokens in your Axelar Network address. You can get AXL tokens from the [Axelar faucet](http://faucet.testnet.axelar.dev/).
 
 ## Useful links
 - [Axelar faucet](http://faucet.testnet.axelar.dev/)
