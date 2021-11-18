@@ -38,6 +38,3 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 * [Troubleshoot start-up](/validator-zone/troubleshoot)
 * [Recover validator from mnemonic or secret keys](/validator-zone/troubleshoot/recovery)
 * [Leave as a validator](/validator-zone/troubleshoot/leave)
-# TODO
-
-* Binaries
