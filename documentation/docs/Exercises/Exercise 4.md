@@ -5,7 +5,7 @@ sidebar_label: Exercise 4
 slug: /exercises/e4
 ---
 # Exercise 4
-Transfer Asset from Cosmos Hub to Axelar Network via Gaia CLI and Axelar Network CLI
+Transfer UST from Terra to EVM compatible chains via Terra CLI and Axelar Network CLI
 
 ## Level
 Intermediate
@@ -29,26 +29,24 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 Follow the instructions in [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries) to make sure your node is up to date, and you received some test coins to your account.
 
-## Connect to the Cosmoshub testnet
+## Connect to the Terra testnet
 
-### Setup gaia cli
-
-1. On a new terminal window, clone gaia repository from Github:
+1. On a new terminal window, clone terra repository from Github:
 ```bash
-git clone https://github.com/cosmos/gaia.git
+git clone https://github.com/terra-money/core/
+cd core
+git checkout v0.5.11
 ```
-2. Run the make command to build and install gaiad
+2. Build from source
 ```bash
-cd gaia
-git checkout v5.0.5
 make install
 ```
 3. Verify it is properly installed:
 ```bash
-gaiad version
+terrad version --long
 ```
 :::tip
-If you get `-bash: gaiad: command not found`, make sure you do the following:
+If you get `-bash: terrad: command not found`, make sure you do the following:
 ```bash
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 source .profile
@@ -59,95 +57,158 @@ source .profile
 
 [moniker] can be any name you like
 ```bash
-gaiad init [moniker]
+terrad init [moniker]
 ```
-5. Use any text editor to open `$HOME/.gaia/config/client.toml`, edit `chain-id` and `node` fields
+5. Use any text editor to open `$HOME/.terra/config/client.toml`, edit `chain-id` and `node` fields
 ```bash
-chain-id = "cosmoshub-testnet"
-node = "https://rpc.testnet.cosmos.network:443"
+chain-id = "bombay-12"
+node = "tcp://adc1043f1d76249009c417dcad0bc807-1055950820.us-east-2.elb.amazonaws.com:26657"
 ```
 Verify you have access to the testnet, you will see the latest block info
 ```bash
-gaiad q block
+terrad status
 ```
-5. Create a key pair
+6. Create a key pair
 
-[cosmos-key-name] can be any name you like
+[terra-key-name] can be any name you like
 ```bash
-gaiad keys add [cosmos-key-name]
+terrad keys add [terra-key-name]
 ```
-6. Request tokens from the faucet
+7. Request tokens from the faucet
+Go to terra testnet faucet and get some UST for your newly created address https://faucet.terra.money/
+
+Verify that tokens have arrived
+
+[address] is the address you created in step 6, associated with the [terra-key-name]
 ```bash
-curl -X POST -d '{"address": "your newly created address"}' https://faucet.testnet.cosmos.network
+terrad q bank balances [address]
 ```
-When the tokens are sent, you will see the following response:
-```json
-{"transfers":[{"coin":"100000000uphoton","status":"ok"}]}
-```
-Check that tokens have arrived
 
-[cosmoshub address] is the address you created in step 5, associated with the [cosmos-key-name]
-```bash
-gaiad q bank balances [cosmoshub address]
-```
-### Instructions to send tokens from Cosmoshub testnet to Axelar Network
-1. Send an IBC transfer from Cosmoshub testnet to Axelar Network
+## Instructions to send UST from Terra testnet to EVM compatible chains
+The flow works for any EVM compatible chains that Axelar supports. We use Ethereum Ropsten as example.
 
-You can find `Cosmoshub channel id` under [Testnet Release](/testnet-releases)
-
-[axelar address] is the address you generated in Exercise 3
-
-[cosmos-key-name] is the one you generated in step 5 above
-
-```bash
-gaiad tx ibc-transfer transfer transfer [Cosmoshub channel id] [axelar address] --packet-timeout-timestamp 0 [amount]uphoton --from [cosmos-key-name] -y -b block
-```
-Wait ~20 secs for the relayer to relay your transaction.
-2. On a new terminal window, enter Axelar node:
+1. On a new terminal window, enter Axelar node:
 ```bash
 docker exec -it axelar-core sh
 ```
-3. Check that you received the funds
 
-[axelar address] is the address you generated in Exercise 3, and used in step 1 above
+2. Create a deposit address on Axelar Network (to which you'll deposit coins later)
+[receipent address] is an address you control on the recipient EVM chain.  This is where your UST will ultimately be sent.
 ```bash
-axelard q bank balances [axelar address]
+axelard tx axelarnet link [evm chain] [receipent address] uusd --from [axelar-key-name]
+```
+e.g.,
+```bash
+axelard tx axelarnet link ethereum 0x4c14944e080FbE711D29D5B261F14fE4E754f939 uusd --from validator
+```
+Look for `successfully linked [Axelar Network deposit address] and [receipent address]`
+
+3. Send an IBC transfer from Terra testnet to Axelar Network
+Switch back to terminal with terrad installed
+
+```bash
+terrad tx ibc-transfer transfer transfer [Terra channel id] [Axelar Network deposit address] --packet-timeout-timestamp 0 [amount]uusd --gas-prices 0.15uusd --from [terra-key-name] -y -b block
+```
+You can find `Terra channel id` under [Testnet Release](/testnet-releases)
+
+[terra-key-name] is the one you generated in step 5 above
+
+Wait ~30-60 secs for the relayer to relay your transaction.
+
+4. Switch to axelard terminal, check that you received the funds
+```bash
+axelard q bank balances [Axelar Network deposit address]
 ```
 You should see balance with denomination starting with `ibc` e.g.:
 ```bash
 balances:
-- amount: "100000"
- denom: ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A
+- amount: "1000000"
+ denom: ibc/6F4968A73F90CF7DE6394BF937D6DF7C7D162D74D839C13F53B41157D315E05F
 ```
 
-4. Check the denomination trace
+5. Confirm the deposit transaction
+
+[txhash] is from the step 3
+
+[amount] and [token] are the same as in step 3 above
+
+[Axelar Network deposit address] is the address above you deposited to
+
 ```bash
-axelard q ibc-transfer denom-traces
+axelard tx axelarnet confirm-deposit [txhash] [amount]"[token]" [Axelar Network deposit address] --from [axelar-key-name]
 ```
-You should see the base_denom is `uphoton`
-
-### Send back to Cosmoshub
-
-1. Send IBC token back to Cosmoshub
-
-[cosmoshub address] is the address you generated in section `Setup gaia cli` in step 5, associated with the [cosmos-key-name]
-
-(You can check your cosmoshub address with command `gaiad keys list` in local terminal)
-
-[key-name] is the name you used in Exercise 3
-
-:::tip
-Please do not send the whole amount, you will need some uphoton in Exercise 5
-:::
+e.g.,
 ```bash
-axelard tx ibc-transfer transfer transfer channel-0 [cosmoshub address] [amount]"ibc/287EE075B7AADDEB240AFE74FA2108CDACA50A7CCD013FA4C1FCD142AFA9CA9A" --packet-timeout-timestamp 0 --from [key-name]
+axelard tx axelarnet confirm-deposit F72D180BD2CD80DB756494BB461DEFE93091A116D703982E91AC2418EC660752  1000000"ibc/6F4968A73F90CF7DE6394BF937D6DF7C7D162D74D839C13F53B41157D315E05F" axelar1gmwk28m33m3gfcc6kr32egf0w8g6k7fvppspue --from validator
 ```
 
-Wait ~20 secs for the relayer to relay your transaction
-
-2. Go to your local terminal, verify you received uphoton
-
-[cosmoshub address] is the address you used above
+6. Create transfers on evm compatibale chain and Sign
 ```bash
-gaiad q bank balances [cosmoshub address]
+axelard tx evm create-pending-transfers [chain] --from [key-name] --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands [chain] --from [key-name] --gas auto --gas-adjustment 1.2
+```
+e.g.
+```bash
+axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
+```
+Look for `successfully started signing batched commands with ID {batched commands ID}`.
+
+7. Get the command data that needs to be sent in an transaction in order to execute the mint
+```bash
+axelard q evm batched-commands [chain] {batched commands ID from step 5}
+```
+e.g.
+```bash
+axelard q evm batched-commands ethereum 1d097247c283cfaca76ad1de4f3a2e5d4d075d99664e5d87aa187a331e8546e7
+```
+Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
+
+8. Send the transaction wrapping the command data to execute the mint
+
+- Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet.
+
+- Go to metamask, send a transaction to `Gateway smart contract address`, paste hex from `execute_data` above into Hex Data field
+
+  Keep in mind not to transfer any tokens!
+
+  (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases))
+
+You can now open Metamask, select "Assets", then "Add Token", then "Custom Token", and paste the token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
+
+## Send back to Terra
+1. Create a deposit address on evm compatible chain
+```bash
+axelard tx evm link [chain] terra $(axelard keys show [key-name] -a) uusd --from [key-name]
+```
+e.g.
+```bash
+axelard tx evm link ethereum terra $(axelard keys show validator -a) uusd --from validator
+```
+Look for `successfully linked [Ethereum Ropsten deposit address] and [Axelar Network dst addr]`
+
+2. External: send wrapped tokens to [Ethereum Ropsten deposit address] (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send the transaction. Wait for 30 block confirmations. You can monitor the status of your deposit using the testnet explorer: https://ropsten.etherscan.io/
+
+3. Confirm the transaction
+```bash
+axelard tx evm confirm-erc20-deposit [chain] [txID] [amount] [deposit address] --from [key-name]
+```
+Here, amount should be specific in uusd, 1UST = 1000000uusd
+e.g.,
+```bash
+axelard tx evm confirm-erc20-deposit ethereum 0xb82e454a273cb32ed45a435767982293c12bf099ba419badc0a728e731f5825e 1000000 0x5CFEcE3b659e657E02e31d864ef0adE028a42a8E --from validator
+```
+
+Wait for transaction to be confirmed.
+You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`.
+
+4. Route pending IBC transfer on Axelar Network
+```bash
+axelard tx axelarnet route-ibc-transfers --from [key-name] --gas auto --gas-adjustment 1.2
+```
+Wait ~30-60 secs for the relayer to relay your transaction.
+
+5. Switch back to terminal with terrad installed, verify you received ust
+
+[terra-address] is the address you used above
+```bash
+terra q bank balances [terra-address]
 ```
