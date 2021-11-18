@@ -14,10 +14,10 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Prerequisites
 - Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
-- Attempted or completed [Excercise 1](/exercises/e1) and have a basic understanding of the asset transfer workflow
+- Attempted or completed some exercises and have a basic understanding of the asset transfer workflow
 
 ## Commands
-This document lists out additional commands that can be run at different points during the [Excercise 1](/exercises/e1) workflow. The commands are not neccesary to complete the asset transfer, but display additional information about the current network state, and can be useful for debugging or learning more about the network.
+This document lists out additional commands that can be run at different points during the exercises. The commands are not neccesary to complete the asset transfer, but display additional information about the current network state, and can be useful for debugging or learning more about the network.
 
 Note: If you setup your node using the binaries, you should always include `--home $ROOT_DIRECTORY/.core` param in your `axelard` commands, where `ROOT_DIRECTORY` is whatever you chose when setting up the node. The default value for this is `$HOME/.axelar_testnet/.core`. e.g
 ```bash
