@@ -128,7 +128,9 @@ export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar-testnet-adelaide"}
 
 echo "Node moniker: $NODE_MONIKER"
 echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
-ACCOUNTS=$($AXELARD keys list -n --home $CORE_DIRECTORY)
+# For some reason Cosmos is outputs to stderr
+ACCOUNTS="$($AXELARD keys list -n --home $CORE_DIRECTORY 2>&1)"
+echo "Accounts: $ACCOUNTS"
 for ACCOUNT in $ACCOUNTS; do
     if [ "$ACCOUNT" = "validator" ]; then
         HAS_VALIDATOR=true

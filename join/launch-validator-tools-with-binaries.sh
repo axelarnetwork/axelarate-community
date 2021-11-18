@@ -15,8 +15,6 @@ OS="$(uname | awk '{print tolower($0)}')"
 ARCH="$(uname -m)"
 TOFND_PASSWORD="$(echo ${PASSWORD})" # TODO: don't get password from env var
 
-
-set -e
 for arg in "$@"; do
   case $arg in
     --proxy-mnemonic)
@@ -137,11 +135,11 @@ elif [ ! -f "$TOFND_DIRECTORY/kvstore/kv/db" ]; then
   # run tofnd in "create" mode. This does not start the daemon
   # "create" automatically writes the mnemonic to `export`
   echo "$TOFND_PASSWORD" | "$TOFND" -m create -d "$TOFND_DIRECTORY" > "$LOGS_DIRECTORY/tofnd.log" 2>&1
-  # rename `export` file to `import` 
-  mv -f "$TOFND_DIRECTORY/export" "$TOFND_DIRECTORY/import" 
+  # rename `export` file to `import`
+  mv -f "$TOFND_DIRECTORY/export" "$TOFND_DIRECTORY/import"
 fi
 
-ACCOUNTS=$($AXELARD keys list -n --home $VALD_DIRECTORY)
+ACCOUNTS=$($AXELARD keys list -n --home $VALD_DIRECTORY 2>&1)
 for ACCOUNT in $ACCOUNTS; do
   if [ "$ACCOUNT" = "broadcaster" ]; then
     HAS_BROADCASTER=true
