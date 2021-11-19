@@ -13,8 +13,8 @@ Variable  | Value
 `axelarate-community` version | `v0.7.3`
 `tofnd` version | `v0.7.1`
 `c2d2` version | `inactive`
-Ethereum Axelar Gateway contract address | `0x1Cb38EDEad314E091b8269A19eED78Ec35506E93`
+Ethereum Axelar Gateway contract address | `0x8065A890A99Aa275bc54CB59c078D7e30c9D6a98`
 Ethereum axelarBTC token address | `inactive`
-Ethereum AXL token address | `0x9888E0cf33F5CB25A52578dD9C3A02f1D7D0B89C`
-Ethereum axelarUST token address | `0x4d1Bff1D3e474A74DE98A149F5129cE1cd8CFcFB`
-Terra channel id | `channel-33`
+Ethereum AXL token address | `0x0dE96c5E33bA0dF3C4d71b0F1A8eaF41EddE5f98`
+Ethereum axelarUST token address | `0xbb83D1892234eCDCeFEaDB88d736a3E683593F4e`
+Terra channel id | `channel-36`
