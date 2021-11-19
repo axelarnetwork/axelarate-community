@@ -183,6 +183,7 @@ To stop the node, open a new CLI terminal and run
 ```bash
 docker stop $(docker ps -a -q)
 ```
+Warning: this will stop all currently running containers. If you want to be less indiscriminate about it run `docker stop {specific container ID}` to stop a single container.
 
 To restart the node, run the `join/join-testnet.sh` script again, with the same `--axelar-core` version (and optionally `--root`) parameters as before. Do NOT use the `--reset-chain` flag or your node will have to sync again from the beginning (and if you haven't backed up your keys, they will be lost).
 
