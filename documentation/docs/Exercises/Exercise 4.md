@@ -210,5 +210,5 @@ Wait ~30-60 secs for the relayer to relay your transaction.
 
 [terra-address] is the address you used above
 ```bash
-terra q bank balances [terra-address]
+terrad q bank balances [terra-address]
 ```
