@@ -24,7 +24,7 @@ In the `axelar-core` container: make your `validator` account into an Axelar val
 axelard tx staking create-validator --yes --amount "$STAKE_AMOUNT" --moniker "my_awesome_moniker" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1" --pubkey="$(axelard tendermint show-validator)" --from validator -b block
 ```
 
-Stake amount is denominated in `uaxl`.
+Stake amount is denominated in `uaxl`. Note the tip above about how much to stake.
 For example, to stake 33 AXL tokens set `--amount` as follows:
 ```bash
 --amount 33000000uaxl

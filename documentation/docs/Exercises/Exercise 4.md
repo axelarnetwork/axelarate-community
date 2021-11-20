@@ -93,7 +93,9 @@ docker exec -it axelar-core sh
 ```
 
 2. Create a deposit address on Axelar Network (to which you'll deposit coins later)
-[receipent address] is an address you control on the recipient EVM chain.  This is where your UST will ultimately be sent.
+using a sufficiently funded [axelar-key-name] address.
+[receipent address] is an address you control on the recipient EVM chain.
+This is where your UST will ultimately be sent.
 ```bash
 axelard tx axelarnet link [evm chain] [receipent address] uusd --from [axelar-key-name]
 ```
@@ -158,11 +160,13 @@ axelard tx axelarnet confirm-deposit F72D180BD2CD80DB756494BB461DEFE93091A116D70
 
 6. Create transfers on evm compatibale chain and Sign
 ```bash
-axelard tx evm create-pending-transfers [chain] --from [key-name] --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands [chain] --from [key-name] --gas auto --gas-adjustment 1.2
+axelard tx evm create-pending-transfers [chain] --from [key-name] --gas auto --gas-adjustment 1.2
+axelard tx evm sign-commands [chain] --from [key-name] --gas auto --gas-adjustment 1.2
 ```
 e.g.
 ```bash
-axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
+axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2
+axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
 ```
 Look for `successfully started signing batched commands with ID {batched commands ID}`.
 
@@ -186,7 +190,8 @@ Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 
   (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases))
 
-You can now open Metamask, select "Assets", then "Add Token", then "Custom Token", and paste the token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
+You can now open Metamask, select "Assets", then "Import tokens", then "Custom Token",
+and paste the axelarUST token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
 
 ## Send back to Terra
 1. Create a deposit address on evm compatible chain
