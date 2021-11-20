@@ -107,7 +107,7 @@ Look for `successfully linked [Axelar Network deposit address] and [receipent ad
 Switch back to terminal with terrad installed
 
 ```bash
-terrad tx ibc-transfer transfer transfer [Terra channel id] [Axelar Network deposit address] --packet-timeout-timestamp 0 [amount]uusd --gas-prices 0.15uusd --from [terra-key-name] -y -b block
+terrad tx ibc-transfer transfer transfer [Terra channel id] [Axelar Network deposit address] --packet-timeout-timestamp 0 --packet-timeout-height "0-20000" [amount]uusd --gas-prices 0.15uusd --from [terra-key-name] -y -b block
 ```
 You can find `Terra channel id` under [Testnet Release](/testnet-releases)
 
