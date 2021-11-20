@@ -224,7 +224,9 @@ axelard tx evm confirm-erc20-deposit ethereum 0xb82e454a273cb32ed45a435767982293
 ```
 
 Wait for transaction to be confirmed.
-You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`.
+You can search it using:
+- If using docker, `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`
+- If using the binary, `tail -f $HOME/.axelar_testnet/logs/axelard.log | grep -a -e "deposit confirmation"`
 
 4. Route pending IBC transfer on Axelar Network
 ```bash
