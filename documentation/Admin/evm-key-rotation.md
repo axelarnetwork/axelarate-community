@@ -30,11 +30,16 @@ The command is successfully signed if the following query gives the batched comm
 axelard q evm latest-batched-commands {chain name}
 ```
 
-4. Send the signed command to the EVM chain.
+4. First find the EVM chain gateway address. Use Metamask to send a transaction to this address.
+```
+axelard q evm gateway-address {chain name}
+```
+
+Send the signed command to the EVM chain.
 ```
 axelard q evm latest-batched-commands {chain name}
 ```
-Copy the `execute_data` field from the query above, pasted into the `data` field of an EVM transaction and send it out. You can use Metamask to do this.
+Copy the `execute_data` field from the query above, pasted into the `data` field of an EVM transaction and send it out. You can use Metamask to do this. Make sure you manually increase the `gas limit` of the transaction before sending it. Use at least 1,000,000 gas to be safe.
 
 5. Confirm the ownership transfer
 Before triggering the confirmation, make sure you've already waited for enough confirmations on the transaction. Once the ownership transfer is successfully confirmed, the system would rotate to the new key. Note that the confirmation can be re-triggered if you failed to wait for enough confirmations.
@@ -73,11 +78,16 @@ The command is successfully signed if the following query gives the batched comm
 axelard q evm latest-batched-commands {chain name}
 ```
 
-4. Send the signed command to the EVM chain.
+4. First find the EVM chain gateway address. Use Metamask to send a transaction to this address.
+```
+axelard q evm gateway-address {chain name}
+```
+
+Send the signed command to the EVM chain.
 ```
 axelard q evm latest-batched-commands {chain name}
 ```
-Copy the `execute_data` field from the query above, pasted into the `data` field of an EVM transaction and send it out. You can use Metamask to do this.
+Copy the `execute_data` field from the query above, pasted into the `data` field of an EVM transaction and send it out. You can use Metamask to do this. Make sure you manually increase the `gas limit` of the transaction before sending it. Use at least 1,000,000 gas to be safe.
 
 5. Confirm the operatorship transfer
 Before triggering the confirmation, make sure you've already waited for enough confirmations on the transaction. Once the operatorship transfer is successfully confirmed, the system would rotate to the new key. Note that the confirmation can be re-triggered if you failed to wait for enough confirmations.
