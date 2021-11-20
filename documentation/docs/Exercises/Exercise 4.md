@@ -154,7 +154,7 @@ Look for `successfully started signing batched commands with ID {batched command
 
 7. Get the command data that needs to be sent in an transaction in order to execute the mint
 ```bash
-axelard q evm batched-commands [chain] {batched commands ID from step 5}
+axelard q evm batched-commands [chain] {batched commands ID from step 6}
 ```
 e.g.
 ```bash
@@ -210,5 +210,5 @@ Wait ~30-60 secs for the relayer to relay your transaction.
 
 [terra-address] is the address you used above
 ```bash
-terra q bank balances [terra-address]
+terrad q bank balances [terra-address]
 ```

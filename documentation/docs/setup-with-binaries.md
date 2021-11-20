@@ -142,7 +142,7 @@ Axelar signs meta transactions for Ethereum, meaning that any Ethereum account c
 
 ## Generate a key on Axelar and get test tokens
 
-You can add `$HOME/.axelar_testnet/bin` to your path. The bin directory will be different depending on your root directory. Alternatively you can use the full path to run the executable as mentioned in the instructions. Set the `AXELARD_CHAIN_ID` environment variable to `axelar-testnet-adelaide`, you can run `export AXELARD_CHAIN_ID=axelar-testnet-adelaide`.
+You can add `$HOME/.axelar_testnet/bin` to your path. The bin directory will be different depending on your root directory. Alternatively you can use the full path to run the executable as mentioned in the instructions. Set the `AXELARD_CHAIN_ID` environment variable to `axelar-testnet-barcelona`, you can run `export AXELARD_CHAIN_ID=axelar-testnet-barcelona`.
 
 1. By default, the node has an account named validator. Find its address:
 ```bash
