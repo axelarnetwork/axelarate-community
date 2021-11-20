@@ -177,13 +177,13 @@ You can now open Metamask, select "Assets", then "Add Token", then "Custom Token
 ## Send back to Terra
 1. Create a deposit address on evm compatible chain
 ```bash
-axelard tx evm link [chain] terra $(axelard keys show [key-name] -a) uusd --from [key-name]
+axelard tx evm link [chain] terra [terra address] uusd --from [key-name]
 ```
 e.g.
 ```bash
-axelard tx evm link ethereum terra $(axelard keys show validator -a) uusd --from validator
+axelard tx evm link ethereum terra terra1syhner2ldmm7vqzkskcflaxl6wy9vn7m873vqu uusd --from validator
 ```
-Look for `successfully linked [Ethereum Ropsten deposit address] and [Axelar Network dst addr]`
+Look for `successfully linked [Ethereum Ropsten deposit address] and [Terra address]`
 
 2. External: send wrapped tokens to [Ethereum Ropsten deposit address] (e.g. with Metamask). You need to have some Ropsten testnet Ether on the address to send the transaction. Wait for 30 block confirmations. You can monitor the status of your deposit using the testnet explorer: https://ropsten.etherscan.io/
 
