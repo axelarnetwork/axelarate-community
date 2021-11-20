@@ -13,7 +13,7 @@ AXELARD="$BIN_DIRECTORY/axelard"
 TOFND="$BIN_DIRECTORY/tofnd"
 OS="$(uname | awk '{print tolower($0)}')"
 ARCH="$(uname -m)"
-TOFND_PASSWORD="$(echo ${PASSWORD})" # TODO: don't get password from env var
+TOFND_PASSWORD="${PASSWORD}" # TODO: don't get password from env var
 
 for arg in "$@"; do
   case $arg in
@@ -139,7 +139,7 @@ elif [ ! -f "$TOFND_DIRECTORY/kvstore/kv/db" ]; then
   mv -f "$TOFND_DIRECTORY/export" "$TOFND_DIRECTORY/import"
 fi
 
-ACCOUNTS=$($AXELARD keys list -n --home $VALD_DIRECTORY 2>&1)
+ACCOUNTS=$($AXELARD keys list -n --home "${VALD_DIRECTORY}" 2>&1)
 for ACCOUNT in $ACCOUNTS; do
   if [ "$ACCOUNT" = "broadcaster" ]; then
     HAS_BROADCASTER=true
@@ -149,13 +149,13 @@ done
 touch "$ROOT_DIRECTORY/broadcaster.txt"
 if [ -z "$HAS_BROADCASTER" ]; then
   if [ -f "$AXELAR_MNEMONIC_PATH" ]; then
-    $AXELARD keys add broadcaster --recover --home $VALD_DIRECTORY < "$AXELAR_MNEMONIC_PATH"
+    $AXELARD keys add broadcaster --recover --home "${VALD_DIRECTORY}" < "$AXELAR_MNEMONIC_PATH"
   else
-    $AXELARD keys add broadcaster --home $VALD_DIRECTORY > "$ROOT_DIRECTORY/broadcaster.txt" 2>&1
+    $AXELARD keys add broadcaster --home "${VALD_DIRECTORY}" > "$ROOT_DIRECTORY/broadcaster.txt" 2>&1
   fi
 fi
 
-$AXELARD keys show broadcaster -a --home $VALD_DIRECTORY > "$ROOT_DIRECTORY/broadcaster.bech"
+$AXELARD keys show broadcaster -a --home "${VALD_DIRECTORY}" > "$ROOT_DIRECTORY/broadcaster.bech"
 
 VALIDATOR_ADDR=$($AXELARD keys show validator -a --bech val --home $CORE_DIRECTORY)
 if [ -z "$VALIDATOR_ADDR" ]; then
@@ -163,7 +163,8 @@ if [ -z "$VALIDATOR_ADDR" ]; then
     echo "Waiting for validator address to be accessible in $shared_dir"
     sleep 5
   done
-  export VALIDATOR_ADDR=$(cat "$ROOT_DIRECTORY/validator.bech")
+  VALIDATOR_ADDR=$(cat "$ROOT_DIRECTORY/validator.bech")
+  export VALIDATOR_ADDR
 fi
 
 echo "$TOFND_PASSWORD" | "$TOFND" -m existing -d "$TOFND_DIRECTORY" > "$LOGS_DIRECTORY/tofnd.log" 2>&1 &
@@ -191,7 +192,7 @@ export KEYRING_BACKEND=test
     --log_level debug \
     "$RECOVERY" > "$LOGS_DIRECTORY/vald.log" 2>&1 &
 
-BROADCASTER=$($AXELARD keys show broadcaster -a --home $VALD_DIRECTORY)
+BROADCASTER=$($AXELARD keys show broadcaster -a --home "${VALD_DIRECTORY}")
 
 echo
 echo "Tofnd & Vald running."
@@ -207,7 +208,6 @@ echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export
 echo
 echo "To follow tofnd execution, run 'tail -f ${LOGS_DIRECTORY}/tofnd.log'"
 echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.log'"
-echo "To stop tofnd, run 'killall -9 tofnd'"
-echo "To stop vald, run 'killall -9 vald'"
+echo 'To stop tofnd, run "kill -9 $(pgrep tofnd)"'
+echo 'To stop vald, run "kill -9 $(pgrep -f "vald")"'
 echo
-

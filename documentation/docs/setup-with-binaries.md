@@ -33,21 +33,19 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 Axelar will run upto three unique processes. axelar-core, vald and tofnd. If you are not running a validator, a single process for axelar-core is run. To kill these processes
 
-For axelar-core and vald
+For axelar-core
 ```bash
-killall -9 axelard
+kill -9 $(pgrep -f 'axelard start')
+```
+
+For vald
+```bash
+kill -9 $(pgrep -f 'axelard vald-start')
 ```
 
 For tofnd
 ```bash
-killall -9 tofnd
-```
-
-To kill only vald, you can run
-```bash
-ps aux | grep vald-start
-# Use the process id and manually kill it
-kill -9 <process-id>
+kill -9 $(pgrep tofnd)
 ```
 
 ## Joining the Axelar testnet
@@ -90,22 +88,20 @@ After running `./join/join-testnet-with-binaries.sh`, you should see the followi
 ```bash
 Axelar node running.
 
-Validator address: axelarvaloper1hk3xagjvl4ee8lpdd736h6wcwsudrv0f59t0uk
+Validator address: axelarvaloper1ttxxytlz377agnvzqhllzxmg7dd76tnrwzyahz
 
 
 - name: validator
   type: local
-  address: axelar1hk3xagjvl4ee8lpdd736h6wcwsudrv0f5ya2we
-  pubkey: axelarpub1addwnpepqf7m2d6rc00gq3dvn8wnxkv8ylx5swrrddclh23wdhtjurjmux0ucs33a0c
+  address: axelar1ttxxytlz377agnvzqhllzxmg7dd76tnrwrjc9d
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A+O6nUmpQs1meQLtr2RaG5DExv1nyU9cQJKeAUJNH828"}'
   mnemonic: ""
-  threshold: 0
-  pubkeys: []
 
 
 **Important** write this mnemonic phrase in a safe place.
 It is the only way to recover your account if you ever forget your password.
 
-empower clinic rapid sibling chase measure satoshi search enable accuse drip small warrior visa grab only salute sound fun announce snap chuckle public heavy
+naive segment sword error champion pyramid world spend tool reason sound hub barrel amazing parade ahead lamp flag disorder sunny loop artist almost expire
 
 Do not forget to also backup the tendermint key (/Users/talalashraf/.axelar_testnet/.core/config/priv_validator_key.json)
 

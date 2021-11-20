@@ -4,7 +4,7 @@ export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar"}
 
 ACCOUNTS=$(axelard keys list -n 2>&1)
 for ACCOUNT in $ACCOUNTS; do
-    if [ "$ACCOUNT" == "validator" ]; then
+    if [ "$ACCOUNT" = "validator" ]; then
         HAS_VALIDATOR=true
     fi
 done
