@@ -186,12 +186,19 @@ Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 
 - Go to metamask, send a transaction to `Gateway smart contract address`, paste hex from `execute_data` above into Hex Data field
 
-  Keep in mind not to transfer any tokens!
+  Keep in mind not to transfer any tokens! To reduce the chance of out of gas errors when executing the contract, we recommend
+  setting a higher gas limit, such as 1000000, by selecting Edit on the confirmation screen.
 
   (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases))
 
 You can now open Metamask, select "Assets", then "Import tokens", then "Custom Token",
 and paste the axelarUST token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
+
+:::tip
+If you don't see the tokens in MetaMask yet,
+then verify if the transaction has succeeded on the [Ropsten explorer](https://ropsten.etherscan.io) for your [recipient address].
+Also, check that the contract executed without any errors (look under the `To:` field on the explorer for that transaction).
+:::
 
 ## Send back to Terra
 1. Create a deposit address on evm compatible chain
