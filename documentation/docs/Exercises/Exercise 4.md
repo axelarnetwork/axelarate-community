@@ -103,6 +103,14 @@ axelard tx axelarnet link ethereum 0x4c14944e080FbE711D29D5B261F14fE4E754f939 uu
 ```
 Look for `successfully linked [Axelar Network deposit address] and [receipent address]`
 
+:::tip
+If you get `Error: rpc error: ... not found: key not found`, verify that
+[axelar-key-name] address is correct and sufficiently funded:
+```bash
+axelard q bank balances [axelar-key-name]
+```
+:::
+
 3. Send an IBC transfer from Terra testnet to Axelar Network
 Switch back to terminal with terrad installed
 
@@ -111,9 +119,15 @@ terrad tx ibc-transfer transfer transfer [Terra channel id] [Axelar Network depo
 ```
 You can find `Terra channel id` under [Testnet Release](/testnet-releases)
 
-[terra-key-name] is the one you generated in step 5 above
+[terra-key-name] is the one you generated in step 6 above
 
 Wait ~30-60 secs for the relayer to relay your transaction.
+
+:::tip
+If your transfer is taking a long time, you can check if it
+timed out and was refunded on an [explorer](https://finder.terra.money/)
+by entering your terra address and retry the transfer.
+:::
 
 4. Switch to axelard terminal, check that you received the funds
 ```bash
