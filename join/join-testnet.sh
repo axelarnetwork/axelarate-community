@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
-TOFND_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep tofnd | cut -d \` -f 4)"
 RESET_CHAIN=false
 STOP_ME=true
 ROOT_DIRECTORY=~/.axelar_testnet
@@ -68,7 +67,7 @@ if $RESET_CHAIN; then
   echo "WARNING! This will erase all previously stored data. Your node will catch up from the beginning"
   printf "Do you wish to proceed \"y/n\" ?  "
   read -r REPLY
-  if [ $REPLY = "y" ]; then
+  if [ "$REPLY" = "y" ]; then
     echo "Resetting state"
     rm -rf "$ROOT_DIRECTORY"
   else

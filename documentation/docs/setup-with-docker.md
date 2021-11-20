@@ -91,24 +91,22 @@ Run `join/join-testnet.sh`.  On a fresh install (or after `--reset-chain`) you s
 ```bash
 Axelar node running.
 
-Validator address: axelarvaloper1hk3xagjvl4ee8lpdd736h6wcwsudrv0f59t0uk
+Validator address: axelarvaloper1ttxxytlz377agnvzqhllzxmg7dd76tnrwzyahz
 
 
 - name: validator
   type: local
-  address: axelar1hk3xagjvl4ee8lpdd736h6wcwsudrv0f5ya2we
-  pubkey: axelarpub1addwnpepqf7m2d6rc00gq3dvn8wnxkv8ylx5swrrddclh23wdhtjurjmux0ucs33a0c
+  address: axelar1ttxxytlz377agnvzqhllzxmg7dd76tnrwrjc9d
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A+O6nUmpQs1meQLtr2RaG5DExv1nyU9cQJKeAUJNH828"}'
   mnemonic: ""
-  threshold: 0
-  pubkeys: []
 
 
 **Important** write this mnemonic phrase in a safe place.
 It is the only way to recover your account if you ever forget your password.
 
-empower clinic rapid sibling chase measure satoshi search enable accuse drip small warrior visa grab only salute sound fun announce snap chuckle public heavy
+naive segment sword error champion pyramid world spend tool reason sound hub barrel amazing parade ahead lamp flag disorder sunny loop artist almost expire
 
-Do not forget to also backup the tendermint key (/Users/joaosousa/.axelar_testnet/.core/config/priv_validator_key.json)
+Do not forget to also backup the tendermint key (/Users/talalashraf/.axelar_testnet/.core/config/priv_validator_key.json)
 
 To follow execution, run 'docker logs -f axelar-core'
 To stop the node, run 'docker stop axelar-core'

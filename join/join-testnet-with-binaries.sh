@@ -46,13 +46,13 @@ for arg in "$@"; do
 done
 
 addSeeds() {
-  seeds="$(cat $CONFIG_DIRECTORY/seeds.txt)"
+  seeds="$(cat "$CONFIG_DIRECTORY"/seeds.txt)"
   sed "s/^seeds =.*/seeds = \"$seeds\"/g" "$CONFIG_DIRECTORY/config.toml" >"$CONFIG_DIRECTORY/config.toml.tmp"
   mv "$CONFIG_DIRECTORY/config.toml.tmp" "$CONFIG_DIRECTORY/config.toml"
 }
 
 # override ARCH with amd64 for x86 arch
-if [ "x86_64" =  "$ARCH" ]; then
+if [ "x86_64" = "$ARCH" ]; then
   ARCH=amd64
 fi
 
@@ -61,7 +61,7 @@ echo "OS: ${OS}"
 echo "Architecture: ${ARCH}"
 echo "Root Directory: ${ROOT_DIRECTORY}"
 
-if [ "$(ps aux | grep -c '[a]xelard start --home')" -gt "0" ]; then
+if [ "$(pgrep -f 'axelard start')" -gt "0" ]; then
   echo "Node already running. Run 'killall axelard' to kill node.";
   exit 1;
 fi
@@ -76,7 +76,7 @@ if $RESET_CHAIN; then
   echo "WARNING! This will erase all previously stored data. Your node will catch up from the beginning"
   printf "Do you wish to proceed \"y/n\" ?  "
   read -r REPLY
-  if [ $REPLY = "y" ]; then
+  if [ "$REPLY" = "y" ]; then
     echo "Resetting state"
     rm -rf "$ROOT_DIRECTORY"
     rm -rf "$TOFND_DIRECTORY"
@@ -101,7 +101,7 @@ mkdir -p "$CONFIG_DIRECTORY"
 AXELARD_BINARY="axelard-${OS}-${ARCH}-${AXELAR_CORE_VERSION}"
 if [ ! -f "${AXELARD}" ]; then
   echo "Downloading axelard binary $AXELARD_BINARY"
-  curl -s --fail https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${AXELAR_CORE_VERSION}/${AXELARD_BINARY} -o "${AXELARD}" && chmod +x "${AXELARD}"
+  curl -s --fail "https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${AXELAR_CORE_VERSION}/${AXELARD_BINARY}" -o "${AXELARD}" && chmod +x "${AXELARD}"
 fi
 
 if [ ! -f "${CONFIG_DIRECTORY}/genesis.json" ]; then
@@ -129,7 +129,7 @@ export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar-testnet-barcelona"}
 echo "Node moniker: $NODE_MONIKER"
 echo "Axelar Chain ID: $AXELARD_CHAIN_ID"
 # For some reason Cosmos is outputs to stderr
-ACCOUNTS="$($AXELARD keys list -n --home $CORE_DIRECTORY 2>&1)"
+ACCOUNTS="$($AXELARD keys list -n --home "$CORE_DIRECTORY" 2>&1)"
 echo "Accounts: $ACCOUNTS"
 for ACCOUNT in $ACCOUNTS; do
     if [ "$ACCOUNT" = "validator" ]; then
@@ -140,16 +140,16 @@ done
 touch "$ROOT_DIRECTORY/validator.txt"
 if [ -z "$HAS_VALIDATOR" ]; then
   if [ -f "$AXELAR_MNEMONIC_PATH" ]; then
-    "$AXELARD" keys add validator --recover --home $CORE_DIRECTORY <"$AXELAR_MNEMONIC_PATH"
+    "$AXELARD" keys add validator --recover --home "$CORE_DIRECTORY" <"$AXELAR_MNEMONIC_PATH"
   else
-    "$AXELARD" keys add validator --home $CORE_DIRECTORY > "$ROOT_DIRECTORY/validator.txt" 2>&1
+    "$AXELARD" keys add validator --home "$CORE_DIRECTORY" > "$ROOT_DIRECTORY/validator.txt" 2>&1
   fi
 fi
 
-"$AXELARD" keys show validator -a --bech val --home $CORE_DIRECTORY > "$ROOT_DIRECTORY/validator.bech"
+"$AXELARD" keys show validator -a --bech val --home "$CORE_DIRECTORY" > "$ROOT_DIRECTORY/validator.bech"
 
 if [ ! -f "$CONFIG_DIRECTORY/genesis.json" ]; then
-  "$AXELARD" init "$NODE_MONIKER" --chain-id "$AXELARD_CHAIN_ID" --home $CORE_DIRECTORY
+  "$AXELARD" init "$NODE_MONIKER" --chain-id "$AXELARD_CHAIN_ID" --home "$CORE_DIRECTORY"
   if [ -f "$TENDERMINT_KEY_PATH" ]; then
     cp -f "$TENDERMINT_KEY_PATH" "$CONFIG_DIRECTORY/priv_validator_key.json"
   fi
@@ -157,9 +157,9 @@ fi
 
 export START_REST=true
 
-"$AXELARD" start --home $CORE_DIRECTORY > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
+"$AXELARD" start --home "$CORE_DIRECTORY" > "$LOGS_DIRECTORY/axelard.log" 2>&1 &
 
-VALIDATOR=$("$AXELARD" keys show validator -a --bech val --home $CORE_DIRECTORY)
+VALIDATOR=$("$AXELARD" keys show validator -a --bech val --home "$CORE_DIRECTORY")
 echo
 echo "Axelar node running."
 echo

@@ -93,7 +93,9 @@ docker exec -it axelar-core sh
 ```
 
 2. Create a deposit address on Axelar Network (to which you'll deposit coins later)
-[receipent address] is an address you control on the recipient EVM chain.  This is where your UST will ultimately be sent.
+using a sufficiently funded [axelar-key-name] address.
+[receipent address] is an address you control on the recipient EVM chain.
+This is where your UST will ultimately be sent.
 ```bash
 axelard tx axelarnet link [evm chain] [receipent address] uusd --from [axelar-key-name]
 ```
@@ -103,6 +105,14 @@ axelard tx axelarnet link ethereum 0x4c14944e080FbE711D29D5B261F14fE4E754f939 uu
 ```
 Look for `successfully linked [Axelar Network deposit address] and [receipent address]`
 
+:::tip
+If you get `Error: rpc error: ... not found: key not found`, verify that
+[axelar-key-name] address is correct and sufficiently funded:
+```bash
+axelard q bank balances [axelar-key-name]
+```
+:::
+
 3. Send an IBC transfer from Terra testnet to Axelar Network
 Switch back to terminal with terrad installed
 
@@ -111,9 +121,15 @@ terrad tx ibc-transfer transfer transfer [Terra channel id] [Axelar Network depo
 ```
 You can find `Terra channel id` under [Testnet Release](/testnet-releases)
 
-[terra-key-name] is the one you generated in step 5 above
+[terra-key-name] is the one you generated in step 6 above
 
 Wait ~30-60 secs for the relayer to relay your transaction.
+
+:::tip
+If your transfer is taking a long time, you can check if it
+timed out and was refunded on an [explorer](https://finder.terra.money/)
+by entering your terra address and retry the transfer.
+:::
 
 4. Switch to axelard terminal, check that you received the funds
 ```bash
@@ -144,11 +160,13 @@ axelard tx axelarnet confirm-deposit F72D180BD2CD80DB756494BB461DEFE93091A116D70
 
 6. Create transfers on evm compatibale chain and Sign
 ```bash
-axelard tx evm create-pending-transfers [chain] --from [key-name] --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands [chain] --from [key-name] --gas auto --gas-adjustment 1.2
+axelard tx evm create-pending-transfers [chain] --from [key-name] --gas auto --gas-adjustment 1.2
+axelard tx evm sign-commands [chain] --from [key-name] --gas auto --gas-adjustment 1.2
 ```
 e.g.
 ```bash
-axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2 && axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
+axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2
+axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
 ```
 Look for `successfully started signing batched commands with ID {batched commands ID}`.
 
@@ -168,11 +186,19 @@ Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 
 - Go to metamask, send a transaction to `Gateway smart contract address`, paste hex from `execute_data` above into Hex Data field
 
-  Keep in mind not to transfer any tokens!
+  Keep in mind not to transfer any tokens! To reduce the chance of out of gas errors when executing the contract, we recommend
+  setting a higher gas limit, such as 1000000, by selecting Edit on the confirmation screen.
 
   (Note that the "To Address" is the address of Axelar Gateway smart contract, which you can find under [Testnet Release](/testnet-releases))
 
-You can now open Metamask, select "Assets", then "Add Token", then "Custom Token", and paste the token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
+You can now open Metamask, select "Assets", then "Import tokens", then "Custom Token",
+and paste the axelarUST token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
+
+:::tip
+If you don't see the tokens in MetaMask yet,
+then verify if the transaction has succeeded on the [Ropsten explorer](https://ropsten.etherscan.io) for your [recipient address].
+Also, check that the contract executed without any errors (look under the `To:` field on the explorer for that transaction).
+:::
 
 ## Send back to Terra
 1. Create a deposit address on evm compatible chain
@@ -198,7 +224,9 @@ axelard tx evm confirm-erc20-deposit ethereum 0xb82e454a273cb32ed45a435767982293
 ```
 
 Wait for transaction to be confirmed.
-You can search it using `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`.
+You can search it using:
+- If using docker, `docker logs -f axelar-core 2>&1 | grep -a -e "deposit confirmation"`
+- If using the binary, `tail -f $HOME/.axelar_testnet/logs/axelard.log | grep -a -e "deposit confirmation"`
 
 4. Route pending IBC transfer on Axelar Network
 ```bash

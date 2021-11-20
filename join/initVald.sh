@@ -3,7 +3,7 @@ shared_dir=/root/shared
 
 ACCOUNTS=$(axelard keys list -n 2>&1)
 for ACCOUNT in $ACCOUNTS; do
-  if [ "$ACCOUNT" == "broadcaster" ]; then
+  if [ "$ACCOUNT" = "broadcaster" ]; then
     HAS_BROADCASTER=true
   fi
 done
@@ -26,5 +26,6 @@ if [ -z "$VALIDATOR_ADDR" ]; then
     sleep 5
   done
   
-  export VALIDATOR_ADDR=$(cat "${shared_dir}/validator.bech")
+  VALIDATOR_ADDR=$(cat "${shared_dir}/validator.bech")
+  export VALIDATOR_ADDR
 fi
