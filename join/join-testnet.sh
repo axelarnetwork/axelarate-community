@@ -41,7 +41,7 @@ for arg in "$@"; do
   esac
 done
 
-if [ "$(git rev-parse --abbrev-ref HEAD)" == "main" ] && $STOP_ME; then
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] && $STOP_ME; then
   echo "Please checkout the correct version tag. See README for instructions."
   exit 1
 fi

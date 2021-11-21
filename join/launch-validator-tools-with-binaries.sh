@@ -14,9 +14,14 @@ TOFND="$BIN_DIRECTORY/tofnd"
 OS="$(uname | awk '{print tolower($0)}')"
 ARCH="$(uname -m)"
 TOFND_PASSWORD="${PASSWORD}" # TODO: don't get password from env var
+STOP_ME=true
 
 for arg in "$@"; do
   case $arg in
+    --dev)
+    STOP_ME=false
+    shift
+    ;;
     --proxy-mnemonic)
     AXELAR_MNEMONIC_PATH="$2"
     shift
@@ -47,13 +52,18 @@ for arg in "$@"; do
   esac
 done
 
-if [ "$(ps aux | grep -c '[a]xelard vald-start')" -gt "0" ]; then
-  echo "Vald already running. ps aux | grep vald-start and kill process";
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] && $STOP_ME; then
+  echo "Please checkout the correct version tag. See README for instructions."
+  exit 1
+fi
+
+if [ "$(pgrep -f 'axelard vald-start')" != "" ]; then
+  echo 'Vald already running. Kill the process with "kill -9 $(pgrep -f "axelard vald-start")"';
   exit 1;
 fi
 
-if [ "$(ps aux | grep -c '[t]ofnd -m ')" -gt "0" ]; then
-  echo "Tofnd already running. ps aux | grep tofnd and kill process";
+if [ "$(pgrep tofnd)" != "" ]; then
+  echo 'Tofnd already running. Kill the process with "kill -9 $(pgrep tofnd)"';
   exit 1;
 fi
 
@@ -68,7 +78,7 @@ if [ -z "$TOFND_VERSION" ]; then
 fi
 
 # override ARCH with amd64 for x86 arch
-if [ "x86_64" =  "$ARCH" ]; then
+if [ "x86_64" = "$ARCH" ]; then
   ARCH=amd64
 fi
 
@@ -109,9 +119,9 @@ if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
   cp "${GIT_ROOT}/join/app.toml" "${CONFIG_DIRECTORY}/app.toml"
 fi
 
-NODE_UP="$(ps aux | grep '[a]xelard start --home')"
+NODE_UP="$(pgrep -f 'axelard start')"
 if [ -z "$NODE_UP" ]; then
-  echo "No node running"
+  echo "No node running. Run ./join/join-testnet-with-binaries.sh"
   exit 1
 fi
 
@@ -209,5 +219,5 @@ echo
 echo "To follow tofnd execution, run 'tail -f ${LOGS_DIRECTORY}/tofnd.log'"
 echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.log'"
 echo 'To stop tofnd, run "kill -9 $(pgrep tofnd)"'
-echo 'To stop vald, run "kill -9 $(pgrep -f "vald")"'
+echo 'To stop vald, run "kill -9 $(pgrep -f "axelard vald-start")"'
 echo

@@ -3,6 +3,7 @@ set -e
 
 AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
 RESET_CHAIN=false
+STOP_ME=true
 ROOT_DIRECTORY="$HOME/.axelar_testnet"
 TOFND_DIRECTORY="$HOME/.tofnd"
 GIT_ROOT="$(git rev-parse --show-toplevel)"
@@ -15,6 +16,10 @@ ARCH="$(uname -m)"
 
 for arg in "$@"; do
   case $arg in
+    --dev)
+    STOP_ME=false
+    shift
+    ;;
     --validator-mnemonic)
     AXELAR_MNEMONIC_PATH="$2"
     shift
@@ -61,8 +66,13 @@ echo "OS: ${OS}"
 echo "Architecture: ${ARCH}"
 echo "Root Directory: ${ROOT_DIRECTORY}"
 
-if [ "$(pgrep -f 'axelard start')" -gt "0" ]; then
-  echo "Node already running. Run 'killall axelard' to kill node.";
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] && $STOP_ME; then
+  echo "Please checkout the correct version tag. See README for instructions."
+  exit 1
+fi
+
+if [ "$(pgrep -f 'axelard start')" != "" ]; then
+  echo 'Node already running. Run "kill -9 $(pgrep -f "axelard start")" to kill node.';
   exit 1;
 fi
 
@@ -171,5 +181,5 @@ echo
 echo "Do not forget to also backup the tendermint key (${CONFIG_DIRECTORY}/priv_validator_key.json)"
 echo
 echo "To follow execution, run 'tail -f ${LOGS_DIRECTORY}/axelard.log'"
-echo "To stop the node, run 'killall -9 \"axelard\"'"
+echo 'To stop the node, run "kill -9 $(pgrep -f "axelard start")"'
 echo
