@@ -119,9 +119,9 @@ if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
   cp "${GIT_ROOT}/join/app.toml" "${CONFIG_DIRECTORY}/app.toml"
 fi
 
-NODE_UP="$(ps aux | grep '[a]xelard start --home')"
+NODE_UP="$(pgrep -f 'axelard start')"
 if [ -z "$NODE_UP" ]; then
-  echo "No node running"
+  echo "No node running. Run ./join/join-testnet-with-binaries.sh"
   exit 1
 fi
 
