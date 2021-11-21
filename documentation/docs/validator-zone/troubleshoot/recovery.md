@@ -20,7 +20,7 @@ Besides the data described above, it will also be necessary to retrieve the *rec
 
 In order to restore the Tendermint key and/or the Axelar validator key used by an Axelard node, you can use the `--tendermint-key` and `--validator-mnemonic` flags with `join/join-testnet.sh` as follows:
 
-```
+```bash
 ./join/join-testnet.sh --tendermint-key /path/to/tendermint/key/ --validator-mnemonic /path/to/axelar/mnemonic/
 ```
 

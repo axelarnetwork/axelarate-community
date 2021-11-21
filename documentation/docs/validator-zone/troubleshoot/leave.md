@@ -20,13 +20,13 @@ axelard tx snapshot deactivate-proxy --from validator -y -b block
 
 3. Release your staked coins.
 ```bash
-axelard tx staking unbond {axelarvaloper address} {amount} --from validator -y -b block
+axelard tx staking unbond [axelarvaloper address] [amount]uaxl --from validator -y -b block
 ```
 
 eg)
 
 ```bash
-axelard tx staking unbond "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y -b block
+axelard tx staking unbond "$(axelard keys show validator --bech val -a)" 100000000uaxl --from validator -y -b block
 ```
 
 `amount` refers to how many coins you wish to remove from the stake. You can change the amount.

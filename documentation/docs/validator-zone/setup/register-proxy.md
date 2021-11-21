@@ -19,6 +19,10 @@ If you forgot to copy the `broadcaster` address from the terminal output then yo
 docker exec -it vald sh
 axelard keys show broadcaster -a
 ```
+If using the binary, then pass in the appropriate `vald` folder.
+```bash
+$HOME/.axelar_testnet/bin/axelard keys show broadcaster -a --home $HOME/.axelar_testnet/.vald
+```
 :::
 
 Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address.

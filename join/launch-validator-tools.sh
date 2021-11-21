@@ -8,9 +8,14 @@ TOFND_MNEMONIC_PATH=""
 AXELAR_MNEMONIC_PATH=""
 RECOVERY_INFO_PATH=""
 DOCKER_NETWORK="axelarate_default"
+STOP_ME=true
 
 for arg in "$@"; do
   case $arg in
+    --dev)
+    STOP_ME=false
+    shift
+    ;;
     --proxy-mnemonic)
     AXELAR_MNEMONIC_PATH="$2"
     shift
@@ -40,6 +45,11 @@ for arg in "$@"; do
     ;;
   esac
 done
+
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] && $STOP_ME; then
+  echo "Please checkout the correct version tag. See README for instructions."
+  exit 1
+fi
 
 if [ -z "$AXELAR_CORE_VERSION" ]; then
   echo "'--axelar-core vX.Y.Z' is required"

@@ -21,7 +21,7 @@ Need more AXL tokens than the faucet can give you?  Ping the Axelar team in the 
 In the `axelar-core` container: make your `validator` account into an Axelar validator by staking AXL tokens on Axelar network:
 
 ```bash
-axelard tx staking create-validator --yes --amount "$STAKE_AMOUNT" --moniker "my_awesome_moniker" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1" --pubkey="$(axelard tendermint show-validator)" --from validator -b block
+axelard tx staking create-validator --yes --amount [amount]uaxl --moniker "my_awesome_moniker" --commission-rate="0.10" --commission-max-rate="0.20" --commission-max-change-rate="0.01" --min-self-delegation="1" --pubkey="$(axelard tendermint show-validator)" --from validator -b block
 ```
 
 Stake amount is denominated in `uaxl`. Note the tip above about how much to stake.
@@ -44,11 +44,11 @@ axelard q staking validator "$(axelard keys show validator --bech val -a)" | gre
 ### Optional: stake more coins after initial validator creation
 
 ```bash
-axelard tx staking delegate {axelarvaloper address} {amount} --from validator -y
+axelard tx staking delegate [axelarvaloper address] [amount]uaxl --from validator -y
 ```
 
 For example:
 
 ```bash
-axelard tx staking delegate "$(axelard keys show validator --bech val -a)" "100000000uaxl" --from validator -y
+axelard tx staking delegate "$(axelard keys show validator --bech val -a)" 100000000uaxl --from validator -y
 ```
