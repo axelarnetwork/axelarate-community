@@ -25,7 +25,7 @@ $HOME/.axelar_testnet/bin/axelard keys show broadcaster -a --home $HOME/.axelar_
 ```
 :::
 
-Go to [Axelar faucet](http://faucet.testnet.axelar.network/) and get some coins on your `broadcaster` address.
+Go to [Axelar faucet](http://faucet.testnet.axelar.dev/) and get some coins on your `broadcaster` address.
 
 In the `axelar-core` container: use the proxy address from above to register the broadcaster account as a proxy for your validator.
 
