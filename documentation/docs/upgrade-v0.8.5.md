@@ -34,7 +34,7 @@ cp -r ~/.axelar_testnet ~/.axelar_testnet_backup
 
 Upgrade is very simple---just restart your node.  The `cp` command above creates a backup copy of your testnet data.  If something goes wrong then you can restore your node's state from the backup.
 
-## Validator nodes
+### Validator nodes
 
 TL;DR
 ```
@@ -59,7 +59,7 @@ cp -r ~/.axelar_testnet ~/.axelar_testnet_backup
 
 As with docker, the `cp` command creates a backup copy of your testnet data in case something goes wrong.
 
-## Validator nodes
+### Validator nodes
 
 TL;DR
 ```
