@@ -7,7 +7,11 @@ slug: /upgrade-v0.8.5
 
 # How to upgrade your node to v0.8.5
 
-Please perform this process sometime before 14:30 UTC on Friday, 2021-nov-26.
+:::warning
+Please perform this upgrade process sometime before 14:30 UTC on Friday, 2021-nov-26.
+
+After that time, nodes running any version of axelar-core prior to v0.8.5 will fall out of consensus with testnet.
+:::
 
 Checkout verion 0.7.7 of axelarate-community.  In your local axelarate-community repo:
 ```
