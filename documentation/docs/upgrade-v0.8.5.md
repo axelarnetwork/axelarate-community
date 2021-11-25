@@ -15,6 +15,7 @@ After that time, nodes running any version of axelar-core prior to v0.8.5 will f
 
 Checkout verion 0.7.7 of axelarate-community.  In your local axelarate-community repo:
 ```
+git pull
 git checkout v0.7.7
 ```
 
@@ -72,3 +73,7 @@ cp -r ~/.axelar_testnet ~/.axelar_testnet_backup
 ```
 
 As with docker, the `cp` command creates a backup copy of your testnet data in case something goes wrong.
+
+## Get out of jail
+
+It is likely that your validator node will acquire Tendermint `jail` status after the above process.  If this happens then see [Unjail](/validator-zone/troubleshoot/unjail) for instructions on how to fix this condition.
