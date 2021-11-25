@@ -1,5 +1,5 @@
 ---
-id: upgrace-v0.8.5
+id: upgrade-v0.8.5
 sidebar_position: 10
 sidebar_label: Upgrade to v0.8.5
 slug: /upgrade-v0.8.5
