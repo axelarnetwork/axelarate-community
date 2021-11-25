@@ -100,6 +100,18 @@ Immediately resume your companion processes `vald`, `tofnd`:
 ./join/launch-validator-tools.sh
 ```
 
+## TODO Check for connection to your new chains in vald
+
+```
+$ docker logs -f vald 2>&1
+Running pre-start script at /root/shared/initVald.sh
+2021-11-25T01:25:54Z INF start listening to events module=vald
+2021-11-25T01:25:54Z INF initiate connection to tofnd gRPC server: tofnd:50051 module=vald
+2021-11-25T01:25:54Z INF Successfully connected to EVM bridge for chain Ethereum module=vald
+2021-11-25T01:25:54Z INF Successfully connected to EVM bridge for chain Avalanche module=vald
+```
+
+
 ## Register as a maintainer of external chains
 
 For each external blockchain you selected earlier you must inform the Axelar network of your intent to maintain that chain.  This is accomplished via the `register-chain-maintainer` command.
