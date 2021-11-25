@@ -130,7 +130,7 @@ docker run                                         \
   -v "${SHARED_DIRECTORY}/:/root/shared"           \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startValdProc
 
-sleep 2s
+sleep 2
 BROADCASTER=$(docker exec vald sh -c "axelard keys show broadcaster -a")
 
 echo
