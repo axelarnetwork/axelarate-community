@@ -74,6 +74,9 @@ cp -r ~/.axelar_testnet ~/.axelar_testnet_backup
 
 As with docker, the `cp` command creates a backup copy of your testnet data in case something goes wrong.
 
-## Get out of jail
+## Validators: restore healthy status
 
-It is likely that your validator node will acquire Tendermint `jail` status after the above process.  If this happens then see [Unjail](/validator-zone/troubleshoot/unjail) for instructions on how to fix this condition.
+It is likely that the above process will cause your validator node will miss a few blocks.
+
+* If you miss 6 or more of the last 100 blocks then your status is `missed_too_many_blocks`---see [Missed too many blocks](/validator-zone/troubleshoot/missed-too-many-blocks).
+* If you miss 50 or more of the last 100 blocks then your status is `jailed`---see [Unjail](/validator-zone/troubleshoot/unjail) for instructions on how to fix this condition.
