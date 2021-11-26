@@ -27,6 +27,10 @@ As a validator for the Axelar network, your Axelar node will vote on the status 
 
 You may skip this step if you already did it earlier.
 
+:::note
+These instructions are for docker only.  Instructions for binaries are similar.
+:::
+
 Edit the file `~/axelarate-community/join/config.toml`: set the `rpc_addr` and `start-with-bridge` entries corresponding to the external chain you wish to connect.
 
 ### Example: Ethereum
@@ -100,17 +104,22 @@ Immediately resume your companion processes `vald`, `tofnd`:
 ./join/launch-validator-tools.sh
 ```
 
-## TODO Check for connection to your new chains in vald
+## Check you connection to new chains in vald
 
+Check your `vald` logs to see that your validator node has successfully connected to the new EVM chains you added.
+
+In docker:
 ```
 $ docker logs -f vald 2>&1
+```
+You should see something like:
+```
 Running pre-start script at /root/shared/initVald.sh
 2021-11-25T01:25:54Z INF start listening to events module=vald
 2021-11-25T01:25:54Z INF initiate connection to tofnd gRPC server: tofnd:50051 module=vald
 2021-11-25T01:25:54Z INF Successfully connected to EVM bridge for chain Ethereum module=vald
 2021-11-25T01:25:54Z INF Successfully connected to EVM bridge for chain Avalanche module=vald
 ```
-
 
 ## Register as a maintainer of external chains
 
