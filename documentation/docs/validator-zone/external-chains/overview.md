@@ -77,6 +77,37 @@ Substitute your Avalanche RPC address for `my_avalanche_host`.  Be sure to speci
 rpc_addr    = "https://my.avalance.rpc/ext/bc/C/rpc"
 ```
 
+### Clarification: Multiple EVM chains
+
+Example: If your validator supports both Ethereum and Avalanche then your `config.toml` file should have a seciton like the following:
+
+```toml
+##### EVM bridges options #####
+[[axelar_bridge_evm]]
+
+# Chain name
+name = "Ethereum"
+
+# Address of the ethereum RPC server
+# chain maintainers must set their own rpc endpoint
+rpc_addr    = "my_ethereum_host"
+
+# chain maintainers should set start-with-bridge to true
+start-with-bridge = true
+
+[[axelar_bridge_evm]]
+
+# Chain name
+name = "Avalanche"
+
+# Address of the avalanche RPC server
+# chain maintainers must set their own rpc endpoint
+rpc_addr    = "my_avalanche_host"
+
+# chain maintainers should set start-with-bridge to true
+start-with-bridge = true
+```
+
 ## Restart your companion processes
 
 Stop your companion processes `vald`, `tofnd` and then restart them.
@@ -124,6 +155,10 @@ Running pre-start script at /root/shared/initVald.sh
 ## Register as a maintainer of external chains
 
 For each external blockchain you selected earlier you must inform the Axelar network of your intent to maintain that chain.  This is accomplished via the `register-chain-maintainer` command.
+
+:::tip
+You only need to register as a chain maintainer once.  If you've already done it for chain C then you do not need to do it again for chain C.
+:::
 
 In the `vald` container:
 ```bash
