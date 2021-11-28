@@ -87,12 +87,22 @@ terrad q bank balances [address]
 ## Instructions to send UST from Terra testnet to EVM compatible chains
 The flow works for any EVM compatible chains that Axelar supports. We use Ethereum Ropsten as example.
 
-1. On a new terminal window, enter Axelar node:
-```bash
-docker exec -it axelar-core sh
-```
+:::note
+### Docker vs. binaries
 
-2. Create a deposit address on Axelar Network (to which you'll deposit coins later)
+For the following `axelard` terminal commands:
+
+* **Docker:** Commands should be entered into a shell attached to the `axelar-core` container via
+  ```
+  docker exec -it axelar-core sh
+  ```
+* **Binaries:** Commands must specify the path to the `axelard` binary and the `--home` flag.  Example: Instead of `axelard keys show validator -a` use
+  ```
+  ~/.axelar_testnet/bin/axelard keys show validator -a --home ~/.axelar_testnet/.core
+  ```
+:::
+
+1. Create a deposit address on Axelar Network (to which you'll deposit coins later)
 using a sufficiently funded [axelar-key-name] address.
 [receipent address] is an address you control on the recipient EVM chain.
 This is where your UST will ultimately be sent.
@@ -113,7 +123,7 @@ axelard q bank balances [axelar-key-name]
 ```
 :::
 
-3. Send an IBC transfer from Terra testnet to Axelar Network
+2. Send an IBC transfer from Terra testnet to Axelar Network
 Switch back to terminal with terrad installed
 
 ```bash
@@ -131,7 +141,7 @@ timed out and was refunded on an [explorer](https://finder.terra.money/)
 by entering your terra address and retry the transfer.
 :::
 
-4. Switch to axelard terminal, check that you received the funds
+3. Switch to axelard terminal, check that you received the funds
 ```bash
 axelard q bank balances [Axelar Network deposit address]
 ```
@@ -142,11 +152,11 @@ balances:
  denom: ibc/6F4968A73F90CF7DE6394BF937D6DF7C7D162D74D839C13F53B41157D315E05F
 ```
 
-5. Confirm the deposit transaction
+4. Confirm the deposit transaction
 
-[txhash] is from the step 3
+[txhash] is from the step 2
 
-[amount] and [token] are the same as in step 3 above
+[amount] and [token] are the same as in step 2 above
 
 [Axelar Network deposit address] is the address above you deposited to
 
@@ -158,7 +168,7 @@ e.g.,
 axelard tx axelarnet confirm-deposit F72D180BD2CD80DB756494BB461DEFE93091A116D703982E91AC2418EC660752  1000000"ibc/6F4968A73F90CF7DE6394BF937D6DF7C7D162D74D839C13F53B41157D315E05F" axelar1gmwk28m33m3gfcc6kr32egf0w8g6k7fvppspue --from validator
 ```
 
-6. Create transfers on evm compatibale chain and Sign
+5. Create transfers on evm compatibale chain and Sign
 ```bash
 axelard tx evm create-pending-transfers [chain] --from [key-name] --gas auto --gas-adjustment 1.2
 axelard tx evm sign-commands [chain] --from [key-name] --gas auto --gas-adjustment 1.2
@@ -170,7 +180,7 @@ axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustme
 ```
 Look for `successfully started signing batched commands with ID {batched commands ID}`.
 
-7. Get the command data that needs to be sent in an transaction in order to execute the mint
+6. Get the command data that needs to be sent in an transaction in order to execute the mint
 ```bash
 axelard q evm batched-commands [chain] {batched commands ID from step 6}
 ```
@@ -180,7 +190,7 @@ axelard q evm batched-commands ethereum 1d097247c283cfaca76ad1de4f3a2e5d4d075d99
 ```
 Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 
-8. Send the transaction wrapping the command data to execute the mint
+7. Send the transaction wrapping the command data to execute the mint
 
 - Open your Metamask wallet, go to Settings -> Advanced, then find Show HEX data and enable that option. This way you can send a data transaction directly with the Metamask wallet.
 
