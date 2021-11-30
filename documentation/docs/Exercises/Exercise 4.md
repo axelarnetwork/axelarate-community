@@ -182,7 +182,7 @@ Look for `successfully started signing batched commands with ID {batched command
 
 6. Get the command data that needs to be sent in an transaction in order to execute the mint
 ```bash
-axelard q evm batched-commands [chain] {batched commands ID from step 6}
+axelard q evm batched-commands [chain] {batched commands ID from step 5}
 ```
 e.g.
 ```bash
