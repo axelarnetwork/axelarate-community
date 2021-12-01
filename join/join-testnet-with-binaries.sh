@@ -109,20 +109,16 @@ CONFIG_DIRECTORY="${CORE_DIRECTORY}/config"
 mkdir -p "$CONFIG_DIRECTORY"
 
 AXELARD_BINARY="axelard-${OS}-${ARCH}-${AXELAR_CORE_VERSION}"
-if [ ! -f "${AXELARD}" ]; then
-  echo "Downloading axelard binary $AXELARD_BINARY"
-  curl -s --fail "https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${AXELAR_CORE_VERSION}/${AXELARD_BINARY}" -o "${AXELARD}" && chmod +x "${AXELARD}"
-fi
+echo "Downloading axelard binary $AXELARD_BINARY"
+curl -s --fail "https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${AXELAR_CORE_VERSION}/${AXELARD_BINARY}" -o "${AXELARD}" && chmod +x "${AXELARD}"
 
 if [ ! -f "${CONFIG_DIRECTORY}/genesis.json" ]; then
   echo "Downloading genesis.json"
   curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json -o "${CONFIG_DIRECTORY}/genesis.json"
 fi
 
-if [ ! -f "${CONFIG_DIRECTORY}/seeds.txt" ]; then
-  echo "Downloading seeds.txt"
-  curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${CONFIG_DIRECTORY}/seeds.txt"
-fi
+echo "Downloading seeds.txt (and overwriting if it already exists)"
+curl -s --fail https://axelar-testnet.s3.us-east-2.amazonaws.com/seeds.txt -o "${CONFIG_DIRECTORY}/seeds.txt"
 
 echo "Overwriting stale config.toml to config directory with latest seeds"
 cp "${GIT_ROOT}/join/config.toml" "${CONFIG_DIRECTORY}/config.toml"
