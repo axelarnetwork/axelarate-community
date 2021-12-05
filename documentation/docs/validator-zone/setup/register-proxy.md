@@ -1,4 +1,5 @@
 # Register broadcaster proxy
+-----------
 
 Axelar validators exchange messages with one another via the Axelar blockchain.  Each validator sends these messages from a separate `broadcaster` account.
 

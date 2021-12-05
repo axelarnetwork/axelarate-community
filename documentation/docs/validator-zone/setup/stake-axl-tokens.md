@@ -1,4 +1,5 @@
 # Stake AXL tokens on the Axelar network
+-----------
 
 Decide how many AXL tokens you wish to stake.
 

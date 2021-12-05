@@ -1,5 +1,5 @@
 # How to unjail your validator
---------------
+-----------------
 
 **"Jail"** is a Tendermint/Cosmos concept --- it is not specific to Axelar.  If your validator misses 50 or more of the last 100 blocks then your tendermint status becomes `jailed`.  You can see your 'jailed' status via the Cosmos command `axelard q staking validators`.
 

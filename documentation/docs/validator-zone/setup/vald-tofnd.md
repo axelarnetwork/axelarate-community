@@ -1,4 +1,5 @@
 # Launch companion processes for the first time
+-----------
 
 Axelar validators need two companion processes called `vald` and `tofnd`.
 Launch these processes for the first time by running, if using Docker, `./join/launch-validator-tools.sh`,

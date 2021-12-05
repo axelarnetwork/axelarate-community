@@ -1,4 +1,5 @@
 # Leaving the Network as a Validator
+-----------
 
 
 !> :fire: TODO 2 metrics: consensus bonded/active and tss bonded/active.
