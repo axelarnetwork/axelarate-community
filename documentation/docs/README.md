@@ -1,5 +1,4 @@
-# How to Run ?!
-```
-npm install -g docsify
-docsify serve ./docs
-```
+# Axelar Testnet Documentation
+
+## Get Started
+Visit [our website](https://axelardocs.vercel.app/) for instructions to join the network and complete exercises.
