@@ -1,11 +1,5 @@
----
-id: health-check
-sidebar_position: 6
-sidebar_label: Health check
-slug: /validator-zone/setup/health-check
----
-
 # Health check
+-----
 
 Check the status of your validator.
 
@@ -29,28 +23,27 @@ axelard health-check --tofnd-host tofnd --operator-addr $(cat /root/shared/valid
 
 You should see output like:
 
-```
+```yaml
 tofnd check: passed
 broadcaster check: passed
 operator check: passed
 ```
 
-:::tip
-Your validator node automatically posts a `heartbeat` transaction to the Axelar network every 50 blocks.
-If you do `axelard health-check` within 50 blocks after first becoming a validator then your validator will not yet post a `heartbeat` transaction.
 
-If you see a failure:
-
-```
-tofnd check: passed
-broadcaster check: passed
-operator check: failed (health check to operator axelarvaloper108609p4dsau577ggh6g4mfu0cgtd4vw5t2xzfk failed due to the following issues: {"stale_tss_heartbeat":true})
-```
-
-then check the error to understand the mitigation needed. The vald/tofnd logs should help in debugging the problem.
-A stale tss heartbeat status suggests that your vald/tofnd might not be alive/responsive.
-A proxy insufficient funds status suggests that your broadcaster address has less than 5 AXL and needs to be funded.
-An operator not found among the current set of validators status suggests that your validator might be jailed or unbonding.
-
-After resolving the issue, wait for 50 blocks and perform a health check again.
-:::
+>Your validator node automatically posts a `heartbeat` transaction to the Axelar network every 50 blocks.
+>If you do `axelard health-check` within 50 blocks after first becoming a validator then your validator will not yet post a `heartbeat` transaction.
+>
+>If you see a failure:
+>
+> ```yaml
+>tofnd check: passed
+>broadcaster check: passed
+>operator check: failed (health check to operator axelarvaloper108609p4dsau577ggh6g4mfu0cgtd4vw5t2xzfk failed due to the following issues: {"stale_tss_heartbeat":true})
+>```
+> 
+>then check the error to understand the mitigation needed. The vald/tofnd logs should help in debugging the problem.
+>A stale tss heartbeat status suggests that your vald/tofnd might not be alive/responsive.
+>A proxy insufficient funds status suggests that your broadcaster address has less than 5 AXL and needs to be funded.
+>An operator not found among the current set of validators status suggests that your validator might be jailed or unbonding.
+>
+>After resolving the issue, wait for 50 blocks and perform a health check again.

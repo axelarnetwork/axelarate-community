@@ -1,9 +1,3 @@
----
-id: troubleshoot-validator
-sidebar_position: 2
-sidebar_label: Troubleshoot start-up
-slug: /validator-zone/troubleshoot
----
 # [TODO revise?] Troubleshoot start-up
 
 If the process was missing, check if `tofnd` is running. Install the `nmap` command if you do not have it, and check the tofnd port
@@ -28,7 +22,7 @@ Next, ping the IP Address from inside `Axelar Core` to see if it works. Install 
 docker exec axelar-core ping {your tofnd IP Address}
 ```
 
-eg)
+eg:
 
 ```bash
 docker exec axelar-core ping 172.17.0.2
@@ -42,16 +36,15 @@ Next, query your validator address with
 ```bash
 docker exec axelar-core axelard keys show validator --bech val -a
 ```
-:::caution
-Make sure the validator address that is returned starts with `axelarvaloper`
-:::
+
+!> Make sure the validator address that is returned starts with `axelarvaloper`
 
 Now, start `vald`, providing the IP address and validator address:
 
 ```bash
 docker exec axelar-core axelard vald-start --tofnd-host {your tofnd IP Address} --validator-addr {your validator address} --node {your axelar-core IP address}
 ```
-eg)
+eg:
 ```bash
 docker exec axelar-core axelard vald-start --tofnd-host 172.17.0.2 --validator-addr axelarvaloper1y4vplrpdaqplje8q4p4j32t3cqqmea9830umwl
 ```
