@@ -1,4 +1,4 @@
-<img src="https://i.ibb.co/xzTpJH3/axelar-eb6f0702cd5441d1bd0b6f4cbdc2e7bf.png">
+<img src="_media/axelar.png">
 
 
 # Axelar Testnet Docs
