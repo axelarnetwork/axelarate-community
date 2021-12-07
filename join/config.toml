@@ -414,16 +414,37 @@ timeout_startup = "60s"
 timeout_rpc = "100s"
 
 ##### EVM bridges options #####
+# Each EVM chain needs the following
+# 1. `[[axelar_bridge_evm]]` # header
+# 2. `name`                  # chain name (eg. "Ethereum")
+# 3. 'rpc_addr'              # EVM RPC endpoint URL; chain maintainers set their own endpoint
+# 4. `start-with-bridge`     # `true` to support this chain
+#
+# see https://docs.axelar.dev/#/validator-zone/external-chains/overview
+
 [[axelar_bridge_evm]]
-
-# Chain name
 name = "Ethereum"
+rpc_addr = ""
+start-with-bridge = false
 
-# Address of the ethereum RPC server
-# chain maintainers must set their own rpc endpoint
-rpc_addr    = ""
+[[axelar_bridge_evm]]
+name = "Avalanche"
+rpc_addr = ""
+start-with-bridge = false
 
-# chain maintainers should set start-with-bridge to true
+[[axelar_bridge_evm]]
+name = "Fantom"
+rpc_addr = ""
+start-with-bridge = false
+
+[[axelar_bridge_evm]]
+name = "Moonbeam"
+rpc_addr = ""
+start-with-bridge = false
+
+[[axelar_bridge_evm]]
+name = "Polygon"
+rpc_addr = ""
 start-with-bridge = false
 
 ##### message broadcasting options #####
