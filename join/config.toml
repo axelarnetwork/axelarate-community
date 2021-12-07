@@ -416,14 +416,24 @@ timeout_rpc = "100s"
 ##### EVM bridges options #####
 [[axelar_bridge_evm]]
 
-# Chain name
+# Chain name Ethereum
 name = "Ethereum"
 
 # Address of the ethereum RPC server
 # chain maintainers must set their own rpc endpoint
 rpc_addr    = ""
 
-# chain maintainers should set start-with-bridge to true
+# Ethereum chain maintainer should set start-with-bridge to true
+start-with-bridge = false
+
+# Chain name Avalanche
+name = "Avalanche"
+
+# Address of the Avalanche RPC server
+# chain maintainers must set their own rpc endpoint
+rpc_addr    = ""
+
+# Avalanche chain maintainer should set start-with-bridge to true
 start-with-bridge = false
 
 ##### message broadcasting options #####
