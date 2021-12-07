@@ -1,15 +1,6 @@
----
-id: backup
-sidebar_position: 3
-sidebar_label: Backup
-slug: /validator-zone/setup/backup
----
-
 # Back-up your validator mnemonics and secret keys
 
-:::warning
-It is very important to backup your secret information in a safe place so that you can recover your tokens and state in the event of data loss.
-:::
+!> :fire: Axelar Network is a work in progress. At no point in time should you transfer any real assets using Axelar. Only use testnet tokens that you're not afraid to lose. Axelar is not responsible for any assets lost, frozen, or unrecoverable in any state or condition. If you find a problem, please submit an issue to this repository following the template.
 
 You must store backup copies of the following data in a safe place:
 
@@ -22,7 +13,7 @@ You must store backup copies of the following data in a safe place:
 
 The Axelar `validator` account mnemonic is created when a node is launched for the first time using `join/join-testnet.sh`.  This mnemonic is printed to the terminal:
 
-```
+```log
 **Important** write this mnemonic phrase in a safe place.
 It is the only way to recover your account if you ever forget your password.
 
@@ -40,7 +31,7 @@ This key is distinct from the validator mnemonic---it is used by your validator 
 
 It can be found within the node's container at `/root/.axelar/config/priv_validator_key.json` or on the host at `~/.axelar_testnet/.core/config/priv_validator_key.json`.  The content of the `priv_validator_key.json` file should look something like:
 
-```
+```json
 {
   "address": "98AF6E5D52BBB62BE6717DE8C55F16F5C013D7BE",
   "pub_key": {
@@ -64,12 +55,12 @@ The tofnd mnemonic is created when tofnd is launched for the first time using `j
 * **Binary:** In the directory from which you ran the executable.  Example: `$TOFND_PATH/.tofnd/import`.
 
 The mnemonic file should look something like:
-```bash
+```log
 purchase arrow sword basic gasp category hundred town layer snow mother roast digital fragile repeat monitor wrong combine awful nature damage rib skull chalk
 ```
 
 Save a copy of your `tofnd` mnemonic in a safe place.  For example:
-```
+```shell script
 docker cp tofnd:.tofnd/import <your-desired-file-path>
 ```
 
@@ -77,6 +68,6 @@ docker cp tofnd:.tofnd/import <your-desired-file-path>
 
 Now that you've safely backed up your `tofnd` mnemonic you can remove it from the `tofnd` container.  In the `tofnd` container:
 
-```
-$ rm .tofnd/import
+```bash
+rm .tofnd/import
 ```

@@ -1,17 +1,11 @@
----
-id: vald-tofnd
-sidebar_position: 2
-sidebar_label: Launch companion processes for the first time
-slug: /validator-zone/setup/companion-processes
----
-
 # Launch companion processes for the first time
+-----------
 
 Axelar validators need two companion processes called `vald` and `tofnd`.
 Launch these processes for the first time by running, if using Docker, `./join/launch-validator-tools.sh`,
 or if using binaries `./join/launch-validator-tools-with-binaries.sh`.  The output should be something like:
 
-```
+```yaml
 Tofnd & Vald running.
 
 Proxy address: axelar1xg93jnefgz3gsnuyqrmq2q288z8st3cf43jecs

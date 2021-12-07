@@ -1,11 +1,5 @@
----
-id: recovery
-sidebar_position: 1
-sidebar_label: Recovery
-slug: /validator-zone/troubleshoot/recovery
----
-
 # [TODO: test and verify] Recover validator from mnemonic or secret keys
+------------
 
 This document describes the steps necessary to ensure that a validator node can be restored in case its state is lost. In order to achieve this, it is necessary that the following data is safely backed up:
 
@@ -36,7 +30,9 @@ To obtain the recovery data for those key shares, you need to find out the corre
 To query the blockchain for these key IDs - and assuming that the Axelar validator account has already been restored - attach a terminal to the node's container and perform the command:
 
 ```bash
-~/scripts # axelard q tss key-shares-validator $(axelard keys show validator --bech val -a)
+axelard q tss key-shares-validator $(axelard keys show validator --bech val -a)
+```
+```yaml
 - key_chain: Bitcoin
   key_id: btc-master
   key_role: KEY_ROLE_MASTER_KEY
@@ -97,7 +93,7 @@ In order to restore tofnd's private key and your key shares, you can use `join/l
 ### Running tofnd as binary
 
 If you are running a tofnd binary, follow the steps below:
-1. Create your recovery json file from your vald process (see section [Recovery Data](#Recovery_Data)
+1. Create your recovery json file from your vald process (see section [Recovery Data](#Recovery_Data))
 2. Copy the json recovery file to `~/.axelar_testnet/.vald/recovery.json`
 3. Navigate to the directory of your tofnd binary.
 4. Create a folder under the name `.tofnd/`.
@@ -107,7 +103,7 @@ If you are running a tofnd binary, follow the steps below:
     ./tofnd -m import
     ```
     The output should be similar to the following:
-    ```
+    ```log
     tofnd listen addr 0.0.0.0:50051, use ctrl+c to shutdown
     Importing mnemonic
     kv_manager cannot open existing db [.tofnd/kvstore/mnemonic]. creating new db
@@ -116,7 +112,7 @@ If you are running a tofnd binary, follow the steps below:
     ```
 7. Restart vald
 8. You should now see the following in your tofnd logs:
-    ```bash
+    ```log
     Recovering keypair for party X ...
     Finished recovering keypair for party X
     Recovery completed successfully!
@@ -124,4 +120,4 @@ If you are running a tofnd binary, follow the steps below:
 
 Tofnd has now re-created the private key that is derived from your mnemonic into tofnd's internal database, fetched your shares from the blockchain, decrypted them using your private key, and finally stored them at its internal tofnd database. Once recoverred, can remove your mnemonic file you used, as it is no longer needed.
 
-**Attention**: Remember to still keep your mnemonic stored at an offline, secure place for future recoveries.
+!> :fire: **Attention**: Remember to still keep your mnemonic stored at an offline, secure place for future recoveries.

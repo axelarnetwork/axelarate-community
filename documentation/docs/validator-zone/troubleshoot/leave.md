@@ -1,15 +1,8 @@
----
-id: leave-validator
-sidebar_position: 3
-sidebar_label: Leave as a validator
-slug: /validator-zone/troubleshoot/leave
----
-
 # Leaving the Network as a Validator
+-----------
 
-:::warning
-TODO 2 metrics: consensus bonded/active and tss bonded/active.
-:::
+
+!> :fire: TODO 2 metrics: consensus bonded/active and tss bonded/active.
 
 1. Deactivate your broadcaster account.
 ```bash
@@ -22,13 +15,10 @@ axelard tx snapshot deactivate-proxy --from validator -y -b block
 ```bash
 axelard tx staking unbond [axelarvaloper address] [amount]uaxl --from validator -y -b block
 ```
-
-eg)
-
+eg:
 ```bash
 axelard tx staking unbond "$(axelard keys show validator --bech val -a)" 100000000uaxl --from validator -y -b block
 ```
-
 `amount` refers to how many coins you wish to remove from the stake. You can change the amount.
 
 To preserve network stability, the staked coins are held for roughly 1 day starting from the unbond request before being unlocked and returned to the `validator` account.
