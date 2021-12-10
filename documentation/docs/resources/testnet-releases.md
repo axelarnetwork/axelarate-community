@@ -6,9 +6,9 @@ Variable  | Value
 `axelar-core` version | `v0.9.6`
 `axelarate-community` version | `v0.9.0`
 `tofnd` version | `v0.7.1`
-Ethereum Axelar Gateway contract address | `TODO`
-Ethereum AXL token address | `TODO`
-Ethereum axelarUST token address | `TODO`
+Ethereum Axelar Gateway contract address | `0xCf36e7E9d83772fF1EeeE31D7e3edF66d805A01e`
+Ethereum AXL token address | `0xf609213f6925C3C11375B443eB0176c2fDD5DdD9`
+Ethereum axelarUST token address | `0xf4F19390B69f8Ee95453CC4F61ED6B5d1C1C3014`
 Avalanche Axelar Gateway contract address | `0xCa8EBeD9EbE8BC7fdB4b8600c2B81beAB573bAF6`
 Avalanche AXL token address | `0x45aE4960e3B8F30682d83656bd26A69be816aA09`
 Avalanche axelarUST token address | `0x7068D0EA041AD0d51b816dDbb3952e06DD4db831`
