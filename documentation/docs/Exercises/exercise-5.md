@@ -1,9 +1,3 @@
----
-id: e5
-sidebar_position: 5
-sidebar_label: Exercise 5
-slug: /exercises/e5
----
 # Exercise 5
 Transfer assets from Axelar Network to EVM-compatible chains and back via Axelar Network CLI.
 
