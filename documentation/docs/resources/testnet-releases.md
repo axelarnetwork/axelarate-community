@@ -21,4 +21,4 @@ Moonbeam axelarUST token address | `0xDe24F336EBbAF774708B3A87f4f6dED9C5A46F45`
 Polygon Axelar Gateway contract address | `0x86762362aCF2603b0c2e9b9eD34005a21E92d076`
 Polygon AXL token address | `0xd3b51251beBe2A0cc96813Ab86BD718f8dDb211b`
 Polygon axelarUST token address | `0x553665235653f1c098488f720a696DBc8114bAD6`
-Terra channel id | `TODO`
+Terra channel id | `not yet available`
