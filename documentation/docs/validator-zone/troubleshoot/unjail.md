@@ -19,5 +19,5 @@ axelard tx slashing unjail --from validator
 ## Binaries
 
 ```bash
-~/.axelar_testnet/bin/axelard tx slashing unjail --from validator --home ~/.axelar_testnet/.core --chain-id axelar-testnet-barcelona
+~/.axelar_testnet/bin/axelard tx slashing unjail --from validator --home ~/.axelar_testnet/.core --chain-id axelar-testnet-toronto
 ```
