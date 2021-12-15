@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
+AXELAR_CORE_VERSION="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelarate-community/main/documentation/docs/resources/testnet-releases.md  | grep axelar-core | cut -d \` -f 4)"
 RESET_CHAIN=false
 STOP_ME=true
 ROOT_DIRECTORY="$HOME/.axelar_testnet"
