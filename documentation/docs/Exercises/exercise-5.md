@@ -10,46 +10,22 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 :::
 
 ## Prerequisites
+
 - Complete all steps from [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries)
-- Have a Ethereum wallet setup and have an Ethereum address funded with some Ether (You can also choose to use the [Chrome plugin](https://chrome.google.com/webstore/detail/mew-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm?hl=en))
-- You must have some `uaxl` tokens in your Axelar Network address. You can get AXL tokens from the [Axelar faucet](http://faucet.testnet.axelar.dev/).
-
-## Useful links
-- [Axelar faucet](http://faucet.testnet.axelar.dev/)
-- Latest docker image: https://hub.docker.com/repository/docker/axelarnet/axelar-core
-- [Extra commands to query Axelar Network state](/extra-commands)
-
-## What you need
-- Metamask
-- Ethereum Ropsten address (generate via Metamask)
-
-## Joining the Axelar testnet
-
-Follow the instructions in [Setup with Docker](/setup-docker) or [Setup with Binaries](/setup-binaries) to make sure your node is up to date and you received some test coins to your account.
-
-## TODO set up metamask for external EVM chains [move to a new page!]
-
-TODO
-
-Open your Metamask wallet, go to Settings -> Advanced, then enable "Show HEX data". This way you can send a data transaction directly with the Metamask wallet.
-
-You can now open Metamask, select "Assets", then "Import Token", then "Custom Token", and paste the Ethereum token contract address (see [Testnet Release](/testnet-releases) and look for the corresponding token address).
-
-TODO: clarify the names of wrapped tokens on the EVM chains
-
-TODO: You need some of the native token in your Metamask account to pay for gas.  (Example: Ethereum needs ETH, Avalanche needs C-AVAX, etc.)
+- Select an EVM chain `[chain]`.  Currently supported EVM chains are: Ethereum, Avalanche, Fantom, Moonbeam, Polygon.
+- Complete steps from [Metamask for EVM chains](/resources/metamask.md) to connect your Metamask to `[chain]` and get some `[chain]` testnet tokens.
+- Get some AXL tokens in your Axelar Network address from the [Axelar faucet](http://faucet.testnet.axelar.dev/).
 
 ## Send tokens from Axelar to an EVM chain
 
 In what follows we assume your Axelar account name is `validator`.  This is the default name for the account that is automatically created for you when you first joined the Axelar testnet.
 
 In what follows:
-* `[token]` is `uaxl` or an ibc token
 * `[chain]` is the external EVM chain to which you will transfer assets.  One of `ethereum`, `avalanche`, `fantom`, `moonbeam`, `polygon`.
 * `[evm destination address]` is an address controlled by you on the external EVM chain `[chain]`.  This is where your tokens will be sent.
 * `[evm gateway address]` is found at [Testnet Release](/resources/testnet-releases.md).  Find the entry "`[chain]` Axelar Gateway contract address".
 
-1. Check that you have a sufficient `[token]` balance in your account:
+1. Check that you have a sufficient `uaxl` balance in your account:
 ```bash
 axelard q bank balances $(axelard keys show validator -a)
 ```
@@ -63,24 +39,23 @@ balances:
 2. Create a temporary deposit address on Axelar.
 
 ```bash
-axelard tx axelarnet link [chain] [evm destination address] [token] --from validator
+axelard tx axelarnet link [chain] [evm destination address] uaxl --from validator
 ```
 Output should contain
 ```
 successfully linked [axelar deposit address] and [evm destination address]
 ```
 
-3. Send some `[token]` on Axelar Network to the new `[axelar deposit address]` from the previous step.
+3. Send some `uaxl` on Axelar Network to the new `[axelar deposit address]` from the previous step.
     * `[amount]` is your choice
 ```bash
-axelard tx bank send validator [axelar deposit address] [amount]"[token]"
+axelard tx bank send validator [axelar deposit address] [amount]uaxl
 ```
 
 4. Confirm the deposit transaction.
-    * [txhash] is from the previous step
-    * [amount] and [token] are from the previous step
+    * `[txhash]` and `[amount]` are from the previous step
 ```bash
-axelard tx axelarnet confirm-deposit [txhash] [amount]"[token]" [axelar deposit address] --from validator
+axelard tx axelarnet confirm-deposit [txhash] [amount]uaxl [axelar deposit address] --from validator
 ```
 Example:
 ```bash
@@ -96,7 +71,6 @@ Output should contain
 ```
 successfully started signing batched commands with ID [batched commands id]
 ```
-TODO: Watch out for microservices!
 
 6. Get the command data that needs to be sent in a `[chain]` transaction in order to transfer tokens
 ```bash
@@ -110,7 +84,7 @@ Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`
 
     Send a transaction to `[evm gateway address]`, paste hex from `execute_data` above into "Hex Data" field.  (Do not send tokens!)
 
-    You should see `[amount]` of asset `[token]` in your `[chain]` Metamask account.
+    You should see `[amount]` of asset AXL in your `[chain]` Metamask account.
     
 Congratulations!  You have transferred assets from Axelar to an external EVM chain!
 
@@ -118,7 +92,7 @@ Congratulations!  You have transferred assets from Axelar to an external EVM cha
 
 1. Create a temporary deposit address on the EVM chain `[chain]`.
 ```bash
-axelard tx evm link [chain] axelarnet $(axelard keys show validator -a) [token] --from validator
+axelard tx evm link [chain] axelarnet $(axelard keys show validator -a) uaxl --from validator
 ```
 Output should contain
 ```
