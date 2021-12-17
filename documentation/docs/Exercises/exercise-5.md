@@ -66,8 +66,8 @@ In what follows:
 5. Create and sign pending transfers for `[chain]`.
 
     ```bash
-    axelard tx evm create-pending-transfers ethereum --from validator --gas auto --gas-adjustment 1.2
-    axelard tx evm sign-commands ethereum --from validator --gas auto --gas-adjustment 1.2
+    axelard tx evm create-pending-transfers [chain] --from validator --gas auto --gas-adjustment 1.2
+    axelard tx evm sign-commands [chain] --from validator --gas auto --gas-adjustment 1.2
     ```
 
     Output should contain
@@ -79,7 +79,7 @@ In what follows:
 6. Get the command data that needs to be sent in a `[chain]` transaction in order to transfer tokens
 
     ```bash
-    axelard q evm batched-commands ethereum [batched commands id]
+    axelard q evm batched-commands [chain] [batched commands id]
     ```
 
     Wait for `status: BATCHED_COMMANDS_STATUS_SIGNED` and copy the `execute_data`.
