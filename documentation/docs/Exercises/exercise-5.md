@@ -86,10 +86,11 @@ In what follows:
 
 7. Use Metamask to send a transaction on EVM chain `[chain]` with the command data.
 
-!> :fire:
-Manually increase the gas limit to 5 million gas (5000000).  If you don't do this then the transaction will fail due to insufficient gas and you will not receive your tokens.
-!>
-!> Before you click "confirm": select "EDIT", change "Gas Limit" to 5000000, and "Save".
+> [!ATTENTION]
+> Manually increase the gas limit to 5 million gas (5000000).  If you don't do this then the transaction will fail due to insufficient gas and you will not receive your tokens. 
+> Before you click "confirm": select "EDIT", change "Gas Limit" to 5000000, and "Save"
+
+
 
 *Reminder:* set your Metamask network to the testnet for `[chain]`.  
 
