@@ -91,11 +91,11 @@ Manually increase the gas limit to 5 million gas (5000000).  If you don't do thi
 !>
 !> Before you click "confirm": select "EDIT", change "Gas Limit" to 5000000, and "Save".
 
-    *Reminder:* set your Metamask network to the testnet for `[chain]`.  
+*Reminder:* set your Metamask network to the testnet for `[chain]`.  
 
-    Send a transaction to `[evm gateway address]`, paste hex from `execute_data` above into "Hex Data" field.  (Do not send tokens!)
+Send a transaction to `[evm gateway address]`, paste hex from `execute_data` above into "Hex Data" field.  (Do not send tokens!)
 
-    You should see `[amount]` of asset AXL in your `[chain]` Metamask account.
+You should see `[amount]` of asset AXL in your `[chain]` Metamask account.
     
 Congratulations!  You have transferred assets from Axelar to an external EVM chain!
 
