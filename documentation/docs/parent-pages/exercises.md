@@ -1,26 +1,21 @@
-# Testnet Exercises
------
+# Exercises
+----
 
-<!-- panels:start -->
-
-<!-- div:right-panel -->
-   <!-- <center>
-  <a href="../#/Exercises/exercise-4">
-<img src="../_media/ex4.jpeg"
-     width=400" height="300">
-       <center><h1>Exercise 4</h1></center>
-  </a>
-  </center> -->
-
-   <center>
-  <a href="../#/Exercises/exercise-5">
-<!-- <img src="../_media/ex4.jpeg"
-     width=400" height="300"> -->
-       <center><h1>Exercise 5</h1></center>
-  </a>
-  </center>
-
-<!-- div:right-panel -->
+> [!TIP|style:flat|label:Exercise 5]
+> [Transfer AXL tokens from Axelar Network to EVM-compatible chains and back via Axelar CLI.](../Exercises/exercise-5.md)
 
 
-<!-- panels:end -->
+
+
+<!-- slide:break -->
+----
+<!--- uncomment to divide the page
+
+> [!TIP|style:flat|label:Exercise 5]
+> [Transfer AXL tokens from Axelar Network to EVM-compatible chains and back via Axelar CLI.](http://localhost:3000/#/parent-pages/exercises)
+
+
+ > [!TIP|style:flat|label:Exercise 5]
+ > [Transfer AXL tokens from Axelar Network to EVM-compatible chains and back via Axelar CLI.](http://localhost:3000/#/parent-pages/exercises)
+ -->
+
