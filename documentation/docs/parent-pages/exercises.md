@@ -2,7 +2,7 @@
 ----
 
 > [!TIP|style:flat|label:Exercise 5]
-> [Transfer AXL tokens from Axelar Network to EVM-compatible chains and back via Axelar CLI.](../Exercises/exercise-5.md)
+> [Transfer AXL tokens from Axelar Network to EVM-compatible chains and back via Axelar CLI.](/Exercises/exercise-5.md)
 
 
 
