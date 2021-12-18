@@ -76,6 +76,13 @@ In what follows:
     successfully started signing batched commands with ID [batched commands id]
     ```
 
+> [!NOTE|label:Troubleshoot]
+> If after performing the above steps you get the following error
+>```bash
+>Error: rpc error: code = InvalidArgument desc = failed to execute message; message index: 0: no commands to sign found: bridge error: invalid request
+>```
+>Check [this page](../faqs/ex5-problem.md) for detailed answer on how to resolve it.
+
 6. Get the command data that needs to be sent in a `[chain]` transaction in order to transfer tokens
 
     ```bash
@@ -86,8 +93,9 @@ In what follows:
 
 7. Use Metamask to send a transaction on EVM chain `[chain]` with the command data.
 
-> [!ATTENTION]
-> Manually increase the gas limit to 5 million gas (5000000).  If you don't do this then the transaction will fail due to insufficient gas and you will not receive your tokens. 
+> [!TIP|label:Out of Gas]
+> Manually increase the gas limit to 5 million gas (5000000).  If you don't do this then the transaction will fail due to insufficient gas and you will not receive your tokens.
+>
 > Before you click "confirm": select "EDIT", change "Gas Limit" to 5000000, and "Save"
 
 
