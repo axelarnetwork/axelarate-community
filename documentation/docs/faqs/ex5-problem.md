@@ -106,4 +106,8 @@ status: BATCHED_COMMANDS_STATUS_SIGNED
 ```
 Try using the `execute_data` from this, if you get the tokens - Congrats
 
-If not - repeat the same process recursively: query `prev_batched_commands_id`and check again.
+If not - repeat the same process recursively: query `prev_batched_commands_id`and check again untill it fails to execute, probably because it's repeated and someone has done it.
+
+Eg:
+
+![](../_media/ex5-fail.png)
