@@ -41,7 +41,7 @@ In what follows:
     successfully linked [axelar deposit address] and [evm destination address]
     ```
 
-3. Send some `uaxl` on Axelar Network to the new `[axelar deposit address]` from the previous step.
+3. Send some `uaxl` (minimum 1000uaxl) on Axelar Network to the new `[axelar deposit address]` from the previous step.
 
     * `[amount]` is your choice
 
