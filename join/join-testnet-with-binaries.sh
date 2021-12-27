@@ -130,7 +130,7 @@ if [ ! -f "${CONFIG_DIRECTORY}/app.toml" ]; then
 fi
 
 export NODE_MONIKER=${NODE_MONIKER:-"$(hostname)"}
-export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar-testnet-toronto"}
+export AXELARD_CHAIN_ID=${AXELARD_CHAIN_ID:-"axelar-testnet-lisbon"}
 
 echo "Node moniker: $NODE_MONIKER"
 echo "Axelar Chain ID: $AXELARD_CHAIN_ID"

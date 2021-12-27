@@ -119,11 +119,11 @@ curl -X POST http://localhost:8545 \
 ## Connect Bitcoin and Ethereum nodes to Axelar
 
 
-1. Have an Axelar node fully caught up and running by completing the steps in `README.md`. Ensure you have some testnet coins on your validator address. Make sure you have the environment variables `CHAIN_ID` and `AXELARD_CHAIN_ID` set to `axelar-testnet-toronto`.
+1. Have an Axelar node fully caught up and running by completing the steps in `README.md`. Ensure you have some testnet coins on your validator address. Make sure you have the environment variables `CHAIN_ID` and `AXELARD_CHAIN_ID` set to `axelar-testnet-lisbon`.
 
 ```bash
-export CHAIN_ID=axelar-testnet-toronto
-export AXELARD_CHAIN_ID=axelar-testnet-toronto
+export CHAIN_ID=axelar-testnet-lisbon
+export AXELARD_CHAIN_ID=axelar-testnet-lisbon
 ```
 
 2. Stop the Axelar node. Open a new terminal and run
@@ -235,7 +235,7 @@ axelard tx staking create-validator --yes \
 --min-self-delegation="1" \
 --pubkey "$(axelard tendermint show-validator  --home ~/.axelar_testnet/.core)" \
 --home ~/.axelar_testnet/.core \
---chain-id axelar-testnet-toronto \
+--chain-id axelar-testnet-lisbon \
 --from validator \
 -b block
 ```
@@ -249,13 +249,13 @@ axelard q staking validator <address-in-last-command> --home ~/.axelar_testnet/.
 
 If you wish to stake more coins after the initial validator creation.
 ```bash
-axelard tx staking delegate {axelarvaloper address} {amount} --chain-id axelar-testnet-toronto --from validator -y --home ~/.axelar_testnet/.core
+axelard tx staking delegate {axelarvaloper address} {amount} --chain-id axelar-testnet-lisbon --from validator -y --home ~/.axelar_testnet/.core
 ```
 
 eg)
 
 ```bash
-axelard tx staking delegate "$(axelard keys show validator --bech val -a --home ~/.axelar_testnet/.core)" "100000000uaxl" --chain-id axelar-testnet-toronto --from validator -y --home ~/.axelar_testnet/.core
+axelard tx staking delegate "$(axelard keys show validator --bech val -a --home ~/.axelar_testnet/.core)" "100000000uaxl" --chain-id axelar-testnet-lisbon --from validator -y --home ~/.axelar_testnet/.core
 ```
 
 5. Register the broadcaster account as a proxy for your validator. Axelar network propagates messages from threshold multi-party computation protocols via the underlying consensus. The messages are signed and delivered via the blockchain.
