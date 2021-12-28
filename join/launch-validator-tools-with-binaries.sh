@@ -216,7 +216,6 @@ echo
 
 cat "$ROOT_DIRECTORY/broadcaster.txt"
 rm -rf "$ROOT_DIRECTORY/broadcaster.txt"
-echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export)"
 echo
 echo "To follow tofnd execution, run 'tail -f ${LOGS_DIRECTORY}/tofnd.log'"
 echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.log'"
