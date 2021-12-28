@@ -1,72 +1,99 @@
-# [TODO revise] Set up your Ethereum Ropsten testnet node
+# Set up your Ethereum Ropsten Testnet node
 -----------
+## Disclaimer
+!> :fire: Please note that the guide below may not always be up to date with the latest version or updates from the project, so make sure you always check the official documentation first and run the latest version of software and required dependencies. If you find a problem, please submit an issue to this repository following the template.
 
-## Instructions
 
-Set up an Ethereum Ropsten testnet node using `Geth`.
+## Prerequisites
+- Complete all steps from [Setup with Docker](/setup/setup-with-docker.md) or [Setup with Binaries](/setup/setup-with-binaries.md)
+- Minimum hardware requirements: CPU with 2+ cores, 4GB RAM, 200GB+ free storage space.
+- MacOS or Ubuntu 18.04+
+- [Official Documentation](https://geth.ethereum.org/docs/getting-started)
 
-1. [Install Geth](https://geth.ethereum.org/docs/install-and-build/installing-geth).
 
-2. Start downloading the Ethereum Ropsten testnet chain. This may take many hours.
+## Install Geth
+In this guide we will be installing `Geth` with the built-in launchpad PPAs (Personal Package Archives) on Ubuntu. If you are on different OS, please refer to the [official Documentation](https://geth.ethereum.org/docs/getting-started).
+
+##### 1. Enable launchpad repository 
+
 ```bash
-geth --ropsten --syncmode "snap" --http --http.vhosts "*"
+sudo add-apt-repository -y ppa:ethereum/ethereum
 ```
-First, the majority of the blocks will be downloaded. Then your node will synchronize as the last few blocks catch up. This second part may take a long time. 
-To stop the node from downloading, press `Control C`.
 
-3. Check the status of your node.
-First find the path to your node's `ipc` which is located in 
+##### 2. Install the latest version of go-ethereum:
 ```bash
-{Path to Default Ethereum Data Storage}/ropsten/geth.ipc
+sudo apt-get update
+sudo apt-get install ethereum
 ```
-eg: on macOS
+
+## Run `geth` through systemd
+
+##### 1. Create systemd service file
+
+After installation of `go-ethereum`, we are now ready to start the `geth` process but in order to ensure it is running in the background and auto-restarts in case of a server failure, we will setup a service file with systemd.
+
+!> In the service file below you need to replace `$USER` and path to `geth`, depending on your system configuration.
+
+
 ```bash
-/Users/jacky/Library/Ethereum/ropsten/geth.ipc
+sudo tee <<EOF >/dev/null /etc/systemd/system/geth.service
+[Unit]
+Description=Ethereum Ropsten Node
+After=network.target
+
+[Service]
+User=$USER
+Type=simple
+ExecStart=/usr/bin/geth --ropsten --syncmode "snap" --http --http.vhosts "*" --http.addr 0.0.0.0
+Restart=on-failure
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  ```
+
+##### 2. Enable and start the `geth` service
+
+```bash
+sudo systemctl enable geth
+sudo systemctl daemon-reload
+sudo systemctl start geth
 ```
-Open a new terminal and run the following. Replace the `ipc` path with your own.
+
+If everything was set-up correctly, your Ethereum node should now be starting the process of synchronization. This will take several hours, depending on your hardware. In order to check the status of the running service or follow logs, you can use:
+
 ```bash
-geth attach ipc:/Users/jacky/Library/Ethereum/ropsten/geth.ipc
+sudo systemctl status geth
+sudo journalctl -u geth -f
 ```
-Check the status of your Ethereum node.
+## Test your Ethereum RPC connection
+
+Alternatively, you can now also use the Geth JavaScript console and check status of your node by attaching to your newly created `geth.ipc`. Don't forget to replace $USER and path, depending on your server configuration.
+
 ```bash
+geth attach ipc:/home/$USER/.ethereum/ropsten/geth.ipc
 eth.syncing
+
 ```
 
-4. Find the RPC endpoint for Axelar to connect.
-If you used the above settings, your RPC endpoint should be 
+Once your node is fully synced, the output from above will say `false`. To test your Ethereum node, you can send an RPC request using `cURL`
+
 ```bash
-http://host.docker.internal:8545
+curl -X POST http://localhost:8545 \
+-H "Content-Type: application/json" \
+--data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}'
 ```
-Write down the RPC endpoint, you will need it later.
+If you are testing it remotely, please replace `localhost` with the IP or URL of your server.
 
-5. OPTIONAL: Test your Ethereum node.
-After your Ethereum node is fully synced, you can send an RPC request to it using cURL.
+#### EVM RPC endpoint URL
 
-    ```bash
-    curl -X POST http://localhost:8545 \
-    -H "Content-Type: application/json" \
-    --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}'
-    ```
+In order for Axelar Network to connect to your Ethereum node, your `rpc_addr` should be exposed in this format:
 
-## Ethereum Ropsten testnet node configuration
-
-1. Ensure your Ropsten testnet node is up to date. Stop the node before making any configuration changes.
-
-2. Enable the following configurations.
-
-    * Enable the `HTTP-RPC Server` for RPC communication.
-    * Set `HTTP-RPC virtual address` as `*`
-    * Set `HTTP-RPC listening address` as `0.0.0.0`.
-
-3. Find the RPC endpoint of your Ethereum node for Axelar to connect to.
-Your Ethereum Ropsten testnet node's RPC endpoint should be
 ```bash
-http://{IPADDRESS}:{PORT}
+http://IP:PORT
 ```
-If your node is running using docker, use `host.docker.internal` as the `IPADDRESS`.
-eg:
-```bash
-http://host.docker.internal:8332
-```
+Example:
+```http://192.168.192.168:8545```
 
 
