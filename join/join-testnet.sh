@@ -131,7 +131,7 @@ docker run                                             \
 
 if [ "$ENFORCE" = true ]; then \
     # wait until mnemonic is backed up
-    ./enforce_backup.sh $VALD_DIRECTORY/validator.txt
+    ./enforce_backup.sh $VALD_DIRECTORY/validator.txt || exit 1
 fi
 
 echo "Wait 5 seconds for axelar-core to start..."
