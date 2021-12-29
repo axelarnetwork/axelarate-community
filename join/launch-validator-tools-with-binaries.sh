@@ -214,8 +214,6 @@ echo
 echo "To become a validator get some uaxl tokens from the faucet and stake them"
 echo
 
-cat "$ROOT_DIRECTORY/broadcaster.txt"
-rm -rf "$ROOT_DIRECTORY/broadcaster.txt"
 echo
 echo "To follow tofnd execution, run 'tail -f ${LOGS_DIRECTORY}/tofnd.log'"
 echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.log'"
