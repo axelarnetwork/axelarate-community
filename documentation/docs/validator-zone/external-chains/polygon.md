@@ -131,6 +131,19 @@ Open the `~/node/bor/start.sh` and add the following flag to start parameters:
 --bootnodes "enode://320553cda00dfc003f499a3ce9598029f364fbb3ed1222fdc20a94d97dcc4d8ba0cd0bfa996579dcc6d17a534741fb0a5da303a90579431259150de66b597251@54.147.31.250:30303"
 ```
 
+##### 5. Download maintained snapshots
+
+!> Syncing Heimdall and Bor services can take several days to fully sync. Alternatively, you can use snapshots which will reduce the sync time to few hours. If you wish to sync the node from start, then you can skip this step and proceed with [starting the Polygon services](validator-zone/external-chains/polygon?id=start-the-polygon-services).
+
+In order to use the snapshots, please visit [Polygon Chains Snapshots](https://snapshots.matic.today/) and download the latest available snapshots fot Heimdall and Bor. In this guide we are using:
+
+```bash
+wget https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mumbai/heimdall-snapshot-2021-12-09.tar.gz -O - | tar -xzf - -C ~/.heimdalld/data/
+wget https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mumbai/bor-fullnode-node-snapshot-2021-12-15.tar.gz -O - | tar -xzf - -C ~/.bor/data/bor/chaindata
+# If needed, change the path depending on your server configuration.
+```
+
+
 ## Start the Polygon services
 
 After completing all of the previous steps, your node should be configured and ready to launch with the previously created service files.
