@@ -6,7 +6,7 @@
 <!-- div:right-panel -->
 <center>
 <a href="../#/validator-zone/setup/setup-homepage">
-<img src="../_media/validator-setup.png"
+<img src="../_media/axelar-validator.png"
  width=300" height="300">
    <center><h1>Validator Setup</h1></center>
 </a>
