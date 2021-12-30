@@ -13,9 +13,6 @@
 - [Official Documentation](https://docs.polygon.technology/docs/integrate/full-node-binaries)
 
 
-
-In this guide we will be using a bash script created by the Avalanche team, which will automatically set up a running node with minimum user input required.
-
 ## Install required dependencies
 In order to build the `go-opera`, you first need to install all of the required dependencies.
 
