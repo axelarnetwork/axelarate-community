@@ -1,15 +1,14 @@
-<img src="_media/axelar.png">
+<img src="_media/axelar-rotating-logo.gif">
+
+# **Axelar Testnet Docs**
+> **Unlocking cross-chain communication**
 
 
-# Axelar Testnet Docs
-> Unlocking cross-chain communication
+[**Setup**](/parent-pages/setup.md)
+[**Exercises**](/parent-pages/exercises.md)
+[**Resources**](/parent-pages/resources.md)
+[**Validator Zone**](/parent-pages/validators.md)
 
-
-[Setup](/parent-pages/setup.md)
-[Exercises](/parent-pages/exercises.md)
-[Resources](/parent-pages/resources.md)
-[Validator Zone](/parent-pages/validators.md)
-
-![](_media/bg9.jpeg)
+![](_media/Axelar-background.jpeg)
 
 ![color](#ffffff)
