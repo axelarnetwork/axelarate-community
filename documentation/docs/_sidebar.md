@@ -23,7 +23,13 @@
     - [Health check](/validator-zone/setup/health-check.md)
   - [**Set up external chains**](/validator-zone/external-chains/external-chains-homepage.md)
     - [Overview](/validator-zone/external-chains/overview.md)
+    - [Avalanche Node](/validator-zone/external-chains/avalanche.md)
     - [Ethereum Node](/validator-zone/external-chains/ethereum.md)
+    - [Fantom Node](/validator-zone/external-chains/fantom.md)
+    - [Moonbeam Node](/validator-zone/external-chains/moonbeam.md)
+    - [Polygon Node](/validator-zone/external-chains/polygon.md)
+    
+    
   - [**Troubleshoot**](/validator-zone/troubleshoot/troubleshoot-homepage.md)
     - [Recovery](/validator-zone/troubleshoot/recovery.md)
     - [Troubleshoot Start Up](/validator-zone/troubleshoot/troubleshoot.md)

@@ -9,11 +9,13 @@ As a validator for the Axelar network, your Axelar node will vote on the status 
 ## External chains you can support on Axelar
 
 * EVM-compatible chains
+    * [Avalanche](/validator-zone/external-chains/avalanche) 
     * [Ethereum](/validator-zone/external-chains/ethereum)
-    * Avalanche
-    * Fantom
-    * Moonbeam
-    * Polygon
+    * [Fantom](/validator-zone/external-chains/fantom)
+    * [Moonbeam](/validator-zone/external-chains/moonbeam)
+    * [Polygon](/validator-zone/external-chains/polygon)
+    
+    
 * Cosmos chains
     * Nothing to do. All Cosmos chains are automatically supported by default.
 
