@@ -149,6 +149,7 @@ if [ -z "$HAS_VALIDATOR" ]; then
     "$AXELARD" keys add validator --recover --home "$CORE_DIRECTORY" <"$AXELAR_MNEMONIC_PATH"
   else
     "$AXELARD" keys add validator --home "$CORE_DIRECTORY" > "$ROOT_DIRECTORY/validator.txt" 2>&1
+    ./enforce_backup.sh "$ROOT_DIRECTORY/validator.txt" || exit 1
   fi
 fi
 
@@ -170,9 +171,6 @@ echo
 echo "Axelar node running."
 echo
 echo "Validator address: $VALIDATOR"
-echo
-cat "$ROOT_DIRECTORY/validator.txt"
-rm "$ROOT_DIRECTORY/validator.txt"
 echo
 echo "Do not forget to also backup the tendermint key (${CONFIG_DIRECTORY}/priv_validator_key.json)"
 echo

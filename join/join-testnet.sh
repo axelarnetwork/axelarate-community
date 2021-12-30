@@ -8,11 +8,16 @@ GIT_ROOT="$(git rev-parse --show-toplevel)"
 TENDERMINT_KEY_PATH=""
 AXELAR_MNEMONIC_PATH=""
 DOCKER_NETWORK="axelarate_default"
+ENFORCE=true
 
 for arg in "$@"; do
   case $arg in
     --dev)
     STOP_ME=false
+    shift
+    ;;
+    --no-backup-enforce)
+    ENFORCE=false
     shift
     ;;
     --validator-mnemonic)
@@ -117,12 +122,17 @@ docker run                                             \
   --env START_REST=true                                \
   --env PRESTART_SCRIPT=/root/shared/consumeGenesis.sh \
   --env CONFIG_PATH=/root/shared/                      \
-  --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH     \
-  --env TENDERMINT_KEY_PATH=$TENDERMINT_KEY_PATH       \
+  --env AXELAR_MNEMONIC_PATH="$AXELAR_MNEMONIC_PATH"   \
+  --env TENDERMINT_KEY_PATH="$TENDERMINT_KEY_PATH"     \
   --env PEERS_FILE=/root/shared/seeds.txt              \
   -v "${CORE_DIRECTORY}/:/root/.axelar"                \
   -v "${SHARED_DIRECTORY}:/root/shared"                \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startNodeProc
+
+if [ "$ENFORCE" = true ]; then \
+    # wait until mnemonic is backed up
+    ./enforce_backup.sh "$VALD_DIRECTORY"/validator.txt || exit 1
+fi
 
 echo "Wait 5 seconds for axelar-core to start..."
 sleep 5
@@ -133,9 +143,6 @@ echo
 echo "Axelar node running."
 echo
 echo "Validator address: $VALIDATOR"
-echo
-docker exec axelar-core sh -c "cat /validator.txt"
-docker exec axelar-core sh -c "rm -f /validator.txt"
 echo
 echo "Do not forget to also backup the tendermint key (${CORE_DIRECTORY}/config/priv_validator_key.json)"
 echo

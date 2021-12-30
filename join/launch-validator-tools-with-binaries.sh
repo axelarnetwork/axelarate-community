@@ -145,8 +145,8 @@ elif [ ! -f "$TOFND_DIRECTORY/kvstore/kv/db" ]; then
   # run tofnd in "create" mode. This does not start the daemon
   # "create" automatically writes the mnemonic to `export`
   echo "$TOFND_PASSWORD" | "$TOFND" -m create -d "$TOFND_DIRECTORY" > "$LOGS_DIRECTORY/tofnd.log" 2>&1
-  # rename `export` file to `import`
-  mv -f "$TOFND_DIRECTORY/export" "$TOFND_DIRECTORY/import"
+  # wait until mnemonic is backed up
+  ./enforce_backup.sh "$TOFND_DIRECTORY/export" || exit 1
 fi
 
 ACCOUNTS=$($AXELARD keys list -n --home "${VALD_DIRECTORY}" 2>&1)
@@ -162,6 +162,8 @@ if [ -z "$HAS_BROADCASTER" ]; then
     $AXELARD keys add broadcaster --recover --home "${VALD_DIRECTORY}" < "$AXELAR_MNEMONIC_PATH"
   else
     $AXELARD keys add broadcaster --home "${VALD_DIRECTORY}" > "$ROOT_DIRECTORY/broadcaster.txt" 2>&1
+    # wait until mnemonic is backed up
+    ./enforce_backup.sh "$ROOT_DIRECTORY/broadcaster.txt" || exit 1
   fi
 fi
 
@@ -212,9 +214,6 @@ echo
 echo "To become a validator get some uaxl tokens from the faucet and stake them"
 echo
 
-cat "$ROOT_DIRECTORY/broadcaster.txt"
-rm -rf "$ROOT_DIRECTORY/broadcaster.txt"
-echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/export)"
 echo
 echo "To follow tofnd execution, run 'tail -f ${LOGS_DIRECTORY}/tofnd.log'"
 echo "To follow vald execution, run 'tail -f ${LOGS_DIRECTORY}/vald.log'"

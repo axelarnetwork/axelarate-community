@@ -9,11 +9,16 @@ AXELAR_MNEMONIC_PATH=""
 RECOVERY_INFO_PATH=""
 DOCKER_NETWORK="axelarate_default"
 STOP_ME=true
+ENFORCE=true
 
 for arg in "$@"; do
   case $arg in
     --dev)
     STOP_ME=false
+    shift
+    ;;
+    --no-backup-enforce)
+    ENFORCE=false
     shift
     ;;
     --proxy-mnemonic)
@@ -111,6 +116,11 @@ docker run                              \
   -v "${TOFND_DIRECTORY}/:/.tofnd" \
   "axelarnet/tofnd:${TOFND_VERSION}"
 
+if [ "$ENFORCE" = true ]; then \
+    # wait until mnemonic is backed up
+    ./enforce_backup.sh "$TOFND_DIRECTORY"/import || exit 1
+fi
+
 VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")
 
 docker run                                         \
@@ -130,6 +140,11 @@ docker run                                         \
   -v "${SHARED_DIRECTORY}/:/root/shared"           \
   "axelarnet/axelar-core:${AXELAR_CORE_VERSION}" startValdProc
 
+if [ "$ENFORCE" = true ]; then \
+    # wait until mnemonic is backed up
+    ./enforce_backup.sh $VALD_DIRECTORY/broadcaster.txt || exit 1
+fi
+
 sleep 2
 BROADCASTER=$(docker exec vald sh -c "axelard keys show broadcaster -a")
 
@@ -141,10 +156,6 @@ echo
 echo "To become a validator get some uaxl tokens from the faucet and stake them"
 echo
 
-docker exec vald sh -c "cat /broadcaster.txt"
-docker exec vald sh -c "rm -f /broadcaster.txt"
-echo
-echo "Do not forget to also backup the tofnd mnemonic (${TOFND_DIRECTORY}/import)"
 echo
 echo "To follow tofnd execution, run 'docker logs -f tofnd'"
 echo "To follow vald execution, run 'docker logs -f vald'"
