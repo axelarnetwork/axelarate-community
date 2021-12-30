@@ -8,7 +8,7 @@
   - [Useful Links](/resources/useful-links.md)
   - [Metamask for EVM chains](/resources/metamask.md)
 
-- [**Exercises**](/parent-pages/exercises.md)
+  <!-- - - [**Exercises**](/parent-pages/exercises.md)  -->
   <!-- - [Exercise 4](/Exercises/exercise-4.md) -->
   <!-- - [Exercise 5](/Exercises/exercise-5.md) -->
   
