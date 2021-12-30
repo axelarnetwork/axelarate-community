@@ -122,8 +122,8 @@ docker run                                             \
   --env START_REST=true                                \
   --env PRESTART_SCRIPT=/root/shared/consumeGenesis.sh \
   --env CONFIG_PATH=/root/shared/                      \
-  --env AXELAR_MNEMONIC_PATH=$AXELAR_MNEMONIC_PATH     \
-  --env TENDERMINT_KEY_PATH=$TENDERMINT_KEY_PATH       \
+  --env AXELAR_MNEMONIC_PATH="$AXELAR_MNEMONIC_PATH"   \
+  --env TENDERMINT_KEY_PATH="$TENDERMINT_KEY_PATH"     \
   --env PEERS_FILE=/root/shared/seeds.txt              \
   -v "${CORE_DIRECTORY}/:/root/.axelar"                \
   -v "${SHARED_DIRECTORY}:/root/shared"                \
@@ -131,7 +131,7 @@ docker run                                             \
 
 if [ "$ENFORCE" = true ]; then \
     # wait until mnemonic is backed up
-    ./enforce_backup.sh $VALD_DIRECTORY/validator.txt || exit 1
+    ./enforce_backup.sh "$VALD_DIRECTORY"/validator.txt || exit 1
 fi
 
 echo "Wait 5 seconds for axelar-core to start..."

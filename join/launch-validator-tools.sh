@@ -118,7 +118,7 @@ docker run                              \
 
 if [ "$ENFORCE" = true ]; then \
     # wait until mnemonic is backed up
-    ./enforce_backup.sh $TOFND_DIRECTORY/import || exit 1
+    ./enforce_backup.sh "$TOFND_DIRECTORY"/import || exit 1
 fi
 
 VALIDATOR=$(docker exec axelar-core sh -c "axelard keys show validator -a --bech val")
