@@ -1,38 +1,23 @@
 # Resources
------
+----
 
-<!-- panels:start -->
+> [!NOTE|style:flat|label:Testnet Releases]
+> [Check out the latest releases and up to date contracts here](/resources/testnet-releases)
 
-<!-- div:right-panel -->
-   <center>
-  <a href="../#/resources/testnet-releases">
-<img src="../_media/releases.png"
-     width=350" height="300">
-       <center><h1>Testnet Releases</h1></center>
-  </a>
-  </center>
-  
+> [!NOTE|style:flat|label:Extra Commands]
+> [A few helpful commands](/resources/extra-commands)
 
 
-<!-- div:right-panel -->
-<center>
-  <a href="../#/resources/extra-commands">
-<img src="../_media/commands.png"
-     width=400" height="250">
-       <center><h1>Extra Commands</h1></center>
-  </a>
-  </center>
+> [!NOTE|style:flat|label:Useful Links]
+> [Looking for explorere or other links ?](/resources/useful-links)
 
 
-<!-- div:right-panel -->
-<center>
-  <a href="../#/resources/useful-links">
-<img src="../_media/links.png"
-     width=300" height="250">
-       <center><h1>Useful links</h1></center>
-  </a>
-  </center>
-<!-- div:right-panel -->
+> [!NOTE|style:flat|label:Metamask For External EVM Chains]
+> [Looking for chaind ids and RPCs to add chains in metamask ?](/resources/metamask)
 
 
-<!-- panels:end -->
+
+
+<!-- slide:break-40 -->
+
+ <img src="_media/axelar-robot.png" alt="Smiley face" width="700" height="700" style="float:bottom">
