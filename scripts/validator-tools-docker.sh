@@ -72,7 +72,7 @@ parse_params() {
   # default values of variables set from params
   axelar_core_version=""
   tofnd_version=""
-  root_directory="$HOME/.axelar"
+  root_directory="$HOME/.axelar_testnet"
   git_root="$(git rev-parse --show-toplevel)"
   network="testnet"
   proxy_mnemonic_path='unset'
@@ -145,11 +145,11 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(cat "./resources/${network}-releases.md" | grep axelar-core | cut -d \` -f 4)"
+    axelar_core_version="$(grep axelar-core < "${git_root}/resources/${network}-releases.md" | cut -d \` -f 4)"
   fi
 
   if [ -z "${tofnd_version}" ]; then
-    tofnd_version="$(cat "./resources/${network}-releases.md" | grep tofnd | cut -d \` -f 4)"
+    tofnd_version="$(grep tofnd < "${git_root}/resources/${network}-releases.md" | cut -d \` -f 4)"
   fi
 
   # check required params and arguments
@@ -238,12 +238,12 @@ check_environment() {
     local node_up_tofnd
     node_up_vald="$(docker ps --format '{{.Names}}' | (grep -w 'vald' || true))"
     if [ -n "${node_up_vald}" ]; then
-        msg "FAILED: Node is already running. terminate current container and try again"
+        msg "FAILED: Node is already running. Terminate current container with 'docker stop vald' and try again"
         exit 1
     fi
     node_up_tofnd="$(docker ps --format '{{.Names}}' | (grep -w 'tofnd' || true))"
     if [ -n "${node_up_tofnd}" ]; then
-        msg "FAILED: Node is already running. terminate current container and try again"
+        msg "FAILED: Node is already running. Terminate current container with 'docker stop tofnd' and try again"
         exit 1
     fi
 
@@ -290,6 +290,16 @@ prepare() {
 }
 
 run_processes() {
+  if [ -n "$(docker container ls --filter name=vald -a -q)" ]; then
+      echo "Updating existing vald container"
+      docker rm vald
+  fi
+
+  if [ -n "$(docker container ls --filter name=tofnd -a -q)" ]; then
+      echo "Updating existing tofnd container"
+      docker rm tofnd
+  fi
+
   msg "/nbringing up tofnd container"
   local validator
   docker run                              \
