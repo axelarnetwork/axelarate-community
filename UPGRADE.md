@@ -2,8 +2,7 @@
 
 1. Wait for the proposed upgrade block. Your node will panic and stop once the block is reached. If you are running a validator, you will need to vote for the upgrade proposal beforehand. You can do so by running
 ```
-axelard tx gov vote ${proposal_id} yes \
-	--from validator --gas auto --gas-adjustment 1.5
+axelard tx gov vote 1 yes --from validator --gas auto --gas-adjustment 1.5
 ```
 
 2. Backup the state and keys.  If you used the default path then do this in the host (outside the container):
