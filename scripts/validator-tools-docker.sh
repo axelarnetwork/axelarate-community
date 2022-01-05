@@ -330,7 +330,7 @@ run_processes() {
 post_run_message() {
   msg
   msg "Tofnd & Vald running."
-  proxy_address="$(cat "${shared_directory}/broadcaster.bech")"
+  proxy_address="$(cat "${shared_directory}/broadcaster.address")"
   msg "Broadcaster address: ${proxy_address}"
   msg
   msg "To become a validator get some uaxl tokens and stake them"

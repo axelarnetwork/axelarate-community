@@ -18,7 +18,7 @@ if [ -z "$HAS_BROADCASTER" ]; then
   fi
 fi
 
-echo "${KEYRING_PASSWORD}" | axelard keys show broadcaster -a > "${shared_dir}/broadcaster.bech"
+echo "${KEYRING_PASSWORD}" | axelard keys show broadcaster -a > "${shared_dir}/broadcaster.address"
 
 
 if [ -z "$VALIDATOR_ADDR" ]; then

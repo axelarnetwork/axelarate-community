@@ -325,11 +325,11 @@ prepare() {
             (cat "${proxy_mnemonic_path}"; echo "$KEYRING_PASSWORD"; echo "$KEYRING_PASSWORD") | "${axelard_binary_path}" keys add broadcaster --recover --home "${vald_directory}"
         else
             msg "creating broadcaster keys"
-            (echo "$KEYRING_PASSWORD"; echo "$KEYRING_PASSWORD") | "${axelard_binary_path}" keys add broadcaster  --home "${vald_directory}"  > "${root_directory}/broadcaster.txt" 2>&1
+            (echo "$KEYRING_PASSWORD"; echo "$KEYRING_PASSWORD") | "${axelard_binary_path}" keys add broadcaster --home "${vald_directory}"  > "${root_directory}/broadcaster.txt" 2>&1
         fi
     fi
 
-    echo "$KEYRING_PASSWORD" | "${axelard_binary_path}" keys show broadcaster -a --bech val --home "${vald_directory}"  > "${root_directory}/broadcaster.bech" 2>&1
+    echo "$KEYRING_PASSWORD" | "${axelard_binary_path}" keys show broadcaster -a --home "${vald_directory}"  > "${root_directory}/broadcaster.address" 2>&1
 
     validator_address=$(echo "${KEYRING_PASSWORD}" | ${axelard_binary_path} keys show validator -a --bech val --home "${core_directory}")
     if [ -z "$validator_address" ]; then
@@ -369,7 +369,7 @@ post_run_message() {
   msg "Tofnd & Vald running."
   msg "To become a validator get some uaxl tokens from the faucet (testnet only) and stake them"
   msg
-  proxy_address="$(cat "${root_directory}/broadcaster.bech")"
+  proxy_address="$(cat "${root_directory}/broadcaster.address")"
   msg "Broadcaster address: ${proxy_address}"
   msg
   msg "To follow tofnd execution, run 'tail -f ${logs_directory}/tofnd.log'"
