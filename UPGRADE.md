@@ -22,5 +22,4 @@ Once the new genesis file is published, place it in `/home/axelard/.axelar/confi
 
 **Note that the path may be different if you are running your node with the binaries.**
 
-5. Restart your node.
-
+5. Restart your node.  The join scripts should automatically pull the new binary based on information at [testnet-releases.md](https://github.com/axelarnetwork/axelarate-community/blob/main/resources/testnet-releases.md).  Or you can add the flag `-a v0.12.0` to force a specific version.
