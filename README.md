@@ -6,3 +6,51 @@ Axelar Network is a work in progress. At no point in time should you transfer an
 
 ## Get Started
 Visit [our website](https://axelardocs.vercel.app/) for instructions to join the network and complete exercises.
+
+# Configuration Notes
+In `configuration/config.toml`
+- Set your node's IP address in the field: `external_address`.
+
+See the usage of the scripts using the `--help` flag.
+
+The `file` keyring backend is used by default for `axelard` account storage. `KEYRING_PASSWORD` is used to encrypt it.
+Password management is left to the user. They can use the OS keyring, a secrets management service,
+store it in a file, or switch to using the `test` unencrypted keyring backend if they wish to.
+
+`tofnd` also encrypts it's storage using `TOFND_PASSWORD`.
+
+# Joining Testnet
+
+Release information can be found at [`resources/testnet-releases`](./resources/testnet-releases.md).
+
+## Joining as a Node
+
+When joining for the first time, delete your existing `~/.axelar_testnet` folder.
+
+### Example for Docker
+```bash
+KEYRING_PASSWORD=.. ./scripts/node.sh -a v0.10.7 -n testnet -d ~/.axelar_testnet -e docker
+```
+
+### Example for Host Mode (Binaries)
+```bash
+KEYRING_PASSWORD=.. ./scripts/node.sh -a v0.10.7 -n testnet -d ~/.axelar_testnet -e host
+```
+
+
+## Setting up validator tools
+
+### Example for Docker
+```bash
+KEYRING_PASSWORD=.. TOFND_PASSWORD=.. ./scripts/validator-tools-docker.sh -a v0.10.7 -q v0.8.2 -d ~/.axelar_testnet -n testnet
+```
+
+### Example for Host Mode (Binaries)
+```bash
+KEYRING_PASSWORD=.. TOFND_PASSWORD=.. ./scripts/validator-tools-host.sh -a v0.10.7 -q v0.8.2 -d ~/.axelar_testnet -n testnet
+```
+
+To recover from mnemonics, use `-z path_to_tofnd_mnemonic -p path_to_proxy_mnemonic`.
+
+
+
