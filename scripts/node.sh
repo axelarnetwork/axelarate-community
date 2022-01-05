@@ -72,7 +72,7 @@ parse_params() {
   # default values of variables set from params
   axelar_core_version=""
   reset_chain=0
-  root_directory="$HOME/.axelar"
+  root_directory="$HOME/.axelar_testnet"
   git_root="$(git rev-parse --show-toplevel)"
   network="testnet"
   tendermint_key_path='unset'
@@ -137,7 +137,7 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(cat "./resources/${network}-releases.md" | grep axelar-core | cut -d \` -f 4)"
+    axelar_core_version="$(grep axelar-core < "${git_root}/resources/${network}-releases.md" | cut -d \` -f 4)"
   fi
 
   # check required params and arguments
@@ -244,6 +244,13 @@ download_genesis_and_seeds() {
 copy_configuration_files() {
   echo "overwriting configuration file"
   cp "${git_root}/configuration/config.toml" "${shared_directory}/config.toml"
+
+  ip_address=$(grep "^external_address" < "${shared_directory}/config.toml" | cut -c 20-)
+
+  if [ "${ip_address}" == "\"\"" ]; then
+    echo "external_address has not been set in ${git_root}/configuration/config.toml"
+    exit 1
+  fi
 
   if [ ! -f "${shared_directory}/app.toml" ]; then
     msg "copying app.toml"

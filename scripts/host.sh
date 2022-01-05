@@ -20,10 +20,15 @@ check_environment() {
     if [ "$(pgrep -f "${axelard_binary_path}")" != "" ]; then
         # shellcheck disable=SC2016
         msg 'FAILED: Node already running. Run "kill -9 $(pgrep -f "axelard")" to kill node.';
-        exit 1;
+        exit 1
     fi
 
     if [[ -z "$KEYRING_PASSWORD" ]]; then msg "FAILED: env var KEYRING_PASSWORD missing"; exit 1; fi
+
+    if [ "$(ulimit -n)" -lt 2048 ]; then
+        echo "Number of allowed open files is too low. 'ulimit -n' is below 2048. Run 'ulimit -n 2048' to increase it."
+        exit 1
+    fi
 }
 
 download_dependencies() {

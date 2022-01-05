@@ -6,7 +6,7 @@ check_environment() {
     local node_up
     node_up="$(docker ps --format '{{.Names}}' | (grep -w 'axelar-core' || true))"
     if [ -n "${node_up}" ]; then
-        msg "FAILED: Node is already running. terminate current container and try again"
+        msg "FAILED: Node is already running. Terminate current container with 'docker stop axelar-core' and try again"
         exit 1
     fi
 
@@ -54,6 +54,11 @@ prepare() {
 }
 
 run_node() {
+    if [ -n "$(docker container ls --filter name=axelar-core -a -q)" ]; then
+        echo "Updating existing axelar-core container"
+        docker rm axelar-core
+    fi
+
     msg "running node"
     docker run                                                      \
       -d                                                            \

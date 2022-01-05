@@ -72,7 +72,7 @@ parse_params() {
   # default values of variables set from params
   axelar_core_version=""
   tofnd_version=""
-  root_directory="$HOME/.axelar"
+  root_directory="$HOME/.axelar_testnet"
   git_root="$(git rev-parse --show-toplevel)"
   network="testnet"
   proxy_mnemonic_path='unset'
@@ -145,11 +145,11 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(cat "./resources/${network}-releases.md" | grep axelar-core | cut -d \` -f 4)"
+    axelar_core_version="$(grep axelar-core < "${git_root}/resources/${network}-releases.md" | cut -d \` -f 4)"
   fi
 
   if [ -z "${tofnd_version}" ]; then
-    tofnd_version="$(cat "./resources/${network}-releases.md" | grep tofnd | cut -d \` -f 4)"
+    tofnd_version="$(grep tofnd < "${git_root}/resources/${network}-releases.md" | cut -d \` -f 4)"
   fi
 
   # check required params and arguments
@@ -287,6 +287,11 @@ check_environment() {
     if [ ! -f "${axelard_binary_path}" ]; then
       echo "Cannot find axelard binary at ${axelard_binary_path}. Did you launch the node correctly?"
       exit 1
+    fi
+
+    if [ "$(ulimit -n)" -lt 2048 ]; then
+        echo "Number of allowed open files is too low. 'ulimit -n' is below 2048. Run 'ulimit -n 2048' to increase it."
+        exit 1
     fi
 }
 
