@@ -25,5 +25,5 @@ Moonbeam Axelar Gateway contract address | `0xec11b641ee3963E1D286798E973D652e28
 Moonbeam AXL token address | `0x3c6cB7DFC8B75f4B90a891679bAA8bEB10671F2b`
 Moonbeam UST token address | `0xfA295D0221c9fBc10Bb49fe8895e53A5E6dAF844`
 Moonbeam LUNA token address | `0x80f2e45283C6459388BDb1bBAFC6db2C67dc9640`
-Terra channel id | `not yet available`
-Axelar channel id | `not yet available`
+Terra channel id | `channel-52`
+Axelar channel id | `channel-0`
