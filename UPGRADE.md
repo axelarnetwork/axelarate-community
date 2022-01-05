@@ -6,9 +6,9 @@ axelard tx gov vote ${proposal_id} yes \
 	--from validator --gas auto --gas-adjustment 1.5
 ```
 
-2. Backup the state and keys
+2. Backup the state and keys.
 ```
-mv /root/.axelard /root/.axelard_backup
+mv /home/axelard/.axelar /home/axelard/.axelar_backup
 ```
 **Note that your state folder may exist at a different path if you are running your node with the binaries.**
 
@@ -17,11 +17,9 @@ mv /root/.axelard /root/.axelard_backup
 axelard unsafe-reset-all
 ```
 
+4. Wait for the Axelar team to publish the new genesis file for the new chain. The genesis files can be found at https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json
 
-4. Wait for the Axelar team to publish the new genesis file for the new chain. The genesis files can be found at
-- testnet: https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json
-
-Once the new genesis file is published, place it in `/root/.axelard/config/`. **Note that the path may be different if you are running your node with the binaries.**
+Once the new genesis file is published, place it in `/home/axelard/.axelar/config/`. **Note that the path may be different if you are running your node with the binaries.**
 
 5. Restart your node.
 
