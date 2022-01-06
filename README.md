@@ -15,6 +15,7 @@ See the usage of the scripts using the `--help` flag.
 
 The `file` keyring backend is used by default for `axelard` account storage.
 The password is supplied via a `KEYRING_PASSWORD` env var to the scripts.
+**Password must be at least 8 characters.**
 Password management is left to the user. They can use the OS keyring, a secrets management service,
 store it in a file, or switch to using the `test` unencrypted keyring backend if they wish to.
 
