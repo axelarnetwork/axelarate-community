@@ -7,7 +7,7 @@ axelard tx gov vote 1 yes --from validator --gas auto --gas-adjustment 1.5
 
 2. Backup the state and keys.  If you used the default path then do this in the host (outside the container):
 ```bash
-mv ~/.axelar_testnet ~/.axelar_testnet_upgrade-v0.12_backup
+cp ~/.axelar_testnet ~/.axelar_testnet_upgrade-v0.12_backup
 ```
 **Note that your state folder may exist at a different path if you are running your node with the binaries or if you used a non-default path.**
 
