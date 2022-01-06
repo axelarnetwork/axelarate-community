@@ -13,12 +13,7 @@ cp ~/.axelar_testnet ~/.axelar_testnet_upgrade-v0.12_backup
 ```
 **Note that your state folder may exist at a different path if you are running your node with the binaries or if you used a non-default path.**
 
-3. Clear `vald` state.  In the host (outside the container):
-```bash
-rm ~/.axelar_testnet/.vald/vald/state.json
-```
-
-4. Reset blockchain state
+3. Reset blockchain state
 
 If running in a docker environment, its best to open a shell with the axelar root mounted. Modify the following command so that it mounts the correct directory for your machine and uses the correct version of axelar-core.
 ```bash
