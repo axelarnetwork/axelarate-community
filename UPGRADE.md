@@ -1,18 +1,25 @@
 # Network Upgrade
 
 1. Wait for the proposed upgrade block. Your node will panic and stop once the block is reached. If you are running a validator, you will need to vote for the upgrade proposal beforehand. You can do so by running
-```
+```bash
 axelard tx gov vote 1 yes --from validator --gas auto --gas-adjustment 1.5
 ```
 
 2. Backup the state and keys.  If you used the default path then do this in the host (outside the container):
-```
+```bash
 mv ~/.axelar_testnet ~/.axelar_testnet_upgrade-v0.12_backup
 ```
 **Note that your state folder may exist at a different path if you are running your node with the binaries or if you used a non-default path.**
 
 3. Reset blockchain state
+
+If running in a docker environment, its best to open a shell with the axelar root mounted. Modify the following command so that it mounts the correct directory for your machine and uses the correct version of axelar-core.
+```bash
+docker run -ti --entrypoint /bin/sh -v /Users/myuser/.axelar_testnet/.core:/home/axelard/.axelar axelarnet/axelar-core:v0.10.7
 ```
+
+Once you have a shell open, reset the chain:
+```bash
 axelard unsafe-reset-all
 ```
 
