@@ -248,7 +248,10 @@ check_environment() {
     fi
 
     if [[ -z "$KEYRING_PASSWORD" ]]; then msg "FAILED: env var KEYRING_PASSWORD missing"; exit 1; fi
+    if [[ "${#KEYRING_PASSWORD}" -lt 8 ]]; then msg "FAILED: KEYRING_PASSWORD must have length at least 8"; exit 1; fi
+
     if [[ -z "$TOFND_PASSWORD" ]]; then msg "FAILED: env var TOFND_PASSWORD missing"; exit 1; fi
+    if [[ "${#TOFND_PASSWORD}" -lt 8 ]]; then msg "FAILED: TOFND_PASSWORD must have length at least 8"; exit 1; fi
 }
 
 download_dependencies() {
