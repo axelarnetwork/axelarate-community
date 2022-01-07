@@ -46,14 +46,15 @@ The vald state reset does not require the axelard binary. It is a simple file re
 rm $HOME/.axelar_testnet/.vald/vald/state.json
 ```
 
-
-6. Wait for the Axelar team to publish the new genesis file for the new chain. The genesis files can be found at https://axelar-testnet.s3.us-east-2.amazonaws.com/genesis.json
-remove both genesis files, the start script will fetch the new genesis file automatically.
+6. Remove the old `genesis.json` file.  There are two copies of this file:
 ```
 rm $HOME/.axelar_testnet/shared/genesis.json
 rm $HOME/.axelar_testnet/.core/config/genesis.json
 ```
+The join script will fetch the new genesis file automatically.
 
 **Note that the path may be different if you are running your node with the binaries.**
 
-7. Restart your node. Make sure you have pulled the latest main branch of the repo. The join scripts should automatically pull the new binary based on information at [testnet-releases.md](https://github.com/axelarnetwork/axelarate-community/blob/main/resources/testnet-releases.md).  Or you can add the flag `-a v0.12.0` to force a specific version.
+7. Make sure your `config.toml` file in the `axelarate-community` repo at `configuration/config.toml` has any custom changes you made.  If not then restore `config.toml` from the backup you made in step 3.
+
+8. Restart your node. Make sure you have pulled the latest main branch of the repo. The join scripts should automatically pull the new binary based on information at [testnet-releases.md](https://github.com/axelarnetwork/axelarate-community/blob/main/resources/testnet-releases.md).  Or you can add the flag `-a v0.12.0` to force a specific version.
