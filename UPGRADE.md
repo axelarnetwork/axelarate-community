@@ -57,4 +57,14 @@ The join script will fetch the new genesis file automatically.
 
 7. Make sure your `config.toml` file in the `axelarate-community` repo at `configuration/config.toml` has any custom changes you made.  If not then restore `config.toml` from the backup you made in step 3.
 
-8. Restart your node. Make sure you have pulled the latest main branch of the repo. The join scripts should automatically pull the new binary based on information at [testnet-releases.md](https://github.com/axelarnetwork/axelarate-community/blob/main/resources/testnet-releases.md).  Or you can add the flag `-a v0.12.0` to force a specific version.
+8. Restart your node with recovery flags. Make sure you have pulled the latest main branch of the repo. The join scripts should automatically pull the new binary based on information at [testnet-releases.md](https://github.com/axelarnetwork/axelarate-community/blob/main/resources/testnet-releases.md).  Or you can add the flag `-a v0.12.0` to force a specific version.
+
+Example:
+```
+KEYRING_PASSWORD=your_password ./scripts/node.sh -t path_to_tendermint_key -m path_to_validator_mnemonic -a v0.12.0 -e docker
+```
+
+If you're also running a validator:
+```
+KEYRING_PASSWORD=your_password TOFND_PASSWORD=another_password ./scripts/validator-tools-docker.sh -z path_to_tofnd_mnemonic -p path_to_proxy_mnemonic -a v0.12.0
+```
