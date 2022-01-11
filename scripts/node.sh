@@ -29,7 +29,7 @@ Available options:
 -t, --tendermint-key-path     Path to tendermint key
 -m, --axelar-mnemonic-path    Path to axelar mnemonic key
 -e, --environment             Environment to run in [docker|host] (host uses release binaries)
--c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon]
+-c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-2]
 -k, --node-moniker            Node Moniker [default: hostname]
 EOF
   exit
@@ -130,7 +130,7 @@ parse_params() {
 
   # Set the appropriate chain_id
   if [ "$network" == "testnet" ]; then
-    chain_id=axelar-testnet-lisbon
+    chain_id=axelar-testnet-lisbon-2
   else
     echo "Invalid network provided: ${network}"
     exit 1
