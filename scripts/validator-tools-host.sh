@@ -7,6 +7,8 @@ trap cleanup EXIT
 
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
+MAX_OPEN_FILES=16384
+
 usage() {
   cat <<EOF
 Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-r] -n testnet arg1 [arg2...]
@@ -292,8 +294,8 @@ check_environment() {
       exit 1
     fi
 
-    if [ "$(ulimit -n)" -lt 2048 ]; then
-        echo "Number of allowed open files is too low. 'ulimit -n' is below 2048. Run 'ulimit -n 2048' to increase it."
+    if [ "$(ulimit -n)" -lt "${MAX_OPEN_FILES}" ]; then
+        echo "FAILED: Number of allowed open files is too low. 'ulimit -n' is below ${MAX_OPEN_FILES}. Run 'ulimit -n ${MAX_OPEN_FILES}' to increase it."
         exit 1
     fi
 }

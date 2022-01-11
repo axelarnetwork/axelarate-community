@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2154
 
+MAX_OPEN_FILES=16384
+
 add_seeds() {
   seeds="$(cat "${config_directory}"/seeds.txt)"
   sed "s/^seeds =.*/seeds = \"$seeds\"/g" "${config_directory}/config.toml" >"${config_directory}/config.toml.tmp"
@@ -27,8 +29,8 @@ check_environment() {
 
     if [[ "${#KEYRING_PASSWORD}" -lt 8 ]]; then msg "FAILED: KEYRING_PASSWORD must have length at least 8"; exit 1; fi
 
-    if [ "$(ulimit -n)" -lt 2048 ]; then
-        echo "Number of allowed open files is too low. 'ulimit -n' is below 2048. Run 'ulimit -n 2048' to increase it."
+    if [ "$(ulimit -n)" -lt "${MAX_OPEN_FILES}" ]; then
+        echo "FAILED: Number of allowed open files is too low. 'ulimit -n' is below ${MAX_OPEN_FILES}. Run 'ulimit -n ${MAX_OPEN_FILES}' to increase it."
         exit 1
     fi
 }
