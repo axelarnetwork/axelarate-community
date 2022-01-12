@@ -307,6 +307,7 @@ run_processes() {
   local validator
   docker run                              \
     -d                                    \
+    --user 0:0                            \
     --name tofnd                          \
     --network "$docker_network"           \
     --env MNEMONIC_CMD="auto"             \
