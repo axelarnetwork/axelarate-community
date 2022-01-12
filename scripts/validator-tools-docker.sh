@@ -317,11 +317,15 @@ run_processes() {
   validator=$(docker exec axelar-core sh -c 'echo $KEYRING_PASSWORD | axelard keys show validator -a --bech val' 2>&1)
   echo "Retrieved validator address: ${validator}"
 
+  # Temporarily adding root user and HOME env var here to allow users with linux x86
+  # to connect using docker without running into file permission issues
   docker run                                                  \
     -d                                                        \
     --name vald                                               \
     --network "${docker_network}"                             \
+    --user 0:0                                                \
     --env TOFND_HOST=tofnd                                    \
+    --env HOME=/home/axelard                                  \
     --env VALIDATOR_HOST=http://axelar-core:26657             \
     --env PRESTART_SCRIPT=/home/axelard/shared/init-vald.sh   \
     --env CONFIG_PATH=/home/axelard/shared/                   \
