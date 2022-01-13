@@ -21,8 +21,6 @@ pkill -f 'axelard vald-start'
 pkill -f tofnd
 ```
 
-**Note that you will need to add the --home flag set to $HOME/.axelar_testnet/.core for binaries. You will also need to use the binary from $HOME/.axelar_testnet/bin/ (may be different depending on how you setup)**
-
 3. Backup the state and keys.  If you used the default path then do this in the host (outside the container):
 ```bash
 cp -r ~/.axelar_testnet ~/.axelar_testnet_lisbon-2-upgrade-backup
