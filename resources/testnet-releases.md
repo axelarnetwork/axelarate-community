@@ -25,5 +25,5 @@ Moonbeam Axelar Gateway contract address | `not yet available`
 Moonbeam AXL token address | `not yet available`
 Moonbeam UST token address | `not yet available`
 Moonbeam LUNA token address | `not yet available`
-Terra channel id | `not yet available`
-Axelar channel id | `not yet available`
+Terra channel id | `channel-55`
+Axelar channel id | `channel-0`

@@ -1,70 +1,34 @@
 # Network Upgrade
 
-1. If you are running a validator, you will need to vote for the upgrade proposal beforehand. You can do so by running
+Instructions for 2022-jan-13 testnet chain id `axlear-testnet-lisbon-2` upgrade.
+
+1. Validators please vote for the upgrade proposal via
 ```bash
-axelard tx gov vote 1 yes --from validator --gas auto --gas-adjustment 1.5
+axelard tx gov vote 1 yes --from validator
 ```
 
-2. Wait for the proposed upgrade block. Your node will panic once the block is reached. Stop your node after chain halt.
-For user runs in docker
+2. Wait for the proposed upgrade block (14700). Your node will panic at that block height. Stop your node after chain halt.
+
+Docker:
 ```bash
 docker stop axelar-core vald tofnd
 docker rm axelar-core vald tofnd
 ```
-For user runs in binary
+Binary:
 ```bash
 pkill -f 'axelard start'
 pkill -f 'axelard vald-start'
 pkill -f tofnd
 ```
 
-**Note that you will need to add the --home flag set to $HOME/.axelar_testnet/.core for binaries. You will also need to use the binary from $HOME/.axelar_testnet/bin/ (may be different depending on how you setup)**
-
 3. Backup the state and keys.  If you used the default path then do this in the host (outside the container):
 ```bash
-cp -r ~/.axelar_testnet ~/.axelar_testnet_upgrade-v0.12_backup
+cp -r ~/.axelar_testnet ~/.axelar_testnet_lisbon-2-upgrade-backup
 ```
 **Note that your state folder may exist at a different path if you are running your node with the binaries or if you used a non-default path.**
 
-4. Reset blockchain state
+4. Restart your node with the new v0.13.0 build
 
-If running in a docker environment, its best to open a shell with the axelar root mounted. Modify the following command so that it mounts the correct directory for your machine and uses the correct version of axelar-core.
-```bash
-docker run -ti --entrypoint /bin/sh -v $HOME/.axelar_testnet/.core:/home/axelard/.axelar axelarnet/axelar-core:v0.10.7
-```
-
-Once you have a shell open, reset the chain:
-```bash
-axelard unsafe-reset-all
-```
-**Note that similar to step 1, when running binaries you will have to provide path to axelard binary and run with --home $HOME/.axelar_testnet/.core flag**
-
-5. Reset Vald State.
-The vald state reset does not require the axelard binary. It is a simple file removal. So it can be done without mounting a volume inside a container.
-
-```bash
-rm $HOME/.axelar_testnet/.vald/vald/state.json
-```
-
-6. Remove the old `genesis.json` file.  There are two copies of this file:
-```
-rm $HOME/.axelar_testnet/shared/genesis.json
-rm $HOME/.axelar_testnet/.core/config/genesis.json
-```
-The join script will fetch the new genesis file automatically.
-
-**Note that the path may be different if you are running your node with the binaries.**
-
-7. Make sure your `config.toml` file in the `axelarate-community` repo at `configuration/config.toml` has any custom changes you made.  If not then restore `config.toml` from the backup you made in step 3.
-
-8. Restart your node with recovery flags. Make sure you have pulled the latest main branch of the repo. The join scripts should automatically pull the new binary based on information at [testnet-releases.md](https://github.com/axelarnetwork/axelarate-community/blob/main/resources/testnet-releases.md).  Or you can add the flag `-a v0.12.0` to force a specific version.
-
-Node needs both `-t` and `-m`:
-```
-KEYRING_PASSWORD=your_password ./scripts/node.sh -t path_to_tendermint_key -m path_to_validator_mnemonic -a v0.12.0 -e docker
-```
-
-Validator needs only `-p` and _not_ `-z`:
-```
-KEYRING_PASSWORD=your_password TOFND_PASSWORD=another_password ./scripts/validator-tools-docker.sh -p path_to_proxy_mnemonic -a v0.12.0
-```
+Pull the latest main branch of this repo (axelarate-community).
+Follow instructions at [README](README.md) to start your node.
+The join scripts should automatically pull the new binary based on information at [testnet-releases.md](resources/testnet-releases.md).  Or you can add the flag `-a v0.13.0` to force a specific version.
