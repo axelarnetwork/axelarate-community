@@ -23,7 +23,7 @@ store it in a file, or switch to using the `test` unencrypted keyring backend if
 
 # Joining Testnet
 
-Release information can be found at [`resources/testnet-releases`](./resources/testnet-releases.md).
+Release information can be found at [`resources/testnet-releases`](./resources/testnet-releases.md). See section below on *Catching up from Scratch* if you are starting a fresh node.
 
 ## Joining as a Node
 
@@ -33,11 +33,17 @@ When joining for the first time, delete your existing `~/.axelar_testnet` folder
 ```bash
 KEYRING_PASSWORD=.. ./scripts/node.sh -e docker
 ```
+⚠️ **Process inside container runs with root user. See note below**
 
-Note For Docker Users
-The container image is built with the axelard user, and we recommend running the container rootless. However due to issues with file permissions, this does not work gracefully with some linux systems. To solve this, we run the container with the `--user 0:0` flag to run as root and manually set the `HOME` to `/home/axelard`. If you wish to run in rootless mode, you have two options:
-Option 1: Create the root directory on your machine. e.g ~/.axelar_testnet, and then manually change the ownership to 1000:1001. e.g `chown -R 1000:1001 ~/.axelar_testnet. This requires sudo privilleges on the machine.
-Option 2: Manually build the container from the github.com/axelarnet/axelar-core, replace the user in the Dockerfile to your current user and group id to your current group. With this you will have to run the containers with flag `--user YOUR_USER_ID:YOUR_GROUP_ID`.
+> **RootLess Docker Note**
+>
+> On some linux systems the permissions for bind mounted directories do not propagate to the container. i.e the axelar root directory, for e.g. ~/.axelar_testnet will not have the correct permissions for the axelard user inside the container to be able to modify it with.
+>
+> In this case, you have two options.
+>
+> One option is to create the directory in advance and change the ownership to 1000:1001, where 1000 is axelard user inside container and 1001 is the axelard group inside the container. This requires root permission on the host machine.
+>
+> The second option is to build the container image from source. Checkout the correct tag in axelar-core. Modify the Dockerfile in axelar-core to reflect your user and group. You will also have to modify the image name in the scripts here to deploy the image you just created.
 
 ### Example for Host Mode (Binaries)
 ```bash
@@ -45,6 +51,35 @@ KEYRING_PASSWORD=.. ./scripts/node.sh -e host
 ```
 
 To recover from mnemonics, use `-t path_to_tendermint_key -m path_to_validator_mnemonic -r` (`-r` is to reset the chain).
+
+
+### Catching up from Scratch
+In case you are starting a node from scratch, you will have to run the correct binaries to catch up. The details are mentioned in the *Upgrade Section* of the [`testnet-releases document`](./resources/testnet-releases.md). Let's walk through an example for the following details:
+> Core Version  | Start Height | End Height
+> ------------- | ------------- | -------------
+> v0.10.7 | 0 | 14700
+> v0.13.0 | 14701 | N/A
+>
+This means that you have to catch up to block 14700 with axelar-core version v0.10.7. And then use v0.13.0 to continue. \
+\
+So you would run the following command (for docker):
+`KEYRING_PASSWORD=.. ./scripts/node.sh -e docker -a v0.10.7` \
+\
+Once the node catches up to height 1470, you will see a panic in the logs: \
+
+`panic: UPGRADE "v0.13" NEEDED at height: 14700: ` \
+
+At this point, you will have to re-run the process with a new version of the core. When using binaries in host mode, you can simply run: \
+`KEYRING_PASSWORD=.. ./scripts/node.sh -e host -a v0.13.0` \
+
+This will resume the node and it will catch up. \
+\
+For docker, you have one extra step. Run the following command: \
+`docker stop axelar-core && docker rm axelar-core` \
+\
+After this simply run:
+`KEYRING_PASSWORD=.. ./scripts/node.sh -e docker -a v0.13.0` \
+This will resume the node and it will start catching up to the latest height or the height of the next upgrade.
 
 ## Setting up validator tools
 

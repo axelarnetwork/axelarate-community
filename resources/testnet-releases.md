@@ -27,3 +27,10 @@ Moonbeam UST token address | `not yet available`
 Moonbeam LUNA token address | `not yet available`
 Terra channel id | `channel-55`
 Axelar channel id | `channel-0`
+
+# Upgrade Path
+
+Core Version  | Start Height | End Height
+------------- | ------------- | -------------
+v0.10.7 | 0 | 14700
+v0.13.0 | 14701 | N/A
