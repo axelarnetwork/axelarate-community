@@ -70,6 +70,8 @@ run_node() {
       -p 26656-26658:26656-26658                                    \
       -p 26660:26660                                                \
       -p 9090:9090                                                  \
+      --user 0:0                                                    \
+      --env HOME=/home/axelard                                      \
       --env START_REST=true                                         \
       --env PRESTART_SCRIPT=/home/axelard/shared/consume-genesis.sh \
       --env CONFIG_PATH=/home/axelard/shared/                       \

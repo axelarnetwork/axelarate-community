@@ -34,6 +34,11 @@ When joining for the first time, delete your existing `~/.axelar_testnet` folder
 KEYRING_PASSWORD=.. ./scripts/node.sh -e docker
 ```
 
+Note For Docker Users
+The container image is built with the axelard user, and we recommend running the container rootless. However due to issues with file permissions, this does not work gracefully with some linux systems. To solve this, we run the container with the `--user 0:0` flag to run as root and manually set the `HOME` to `/home/axelard`. If you wish to run in rootless mode, you have two options:
+Option 1: Create the root directory on your machine. e.g ~/.axelar_testnet, and then manually change the ownership to 1000:1001. e.g `chown -R 1000:1001 ~/.axelar_testnet. This requires sudo privilleges on the machine.
+Option 2: Manually build the container from the github.com/axelarnet/axelar-core, replace the user in the Dockerfile to your current user and group id to your current group. With this you will have to run the containers with flag `--user YOUR_USER_ID:YOUR_GROUP_ID`.
+
 ### Example for Host Mode (Binaries)
 ```bash
 KEYRING_PASSWORD=.. ./scripts/node.sh -e host
