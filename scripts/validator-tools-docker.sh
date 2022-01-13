@@ -308,6 +308,7 @@ run_processes() {
   docker run                              \
     -d                                    \
     --user 0:0                            \
+    --restart unless-stopped              \
     --name tofnd                          \
     --network "$docker_network"           \
     --env MNEMONIC_CMD="auto"             \
@@ -325,6 +326,7 @@ run_processes() {
     --name vald                                               \
     --network "${docker_network}"                             \
     --user 0:0                                                \
+      --restart unless-stopped                                \
     --env TOFND_HOST=tofnd                                    \
     --env HOME=/home/axelard                                  \
     --env VALIDATOR_HOST=http://axelar-core:26657             \
