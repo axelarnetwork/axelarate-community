@@ -62,21 +62,19 @@ In case you are starting a node from scratch, you will have to run the correct b
 >
 This means that you have to catch up to block 14700 with axelar-core version v0.10.7. And then use v0.13.0 to continue. \
 \
-So you would run the following command (for docker):
+So you would run the following command (for docker): \
 `KEYRING_PASSWORD=.. ./scripts/node.sh -e docker -a v0.10.7` \
 \
 Once the node catches up to height 1470, you will see a panic in the logs: \
-
-`panic: UPGRADE "v0.13" NEEDED at height: 14700: ` \
+`panic: UPGRADE "v0.13" NEEDED at height: 14700: `
 
 At this point, you will have to re-run the process with a new version of the core. When using binaries in host mode, you can simply run: \
 `KEYRING_PASSWORD=.. ./scripts/node.sh -e host -a v0.13.0` \
+This will resume the node and it will catch up.
 
-This will resume the node and it will catch up. \
-\
 For docker, you have one extra step. Run the following command: \
-`docker stop axelar-core && docker rm axelar-core` \
-\
+`docker stop axelar-core && docker rm axelar-core`
+
 After this simply run:
 `KEYRING_PASSWORD=.. ./scripts/node.sh -e docker -a v0.13.0` \
 This will resume the node and it will start catching up to the latest height or the height of the next upgrade.
