@@ -35,7 +35,9 @@ Core Version  | Start Height | End Height
 v0.10.7 | 0 | 14700
 v0.13.0 | 14701 | N/A
 
-# Minimum deposit amounts
+# Minimum transfer amounts
+
+For each asset X in (AXL, UST, LUNA) and each external chain Y in (Ethereum, non-Ethereum EVM, Cosmos/IBC) any transfer of asset X to/from chain Y must exceed the minimum amount given in the table below.
 
 Asset symbol | Ethereum | non-Ethereum EVM | Cosmos/IBC
 ---|---|---|---
