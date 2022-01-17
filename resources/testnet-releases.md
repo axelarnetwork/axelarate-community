@@ -37,7 +37,7 @@ v0.13.0 | 14701 | N/A
 
 # Minimum transfer amounts
 
-For each asset X in (AXL, UST, LUNA) and each external chain Y in (Ethereum, non-Ethereum EVM, Cosmos/IBC) any transfer of asset X to/from chain Y must exceed the minimum amount given in the table below.
+For each asset X in (AXL, UST, LUNA) and each external chain Y in (Ethereum, non-Ethereum EVM, Cosmos/IBC): any transfer of asset X to chain Y must exceed the minimum amount given in the table below.  (If Y is the origin chain for asset X then this transfer is called "redeem"/"burn"; there is no minimum in this case.)
 
 Asset symbol | Ethereum | non-Ethereum EVM | Cosmos/IBC
 ---|---|---|---
