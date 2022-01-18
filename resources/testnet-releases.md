@@ -21,10 +21,10 @@ Polygon Axelar Gateway contract address | `0xa4dbF01D58C4C89B96194682e48b05c0dEC
 Polygon AXL token address | `0x578aBd5AD95D0e85CB9b508295D4bC1B35496f8a`
 Polygon UST token address | `0x1912e95A44960c785e96d43651660aF55cA84ab8`
 Polygon LUNA token address | `0xaf11e7D46A146256D9178251CBe8A1e5E6218f90`
-Moonbeam Axelar Gateway contract address | `not yet available`
-Moonbeam AXL token address | `not yet available`
-Moonbeam UST token address | `not yet available`
-Moonbeam LUNA token address | `not yet available`
+Moonbeam Axelar Gateway contract address | `0xd01C68e0cf45F99A6016f80a9C1783f497902bAC`
+Moonbeam AXL token address | `0xa9d0D7b596AC9F1704E886892870daB084ECd220`
+Moonbeam UST token address | `0x1c84ea8C5Fd26f8e49aF418De742982980d88593`
+Moonbeam LUNA token address | `0x3a89372397265fAFd704fb8DA373926901CEFA19`
 Terra channel id | `channel-55`
 Axelar channel id | `channel-0`
 
