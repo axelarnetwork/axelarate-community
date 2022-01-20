@@ -248,8 +248,7 @@ copy_configuration_files() {
   ip_address=$(grep "^external_address" < "${shared_directory}/config.toml" | cut -c 20-)
 
   if [ "${ip_address}" == "\"\"" ]; then
-    echo "external_address has not been set in ${git_root}/configuration/config.toml"
-    exit 1
+    echo "NOTE: external_address has not been set in ${git_root}/configuration/config.toml. You might not need it."
   fi
 
   if [ ! -f "${shared_directory}/app.toml" ]; then
