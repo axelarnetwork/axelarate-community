@@ -25,10 +25,10 @@ Available options:
 -r, --reset-chain             Reset all chain data (erases current state including secrets)
 -a, --axelar-core-version     Version of axelar core to checkout
 -d, --root-directory          Directory for data. [default: ~/.axelar_testnet]
--n, --network                 [testnet|mainnet] [default: testnet]
+-n, --network                 Network to join [testnet|mainnet] [default: testnet]
 -t, --tendermint-key-path     Path to tendermint key
 -m, --axelar-mnemonic-path    Path to axelar mnemonic key
--e, --environment             Environment to run in [docker|host] (host uses release binaries)
+-e, --environment             Environment to run in [host|docker] [default: host]
 -c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-2]
 -k, --node-moniker            Node Moniker [default: hostname]
 EOF
@@ -77,7 +77,7 @@ parse_params() {
   network="testnet"
   tendermint_key_path='unset'
   axelar_mnemonic_path='unset'
-  environment=''
+  environment='host'
   chain_id=''
   docker_network='axelarate_default'
   node_moniker="$(hostname | tr '[:upper:]' '[:lower:]')"
