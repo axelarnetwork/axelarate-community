@@ -294,8 +294,12 @@ msg "- chain-id: ${chain_id}"
 msg "- arguments: ${args[*]-}"
 msg "\n"
 
-msg "Please VERIFY that the above parameters are correct, and then press Enter..."
+msg "Please VERIFY that the above parameters are correct.  Continue? [y/n]"
 read -r value
+if [[ "$value" != "y" ]]; then
+  msg "You did not type 'y'. Exiting..."
+  exit 1
+fi
 msg "\n"
 
 # import the functions
