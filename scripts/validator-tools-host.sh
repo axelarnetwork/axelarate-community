@@ -147,7 +147,7 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(grep axelar-core < "${git_root}/resources/${network}-releases.md" | cut -d \` -f 4)"
+    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/${network}-releases.md  | grep axelar-core | cut -d \` -f 4)"
   fi
 
   if [ -z "${tofnd_version}" ]; then
