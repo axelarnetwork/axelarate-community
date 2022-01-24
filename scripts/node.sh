@@ -72,7 +72,7 @@ parse_params() {
   # default values of variables set from params
   axelar_core_version=""
   reset_chain=0
-  root_directory="$HOME/.axelar_testnet"
+  root_directory=''
   git_root="$(git rev-parse --show-toplevel)"
   network="testnet"
   tendermint_key_path='unset'
@@ -131,8 +131,10 @@ parse_params() {
   # Set the appropriate chain_id
   if [ "$network" == "mainnet" ]; then
     chain_id=axelar-dojo-1
+    root_directory="$HOME/.axelar"
   elif [ "$network" == "testnet" ]; then
     chain_id=axelar-testnet-lisbon-2
+    root_directory="$HOME/.axelar_testnet"
   else
     echo "Invalid network provided: ${network}"
     exit 1
