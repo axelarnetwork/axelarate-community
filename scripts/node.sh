@@ -9,7 +9,7 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
 usage() {
   cat <<EOF
-Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-r] -n testnet arg1 [arg2...]
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v]
 
 Script description here.
 Required Environment Variables:
@@ -24,8 +24,8 @@ Available options:
 -v, --verbose                 Print script debug info
 -r, --reset-chain             Reset all chain data (erases current state including secrets)
 -a, --axelar-core-version     Version of axelar core to checkout
--d, --root-directory          Directory for data. [default: $HOME/.axelar_testnet]
--n, --network                 Core Network to connect to [devnet|testnet]
+-d, --root-directory          Directory for data. [default: ~/.axelar_testnet]
+-n, --network                 [testnet|mainnet] [default: testnet]
 -t, --tendermint-key-path     Path to tendermint key
 -m, --axelar-mnemonic-path    Path to axelar mnemonic key
 -e, --environment             Environment to run in [docker|host] (host uses release binaries)
@@ -129,7 +129,9 @@ parse_params() {
   args=("$@")
 
   # Set the appropriate chain_id
-  if [ "$network" == "testnet" ]; then
+  if [ "$network" == "mainnet" ]; then
+    chain_id=axelar-dojo-1
+  elif [ "$network" == "testnet" ]; then
     chain_id=axelar-testnet-lisbon-2
   else
     echo "Invalid network provided: ${network}"
