@@ -32,7 +32,7 @@ startValdProc() {
   fi
 
   echo "$KEYRING_PASSWORD" | axelard vald-start ${TOFND_HOST:+--tofnd-host "$TOFND_HOST"} ${VALIDATOR_HOST:+--node "$VALIDATOR_HOST"} \
-    --validator-addr "${VALIDATOR_ADDR:-$(axelard keys show validator -a --bech val)}" "$RECOVERY"
+    --validator-addr "${VALIDATOR_ADDR:-$(axelard keys show validator -a --bech val)}" "$RECOVERY" --log_level debug
 }
 
 startNodeProc() {
