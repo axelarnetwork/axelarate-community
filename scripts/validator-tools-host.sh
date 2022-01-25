@@ -27,7 +27,7 @@ Available options:
 -a, --axelar-core-version     Version of axelar core to checkout
 -q, --tofnd-version           Version of tofnd to checkout
 -d, --root-directory          Directory for data. [default: $HOME/.axelar_testnet]
--n, --network                 Core Network to connect to [devnet|testnet]
+-n, --network                 Core Network to connect to [testnet|mainnet]
 -p, --proxy-mnemonic-path     Path to broadcaster mnemonic
 -z, --tofnd-mnemonic-path     Path to tofnd mnemonic
 -e, --environment             Environment to run in [docker|host] (host uses release binaries)
@@ -139,7 +139,9 @@ parse_params() {
   args=("$@")
 
   # Set the appropriate chain_id
-  if [ "$network" == "testnet" ]; then
+  if [ "$network" == "mainnet" ]; then
+    chain_id=axelar-dojo-1
+  elif [ "$network" == "testnet" ]; then
     chain_id=axelar-testnet-lisbon-2
   else
     echo "Invalid network provided: ${network}"
@@ -276,7 +278,7 @@ check_environment() {
       msg 'FAILED: tofnd already running. Run "kill -9 $(pgrep -f "tofnd")" to kill tofnd.'
       exit 1
     fi
-
+    
     if [ "$(pgrep -f 'axelard vald-start')" != "" ]; then
       # shellcheck disable=SC2016
       msg 'FAILED: vald already running. Run "kill -9 $(pgrep -f "axelard vald-start")" to kill vald.'

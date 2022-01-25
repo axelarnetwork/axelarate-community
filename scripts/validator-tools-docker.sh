@@ -25,7 +25,7 @@ Available options:
 -a, --axelar-core-version     Version of axelar core to checkout
 -q, --tofnd-version           Version of tofnd to checkout
 -d, --root-directory          Directory for data. [default: $HOME/.axelar_testnet]
--n, --network                 Core Network to connect to [devnet|testnet]
+-n, --network                 Core Network to connect to [testnet|mainnet]
 -p, --proxy-mnemonic-path     Path to broadcaster mnemonic
 -z, --tofnd-mnemonic-path     Path to tofnd mnemonic
 -e, --environment             Environment to run in [docker|host] (host uses release binaries)
@@ -137,7 +137,9 @@ parse_params() {
   args=("$@")
 
   # Set the appropriate chain_id
-  if [ "$network" == "testnet" ]; then
+  if [ "$network" == "mainnet" ]; then
+    chain_id=axelar-dojo-1
+  elif [ "$network" == "testnet" ]; then
     chain_id=axelar-testnet-lisbon-2
   else
     echo "Invalid network provided: ${network}"
@@ -244,6 +246,22 @@ check_environment() {
     node_up_tofnd="$(docker ps --format '{{.Names}}' | (grep -w 'tofnd' || true))"
     if [ -n "${node_up_tofnd}" ]; then
         msg "FAILED: Node is already running. Terminate current container with 'docker stop tofnd' and try again"
+        exit 1
+    fi
+
+    if [ -n "$(docker container ls --filter name=vald -a -q)" ]; then
+        msg "Existing vald container found."
+        msg "Either DELETE the existing container with 'docker rm vald' and rerun the script to recreate another container with the updated scripts and the existing chain data"
+        msg "(the above will delete any container data in non-mounted folders)"
+        msg "OR if you simply want to restart the container, do 'docker start vald'"
+        exit 1
+    fi
+
+    if [ -n "$(docker container ls --filter name=tofnd -a -q)" ]; then
+        msg "Existing tofnd container found."
+        msg "Either DELETE the existing container with 'docker rm tofnd' and rerun the script to recreate another container with the updated scripts and the existing chain data"
+        msg "(the above will delete any container data in non-mounted folders)"
+        msg "OR if you simply want to restart the container, do 'docker start tofnd'"
         exit 1
     fi
 
