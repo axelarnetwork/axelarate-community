@@ -9,7 +9,7 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
 usage() {
   cat <<EOF
-Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-r] -n testnet arg1 [arg2...]
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v]
 
 Script description here.
 Required Environment Variables:
@@ -24,11 +24,11 @@ Available options:
 -v, --verbose                 Print script debug info
 -r, --reset-chain             Reset all chain data (erases current state including secrets)
 -a, --axelar-core-version     Version of axelar core to checkout
--d, --root-directory          Directory for data. [default: $HOME/.axelar_testnet]
--n, --network                 Core Network to connect to [devnet|testnet]
+-d, --root-directory          Directory for data. [default: ~/.axelar_testnet]
+-n, --network                 Network to join [testnet|mainnet] [default: testnet]
 -t, --tendermint-key-path     Path to tendermint key
 -m, --axelar-mnemonic-path    Path to axelar mnemonic key
--e, --environment             Environment to run in [docker|host] (host uses release binaries)
+-e, --environment             Environment to run in [host|docker] [default: host]
 -c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-2]
 -k, --node-moniker            Node Moniker [default: hostname]
 EOF
@@ -72,12 +72,12 @@ parse_params() {
   # default values of variables set from params
   axelar_core_version=""
   reset_chain=0
-  root_directory="$HOME/.axelar_testnet"
+  root_directory=''
   git_root="$(git rev-parse --show-toplevel)"
   network="testnet"
   tendermint_key_path='unset'
   axelar_mnemonic_path='unset'
-  environment=''
+  environment='host'
   chain_id=''
   docker_network='axelarate_default'
   node_moniker="$(hostname | tr '[:upper:]' '[:lower:]')"
@@ -129,15 +129,19 @@ parse_params() {
   args=("$@")
 
   # Set the appropriate chain_id
-  if [ "$network" == "testnet" ]; then
+  if [ "$network" == "mainnet" ]; then
+    chain_id=axelar-dojo-1
+    root_directory="$HOME/.axelar"
+  elif [ "$network" == "testnet" ]; then
     chain_id=axelar-testnet-lisbon-2
+    root_directory="$HOME/.axelar_testnet"
   else
     echo "Invalid network provided: ${network}"
     exit 1
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(grep axelar-core < "${git_root}/resources/${network}-releases.md" | cut -d \` -f 4)"
+    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/"${network}"-releases.md  | grep axelar-core | cut -d \` -f 4)"
   fi
 
   # check required params and arguments
@@ -290,8 +294,12 @@ msg "- chain-id: ${chain_id}"
 msg "- arguments: ${args[*]-}"
 msg "\n"
 
-msg "Please VERIFY that the above parameters are correct, and then press Enter..."
+msg "Please VERIFY that the above parameters are correct.  Continue? [y/n]"
 read -r value
+if [[ "$value" != "y" ]]; then
+  msg "You did not type 'y'. Exiting..."
+  exit 1
+fi
 msg "\n"
 
 # import the functions
