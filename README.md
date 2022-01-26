@@ -26,9 +26,19 @@ KEYRING_PASSWORD=.. ./scripts/node.sh -e docker
 >
 > In this case, you have two options.
 >
-> One option is to create the directory in advance and change the ownership to 1000:1001, where 1000 is axelard user inside container and 1001 is the axelard group inside the container. This requires root permission on the host machine.
+> **OPTION 1** is to create the directory in advance and change the ownership to 1000:1001, where 1000 is axelard user inside container and 1001 is the axelard group inside the container. This requires root permission on the host machine.
 >
-> The second option is to build the container image from source. Checkout the correct tag in axelar-core. Modify the Dockerfile in axelar-core to reflect your user and group. You will also have to modify the image name in the scripts here to deploy the image you just created.
+> **OPTION 2** is to build the container image from source. Checkout the correct tag in axelar-core. To create an image run:
+>
+> `make docker-image-local-user`
+>
+> This will create an image with the a tag `<version>-local`. For example, for `v0.0.0` the tag will be `v0.0.0-local`. This image will now use the same user id and group id for the axelard user inside the container as the user used to build it on your host and hence will have the same permissions.
+>
+> Now to run the node/vald processes, you just need to add `--user USER_ID:GROUP_ID` to the docker run commands in `docker.sh` and `validator-tools-docker.sh`(only for vald). Here USER_ID is your user id and GROUP_ID is your group id. You can use `id -u` and `id -g` to determine these respectively.
+>
+> When running the binary, specify the image you just created using the `-a` flag like `-a v0.0.0-local`.
+>
+> Note that the alpine base image already has some users and groups created and if there is a collision with one of the existing user id or group id in the base image, you have no option but to create a new user with different ids, unique from the ones in the base image.
 
 To recover from mnemonics, use `-t path_to_tendermint_key -m path_to_validator_mnemonic -r` (`-r` is to reset the chain).
 
