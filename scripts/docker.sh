@@ -10,6 +10,14 @@ check_environment() {
         exit 1
     fi
 
+    if [ -n "$(docker container ls --filter name=axelar-core -a -q)" ]; then
+        msg "Existing axelar-core container found."
+        msg "Either DELETE the existing container with 'docker rm axelar-core' and rerun the script to recreate another container with the updated scripts and the existing chain data"
+        msg "(the above will delete any container data in non-mounted folders)"
+        msg "OR if you simply want to restart the container, do 'docker start axelar-core'"
+        exit 1
+    fi
+
     if [[ -z "$KEYRING_PASSWORD" ]]; then msg "FAILED: env var KEYRING_PASSWORD missing"; exit 1; fi
 
     if [[ "${#KEYRING_PASSWORD}" -lt 8 ]]; then msg "FAILED: KEYRING_PASSWORD must have length at least 8"; exit 1; fi
