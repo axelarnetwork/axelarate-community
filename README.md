@@ -55,3 +55,8 @@ KEYRING_PASSWORD=.. TOFND_PASSWORD=.. ./scripts/validator-tools-host.sh
 ```
 
 To recover from mnemonics, use `-z path_to_tofnd_mnemonic -p path_to_proxy_mnemonic`.
+
+
+## Bug bounty and disclosure of vulnerabilities
+
+See the [Axelar documentation website](https://docs.axelar.dev/#/bug-bounty).
