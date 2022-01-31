@@ -138,7 +138,7 @@ parse_params() {
     fi
   elif [ "$network" == "testnet" ]; then
     if [ -z "${chain_id}" ]; then
-    chain_id=axelar-testnet-lisbon-2
+      chain_id=axelar-testnet-lisbon-2
     fi
     if [ -z "${root_directory}" ]; then
     root_directory="$HOME/.axelar_testnet"
