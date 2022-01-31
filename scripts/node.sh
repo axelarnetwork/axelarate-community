@@ -82,6 +82,18 @@ parse_params() {
   docker_network='axelarate_default'
   node_moniker="$(hostname | tr '[:upper:]' '[:lower:]')"
 
+  # Set the appropriate chain_id
+  if [ "$network" == "mainnet" ]; then
+    chain_id=axelar-dojo-1
+    root_directory="$HOME/.axelar"
+  elif [ "$network" == "testnet" ]; then
+    chain_id=axelar-testnet-lisbon-2
+    root_directory="$HOME/.axelar_testnet"
+  else
+    echo "Invalid network provided: ${network}"
+    exit 1
+  fi
+
   while :; do
     case "${1-}" in
     -h | --help) usage ;;
@@ -127,18 +139,6 @@ parse_params() {
   done
 
   args=("$@")
-
-  # Set the appropriate chain_id
-  if [ "$network" == "mainnet" ]; then
-    chain_id=axelar-dojo-1
-    root_directory="$HOME/.axelar"
-  elif [ "$network" == "testnet" ]; then
-    chain_id=axelar-testnet-lisbon-2
-    root_directory="$HOME/.axelar_testnet"
-  else
-    echo "Invalid network provided: ${network}"
-    exit 1
-  fi
 
   if [ -z "${axelar_core_version}" ]; then
     axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/"${network}"-releases.md  | grep axelar-core | cut -d \` -f 4)"
