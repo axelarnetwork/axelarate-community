@@ -141,7 +141,7 @@ parse_params() {
       chain_id=axelar-testnet-lisbon-2
     fi
     if [ -z "${root_directory}" ]; then
-    root_directory="$HOME/.axelar_testnet"
+      root_directory="$HOME/.axelar_testnet"
     fi
   else
     echo "Invalid network provided: ${network}"
