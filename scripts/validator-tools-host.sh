@@ -74,7 +74,7 @@ parse_params() {
   # default values of variables set from params
   axelar_core_version=""
   tofnd_version=""
-  root_directory="$HOME/.axelar_testnet"
+  root_directory=""
   git_root="$(git rev-parse --show-toplevel)"
   network="testnet"
   proxy_mnemonic_path='unset'
@@ -140,9 +140,19 @@ parse_params() {
 
   # Set the appropriate chain_id
   if [ "$network" == "mainnet" ]; then
-    chain_id=axelar-dojo-1
+    if [ -z "${chain_id}" ]; then
+      chain_id=axelar-dojo-1
+    fi
+    if [ -z "${root_directory}" ]; then
+      root_directory="$HOME/.axelar"
+    fi
   elif [ "$network" == "testnet" ]; then
-    chain_id=axelar-testnet-lisbon-2
+    if [ -z "${chain_id}" ]; then
+      chain_id=axelar-testnet-lisbon-2
+    fi
+    if [ -z "${root_directory}" ]; then
+      root_directory="$HOME/.axelar_testnet"
+    fi
   else
     echo "Invalid network provided: ${network}"
     exit 1
@@ -424,8 +434,12 @@ msg "\n"
 msg "WAIT to run this until your node has started processing the first block"
 msg "\n"
 
-msg "Please VERIFY that the above parameters are correct, and then press Enter..."
+msg "Please VERIFY that the above parameters are correct.  Continue? [y/n]"
 read -r value
+if [[ "$value" != "y" ]]; then
+  msg "You did not type 'y'. Exiting..."
+  exit 1
+fi
 msg "\n"
 
 # Create all required directories common to docker and host mode
