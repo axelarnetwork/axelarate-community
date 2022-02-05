@@ -39,6 +39,7 @@ cleanup() {
   trap - EXIT
   msg
   msg "script cleanup running"
+  exit
   # script cleanup here
 }
 
@@ -81,7 +82,7 @@ parse_params() {
   chain_id=''
   docker_network='axelarate_default'
   node_moniker="$(hostname | tr '[:upper:]' '[:lower:]')"
-  
+
   while :; do
     case "${1-}" in
     -h | --help) usage ;;
@@ -137,12 +138,11 @@ parse_params() {
       root_directory="$HOME/.axelar"
     fi
   elif [ "$network" == "testnet" ]; then
-    if [ -z "${chain_id}" ]; then
-      chain_id=axelar-testnet-lisbon-3
-    fi
-    if [ -z "${root_directory}" ]; then
-      root_directory="$HOME/.axelar_testnet"
-    fi
+    chain_id=axelar-testnet-lisbon-2
+    root_directory="$HOME/.axelar_testnet"
+  elif [ "$network" == "devnet" ]; then
+    chain_id=axelar-testnet-lisbon
+    root_directory="$HOME/.axelar_devnet"
   else
     echo "Invalid network provided: ${network}"
     exit 1
@@ -234,8 +234,8 @@ download_genesis_and_seeds() {
   local genesis_url
   local seeds_url
 
-  genesis_url="https://axelar-$network.s3.us-east-2.amazonaws.com/genesis.json"
-  seeds_url="https://axelar-$network.s3.us-east-2.amazonaws.com/seeds.txt"
+  genesis_url="https://axelar-$network.s3.us-east-2.amazonaws.com/static/genesis.json"
+  seeds_url="https://axelar-$network.s3.us-east-2.amazonaws.com/static/seeds.txt"
 
   msg "downloading genesis from $genesis_url"
   msg "downloading seeds from $seeds_url"

@@ -42,7 +42,7 @@ download_dependencies() {
     axelard_binary="axelard-${os}-${arch}-${axelar_core_version}"
     msg "downloading axelard binary $axelard_binary"
     if [[ ! -f "${axelard_binary_path}" ]]; then
-        curl -s --fail "https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
+        curl -s --fail "https://axelar-devnet.s3.us-east-2.amazonaws.com/static/${axelard_binary}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
     else
         msg "binary already downloaded"
     fi
@@ -95,9 +95,19 @@ prepare() {
     fi
 }
 
+setup_cosmovisor() {
+    mkdir -p ~/.axelar_devnet/.core/cosmovisor/genesis/bin
+    cp ~/.axelar_devnet/bin/axelard-v0.1.0 ~/.axelar_devnet/.core/cosmovisor/genesis/bin/axelard
+}
+
 run_node() {
+    setup_cosmovisor
     msg "\nrunning node"
-    "${axelard_binary_symlink}" start --home "${core_directory}" --moniker "${node_moniker}" > "${logs_directory}/axelard.log" 2>&1 &
+    export DAEMON_HOME=~/.axelar_devnet/.core
+    export DAEMON_NAME=axelard
+    export DAEMON_ALLOW_DOWNLOAD_BINARIES=true
+    ~/.axelar_devnet/bin/cosmovisor start --home "${core_directory}" --moniker "${node_moniker}"
+    # > "${logs_directory}/axelard.log" 2>&1 &
 }
 
 post_run_message() {
