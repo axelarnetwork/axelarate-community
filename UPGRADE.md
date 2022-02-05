@@ -27,8 +27,8 @@ cp -r ~/.axelar_testnet ~/.axelar_testnet_lisbon-2-upgrade-backup
 ```
 **Note that your state folder may exist at a different path if you are running your node with the binaries or if you used a non-default path.**
 
-4. Restart your node with the new v0.13.4 build
+4. Restart your node with the new v0.13.5 build
 
 Pull the latest main branch of this repo (axelarate-community).
 Follow instructions at [README](README.md) to start your node.
-The join scripts should automatically pull the new binary based on information at [testnet-releases.md](resources/testnet-releases.md).  Or you can add the flag `-a v0.13.4` to force a specific version.
+The join scripts should automatically pull the new binary based on information at [testnet-releases.md](resources/testnet-releases.md).  Or you can add the flag `-a v0.13.5` to force a specific version.
