@@ -3,7 +3,7 @@
 
 Variable  | Value
 ------------- | -------------
-`axelar-core` version | `v0.13.5`
+`axelar-core` version | `v0.13.6`
 `tofnd` version | `v0.8.2`
 Ethereum Axelar Gateway contract address | `0x4F4495243837681061C4743b74B3eEdf548D56A5`
 Ethereum AXL token address | `0x3eacbDC6C382ea22b78aCc158581A55aaF4ef3Cc`
@@ -33,7 +33,7 @@ Axelar -> Terra IBC channel id | `channel-0`
 Core Version  | Start Height | End Height
 ------------- | ------------- | -------------
 v0.10.7 | 0 | 384000
-v0.13.5 | 384001 | N/A
+v0.13.6 | 384001 | N/A
 
 # Minimum transfer amounts
 
