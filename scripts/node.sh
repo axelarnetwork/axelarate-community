@@ -29,7 +29,7 @@ Available options:
 -t, --tendermint-key-path     Path to tendermint key
 -m, --axelar-mnemonic-path    Path to axelar mnemonic key
 -e, --environment             Environment to run in [host|docker] [default: host]
--c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-2]
+-c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-3]
 -k, --node-moniker            Node Moniker [default: hostname]
 EOF
   exit
@@ -138,7 +138,7 @@ parse_params() {
     fi
   elif [ "$network" == "testnet" ]; then
     if [ -z "${chain_id}" ]; then
-      chain_id=axelar-testnet-lisbon-2
+      chain_id=axelar-testnet-lisbon-3
     fi
     if [ -z "${root_directory}" ]; then
       root_directory="$HOME/.axelar_testnet"
