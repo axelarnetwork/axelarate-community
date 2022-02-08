@@ -302,6 +302,11 @@ msg "- chain-id: ${chain_id}"
 msg "- arguments: ${args[*]-}"
 msg "\n"
 
+if [ -d "${root_directory}" ] && [ "${reset_chain}" -eq 0 ]; then
+    msg "Proceeding with existing data at ${root_directory}"
+    msg "\n"
+fi
+
 msg "Please VERIFY that the above parameters are correct.  Continue? [y/n]"
 read -r value
 if [[ "$value" != "y" ]]; then

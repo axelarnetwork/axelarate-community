@@ -1,6 +1,6 @@
 # Network Upgrade
 
-Instructions for 2022-jan-13 testnet chain id `axlear-testnet-lisbon-2` upgrade.
+Instructions for 2022-jan-13 testnet chain id `axlear-testnet-lisbon-3` upgrade.
 
 1. Validators please vote for the upgrade proposal via
 ```bash
@@ -23,12 +23,12 @@ pkill -f tofnd
 
 3. Backup the state and keys.  If you used the default path then do this in the host (outside the container):
 ```bash
-cp -r ~/.axelar_testnet ~/.axelar_testnet_lisbon-2-upgrade-backup
+cp -r ~/.axelar_testnet ~/.axelar_testnet_lisbon-3-upgrade-backup
 ```
 **Note that your state folder may exist at a different path if you are running your node with the binaries or if you used a non-default path.**
 
-4. Restart your node with the new v0.13.7 build
+4. Restart your node with the new v0.13.6 build
 
 Pull the latest main branch of this repo (axelarate-community).
 Follow instructions at [README](README.md) to start your node.
-The join scripts should automatically pull the new binary based on information at [testnet-releases.md](resources/testnet-releases.md).  Or you can add the flag `-a v0.13.7` to force a specific version.
+The join scripts should automatically pull the new binary based on information at [testnet-releases.md](resources/testnet-releases.md).  Or you can add the flag `-a v0.13.6` to force a specific version.
