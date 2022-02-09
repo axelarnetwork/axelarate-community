@@ -29,7 +29,7 @@ Available options:
 -p, --proxy-mnemonic-path     Path to broadcaster mnemonic
 -z, --tofnd-mnemonic-path     Path to tofnd mnemonic
 -e, --environment             Environment to run in [docker|host] (host uses release binaries)
--c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-2]
+-c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-3]
 -k, --node-moniker            Node Moniker [default: hostname]
 EOF
   exit
@@ -140,7 +140,7 @@ parse_params() {
   if [ "$network" == "mainnet" ]; then
     chain_id=axelar-dojo-1
   elif [ "$network" == "testnet" ]; then
-    chain_id=axelar-testnet-lisbon-2
+    chain_id=axelar-testnet-lisbon-3
   else
     echo "Invalid network provided: ${network}"
     exit 1
