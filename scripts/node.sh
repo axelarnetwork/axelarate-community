@@ -302,9 +302,13 @@ msg "- chain-id: ${chain_id}"
 msg "- arguments: ${args[*]-}"
 msg "\n"
 
-if [ -d "${root_directory}" ] && [ "${reset_chain}" -eq 0 ]; then
-    msg "Proceeding with existing data at ${root_directory}"
-    msg "\n"
+if [ "${reset_chain}" -eq 0 ]; then
+  if [ -d "${root_directory}" ]; then
+      msg "Proceeding with existing data at ${root_directory}"
+  else
+      msg "No existing data at ${root_directory}, creating new"
+  fi
+  msg "\n"
 fi
 
 msg "Please VERIFY that the above parameters are correct.  Continue? [y/n]"
