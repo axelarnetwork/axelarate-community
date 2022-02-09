@@ -304,9 +304,9 @@ msg "\n"
 
 if [ "${reset_chain}" -eq 0 ]; then
   if [ -d "${root_directory}" ]; then
-      msg "Proceeding with existing data at ${root_directory}"
+      msg "Found existing data dir: ${root_directory}"
   else
-      msg "No existing data at ${root_directory}, creating new"
+      msg "No existing data dir, creating new: ${root_directory}"
   fi
   msg "\n"
 fi
