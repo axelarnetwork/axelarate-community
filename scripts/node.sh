@@ -29,7 +29,7 @@ Available options:
 -t, --tendermint-key-path     Path to tendermint key
 -m, --axelar-mnemonic-path    Path to axelar mnemonic key
 -e, --environment             Environment to run in [host|docker] [default: host]
--c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-2]
+-c, --chain-id                Axelard Chain ID [default: axelar-testnet-lisbon-3]
 -k, --node-moniker            Node Moniker [default: hostname]
 EOF
   exit
@@ -138,7 +138,7 @@ parse_params() {
     fi
   elif [ "$network" == "testnet" ]; then
     if [ -z "${chain_id}" ]; then
-      chain_id=axelar-testnet-lisbon-2
+      chain_id=axelar-testnet-lisbon-3
     fi
     if [ -z "${root_directory}" ]; then
       root_directory="$HOME/.axelar_testnet"
@@ -301,6 +301,15 @@ msg "- script_dir: ${script_dir}"
 msg "- chain-id: ${chain_id}"
 msg "- arguments: ${args[*]-}"
 msg "\n"
+
+if [ "${reset_chain}" -eq 0 ]; then
+  if [ -d "${root_directory}" ]; then
+      msg "Found existing data dir: ${root_directory}"
+  else
+      msg "No existing data dir, creating new: ${root_directory}"
+  fi
+  msg "\n"
+fi
 
 msg "Please VERIFY that the above parameters are correct.  Continue? [y/n]"
 read -r value
