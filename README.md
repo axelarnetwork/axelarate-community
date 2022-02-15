@@ -7,7 +7,7 @@ The Axelar network is under active development.  Use at your own risk with funds
 
 ## Join as a node
 
-See [Setup instructions](https://docs.axelar.dev/#/parent-pages/setup).
+See [Setup instructions](https://docs.axelar.dev/#/node).
 
 ## Bug bounty and disclosure of vulnerabilities
 
