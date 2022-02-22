@@ -263,12 +263,13 @@ copy_configuration_files() {
     echo "NOTE: external_address has not been set in ${git_root}/configuration/config.toml. You might not need it."
   fi
 
-  if [ ! -f "${shared_directory}/app.toml" ]; then
-    msg "copying app.toml"
-    cp "${git_root}/configuration/app.toml" "${shared_directory}/app.toml"
-  else
-    msg "app.toml already exists"
+  if [ -f "${shared_directory}/app.toml" ]; then
+    msg "backing up existing app.toml and overwriting it"
+    cp "${shared_directory}/app.toml" "${shared_directory}/app.toml.backup"
   fi
+
+  msg "copying app.toml"
+  cp "${git_root}/configuration/app.toml" "${shared_directory}/app.toml"
 }
 
 import_functions() {

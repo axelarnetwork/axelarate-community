@@ -226,12 +226,13 @@ copy_configuration_files() {
   echo "overwriting configuration file"
   cp "${git_root}/configuration/config.toml" "${shared_directory}/config.toml"
 
-  if [ ! -f "${shared_directory}/app.toml" ]; then
-    msg "copying app.toml"
-    cp "${git_root}/configuration/app.toml" "${shared_directory}/app.toml"
-  else
-    msg "app.toml already exists"
+  if [ -f "${shared_directory}/app.toml" ]; then
+    msg "backing up existing app.toml and overwriting it"
+    cp "${shared_directory}/app.toml" "${shared_directory}/app.toml.backup"
   fi
+
+  msg "copying app.toml"
+  cp "${git_root}/configuration/app.toml" "${shared_directory}/app.toml"
 }
 
 check_environment() {
