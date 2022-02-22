@@ -20,7 +20,12 @@ pkill -f tofnd
 cp -r ~/.axelar_testnet ~/.axelar_testnet_lisbon-3-upgrade-0.14
 ```
 
-4. Restart your node with the new v0.14.0 build
+4. Restart your node with the new v0.14.0 build. Remember you need to run both the `node.sh` and `validator-tools-host.sh` scripts
+```bash
+KEYRING_PASSWORD=<pw-1> ./scripts/node.sh 
+KEYRING_PASSWORD="pw-1" TOFND_PASSWORD="pw-2" ./scripts/validator-tools-host.sh 
+
+```
 
 Pull the latest main branch of this repo (axelarate-community).
 Follow instructions at [README](README.md) to start your node.
