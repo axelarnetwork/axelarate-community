@@ -24,7 +24,6 @@ cp -r ~/.axelar_testnet ~/.axelar_testnet_lisbon-3-upgrade-0.14
 ```bash
 KEYRING_PASSWORD=<pw-1> ./scripts/node.sh 
 KEYRING_PASSWORD="pw-1" TOFND_PASSWORD="pw-2" ./scripts/validator-tools-host.sh 
-
 ```
 
 Pull the latest main branch of this repo (axelarate-community).
