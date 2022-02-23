@@ -1,6 +1,6 @@
 # Network Upgrade
 
-Instructions for 2022-feb-22 testnet chain id `axlear-testnet-lisbon-3` upgrade.
+Instructions for 2022-feb-22 testnet chain id `axelar-testnet-lisbon-3` upgrade.
 
 1. Validators please vote for the upgrade proposal via
 ```bash
