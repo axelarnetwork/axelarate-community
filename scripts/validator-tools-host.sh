@@ -251,6 +251,16 @@ copy_configuration_files() {
 
 download_dependencies() {
     msg "\ndownloading required dependencies"
+
+    msg "checking axelard binary"
+    if [[ ! -f "${axelard_binary_path}" ]]; then
+        msg "expected binary version ${axelard_binary_path} not present"
+        msg "make sure you have updated the node to this version first using the node script"
+        exit 1
+    else
+        msg "axelard binary version is present"
+    fi
+
     local tofnd_binary
     tofnd_binary="tofnd-${os}-${arch}-${tofnd_version}"
     if [ ! -f "${tofnd_binary_path}" ] && { [ "${os}" != "linux" ] || [ "${arch}" != "amd64" ]; }; then
