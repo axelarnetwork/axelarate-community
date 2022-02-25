@@ -256,6 +256,7 @@ download_dependencies() {
     if [[ ! -f "${axelard_binary_path}" ]]; then
         msg "expected binary version ${axelard_binary_path} not present"
         msg "make sure you have updated the node to this version first using the node script"
+        exit 1
     else
         msg "axelard binary version is present"
     fi
