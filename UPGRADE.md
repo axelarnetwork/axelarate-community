@@ -25,7 +25,7 @@ cp -r ~/.axelar ~/.axelar_dojo-1-upgrade-0.14
 4. Restart your node with the new v0.14.1 build. Remember you need to run both the `node.sh` and `validator-tools-host.sh` scripts
 
 ```bash
-KEYRING_PASSWORD=<pw-1> ./scripts/node.sh
+KEYRING_PASSWORD="pw-1" ./scripts/node.sh
 KEYRING_PASSWORD="pw-1" TOFND_PASSWORD="pw-2" ./scripts/validator-tools-host.sh
 ```
 
