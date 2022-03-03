@@ -14,8 +14,8 @@ See [Setup instructions](https://docs.axelar.dev/roles/node/join).
 
 Lists of seed nodes:
 
-- [mainnet/seeds.json](/resources/mainnet/seeds.json)
-- [testnet/seeds.json](/resources/testnet/seeds.json)
+- [mainnet/seeds.toml](/resources/mainnet/seeds.toml)
+- [testnet/seeds.toml](/resources/testnet/seeds.toml)
 
 ### Add your seed node to the list
 
@@ -23,16 +23,14 @@ Submit a pull request!
 
 ### Use these seeds to join the Axelar network
 
+By default, the predefined seeds in `resources/{network}/seeds.toml` (mainnet|testnet) are used. You can add additional seeds there.
+
+####Alternative ways to define seeds
 Pass seeds into `axelard` as a comma-separated list (csv) of the form `ID@host:port,ID@host:port,...` via:
 
 - the `--p2p.seeds` flag for `axelard start`, or
 - in the `seeds` entry in `config.toml`
 
-Use the `seeds.json` files in this repo to produce a csv list via
-
-```bash
-cat seeds.json | jq -r '. | map(.seed) | join(",")'
-```
 
 ## Bug bounty and disclosure of vulnerabilities
 

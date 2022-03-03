@@ -286,6 +286,9 @@ copy_configuration_files() {
 
   msg "copying app.toml"
   cp "${git_root}/configuration/app.toml" "${shared_directory}/app.toml"
+
+  msg "copying seeds.toml"
+  cp "${git_root}/resources/${network}/seeds.toml" "${shared_directory}/seeds.toml"
 }
 
 import_functions() {
