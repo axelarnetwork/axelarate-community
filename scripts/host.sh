@@ -61,8 +61,11 @@ download_dependencies() {
     msg "copying genesis to configuration directory"
     cp "${shared_directory}/genesis.json" "${config_directory}/genesis.json"
 
-    msg "copying seeds to configuration directory"
+    msg "copying seeds.txt to configuration directory"
     cp "${shared_directory}/seeds.txt" "${config_directory}/seeds.txt"
+
+    msg "copying seeds.toml to configuration directory"
+    cp "${shared_directory}/seeds.toml" "${config_directory}/seeds.toml"
 
     msg "copying config.toml to configuration directory and adding seeds"
     cp "${shared_directory}/config.toml" "${config_directory}/config.toml"
