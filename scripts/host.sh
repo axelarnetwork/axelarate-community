@@ -42,7 +42,14 @@ download_dependencies() {
     axelard_binary="axelard-${os}-${arch}-${axelar_core_version}"
     msg "downloading axelard binary $axelard_binary"
     if [[ ! -f "${axelard_binary_path}" ]]; then
-        curl -s --fail "https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
+        local axelard_binary_url
+        
+        if [ "$network" == "hacknet" ]; then
+            axelard_binary_url="https://axelar-hackathons.s3.us-east-2.amazonaws.com/avalanche-summit/binaries/${axelard_binary}"
+        else
+            axelard_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}"
+        fi
+        curl -s --fail "${axelard_binary_url}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
     else
         msg "binary already downloaded"
     fi
