@@ -143,6 +143,13 @@ parse_params() {
     if [ -z "${root_directory}" ]; then
       root_directory="$HOME/.axelar_testnet"
     fi
+  elif [ "$network" == "hacknet" ]; then
+    if [ -z "${chain_id}" ]; then
+      chain_id=axelar-devnet-rammstein-3
+    fi
+    if [ -z "${root_directory}" ]; then
+      root_directory="$HOME/.axelar_hacknet"
+    fi
   else
     echo "Invalid network provided: ${network}"
     exit 1
@@ -230,24 +237,33 @@ create_directories() {
 }
 
 download_genesis_and_seeds() {
-  msg "downloading Genesis and Seeds files"
   local genesis_url
   local seeds_url
 
-  genesis_url="https://axelar-$network.s3.us-east-2.amazonaws.com/genesis.json"
-  seeds_url="https://axelar-$network.s3.us-east-2.amazonaws.com/seeds.txt"
-
-  msg "downloading genesis from $genesis_url"
-  msg "downloading seeds from $seeds_url"
-
   if [ ! -f "${shared_directory}/genesis.json" ]; then
-    curl -s "$genesis_url" -o "${shared_directory}/genesis.json"
+    if [ "$network" == "hacknet" ]; then
+      genesis_url="${git_root}/resources/hacknet/genesis.json"
+      msg "import genesis from $genesis_url"
+      cp "${genesis_url}" "${shared_directory}/genesis.json"
+    else
+      genesis_url="https://axelar-$network.s3.us-east-2.amazonaws.com/genesis.json"
+      msg "download genesis from $genesis_url"
+      curl -s "$genesis_url" -o "${shared_directory}/genesis.json"
+    fi
   else
     msg "genesis file already exists"
   fi
 
   if [ ! -f "${shared_directory}/seeds.txt" ]; then
-    curl -s "$seeds_url" -o "${shared_directory}/seeds.txt"
+    if [ "$network" == "hacknet" ]; then
+      seeds_url="${git_root}/resources/hacknet/seeds.txt"
+      msg "import seeds from $seeds_url"
+      cp "${seeds_url}" "${shared_directory}/seeds.txt"
+    else
+      seeds_url="https://axelar-$network.s3.us-east-2.amazonaws.com/seeds.txt"
+      msg "download seeds from $seeds_url"
+      curl -s "$seeds_url" -o "${shared_directory}/seeds.txt"
+    fi
   else
     msg "seeds file already exists"
   fi
