@@ -1,0 +1,689 @@
+{
+  "uaxl": {
+    "common_key": {
+      "devnet": "uaxl",
+      "testnet": "uaxl",
+      "mainnet": "uaxl"
+    },
+    "native_chain": "axelar",
+    "fully_supported": true,
+    "decimals": 6,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "AXL",
+        "assetName": "AXL",
+        "minDepositAmt": 0.05,
+        "ibcDenom": "uaxl",
+        "fullDenomPath": "uaxl"
+      },
+      "moonbeam": {
+        "assetSymbol": "AXL",
+        "assetName": "AXL (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uaxl",
+        "fullDenomPath": "uaxl"
+      },
+      "fantom": {
+        "assetSymbol": "AXL",
+        "assetName": "AXL (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uaxl",
+        "fullDenomPath": "uaxl"
+      },
+      "ethereum": {
+        "assetSymbol": "AXL",
+        "assetName": "AXL (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uaxl",
+        "fullDenomPath": "uaxl"
+      },
+      "avalanche": {
+        "assetSymbol": "AXL",
+        "assetName": "AXL (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uaxl",
+        "fullDenomPath": "uaxl"
+      },
+      "polygon": {
+        "assetSymbol": "AXL",
+        "assetName": "AXL (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uaxl",
+        "fullDenomPath": "uaxl"
+      }
+    }
+  },
+  "uusd": {
+    "common_key": {
+      "devnet": "uusd",
+      "testnet": "uusd",
+      "mainnet": "uusd"
+    },
+    "native_chain": "terra",
+    "fully_supported": true,
+    "decimals": 6,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "UST",
+        "assetName": "UST",
+        "minDepositAmt": 0.05,
+        "ibcDenom": "ibc/6F4968A73F90CF7DE6394BF937D6DF7C7D162D74D839C13F53B41157D315E05F",
+        "fullDenomPath": "transfer/channel-0/uusd"
+      },
+      "moonbeam": {
+        "assetSymbol": "UST",
+        "assetName": "UST (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uusd",
+        "fullDenomPath": "uusd"
+      },
+      "fantom": {
+        "assetSymbol": "UST",
+        "assetName": "UST (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uusd",
+        "fullDenomPath": "uusd"
+      },
+      "ethereum": {
+        "assetSymbol": "UST",
+        "assetName": "UST (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uusd",
+        "fullDenomPath": "uusd"
+      },
+      "avalanche": {
+        "assetSymbol": "UST",
+        "assetName": "UST (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uusd",
+        "fullDenomPath": "uusd"
+      },
+      "polygon": {
+        "assetSymbol": "UST",
+        "assetName": "UST (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uusd",
+        "fullDenomPath": "uusd"
+      },
+      "terra": {
+        "assetSymbol": "UST",
+        "assetName": "UST",
+        "minDepositAmt": 0.05,
+        "ibcDenom": "uusd",
+        "fullDenomPath": "uusd"
+      }
+    }
+  },
+  "uluna": {
+    "common_key": {
+      "devnet": "uluna",
+      "testnet": "uluna",
+      "mainnet": "uluna"
+    },
+    "native_chain": "terra",
+    "fully_supported": true,
+    "decimals": 6,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "LUNA",
+        "assetName": "LUNA",
+        "minDepositAmt": 0.0006,
+        "ibcDenom": "ibc/4627AD2524E3E0523047E35BB76CC90E37D9D57ACF14F0FCBCEB2480705F3CB8",
+        "fullDenomPath": "transfer/channel-0/uluna"
+      },
+      "moonbeam": {
+        "assetSymbol": "LUNA",
+        "assetName": "LUNA (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "uluna",
+        "fullDenomPath": "uluna"
+      },
+      "fantom": {
+        "assetSymbol": "LUNA",
+        "assetName": "LUNA (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "uluna",
+        "fullDenomPath": "uluna"
+      },
+      "ethereum": {
+        "assetSymbol": "LUNA",
+        "assetName": "LUNA (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "uluna",
+        "fullDenomPath": "uluna"
+      },
+      "avalanche": {
+        "assetSymbol": "LUNA",
+        "assetName": "LUNA (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "uluna",
+        "fullDenomPath": "uluna"
+      },
+      "polygon": {
+        "assetSymbol": "LUNA",
+        "assetName": "LUNA (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "uluna",
+        "fullDenomPath": "uluna"
+      },
+      "terra": {
+        "assetSymbol": "LUNA",
+        "assetName": "LUNA",
+        "minDepositAmt": 0.0006,
+        "ibcDenom": "uluna",
+        "fullDenomPath": "uluna"
+      }
+    }
+  },
+  "wmatic-wei": {
+    "common_key": {
+      "devnet": "wmatic-wei",
+      "testnet": "wmatic-wei",
+      "mainnet": "wmatic-wei"
+    },
+    "native_chain": "polygon",
+    "fully_supported": true,
+    "decimals": 18,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC",
+        "minDepositAmt": 0.03,
+        "ibcDenom": "wmatic-wei",
+        "fullDenomPath": "wmatic-wei"
+      },
+      "moonbeam": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC (Axelar-wrapped)",
+        "minDepositAmt": 0.07,
+        "ibcDenom": "wmatic-wei",
+        "fullDenomPath": "wmatic-wei"
+      },
+      "fantom": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC (Axelar-wrapped)",
+        "minDepositAmt": 0.07,
+        "ibcDenom": "wmatic-wei",
+        "fullDenomPath": "wmatic-wei"
+      },
+      "ethereum": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC (Axelar-wrapped)",
+        "minDepositAmt": 0.07,
+        "ibcDenom": "wmatic-wei",
+        "fullDenomPath": "wmatic-wei"
+      },
+      "avalanche": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC (Axelar-wrapped)",
+        "minDepositAmt": 0.07,
+        "ibcDenom": "wmatic-wei",
+        "fullDenomPath": "wmatic-wei"
+      },
+      "polygon": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC",
+        "minDepositAmt": 0.07,
+        "ibcDenom": "wmatic-wei",
+        "fullDenomPath": "wmatic-wei"
+      },
+      "cosmoshub": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC",
+        "minDepositAmt": 0.03,
+        "ibcDenom": "ibc/1BE5BF73F50D2D82C74628C6290834E66C5467F231B7FBC7DD45E217EE1D42A5",
+        "fullDenomPath": "transfer/channel-238/wmatic-wei"
+      },
+      "osmosis": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC",
+        "minDepositAmt": 0.03,
+        "ibcDenom": "ibc/67D0DAF8D504ED1616A1886CCECB4E366DC81A8EF48BD22AEA1F44BE87ED19AE",
+        "fullDenomPath": "transfer/channel-184/wmatic-wei"
+      },
+      "terra": {
+        "assetSymbol": "WMATIC",
+        "assetName": "WMATIC",
+        "minDepositAmt": 0.03,
+        "ibcDenom": "ibc/90CC92BD6683D3D39933223D50FB678B6C2EDC4F4B048E21BF358570B2087916",
+        "fullDenomPath": "transfer/channel-78/wmatic-wei"
+      }
+    }
+  },
+  "wftm-wei": {
+    "common_key": {
+      "devnet": "wftm-wei",
+      "testnet": "wftm-wei",
+      "mainnet": "wftm-wei"
+    },
+    "native_chain": "fantom",
+    "fully_supported": true,
+    "decimals": 18,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "wftm-wei",
+        "fullDenomPath": "wftm-wei"
+      },
+      "moonbeam": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM (Axelar-wrapped)",
+        "minDepositAmt": 0.08,
+        "ibcDenom": "wftm-wei",
+        "fullDenomPath": "wftm-wei"
+      },
+      "fantom": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM",
+        "minDepositAmt": 0.08,
+        "ibcDenom": "wftm-wei",
+        "fullDenomPath": "wftm-wei"
+      },
+      "ethereum": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM (Axelar-wrapped)",
+        "minDepositAmt": 0.08,
+        "ibcDenom": "wftm-wei",
+        "fullDenomPath": "wftm-wei"
+      },
+      "avalanche": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM (Axelar-wrapped)",
+        "minDepositAmt": 0.08,
+        "ibcDenom": "wftm-wei",
+        "fullDenomPath": "wftm-wei"
+      },
+      "polygon": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM (Axelar-wrapped)",
+        "minDepositAmt": 0.08,
+        "ibcDenom": "wftm-wei",
+        "fullDenomPath": "wftm-wei"
+      },
+      "cosmoshub": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "ibc/947B84E653CBEC9386287883173A40D3C0A284AB554557342C50378219ECE147",
+        "fullDenomPath": "transfer/channel-238/wftm-wei"
+      },
+      "osmosis": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "ibc/033C5FCE2C549920B75CC794D12BC3407F638421C982CE9B48D4E5D986F4EFCE",
+        "fullDenomPath": "transfer/channel-184/wftm-wei"
+      },
+      "terra": {
+        "assetSymbol": "WFTM",
+        "assetName": "WFTM",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "ibc/95482BCD668E74C030E1B8CE0874A447A593C144C8E9DB41BE05B7A9495ECDD7",
+        "fullDenomPath": "transfer/channel-78/wftm-wei"
+      }
+    }
+  },
+  "weth-wei": {
+    "common_key": {
+      "devnet": "weth-wei",
+      "testnet": "weth-wei",
+      "mainnet": "weth-wei"
+    },
+    "native_chain": "ethereum",
+    "fully_supported": true,
+    "decimals": 18,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH",
+        "minDepositAmt": 2e-05,
+        "ibcDenom": "weth-wei",
+        "fullDenomPath": "weth-wei"
+      },
+      "moonbeam": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH (Axelar-wrapped)",
+        "minDepositAmt": 4e-05,
+        "ibcDenom": "weth-wei",
+        "fullDenomPath": "weth-wei"
+      },
+      "fantom": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH (Axelar-wrapped)",
+        "minDepositAmt": 4e-05,
+        "ibcDenom": "weth-wei",
+        "fullDenomPath": "weth-wei"
+      },
+      "ethereum": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH",
+        "minDepositAmt": 4e-05,
+        "ibcDenom": "weth-wei",
+        "fullDenomPath": "weth-wei"
+      },
+      "avalanche": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH (Axelar-wrapped)",
+        "minDepositAmt": 4e-05,
+        "ibcDenom": "weth-wei",
+        "fullDenomPath": "weth-wei"
+      },
+      "polygon": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH (Axelar-wrapped)",
+        "minDepositAmt": 4e-05,
+        "ibcDenom": "weth-wei",
+        "fullDenomPath": "weth-wei"
+      },
+      "cosmoshub": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH",
+        "minDepositAmt": 2e-05,
+        "ibcDenom": "ibc/DEC3B614DEA87E77AFABE3EDA1F95A7E1A429080950AD9B0AF257FE01706CA0B",
+        "fullDenomPath": "transfer/channel-238/weth-wei"
+      },
+      "osmosis": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH",
+        "minDepositAmt": 2e-05,
+        "ibcDenom": "ibc/A8C7A5D5767DECBAF96AFDE4C2D99D95BE9FF38CA75BE3A1CD31E3D20264EFF9",
+        "fullDenomPath": "transfer/channel-184/weth-wei"
+      },
+      "terra": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH",
+        "minDepositAmt": 2e-05,
+        "ibcDenom": "ibc/E614301CF4F54C23FAEEBF50F33D247AC743E9F247AB094AC57F68DB3A80635C",
+        "fullDenomPath": "transfer/channel-78/weth-wei"
+      },
+      "crescent": {
+        "assetSymbol": "WETH",
+        "assetName": "WETH",
+        "minDepositAmt": 2e-05,
+        "ibcDenom": "ibc/AAD7136DD626569C3DDE7C5F764968BB2E939875EFC568AE5712B62081850814",
+        "fullDenomPath": "transfer/channel-3/weth-wei"
+      }
+    }
+  },
+  "wavax-wei": {
+    "common_key": {
+      "devnet": "wavax-wei",
+      "testnet": "wavax-wei",
+      "mainnet": "wavax-wei"
+    },
+    "native_chain": "avalanche",
+    "fully_supported": true,
+    "decimals": 18,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX",
+        "minDepositAmt": 0.0007,
+        "ibcDenom": "wavax-wei",
+        "fullDenomPath": "wavax-wei"
+      },
+      "moonbeam": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "wavax-wei",
+        "fullDenomPath": "wavax-wei"
+      },
+      "fantom": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "wavax-wei",
+        "fullDenomPath": "wavax-wei"
+      },
+      "ethereum": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "wavax-wei",
+        "fullDenomPath": "wavax-wei"
+      },
+      "avalanche": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "wavax-wei",
+        "fullDenomPath": "wavax-wei"
+      },
+      "polygon": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX (Axelar-wrapped)",
+        "minDepositAmt": 0.001,
+        "ibcDenom": "wavax-wei",
+        "fullDenomPath": "wavax-wei"
+      },
+      "cosmoshub": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX",
+        "minDepositAmt": 0.0007,
+        "ibcDenom": "ibc/88C2DE3AE63A443385CDFE54A18B0FC48402DDF3FE5AC532A663F9C3A1144462",
+        "fullDenomPath": "transfer/channel-238/wavax-wei"
+      },
+      "osmosis": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX",
+        "minDepositAmt": 0.0007,
+        "ibcDenom": "ibc/9534907D2838E2134F21CC286A4CD0FF3CA96AA032F9F695ABF5621CC98AB17F",
+        "fullDenomPath": "transfer/channel-184/wavax-wei"
+      },
+      "terra": {
+        "assetSymbol": "WAVAX",
+        "assetName": "WAVAX",
+        "minDepositAmt": 0.0007,
+        "ibcDenom": "ibc/0D2A39F3DF653685ED16DED245C83A51B9DD6CB8A55DE2C39D194BE44C108765",
+        "fullDenomPath": "transfer/channel-78/wavax-wei"
+      }
+    }
+  },
+  "wdev-wei": {
+    "common_key": {
+      "devnet": "wdev-wei",
+      "testnet": "wdev-wei",
+      "mainnet": "wglmr-wei"
+    },
+    "native_chain": "moonbeam",
+    "fully_supported": true,
+    "decimals": 18,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV",
+        "minDepositAmt": 0.02,
+        "ibcDenom": "wdev-wei",
+        "fullDenomPath": "wdev-wei"
+      },
+      "moonbeam": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "wdev-wei",
+        "fullDenomPath": "wdev-wei"
+      },
+      "fantom": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV (Axelar-wrapped)",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "wdev-wei",
+        "fullDenomPath": "wdev-wei"
+      },
+      "ethereum": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV (Axelar-wrapped)",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "wdev-wei",
+        "fullDenomPath": "wdev-wei"
+      },
+      "avalanche": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV (Axelar-wrapped)",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "wdev-wei",
+        "fullDenomPath": "wdev-wei"
+      },
+      "polygon": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV (Axelar-wrapped)",
+        "minDepositAmt": 0.04,
+        "ibcDenom": "wdev-wei",
+        "fullDenomPath": "wdev-wei"
+      },
+      "cosmoshub": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV",
+        "minDepositAmt": 0.02,
+        "ibcDenom": "ibc/12B944E03F3E2197589129CB359E1BD5FA3F06841792FFE46852EAFE31EEB20A",
+        "fullDenomPath": "transfer/channel-238/wdev-wei"
+      },
+      "osmosis": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV",
+        "minDepositAmt": 0.02,
+        "ibcDenom": "ibc/D3AF2C7986FA1191157529F68609887103EBBD0B9CAFAD615CF19B419E2F5566",
+        "fullDenomPath": "transfer/channel-184/wdev-wei"
+      },
+      "terra": {
+        "assetSymbol": "WDEV",
+        "assetName": "WDEV",
+        "minDepositAmt": 0.02,
+        "ibcDenom": "ibc/2A3208A0A402373F2E3E43228FC51F298433CE1BA5EDBF246ACE5F2E5111448E",
+        "fullDenomPath": "transfer/channel-78/wdev-wei"
+      }
+    }
+  },
+  "uatom": {
+    "common_key": {
+      "devnet": "uatom",
+      "testnet": "uatom",
+      "mainnet": "uatom"
+    },
+    "native_chain": "cosmoshub",
+    "fully_supported": true,
+    "decimals": 6,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "ATOM",
+        "assetName": "ATOM",
+        "minDepositAmt": 0.002,
+        "ibcDenom": "ibc/EF48E6B1A1A19F47ECAEA62F5670C37C0580E86A9E88498B7E393EB6F49F33C0",
+        "fullDenomPath": "transfer/channel-4/uatom"
+      },
+      "moonbeam": {
+        "assetSymbol": "ATOM",
+        "assetName": "ATOM (Axelar-wrapped)",
+        "minDepositAmt": 0.004,
+        "ibcDenom": "uatom",
+        "fullDenomPath": "uatom"
+      },
+      "fantom": {
+        "assetSymbol": "ATOM",
+        "assetName": "ATOM (Axelar-wrapped)",
+        "minDepositAmt": 0.004,
+        "ibcDenom": "uatom",
+        "fullDenomPath": "uatom"
+      },
+      "ethereum": {
+        "assetSymbol": "ATOM",
+        "assetName": "ATOM (Axelar-wrapped)",
+        "minDepositAmt": 0.004,
+        "ibcDenom": "uatom",
+        "fullDenomPath": "uatom"
+      },
+      "avalanche": {
+        "assetSymbol": "ATOM",
+        "assetName": "ATOM (Axelar-wrapped)",
+        "minDepositAmt": 0.004,
+        "ibcDenom": "uatom",
+        "fullDenomPath": "uatom"
+      },
+      "polygon": {
+        "assetSymbol": "ATOM",
+        "assetName": "ATOM (Axelar-wrapped)",
+        "minDepositAmt": 0.004,
+        "ibcDenom": "uatom",
+        "fullDenomPath": "uatom"
+      },
+      "cosmoshub": {
+        "assetSymbol": "ATOM",
+        "assetName": "ATOM",
+        "minDepositAmt": 0.002,
+        "ibcDenom": "uatom",
+        "fullDenomPath": "uatom"
+      }
+    }
+  },
+  "uausdc": {
+    "common_key": {
+      "devnet": "uausdc",
+      "testnet": "uausdc",
+      "mainnet": "uausdc"
+    },
+    "native_chain": "ethereum",
+    "fully_supported": true,
+    "decimals": 6,
+    "chain_aliases": {
+      "axelar": {
+        "assetSymbol": "aUSDC",
+        "assetName": "aUSDC",
+        "minDepositAmt": 0.05,
+        "ibcDenom": "uausdc",
+        "fullDenomPath": "uausdc"
+      },
+      "moonbeam": {
+        "assetSymbol": "aUSDC",
+        "assetName": "aUSDC (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uausdc",
+        "fullDenomPath": "uausdc"
+      },
+      "fantom": {
+        "assetSymbol": "aUSDC",
+        "assetName": "aUSDC (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uausdc",
+        "fullDenomPath": "uausdc"
+      },
+      "ethereum": {
+        "assetSymbol": "aUSDC",
+        "assetName": "aUSDC",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uausdc",
+        "fullDenomPath": "uausdc"
+      },
+      "avalanche": {
+        "assetSymbol": "aUSDC",
+        "assetName": "aUSDC (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uausdc",
+        "fullDenomPath": "uausdc"
+      },
+      "polygon": {
+        "assetSymbol": "aUSDC",
+        "assetName": "aUSDC (Axelar-wrapped)",
+        "minDepositAmt": 0.1,
+        "ibcDenom": "uausdc",
+        "fullDenomPath": "uausdc"
+      },
+      "cosmoshub": {
+        "assetSymbol": "aUSDC",
+        "assetName": "aUSDC",
+        "minDepositAmt": 0.05,
+        "ibcDenom": "ibc/3DC20E9A12C8F19A92CDEBC37116C26EADF4C65E7498193791A3DAAD0B263556",
+        "fullDenomPath": "transfer/channel-238/uausdc"
+      },
+      "osmosis": {
+        "assetSymbol": "aUSDC",
+        "assetName": "aUSDC",
+        "minDepositAmt": 0.05,
+        "ibcDenom": "ibc/423FB88C7D1D4FCA2F7E67F07473DB4BB14282AE6F7B1A41B220A1AD9A762254",
+        "fullDenomPath": "transfer/channel-184/uausdc"
+      }
+    }
+  }
+}
