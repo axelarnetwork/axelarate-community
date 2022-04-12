@@ -74,7 +74,6 @@ download_dependencies() {
 
 prepare() {
     msg "\npreparing for binary deployment"
-    set -x
     local accounts
     local has_validator
     accounts="$(echo "$KEYRING_PASSWORD" | "${axelard_binary_path}" keys list -n --home "${core_directory}" 2>&1)"
