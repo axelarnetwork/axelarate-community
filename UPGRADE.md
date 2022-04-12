@@ -31,4 +31,4 @@ KEYRING_PASSWORD="pw-1" TOFND_PASSWORD="pw-2" ./scripts/validator-tools-host.sh
 
 Pull the latest main branch of this repo (axelarate-community).
 Follow instructions at [README](README.md) to start your node.
-The join scripts should automatically pull the new binary from [Testnet releases](https://docs.axelar.dev/releases/testnet). Or you can add the flag `-a v0.15.0` to force a specific version.
+The join scripts should automatically pull the new binary from [Testnet releases](https://docs.axelar.dev/resources/testnet). Or you can add the flag `-a v0.15.0` to force a specific version.
