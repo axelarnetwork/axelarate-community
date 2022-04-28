@@ -251,10 +251,25 @@ copy_configuration_files() {
 
 download_dependencies() {
     msg "\ndownloading required dependencies"
+    local axelard_binary
+    axelard_binary="axelard-${os}-${arch}-${axelar_core_version}"
+    msg "downloading axelard binary $axelard_binary"
+    if [[ ! -f "${bin_directory}/${axelard_binary}" ]]; then
+        local axelard_binary_url
+        
+        if [ "$network" == "hacknet" ]; then
+            axelard_binary_url="https://axelar-hackathons.s3.us-east-2.amazonaws.com/avalanche-summit/binaries/${axelard_binary}"
+        else
+            axelard_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}"
+        fi
+        curl -s --fail "${axelard_binary_url}" -o "${bin_directory}/${axelard_binary}" && chmod +x "${bin_directory}/${axelard_binary}"
+    else
+        msg "binary already downloaded"
+    fi
 
     msg "checking axelard binary"
-    if [[ ! -f "${axelard_binary_path}" ]]; then
-        msg "expected binary version ${axelard_binary_path} not present"
+    if [[ ! -f "${bin_directory}/${axelard_binary}" ]]; then
+        msg "expected binary version ${axelard_binary} not present"
         msg "make sure you have updated the node to this version first using the node script"
         exit 1
     else
@@ -389,7 +404,7 @@ run_processes() {
         recovery="--tofnd-recovery=${recovery_file}"
     fi
 
-    echo "${KEYRING_PASSWORD}" | "${axelard_binary_path}" vald-start ${tofnd_host:+--tofnd-host "${tofnd_host}"} \
+    echo "${KEYRING_PASSWORD}" | "${axelard_binary_path}-${os}-${arch}-${axelar_core_version}" vald-start ${tofnd_host:+--tofnd-host "${tofnd_host}"} \
         ${validator_host:+--node "${validator_host}"} \
         --home "${vald_directory}" \
         --validator-addr "${validator_address}" \
