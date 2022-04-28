@@ -329,10 +329,10 @@ check_environment() {
     if [[ -z "$TOFND_PASSWORD" ]]; then msg "FAILED: env var TOFND_PASSWORD missing"; exit 1; fi
     if [[ "${#TOFND_PASSWORD}" -lt 8 ]]; then msg "FAILED: TOFND_PASSWORD must have length at least 8"; exit 1; fi
 
-    if [ ! -f "${axelard_binary_path}" ]; then
-      echo "Cannot find axelard binary at ${axelard_binary_path}. Did you launch the node correctly?"
-      exit 1
-    fi
+    # if [ ! -f "${axelard_binary_path}" ]; then
+    #   echo "Cannot find axelard binary at ${axelard_binary_path}. Did you launch the node correctly?"
+    #   exit 1
+    # fi
 
     if [ "$(ulimit -n)" -lt "${MAX_OPEN_FILES}" ]; then
         echo "FAILED: Number of allowed open files is too low. 'ulimit -n' is below ${MAX_OPEN_FILES}. Run 'ulimit -n ${MAX_OPEN_FILES}' to increase it."
