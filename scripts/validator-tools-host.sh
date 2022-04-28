@@ -183,7 +183,9 @@ parse_params() {
   bin_directory="$root_directory/bin"
   logs_directory="$root_directory/logs"
   config_directory="$vald_directory/config"
-  axelard_binary_path="$bin_directory/axelard"
+  axelard_binary_path="$bin_directory/axelard-${axelar_core_version}"
+  axelard_binary_symlink="$bin_directory/axelard"
+  # axelard_binary_path="$bin_directory/axelard"
   tofnd_binary_path="$bin_directory/tofnd-${tofnd_version}"
   tofnd_binary_symlink="$bin_directory/tofnd"
   os="$(uname | awk '{print tolower($0)}')"
@@ -251,6 +253,21 @@ copy_configuration_files() {
 
 download_dependencies() {
     msg "\ndownloading required dependencies"
+    local axelard_binary
+    axelard_binary="axelard-${os}-${arch}-${axelar_core_version}"
+    msg "downloading axelard binary $axelard_binary"
+    if [[ ! -f "${axelard_binary_path}" ]]; then
+        local axelard_binary_url
+        
+        if [ "$network" == "hacknet" ]; then
+            axelard_binary_url="https://axelar-hackathons.s3.us-east-2.amazonaws.com/avalanche-summit/binaries/${axelard_binary}"
+        else
+            axelard_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}"
+        fi
+        curl -s --fail "${axelard_binary_url}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
+    else
+        msg "binary already downloaded"
+    fi
 
     msg "checking axelard binary"
     if [[ ! -f "${axelard_binary_path}" ]]; then
@@ -312,10 +329,10 @@ check_environment() {
     if [[ -z "$TOFND_PASSWORD" ]]; then msg "FAILED: env var TOFND_PASSWORD missing"; exit 1; fi
     if [[ "${#TOFND_PASSWORD}" -lt 8 ]]; then msg "FAILED: TOFND_PASSWORD must have length at least 8"; exit 1; fi
 
-    if [ ! -f "${axelard_binary_path}" ]; then
-      echo "Cannot find axelard binary at ${axelard_binary_path}. Did you launch the node correctly?"
-      exit 1
-    fi
+    # if [ ! -f "${axelard_binary_path}" ]; then
+    #   echo "Cannot find axelard binary at ${axelard_binary_path}. Did you launch the node correctly?"
+    #   exit 1
+    # fi
 
     if [ "$(ulimit -n)" -lt "${MAX_OPEN_FILES}" ]; then
         echo "FAILED: Number of allowed open files is too low. 'ulimit -n' is below ${MAX_OPEN_FILES}. Run 'ulimit -n ${MAX_OPEN_FILES}' to increase it."
