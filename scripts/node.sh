@@ -143,6 +143,13 @@ parse_params() {
     if [ -z "${root_directory}" ]; then
       root_directory="$HOME/.axelar_testnet"
     fi
+  elif [ "$network" == "testnet-2" ]; then
+    if [ -z "${chain_id}" ]; then
+      chain_id=axelar-testnet-casablanca-1
+    fi
+    if [ -z "${root_directory}" ]; then
+      root_directory="$HOME/.axelar_testnet-2"
+    fi
   elif [ "$network" == "hacknet" ]; then
     if [ -z "${chain_id}" ]; then
       chain_id=axelar-devnet-rammstein-3
@@ -156,7 +163,11 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
+    if [ "$network" == "testnet-2" ]; then
+    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/testnet.md  | grep axelar-core | cut -d \` -f 4)"
+    else
     axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/"${network}".md  | grep axelar-core | cut -d \` -f 4)"
+    fi
   fi
 
   # check required params and arguments
@@ -245,6 +256,10 @@ download_genesis_and_seeds() {
       genesis_url="${git_root}/resources/hacknet/genesis.json"
       msg "import genesis from $genesis_url"
       cp "${genesis_url}" "${shared_directory}/genesis.json"
+    elif [ "$network" == "testnet-2" ]; then
+      genesis_url="https://axelar-testnet.s3.us-east-2.amazonaws.com/axelar-testnet-casablanca-1/genesis.json"
+      msg "import genesis from $genesis_url"
+      curl -s "$genesis_url" -o "${shared_directory}/genesis.json"
     else
       genesis_url="https://axelar-$network.s3.us-east-2.amazonaws.com/genesis.json"
       msg "download genesis from $genesis_url"
@@ -259,6 +274,10 @@ download_genesis_and_seeds() {
       seeds_url="${git_root}/resources/hacknet/seeds.txt"
       msg "import seeds from $seeds_url"
       cp "${seeds_url}" "${shared_directory}/seeds.txt"
+    elif [ "$network" == "testnet-2" ]; then
+      seeds_url="https://axelar-testnet.s3.us-east-2.amazonaws.com/axelar-testnet-casablanca-1/seeds.txt"
+      msg "import seeds from $seeds_url"
+      curl -s "$seeds_url" -o "${shared_directory}/seeds.txt" 
     else
       seeds_url="https://axelar-$network.s3.us-east-2.amazonaws.com/seeds.txt"
       msg "download seeds from $seeds_url"
