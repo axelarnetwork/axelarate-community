@@ -1,0 +1,640 @@
+{
+    "genesis_time": "2022-04-13T15:12:21.227335Z",
+    "chain_id": "axelar-testnet-casablanca-1",
+    "initial_height": "1",
+    "consensus_params": {
+        "block": {
+            "max_bytes": "22020096",
+            "max_gas": "-1",
+            "time_iota_ms": "1000"
+        },
+        "evidence": {
+            "max_age_num_blocks": "100000",
+            "max_age_duration": "172800000000000",
+            "max_bytes": "1048576"
+        },
+        "validator": {
+            "pub_key_types": [
+                "ed25519"
+            ]
+        },
+        "version": {}
+    },
+    "app_hash": "",
+    "app_state": {
+        "auth": {
+            "params": {
+                "max_memo_characters": "256",
+                "tx_sig_limit": "10",
+                "tx_size_cost_per_byte": "10",
+                "sig_verify_cost_ed25519": "590",
+                "sig_verify_cost_secp256k1": "1000"
+            },
+            "accounts": [
+                {
+                    "@type": "/cosmos.auth.v1beta1.BaseAccount",
+                    "address": "axelar1r25hycaye0uz3k554mdu4a7dvc82uelj7y6ddn",
+                    "pub_key": null,
+                    "account_number": "0",
+                    "sequence": "0"
+                },
+                {
+                    "@type": "/cosmos.auth.v1beta1.BaseAccount",
+                    "address": "axelar14naswuqea5ls8tfamj5e8cxw9aay3jmx3gudkr",
+                    "pub_key": null,
+                    "account_number": "1",
+                    "sequence": "0"
+                },
+                {
+                    "@type": "/cosmos.auth.v1beta1.BaseAccount",
+                    "address": "axelar12f2qn005d4vl03ssjq07quz6cja72w5ukuchv7",
+                    "pub_key": null,
+                    "account_number": "2",
+                    "sequence": "0"
+                },
+                {
+                    "@type": "/cosmos.auth.v1beta1.BaseAccount",
+                    "address": "axelar1yj0uwwv677v9f6la2u9qyszxp22wynwuxa20ch",
+                    "pub_key": null,
+                    "account_number": "3",
+                    "sequence": "0"
+                }
+            ]
+        },
+        "axelarnet": {
+            "params": {
+                "route_timeout_window": "17000"
+            },
+            "collector_address": "",
+            "chains": [
+                {
+                    "name": "Axelarnet",
+                    "ibc_path": "",
+                    "assets": [],
+                    "addr_prefix": "axelar"
+                }
+            ],
+            "pending_transfers": []
+        },
+        "bank": {
+            "params": {
+                "send_enabled": [],
+                "default_send_enabled": true
+            },
+            "balances": [
+                {
+                    "address": "axelar1r25hycaye0uz3k554mdu4a7dvc82uelj7y6ddn",
+                    "coins": [
+                        {
+                            "denom": "uaxl",
+                            "amount": "5520000000"
+                        }
+                    ]
+                },
+                {
+                    "address": "axelar1yj0uwwv677v9f6la2u9qyszxp22wynwuxa20ch",
+                    "coins": [
+                        {
+                            "denom": "uaxl",
+                            "amount": "990000000000000"
+                        }
+                    ]
+                },
+                {
+                    "address": "axelar12f2qn005d4vl03ssjq07quz6cja72w5ukuchv7",
+                    "coins": []
+                },
+                {
+                    "address": "axelar14naswuqea5ls8tfamj5e8cxw9aay3jmx3gudkr",
+                    "coins": [
+                        {
+                            "denom": "uaxl",
+                            "amount": "9994480000000"
+                        }
+                    ]
+                }
+            ],
+            "supply": [
+                {
+                    "denom": "uaxl",
+                    "amount": "1000000000000000"
+                }
+            ],
+            "denom_metadata": []
+        },
+        "capability": {
+            "index": "1",
+            "owners": []
+        },
+        "crisis": {
+            "constant_fee": {
+                "denom": "uaxl",
+                "amount": "5000000000"
+            }
+        },
+        "distribution": {
+            "params": {
+                "community_tax": "0.020000000000000000",
+                "base_proposer_reward": "0.010000000000000000",
+                "bonus_proposer_reward": "0.040000000000000000",
+                "withdraw_addr_enabled": true
+            },
+            "fee_pool": {
+                "community_pool": []
+            },
+            "delegator_withdraw_infos": [],
+            "previous_proposer": "",
+            "outstanding_rewards": [],
+            "validator_accumulated_commissions": [],
+            "validator_historical_rewards": [],
+            "validator_current_rewards": [],
+            "delegator_starting_infos": [],
+            "validator_slash_events": []
+        },
+        "evidence": {
+            "evidence": []
+        },
+        "evm": {
+            "chains": [
+                {
+                    "params": {
+                        "chain": "Ethereum",
+                        "confirmation_height": "35",
+                        "network": "ropsten",
+                        "token_code": "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CNBWW2EBrWEDVDZgBGEWJlZbYQjdVlthAdthA2c2YARhFplWW2ABYCCQgVJgAJKDUmBAgIQgkJFSkIJSkCBUgVZbYQGtYQOSNmAEYRYEVlthDEZWW2ADgFRhA6SQYRbMVluAYB8BYCCAkQQCYCABYEBRkIEBYEBSgJKRkIGBUmAgAYKAVGED0JBhFsxWW4AVYQQdV4BgHxBhA/JXYQEAgINUBAKDUpFgIAGRYQQdVluCAZGQYABSYCBgACCQW4FUgVKQYAEBkGAgAYCDEWEEAFeCkANgHxaCAZFbUFBQUFCBVltgB1Rz//////////////////////////8WMxRhBJFXYEBRYkYbzWDlG4FSYCBgBIIBUmAJYCSCAVJ/Tk9UX09XTkVSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgRIIBUmBkAVtgQFGAkQOQ/VtgAGEEnIJhBUlWW3P//////////////////////////4EWYACQgVJgIIGQUmBAkCBUkJFQYQTQkIKQYQ2eVltQUFZbYABhBOEzhIRhDrNWW1BgAZKRUFBWW2AAYQT3hISEYQ/oVltz//////////////////////////+EFmAAkIFSYAFgIJCBUmBAgIMgM4CFUpJSkJEgVGEFP5GGkWEFOpCGkGEXT1ZbYQ6zVltQYAGTklBQUFZbYAdUYEBRYACRf/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkXP//////////////////////////5CRFpCEkGEFm2AgggFhFM5WW3//////////////////////////////////////////4IKCA4EBg1JgH5CRARZgQIGQUmEF25GQYCABYRdmVltgQFFgIIGDAwOBUpBgQFKAUZBgIAEgYEBRYCABYQZjlJOSkZB//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACUkJQWhFJgYJKQkht///////////////////////////8AAAAAAAAAAAAAAAAWYAGEAVJgFYMBUmA1ggFSYFUBkFZbYECAUX//////////////////////////////////////////4IGEAwGBUpGQUoBRYCCQkQEgkpFQUFZbM2AAgYFSYAFgIJCBUmBAgIMgc///////////////////////////hxaEUpCRUoEgVJCRYQThkYWQYQU6kIaQYReCVltgB1Rz//////////////////////////8WMxRhB0pXYEBRYkYbzWDlG4FSYCBgBIIBUmAJYCSCAVJ/Tk9UX09XTkVSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgRIIBUmBkAWEEiFZbYAhUgBWAYQdnV1CAgmACVGEHZJGQYReCVlsRFVthB7NXYEBRYkYbzWDlG4FSYCBgBIIBUmAMYCSCAVJ/Q0FQX0VYQ0VFREVEAAAAAAAAAAAAAAAAAAAAAAAAAABgRIIBUmBkAWEEiFZbYQe9g4NhEY5WW1BQUFZbYAdUc///////////////////////////FjMUYQgpV2BAUWJGG81g5RuBUmAgYASCAVJgCWAkggFSf05PVF9PV05FUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYESCAVJgZAFhBIhWW2AHVHP//////////////////////////4CEFmAAkIFSYAFgIJCBUmBAgIMgk5CUFoCDUpKQUpGQkSBUYQh1kYSRYQU6kIWQYRdPVlthBNCCgmENnlZbYASAVGEDpJBhFsxWWzNgAIGBUmABYCCQgVJgQICDIHP//////////////////////////4cWhFKQkVKBIFSQkWEE4ZGFkGEFOpCGkGEXT1ZbYABhBOEzhIRhD+hWW4NCEGEJLFdgQFFiRhvNYOUbgVJgIGAEggFSYAdgJIIBUn9FWFBJUkVEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGBEggFSYGQBYQSIVlt/f////////////////////11XbnNXpFAd3+kvRmgbIKCBERVhCZxXYEBRYkYbzWDlG4FSYCBgBIIBUmAFYCSCAVJ/SU5WX1MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgRIIBUmBkAWEEiFZbgmD/FmAbFIBhCbFXUIJg/xZgHBRbYQn9V2BAUWJGG81g5RuBUmAgYASCAVJgBWAkggFSf0lOVl9WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYESCAVJgZAFhBIhWW2AAYEBRgGBAAWBAUoBgAoFSYCABfxkBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgVJQYAVUf25x7a4Ssbl/TR9gNw/vEBBfovquASYRShacZIRdYSbJYAAbioqKYAZgAI9z//////////////////////////8Wc///////////////////////////FoFSYCABkIFSYCABYAAgYACBVICSkZBhCq+QYReaVluQkVVQYECAUWAggQGWkJZSc///////////////////////////lIUWkIYBUpKQkRZgYIQBUmCAgwFSYKCCAVJgwIEBiJBSYOABYEBRYCCBgwMDgVKQYEBSgFGQYCABIGBAUWAgAWELIJOSkZBhF9NWW2BAgFF//////////////////////////////////////////+CBhAMBgVKCglKAUWAgkYIBIGAAgIVSkYQBgIRSgZBSYP+IFpKEAZKQklJgYIMBhpBSYICDAYWQUpCSUJBgAZBgoAFgIGBAUWAggQOQgIQDkIVa+hWAFWELqVc9YACAPj1gAP1bUFBQYCBgQFEDUZBQiHP//////////////////////////xaBc///////////////////////////FhRhDDBXYEBRYkYbzWDlG4FSYCBgBIIBUmAHYCSCAVJ/SU5WX1NJRwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgRIIBUmBkAWEEiFZbYQw7iYmJYQ6zVltQUFBQUFBQUFBWW2AHVHP//////////////////////////xYzFGEMrVdgQFFiRhvNYOUbgVJgIGAEggFSYAlgJIIBUn9OT1RfT1dORVIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGBEggFSYGQBYQSIVltz//////////////////////////+BFmENEFdgQFFiRhvNYOUbgVJgIGAEggFSYAlgJIIBUn9aRVJPX0FERFIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGBEggFSYGQBYQSIVltgB1RgQFFz//////////////////////////+AhBaSFpB/i+AHnFMWWRQTRM0f0KTyhBlJf5cio9qv47QYb2tkV+CQYACQo2AHgFR/////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAWc///////////////////////////kpCSFpGQkReQVVZbc///////////////////////////ghZhDgFXYEBRYkYbzWDlG4FSYCBgBIIBUmAJYCSCAVJ/WkVST19BRERSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgRIIBUmBkAWEEiFZbYQ4NgmAAg2ESmVZbc///////////////////////////ghZgAJCBUmAggZBSYECBIIBUg5KQYQ5CkISQYRdPVluSUFCBkFVQgGACYACCglRhDluRkGEXT1ZbkJFVUFBgQFGBgVJgAJBz//////////////////////////+EFpB/3fJSrRviyJtpwrBo/DeNqpUrp/FjxKEWKPVaTfUjs++QYCABW2BAUYCRA5CjUFBWW3P//////////////////////////4MWYQ8WV2BAUWJGG81g5RuBUmAgYASCAVJgCWAkggFSf1pFUk9fQUREUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYESCAVJgZAFhBIhWW3P//////////////////////////4IWYQ95V2BAUWJGG81g5RuBUmAgYASCAVJgCWAkggFSf1pFUk9fQUREUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYESCAVJgZAFhBIhWW3P//////////////////////////4OBFmAAgYFSYAFgIJCBUmBAgIMglIcWgIRSlIJSkYKQIIWQVZBRhIFSf4xb4eXr7H1b0U9xQn0ehPPdAxTA97IpHlsgCsjHw7klkQFbYEBRgJEDkKNQUFBWW3P//////////////////////////4MWYRBLV2BAUWJGG81g5RuBUmAgYASCAVJgCWAkggFSf1pFUk9fQUREUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYESCAVJgZAFhBIhWW3P//////////////////////////4IWYRCuV2BAUWJGG81g5RuBUmAgYASCAVJgCWAkggFSf1pFUk9fQUREUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYESCAVJgZAFhBIhWW2EQuYODg2ESmVZbc///////////////////////////gxZgAJCBUmAggZBSYECBIIBUg5KQYRDukISQYRdPVluQkVVQUHP//////////////////////////4IWYACQgVJgIIGQUmBAgSCAVIOSkGERKJCEkGEXglZbklBQgZBVUIFz//////////////////////////8Wg3P//////////////////////////xZ/3fJSrRviyJtpwrBo/DeNqpUrp/FjxKEWKPVaTfUjs++DYEBRYQ/bkYFSYCABkFZbc///////////////////////////ghZhEfFXYEBRYkYbzWDlG4FSYCBgBIIBUmAJYCSCAVJ/WkVST19BRERSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgRIIBUmBkAWEEiFZbYRH9YACDg2ESmVZbgGACYACCglRhEg+RkGEXglZbkJFVUFBz//////////////////////////+CFmAAkIFSYCCBkFJgQIEggFSDkpBhEkmQhJBhF4JWW5CRVVBQYEBRgYFSc///////////////////////////gxaQYACQf93yUq0b4sibacKwaPw3jaqVK6fxY8ShFij1Wk31I7PvkGAgAWEOp1ZbYAdUYEBRf3rhz8oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgVJ/daMdHOjl+YkhiL78Mo07m9P6UDdFfogavCHziEcbjZZgBIIBUnP//////////////////////////5CRFpBjeuHPypBgJAFgIGBAUYCDA4GGgDsVgBVhEyJXYACA/VtQWvoVgBVhEzZXPWAAgD49YAD9W1BQUFBgQFE9YB8ZYB+CARaCAYBgQFJQgQGQYRNakZBhF/pWWxVhE6dXYEBRYkYbzWDlG4FSYCBgBIIBUmAJYCSCAVJ/SVNfRlJPWkVOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgRIIBUmBkAWEEiFZbYAdUYEBRc///////////////////////////kJEWkGN64c/KkGET/ZB/GnJh06NsTOQjXRCFmRHJREppY6NZHsVyW5aHHZgQYmuQYASQYCABYRgcVltgQFFgIIGDAwOBUpBgQFKAUZBgIAEgYEBRgmP/////FmDgG4FSYAQBYRQxkYFSYCABkFZbYCBgQFGAgwOBhoA7FYAVYRRJV2AAgP1bUFr6FYAVYRRdVz1gAIA+PWAA/VtQUFBQYEBRPWAfGWAfggEWggGAYEBSUIEBkGEUgZGQYRf6VlsVYQe9V2BAUWJGG81g5RuBUmAgYASCAVJgCWAkggFSf0lTX0ZST1pFTgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYESCAVJgZAFhBIhWW2EC64BhGP2DOQGQVltgAFuDgRAVYRT2V4GBAVGDggFSYCABYRTeVluDgREVYRUFV2AAhIQBUltQUFBQVltgIIFSYACCUYBgIIQBUmEVKoFgQIUBYCCHAWEU21ZbYB8Bf//////////////////////////////////////////gFpGQkQFgQAGSkVBQVltgAGAggoQDEhVhFW5XYACA/VtQNZGQUFZbgDVz//////////////////////////+BFoEUYRWZV2AAgP1bkZBQVltgAIBgQIOFAxIVYRWxV2AAgP1bYRW6g2EVdVZblGAgk5CTATWTUFBQVltgAIBgAGBghIYDEhVhFd1XYACA/VthFeaEYRV1VluSUGEV9GAghQFhFXVWW5FQYECEATWQUJJQklCSVltgAGAggoQDEhVhFhZXYACA/VthFh+CYRV1VluTklBQUFZbYACAYACAYACAYABg4IiKAxIVYRZBV2AAgP1bYRZKiGEVdVZbllBhFlhgIIkBYRV1VluVUGBAiAE1lFBgYIgBNZNQYICIATVg/4EWgRRhFnxXYACA/VuWmZWYUJOWkpWUYKCEATWUUGDAkJMBNZKRUFBWW2AAgGBAg4UDEhVhFqxXYACA/VthFrWDYRV1VluRUGEWw2AghAFhFXVWW5BQklCSkFBWW2ABgYEckIIWgGEW4Fdgf4IWkVBbYCCCEIEUFWEXGld/Tkh7cQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAFJgImAEUmAkYAD9W1CRkFBWW39OSHtxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAUmARYARSYCRgAP1bYACCghAVYRdhV2EXYWEXIFZbUAOQVltgAIJRYRd4gYRgIIcBYRTbVluRkJEBkpFQUFZbYACCGYIRFWEXlVdhF5VhFyBWW1ABkFZbYAB///////////////////////////////////////////+CFBVhF8xXYRfMYRcgVltQYAEBkFZbYACEUWEX5YGEYCCJAWEU21ZbkZCRAZKDUlBgIIIBUmBAAZGQUFZbYABgIIKEAxIVYRgMV2AAgP1bgVGAFRWBFGEWH1dgAID9W4KBUmAAYCBgAIRUgWABgoEckVCAgxaAYRg+V2B/gxaSUFuFgxCBFBVhGHVXf05Ie3EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhVJgImAEUmAkhf1bgIAVYRiJV2ABgRRhGLxXYRjtVlt//////////////////////////////////////////wCFFoeKAVKGhIoBAZVQYRjtVltgAIqBUmAgkCBgAFuFgRAVYRjjV4FUi4IBigFSkIQBkIgBYRjIVltQUIaEigEBlVBbUJOZmFBQUFBQUFBQUFb+YIBgQFJgAIBVNIAVYQAUV2AAgP1bUGECx4BhACRgADlgAPP+YIBgQFI0gBVhABBXYACA/VtQYAQ2EGEANVdgADVg4ByAYvVdnRRhADpXgGMc/3nNFGEAT1dbYACA/VthAE1hAEg2YARhAV9WW2EAeVZbAFthAGJhAF02YARhAYFWW2EApFZbYEBRYQBwkpGQYQIEVltgQFGAkQOQ81tgAFQVYQCGV2AAgP1bYAFgAFVz//////////////////////////+BFv9bYABgYGAAgFQUYQC2V2AAgP1bYAFgAFVgQFFz//////////////////////////+GFpBhAOOQhpCGkGECgVZbYABgQFGAgwOBYACGWvGRUFA9gGAAgRRhASBXYEBRkVBgHxlgPz0BFoIBYEBSPYJSPWAAYCCEAT5hASVWW2BgkVBbUGAAgFWQlpCVUJNQUFBQVluANXP//////////////////////////4EWgRRhAVpXYACA/VuRkFBWW2AAYCCChAMSFWEBcVdgAID9W2EBeoJhATZWW5OSUFBQVltgAIBgAGBAhIYDEhVhAZZXYACA/VthAZ+EYQE2VluSUGAghAE1Z///////////gIIRFWEBvFdgAID9W4GGAZFQhmAfgwESYQHQV2AAgP1bgTWBgREVYQHfV2AAgP1bh2AggoUBAREVYQHxV2AAgP1bYCCDAZRQgJNQUFBQklCSUJJWW4IVFYFSYABgIGBAgYQBUoNRgGBAhQFSYABbgYEQFWECOleFgQGDAVGFggFgYAFSggFhAh5WW4GBERVhAkxXYABgYIOHAQFSW1BgHwF//////////////////////////////////////////+AWkpCSAWBgAZSTUFBQUFZbgYOCN2AAkQGQgVKRkFBW/qJkaXBmc1giEiDTx69aZ2Ot7Jc+DpLpE6VA63Qb6T27YBjDU0YDlmUtwWRzb2xjQwAICQAzomRpcGZzWCISIMFpMW8BkIsUttX9qUxXGlQYpLOcOq1AbTRJtMsHd/HzZHNvbGNDAAgJADM=",
+                        "burnable": "YIBgQFJgAIBVNIAVYQAUV2AAgP1bUGECx4BhACRgADlgAPP+YIBgQFI0gBVhABBXYACA/VtQYAQ2EGEANVdgADVg4ByAYvVdnRRhADpXgGMc/3nNFGEAT1dbYACA/VthAE1hAEg2YARhAV9WW2EAeVZbAFthAGJhAF02YARhAYFWW2EApFZbYEBRYQBwkpGQYQIEVltgQFGAkQOQ81tgAFQVYQCGV2AAgP1bYAFgAFVz//////////////////////////+BFv9bYABgYGAAgFQUYQC2V2AAgP1bYAFgAFVgQFFz//////////////////////////+GFpBhAOOQhpCGkGECgVZbYABgQFGAgwOBYACGWvGRUFA9gGAAgRRhASBXYEBRkVBgHxlgPz0BFoIBYEBSPYJSPWAAYCCEAT5hASVWW2BgkVBbUGAAgFWQlpCVUJNQUFBQVluANXP//////////////////////////4EWgRRhAVpXYACA/VuRkFBWW2AAYCCChAMSFWEBcVdgAID9W2EBeoJhATZWW5OSUFBQVltgAIBgAGBAhIYDEhVhAZZXYACA/VthAZ+EYQE2VluSUGAghAE1Z///////////gIIRFWEBvFdgAID9W4GGAZFQhmAfgwESYQHQV2AAgP1bgTWBgREVYQHfV2AAgP1bh2AggoUBAREVYQHxV2AAgP1bYCCDAZRQgJNQUFBQklCSUJJWW4IVFYFSYABgIGBAgYQBUoNRgGBAhQFSYABbgYEQFWECOleFgQGDAVGFggFgYAFSggFhAh5WW4GBERVhAkxXYABgYIOHAQFSW1BgHwF//////////////////////////////////////////+AWkpCSAWBgAZSTUFBQUFZbgYOCN2AAkQGQgVKRkFBW/qJkaXBmc1giEiDTx69aZ2Ot7Jc+DpLpE6VA63Qb6T27YBjDU0YDlmUtwWRzb2xjQwAICQAz",
+                        "revote_locking_period": "50",
+                        "networks": [
+                            {
+                                "name": "mainnet",
+                                "id": "1"
+                            },
+                            {
+                                "name": "ropsten",
+                                "id": "3"
+                            },
+                            {
+                                "name": "rinkeby",
+                                "id": "4"
+                            },
+                            {
+                                "name": "goerli",
+                                "id": "5"
+                            },
+                            {
+                                "name": "ganache",
+                                "id": "1337"
+                            }
+                        ],
+                        "voting_threshold": {
+                            "numerator": "51",
+                            "denominator": "100"
+                        },
+                        "min_voter_count": "1",
+                        "commands_gas_limit": 5000000
+                    },
+                    "burner_infos": [],
+                    "command_queue": {
+                        "items": {}
+                    },
+                    "confirmed_deposits": [],
+                    "burned_deposits": [],
+                    "command_batches": [],
+                    "gateway": {
+                        "address": [
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        "status": "STATUS_UNSPECIFIED"
+                    },
+                    "tokens": [],
+                    "events": [],
+                    "confirmed_event_queue": {
+                        "items": {}
+                    }
+                }
+            ]
+        },
+        "feegrant": {
+            "allowances": []
+        },
+        "genutil": {
+            "gen_txs": [
+                {
+                    "body": {
+                        "messages": [
+                            {
+                                "@type": "/cosmos.staking.v1beta1.MsgCreateValidator",
+                                "description": {
+                                    "moniker": "genesis",
+                                    "identity": "",
+                                    "website": "",
+                                    "security_contact": "",
+                                    "details": ""
+                                },
+                                "commission": {
+                                    "rate": "0.100000000000000000",
+                                    "max_rate": "0.200000000000000000",
+                                    "max_change_rate": "0.010000000000000000"
+                                },
+                                "min_self_delegation": "1",
+                                "delegator_address": "axelar1r25hycaye0uz3k554mdu4a7dvc82uelj7y6ddn",
+                                "validator_address": "axelarvaloper1r25hycaye0uz3k554mdu4a7dvc82uelj79vglu",
+                                "pubkey": {
+                                    "@type": "/cosmos.crypto.ed25519.PubKey",
+                                    "key": "s7LPqBf0xUlLymPBUGQfFWIxYC1pG9jZcnz6yv0cLxI="
+                                },
+                                "value": {
+                                    "denom": "uaxl",
+                                    "amount": "10000000"
+                                }
+                            }
+                        ],
+                        "memo": "genesis",
+                        "timeout_height": "0",
+                        "extension_options": [],
+                        "non_critical_extension_options": []
+                    },
+                    "auth_info": {
+                        "signer_infos": [
+                            {
+                                "public_key": {
+                                    "@type": "/cosmos.crypto.secp256k1.PubKey",
+                                    "key": "A/VF70ClZNOSLsO0aZrGQ8K0jsEYkMUUYfYh0rL2g7DA"
+                                },
+                                "mode_info": {
+                                    "single": {
+                                        "mode": "SIGN_MODE_DIRECT"
+                                    }
+                                },
+                                "sequence": "0"
+                            }
+                        ],
+                        "fee": {
+                            "amount": [
+                                {
+                                    "denom": "uaxl",
+                                    "amount": "10"
+                                }
+                            ],
+                            "gas_limit": "200000",
+                            "payer": "",
+                            "granter": ""
+                        }
+                    },
+                    "signatures": [
+                        "pDbbyY8RvDm0D9hfroBjQCaeT2gFW04to8uvjbS+HW14CfHAd7YomHIpK4gktsAig4OlI/vnB/WM9uOzagaZcQ=="
+                    ]
+                }
+            ]
+        },
+        "gov": {
+            "starting_proposal_id": "1",
+            "deposits": [],
+            "votes": [],
+            "proposals": [],
+            "deposit_params": {
+                "min_deposit": [
+                    {
+                        "denom": "uaxl",
+                        "amount": "100000000"
+                    }
+                ],
+                "max_deposit_period": "3600s"
+            },
+            "voting_params": {
+                "voting_period": "3600s"
+            },
+            "tally_params": {
+                "quorum": "0.334000000000000000",
+                "threshold": "0.500000000000000000",
+                "veto_threshold": "0.334000000000000000"
+            }
+        },
+        "ibc": {
+            "client_genesis": {
+                "clients": [],
+                "clients_consensus": [],
+                "clients_metadata": [],
+                "params": {
+                    "allowed_clients": [
+                        "06-solomachine",
+                        "07-tendermint"
+                    ]
+                },
+                "create_localhost": false,
+                "next_client_sequence": "0"
+            },
+            "connection_genesis": {
+                "connections": [],
+                "client_connection_paths": [],
+                "next_connection_sequence": "0",
+                "params": {
+                    "max_expected_time_per_block": "30000000000"
+                }
+            },
+            "channel_genesis": {
+                "channels": [],
+                "acknowledgements": [],
+                "commitments": [],
+                "receipts": [],
+                "send_sequences": [],
+                "recv_sequences": [],
+                "ack_sequences": [],
+                "next_channel_sequence": "0"
+            }
+        },
+        "mint": {
+            "minter": {
+                "inflation": "0.000000000000000000",
+                "annual_provisions": "0.000000000000000000"
+            },
+            "params": {
+                "mint_denom": "uaxl",
+                "inflation_rate_change": "0.000000000000000000",
+                "inflation_max": "0.000000000000000000",
+                "inflation_min": "0.000000000000000000",
+                "goal_bonded": "0.670000000000000000",
+                "blocks_per_year": "6311520"
+            }
+        },
+        "nexus": {
+            "params": {
+                "chain_activation_threshold": {
+                    "numerator": "55",
+                    "denominator": "100"
+                }
+            },
+            "nonce": "0",
+            "chains": [
+                {
+                    "name": "Ethereum",
+                    "supports_foreign_assets": true,
+                    "key_type": "KEY_TYPE_MULTISIG",
+                    "module": "evm"
+                },
+                {
+                    "name": "Axelarnet",
+                    "supports_foreign_assets": true,
+                    "key_type": "KEY_TYPE_NONE",
+                    "module": "axelarnet"
+                }
+            ],
+            "chain_states": [
+                {
+                    "chain": {
+                        "name": "Axelarnet",
+                        "supports_foreign_assets": true,
+                        "key_type": "KEY_TYPE_NONE",
+                        "module": "axelarnet"
+                    },
+                    "maintainers": [],
+                    "activated": false,
+                    "assets": [
+                        {
+                            "denom": "uaxl",
+                            "is_native_asset": true
+                        }
+                    ]
+                }
+            ],
+            "linked_addresses": [],
+            "transfers": [],
+            "fee": {
+                "coins": []
+            },
+            "fee_infos": []
+        },
+        "params": null,
+        "permission": {
+            "params": {},
+            "governance_key": {
+                "threshold": 2,
+                "public_keys": [
+                    {
+                        "@type": "/cosmos.crypto.secp256k1.PubKey",
+                        "key": "A0kRUhRv5V/ht0xKWRxRTtPD1QnjPEz9R5/N7PbjbaM/"
+                    },
+                    {
+                        "@type": "/cosmos.crypto.secp256k1.PubKey",
+                        "key": "AkfJDWilArWNwP8gmj1Uqg/gnZCfPzDb8gAs9807I4We"
+                    },
+                    {
+                        "@type": "/cosmos.crypto.secp256k1.PubKey",
+                        "key": "A+CWaOdqcJsE2GJjdLqfUNBT65CNIAqqrbYIsXhiHpE3"
+                    }
+                ]
+            },
+            "gov_accounts": [
+                {
+                    "address": "axelar12f2qn005d4vl03ssjq07quz6cja72w5ukuchv7",
+                    "role": "ROLE_ACCESS_CONTROL"
+                }
+            ]
+        },
+        "reward": {
+            "params": {
+                "external_chain_voting_inflation_rate": "0.000000000000000000",
+                "tss_relative_inflation_rate": "0.000000000000000000"
+            },
+            "pools": []
+        },
+        "slashing": {
+            "params": {
+                "signed_blocks_window": "35000",
+                "min_signed_per_window": "0.500000000000000000",
+                "downtime_jail_duration": "7200s",
+                "slash_fraction_double_sign": "0.020000000000000000",
+                "slash_fraction_downtime": "0.000100000000000000"
+            },
+            "signing_infos": [],
+            "missed_blocks": []
+        },
+        "snapshot": {
+            "params": {
+                "min_proxy_balance": "5000000"
+            },
+            "snapshots": [],
+            "proxied_validators": []
+        },
+        "staking": {
+            "params": {
+                "unbonding_time": "604800s",
+                "max_validators": 50,
+                "max_entries": 7,
+                "historical_entries": 10000,
+                "bond_denom": "uaxl"
+            },
+            "last_total_power": "0",
+            "last_validator_powers": [],
+            "validators": [],
+            "delegations": [],
+            "unbonding_delegations": [],
+            "redelegations": [],
+            "exported": false
+        },
+        "transfer": {
+            "port_id": "transfer",
+            "denom_traces": [],
+            "params": {
+                "send_enabled": true,
+                "receive_enabled": true
+            }
+        },
+        "tss": {
+            "params": {
+                "key_requirements": [
+                    {
+                        "key_role": "KEY_ROLE_MASTER_KEY",
+                        "key_type": "KEY_TYPE_THRESHOLD",
+                        "min_keygen_threshold": {
+                            "numerator": "5",
+                            "denominator": "6"
+                        },
+                        "safety_threshold": {
+                            "numerator": "2",
+                            "denominator": "3"
+                        },
+                        "key_share_distribution_policy": "KEY_SHARE_DISTRIBUTION_POLICY_WEIGHTED_BY_STAKE",
+                        "max_total_share_count": "50",
+                        "min_total_share_count": "4",
+                        "keygen_voting_threshold": {
+                            "numerator": "5",
+                            "denominator": "6"
+                        },
+                        "sign_voting_threshold": {
+                            "numerator": "2",
+                            "denominator": "3"
+                        },
+                        "keygen_timeout": "250",
+                        "sign_timeout": "250"
+                    },
+                    {
+                        "key_role": "KEY_ROLE_SECONDARY_KEY",
+                        "key_type": "KEY_TYPE_THRESHOLD",
+                        "min_keygen_threshold": {
+                            "numerator": "15",
+                            "denominator": "20"
+                        },
+                        "safety_threshold": {
+                            "numerator": "11",
+                            "denominator": "20"
+                        },
+                        "key_share_distribution_policy": "KEY_SHARE_DISTRIBUTION_POLICY_ONE_PER_VALIDATOR",
+                        "max_total_share_count": "20",
+                        "min_total_share_count": "4",
+                        "keygen_voting_threshold": {
+                            "numerator": "15",
+                            "denominator": "20"
+                        },
+                        "sign_voting_threshold": {
+                            "numerator": "11",
+                            "denominator": "20"
+                        },
+                        "keygen_timeout": "150",
+                        "sign_timeout": "150"
+                    },
+                    {
+                        "key_role": "KEY_ROLE_MASTER_KEY",
+                        "key_type": "KEY_TYPE_MULTISIG",
+                        "min_keygen_threshold": {
+                            "numerator": "31",
+                            "denominator": "40"
+                        },
+                        "safety_threshold": {
+                            "numerator": "11",
+                            "denominator": "20"
+                        },
+                        "key_share_distribution_policy": "KEY_SHARE_DISTRIBUTION_POLICY_WEIGHTED_BY_STAKE",
+                        "max_total_share_count": "50",
+                        "min_total_share_count": "4",
+                        "keygen_voting_threshold": {
+                            "numerator": "31",
+                            "denominator": "40"
+                        },
+                        "sign_voting_threshold": {
+                            "numerator": "11",
+                            "denominator": "20"
+                        },
+                        "keygen_timeout": "20",
+                        "sign_timeout": "20"
+                    },
+                    {
+                        "key_role": "KEY_ROLE_SECONDARY_KEY",
+                        "key_type": "KEY_TYPE_MULTISIG",
+                        "min_keygen_threshold": {
+                            "numerator": "15",
+                            "denominator": "20"
+                        },
+                        "safety_threshold": {
+                            "numerator": "11",
+                            "denominator": "20"
+                        },
+                        "key_share_distribution_policy": "KEY_SHARE_DISTRIBUTION_POLICY_ONE_PER_VALIDATOR",
+                        "max_total_share_count": "20",
+                        "min_total_share_count": "4",
+                        "keygen_voting_threshold": {
+                            "numerator": "15",
+                            "denominator": "20"
+                        },
+                        "sign_voting_threshold": {
+                            "numerator": "11",
+                            "denominator": "20"
+                        },
+                        "keygen_timeout": "20",
+                        "sign_timeout": "20"
+                    }
+                ],
+                "suspend_duration_in_blocks": "50",
+                "heartbeat_period_in_blocks": "50",
+                "max_missed_blocks_per_window": {
+                    "numerator": "5",
+                    "denominator": "100"
+                },
+                "unbonding_locking_key_rotation_count": "4",
+                "external_multisig_threshold": {
+                    "numerator": "4",
+                    "denominator": "8"
+                },
+                "max_sign_queue_size": "50",
+                "max_simultaneous_sign_shares": "100",
+                "tss_signed_blocks_window": "100"
+            },
+            "key_recovery_infos": [],
+            "keys": [],
+            "multisig_infos": [],
+            "external_keys": [],
+            "signatures": [],
+            "validator_statuses": []
+        },
+        "upgrade": {},
+        "vesting": {},
+        "vote": {
+            "params": {
+                "default_voting_threshold": {
+                    "numerator": "2",
+                    "denominator": "3"
+                }
+            },
+            "poll_metadatas": []
+        }
+    }
+}
