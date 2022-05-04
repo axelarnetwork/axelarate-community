@@ -23,6 +23,7 @@ Available options:
 -d, --root-directory          Directory for data. [default: $HOME/.axelar_testnet]
 -n, --network                 Core Network to connect to [mainnet|testnet|testnet-2]
 -e, --environment             Environment to run in [host only]
+--skip-download               Skip download of binaries. Do this if you want to build them yourself.
 EOF
     exit
 }
@@ -37,6 +38,7 @@ parse_params() {
     environment='host'
     chain_id=''
     docker_network='axelarate_default'
+    skip_download=false
 
     while :; do
         case "${1-}" in
@@ -62,6 +64,9 @@ parse_params() {
         -e | --environment)
             environment="${2-}"
             shift
+            ;;
+        --skip-download)
+            skip_download=true
             ;;
         -?*) die "Unknown option: $1" ;;
         *) break ;;
@@ -190,6 +195,11 @@ copy_configuration_files() {
 }
 
 download_dependencies() {
+    if [ "${skip_download}" = true ]; then
+        msg "Skipping binary download"
+        return
+    fi
+
     msg "\ndownloading required dependencies"
     local axelard_binary
     axelard_binary="axelard-${os}-${arch}-${axelar_core_version}"
@@ -250,7 +260,7 @@ post_run_message() {
     # shellcheck disable=SC2016
     msg 'To stop tofnd, run "pkill -f tofnd"'
     # shellcheck disable=SC2016
-    msg 'To stop vald, run "pkill -f vald"'
+    msg 'To stop vald, run "pkill -9 -f vald"'
     msg
     msg "CHECK the logs to verify that the processes are running as expected"
     msg
@@ -273,6 +283,7 @@ msg "- network: ${network}"
 msg "- environment: ${environment}"
 msg "- script_dir: ${script_dir}"
 msg "- chain-id: ${chain_id}"
+msg "- skip-download: ${skip_download}"
 msg "- arguments: ${args[*]-}"
 msg "\n"
 

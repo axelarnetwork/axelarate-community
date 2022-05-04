@@ -23,6 +23,7 @@ Available options:
 -d, --root-directory          Directory for data.
 -n, --network                 Network to join [mainnet|testnet|testnet-2]
 -e, --environment             Environment to run in [host only] [default: host]
+--skip-download               Skip download of binaries. Do this if you want to build them yourself.
 EOF
     exit
 }
@@ -37,6 +38,7 @@ parse_params() {
     environment='host'
     chain_id=''
     docker_network='axelarate_default'
+    skip_download=false
 
     while :; do
         case "${1-}" in
@@ -59,6 +61,9 @@ parse_params() {
         -e | --environment)
             environment="${2-}"
             shift
+            ;;
+        --skip-download)
+            skip_download=true
             ;;
         -?*) die "Unknown option: $1" ;;
         *) break ;;
@@ -200,12 +205,6 @@ copy_configuration_files() {
     echo "copying config.toml"
     cp "${git_root}/configuration/config.toml" "${config_directory}/config.toml"
 
-    ip_address=$(grep "^external_address" <"${config_directory}/config.toml" | cut -c 20-)
-
-    if [ "${ip_address}" == "\"\"" ]; then
-        echo "NOTE: external_address has not been set in ${git_root}/configuration/config.toml. You might need it if your external IP address is different."
-    fi
-
     if [ -f "${config_directory}/app.toml" ]; then
         msg "backing up existing app.toml and overwriting it"
         cp "${config_directory}/app.toml" "${config_directory}/app.toml.backup"
@@ -238,6 +237,7 @@ msg "- network: ${network}"
 msg "- environment: ${environment}"
 msg "- script_dir: ${script_dir}"
 msg "- chain-id: ${chain_id}"
+msg "- skip-download: ${skip_download}"
 msg "- arguments: ${args[*]-}"
 msg "\n"
 

@@ -19,9 +19,20 @@ check_environment() {
     if [ "$(ulimit -n)" -lt "${MAX_OPEN_FILES}" ]; then
         die "FAILED: Number of allowed open files is too low. 'ulimit -n' is below ${MAX_OPEN_FILES}. Run 'ulimit -n ${MAX_OPEN_FILES}' to increase it."
     fi
+
+    ip_address=$(grep "^external_address" < "${git_root}/configuration/config.toml" | cut -c 20-)
+
+    if [ "${ip_address}" == "\"\"" ]; then
+        echo "NOTE: external_address has not been set in ${git_root}/configuration/config.toml. You might need it if your external IP address is different."
+    fi
 }
 
 download_dependencies() {
+    if [ "${skip_download}" = true ]; then
+        msg "Skipping binary download"
+        return
+    fi
+
     msg "\ndownloading required dependencies"
     create_directories_host_mode
     local axelard_binary
