@@ -23,7 +23,9 @@ check_environment() {
     ip_address=$(grep "^external_address" < "${git_root}/configuration/config.toml" | cut -c 20-)
 
     if [ "${ip_address}" == "\"\"" ]; then
-        echo "NOTE: external_address has not been set in ${git_root}/configuration/config.toml. You might need it if your external IP address is different."
+        msg
+        msg "NOTE: external_address has not been set in ${git_root}/configuration/config.toml. You might need it if your external IP address is different."
+        msg
     fi
 }
 

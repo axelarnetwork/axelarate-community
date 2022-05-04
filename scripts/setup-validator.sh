@@ -162,38 +162,6 @@ create_directories() {
     if [[ ! -d "$config_directory" ]]; then mkdir -p "$config_directory"; fi
 }
 
-copy_configuration_files() {
-    if [ ! -f "${config_directory}/genesis.json" ]; then
-        msg "Copying genesis file to the config directory"
-        cp "${resources}/genesis.json" "${config_directory}/genesis.json"
-    else
-        msg "genesis file already exists"
-    fi
-
-    if [ ! -f "${config_directory}/seeds.toml" ]; then
-        msg "Copying seeds.toml to the config directory"
-        cp "${resources}/seeds.toml" "${config_directory}/seeds.toml"
-    else
-        msg "seeds.toml file already exists"
-    fi
-
-    if [ -f "${config_directory}/config.toml" ]; then
-        msg "backing up existing config.toml and overwriting it"
-        cp "${config_directory}/config.toml" "${config_directory}/config.toml.backup"
-    fi
-
-    echo "copying config.toml"
-    cp "${git_root}/configuration/config.toml" "${config_directory}/config.toml"
-
-    if [ -f "${config_directory}/app.toml" ]; then
-        msg "backing up existing app.toml and overwriting it"
-        cp "${config_directory}/app.toml" "${config_directory}/app.toml.backup"
-    fi
-
-    msg "copying app.toml"
-    cp "${git_root}/configuration/app.toml" "${config_directory}/app.toml"
-}
-
 download_dependencies() {
     if [ "${skip_download}" = true ]; then
         msg "Skipping binary download"

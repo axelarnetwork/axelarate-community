@@ -47,3 +47,33 @@ verify() {
     fi
     msg "\n"
 }
+
+copy_configuration_files() {
+    if [ ! -f "${config_directory}/genesis.json" ]; then
+        msg "Copying genesis file to the config directory"
+        cp "${resources}/genesis.json" "${config_directory}/genesis.json"
+    else
+        msg "genesis file already exists"
+    fi
+
+    if [ ! -f "${config_directory}/seeds.toml" ]; then
+        msg "Copying seeds.toml to the config directory"
+        cp "${resources}/seeds.toml" "${config_directory}/seeds.toml"
+    else
+        msg "seeds.toml file already exists"
+    fi
+
+    if [ ! -f "${config_directory}/config.toml" ]; then
+        msg "Copying config.toml to the config directory"
+        cp "${git_root}/configuration/config.toml" "${config_directory}/config.toml"
+    else
+        msg "config.toml file already exists"
+    fi
+
+    if [ ! -f "${config_directory}/app.toml" ]; then
+        msg "Copying app.toml to the config directory"
+        cp "${git_root}/configuration/app.toml" "${config_directory}/app.toml"
+    else
+        msg "app.toml file already exists"
+    fi
+}
