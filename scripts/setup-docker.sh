@@ -17,10 +17,6 @@ check_environment() {
         msg "OR if you simply want to restart the container, do 'docker start axelar-core'"
         exit 1
     fi
-
-    if [[ -z "$KEYRING_PASSWORD" ]]; then msg "FAILED: env var KEYRING_PASSWORD missing"; exit 1; fi
-
-    if [[ "${#KEYRING_PASSWORD}" -lt 8 ]]; then msg "FAILED: KEYRING_PASSWORD must have length at least 8"; exit 1; fi
 }
 
 download_dependencies() {
