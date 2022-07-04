@@ -64,7 +64,7 @@ copy_configuration_files() {
     fi
 
     if [ ! -f "${config_directory}/config.toml" ]; then
-        msg "Copying config.toml to the config directory"
+        msg "Importing seeds from seeds.toml into config.toml, copying config.toml to the config directory"
         cp "${git_root}/configuration/config.toml" "${config_directory}/config.toml"
         # We build the line in the expected format,a comma separated list of seed nodes
         SEEDS=$(cat "${config_directory}/seeds.toml" | grep address | awk '{print $3}' | tr -d '\n' | sed 's/""/,/g' | sed 's/^/seeds = /')
