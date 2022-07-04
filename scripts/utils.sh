@@ -66,6 +66,13 @@ copy_configuration_files() {
     if [ ! -f "${config_directory}/config.toml" ]; then
         msg "Copying config.toml to the config directory"
         cp "${git_root}/configuration/config.toml" "${config_directory}/config.toml"
+        # We build the line in the expected format,a comma separated list of seed nodes
+        SEEDS=$(cat "${config_directory}/seeds.toml" | grep address | awk '{print $3}' | tr -d '\n' | sed 's/""/,/g' | sed 's/^/seeds = /')
+        # We inject it in config.toml 
+        sed -i.bak "s/seeds = \"\"/$SEEDS/" "${config_directory}/config.toml"
+        # We remove the config.toml.bak (created because on Mac you have to create backup file with sed)
+        rm "${config_directory}/config.toml.bak"
+
     else
         msg "config.toml file already exists"
     fi
