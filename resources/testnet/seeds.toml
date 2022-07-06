@@ -16,7 +16,7 @@ address = "a2299e2bf8370a9b5f2db2b5c7737c8063fea8ef@154.53.58.227:26656"
 
 [[seed]]
 name = "Qubelabs"
-address = "de3dfe57eaea3c5334a6166aa94d9977ef08e658@65.108.157.236:26656"
+address = "754c6cd956d6487f4fa9a2f0867aa14c4cb61e22@seed-testnet.axelar.qubelabs.io:26656"
 
 [[seed]]
 name = "Brightlystake"
