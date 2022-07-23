@@ -17,3 +17,7 @@ address = "68cba02f45c0ecca62798861592fc8be5c228791@65.21.74.151:26656"
 [[seed]
 name = "Validatrium.com"
 address = "44596cd8c8fd80be909a5968ac4ba6651d840b36@axelar-seed.validatrium.com:6969"
+
+[[seed]
+name = "ContributionDAO"
+address = "141c0f422155b56823e4f0492389fbce3f952757@65.108.76.25:26656"
