@@ -434,6 +434,16 @@ name = "Polygon"
 rpc_addr = ""
 start-with-bridge = false
 
+[[axelar_bridge_evm]]
+name = "binance"
+rpc_addr = ""
+start-with-bridge = false
+
+[[axelar_bridge_evm]]
+name = "aurora"
+rpc_addr = ""
+start-with-bridge = false
+
 ##### message broadcasting options #####
 [broadcast]
 
