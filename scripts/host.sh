@@ -104,7 +104,7 @@ prepare() {
 
 run_node() {
     msg "\nrunning node"
-    "${axelard_binary_symlink}" start --home "${core_directory}" --moniker "${node_moniker}" > "${logs_directory}/axelard.log" 2>&1 &
+    "${axelard_binary_symlink}" start --home "${core_directory}" --moniker "${node_moniker}" >> "${logs_directory}/axelard.log" 2>&1 &
 }
 
 post_run_message() {

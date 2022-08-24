@@ -345,7 +345,7 @@ run_processes() {
     --name vald                                               \
     --network "${docker_network}"                             \
     --user 0:0                                                \
-      --restart unless-stopped                                \
+    --restart unless-stopped                                  \
     --env TOFND_HOST=tofnd                                    \
     --env HOME=/home/axelard                                  \
     --env VALIDATOR_HOST=http://axelar-core:26657             \
