@@ -348,7 +348,7 @@ prepare() {
     if [[ "${tofnd_mnemonic_path}" != 'unset' ]] && [[ -f "$tofnd_mnemonic_path" ]]; then
       echo "Importing mnemonic to tofnd"
       # run tofnd in "import" mode. This does not start the daemon
-      (echo "$TOFND_PASSWORD" && cat "${tofnd_mnemonic_path}") | "${tofnd_binary_path}" -m import -d "${tofnd_directory}" > "${logs_directory}/tofnd.log" 2>&1
+      (echo "$TOFND_PASSWORD" && cat "${tofnd_mnemonic_path}") | "${tofnd_binary_path}" -m import -d "${tofnd_directory}" >> "${logs_directory}/tofnd.log" 2>&1
     elif [ ! -f "${tofnd_directory}/kvstore/kv/db" ]; then
       echo "Creating new mnemonic for tofnd"
       # run tofnd in "create" mode. This does not start the daemon
@@ -412,7 +412,7 @@ run_processes() {
         --validator-addr "${validator_address}" \
         --log_level debug \
         --chain-id "${chain_id}" \
-        "$recovery" > "${logs_directory}/vald.log" 2>&1 &
+        "$recovery" >> "${logs_directory}/vald.log" 2>&1 &
 }
 
 post_run_message() {
