@@ -87,7 +87,7 @@ copy_configuration_files() {
     policy=$(cat "${config_directory}/app.toml" | grep 'pruning = ')
     msg "Pruning policy is set to"
     msg "${policy}"
-    if [ "$policy" = 'pruning = default' ]; then
-        msg "If you're running an RPC node, then set the pruning policy to 'default'"
+    if [ "$policy" = 'pruning = "everything"' ]; then
+        msg "NOTE: If you're running an RPC node, then you may want to set it to 'default'"
     fi
 }
