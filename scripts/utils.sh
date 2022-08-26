@@ -83,4 +83,11 @@ copy_configuration_files() {
     else
         msg "app.toml file already exists"
     fi
+
+    policy=$(cat "${config_directory}/app.toml" | grep 'pruning = ')
+    msg "Pruning policy is set to"
+    msg "${policy}"
+    if [ "$policy" = 'pruning = default' ]; then
+        msg "If you're running an RPC node, then set the pruning policy to 'default'"
+    fi
 }
