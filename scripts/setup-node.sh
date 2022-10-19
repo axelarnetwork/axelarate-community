@@ -116,6 +116,7 @@ parse_params() {
     logs_directory="$root_directory/logs"
     config_directory="$root_directory/config"
     resources="${git_root}"/resources/"${network}"
+    axelard_binary_signature_path="$bin_directory/axelar-${axelar_core_version}.asc"
     axelard_binary_path="$bin_directory/axelard-${axelar_core_version}"
     axelard_binary_symlink="$bin_directory/axelard"
     os="$(uname | awk '{print tolower($0)}')"

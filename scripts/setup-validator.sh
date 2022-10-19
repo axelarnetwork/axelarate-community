@@ -127,9 +127,11 @@ parse_params() {
     logs_directory="$root_directory/logs"
     config_directory="$root_directory/config"
     resources="${git_root}"/resources/"${network}"
+    axelard_binary_signature_path="$bin_directory/axelar-${axelar_core_version}.asc"
     axelard_binary_path="$bin_directory/axelard-${axelar_core_version}"
     axelard_binary_symlink="$bin_directory/axelard"
     tofnd_binary_path="$bin_directory/tofnd-${tofnd_version}"
+    tofnd_binary_signature_path="$bin_directory/tofnd-${tofnd_version}.asc"
     tofnd_binary_symlink="$bin_directory/tofnd"
     os="$(uname | awk '{print tolower($0)}')"
     arch="$(uname -m)"
@@ -160,6 +162,7 @@ create_directories() {
     if [[ ! -d "$vald_directory" ]]; then mkdir -p "$vald_directory"; fi
     if [[ ! -d "$tofnd_directory" ]]; then mkdir -p "$tofnd_directory"; fi
     if [[ ! -d "$config_directory" ]]; then mkdir -p "$config_directory"; fi
+    if [[ ! -d "$bin_directory" ]]; then mkdir -p "$bin_directory"; fi
 }
 
 download_dependencies() {
@@ -174,9 +177,20 @@ download_dependencies() {
     msg "downloading axelard binary $axelard_binary"
     if [[ ! -f "${axelard_binary_path}" ]]; then
         local axelard_binary_url
+        local axelard_binary_signature_url
         axelard_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}"
+        axelard_binary_signature_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}.asc"
 
         curl -s --fail "${axelard_binary_url}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
+        if [ -n "$axelard_binary_signature_url" ]; then
+          curl -s --fail "${axelard_binary_signature_url}" -o "${axelard_binary_signature_path}"
+          curl https://keybase.io/axelardev/key.asc | gpg --import
+          printf "\nVerifying Signature of binary. Output: \n================================================"
+          gpg --verify "${axelard_binary_signature_path}" "${axelard_binary_path}"
+          printf "================================================"
+        else
+          echo "WARNING!: No signature found. Verify binary is signed by axelardev on keybase.io"
+        fi
     else
         msg "binary already downloaded"
     fi
@@ -194,7 +208,20 @@ download_dependencies() {
 
     msg "downloading tofnd binary $tofnd_binary"
     if [[ ! -f "${tofnd_binary_path}" ]]; then
-        curl -s --fail "https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/${tofnd_version}/${tofnd_binary}" -o "${tofnd_binary_path}" && chmod +x "${tofnd_binary_path}"
+        local tofnd_binary_url
+        local tofnd_binary_signature_url
+        tofnd_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/${tofnd_version}/${tofnd_binary}"
+        tofnd_binary_signature_url="https://axelar-releases.s3.us-east-2.amazonaws.com/tofnd/${tofnd_version}/${tofnd_binary}.asc"
+        curl -s --fail "${tofnd_binary_url}" -o "${tofnd_binary_path}" && chmod +x "${tofnd_binary_path}"
+        if [ -n "$tofnd_binary_signature_url" ]; then
+          curl -s --fail "${tofnd_binary_signature_url}" -o "${tofnd_binary_signature_path}"
+          curl https://keybase.io/axelardev/key.asc | gpg --import
+          printf "\nVerifying Signature of binary. Output: \n================================================"
+          gpg --verify "${tofnd_binary_signature_path}" "${tofnd_binary_path}"
+          printf "================================================"
+        else
+          echo "WARNING!: No signature found. Verify binary is signed by axelardev on keybase.io"
+        fi
     else
         msg "binary already downloaded"
     fi

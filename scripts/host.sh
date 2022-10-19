@@ -15,6 +15,7 @@ create_directories_host_mode() {
     if [[ ! -d "$logs_directory" ]]; then mkdir -p "$logs_directory"; fi
     if [[ ! -d "$core_directory" ]]; then mkdir -p "$core_directory"; fi
     if [[ ! -d "$config_directory" ]]; then mkdir -p "$config_directory"; fi
+    if [[ ! -d "$shared_directory" ]]; then mkdir -p "$shared_directory"; fi
 }
 
 check_environment() {
@@ -43,13 +44,24 @@ download_dependencies() {
     msg "downloading axelard binary $axelard_binary"
     if [[ ! -f "${axelard_binary_path}" ]]; then
         local axelard_binary_url
-        
+        local axelard_binary_signature_url
+
         if [ "$network" == "hacknet" ]; then
             axelard_binary_url="https://axelar-hackathons.s3.us-east-2.amazonaws.com/avalanche-summit/binaries/${axelard_binary}"
         else
             axelard_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}"
+            axelard_binary_signature_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}.asc"
         fi
         curl -s --fail "${axelard_binary_url}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
+        if [ -n "$axelard_binary_signature_url" ]; then
+          curl -s --fail "${axelard_binary_signature_url}" -o "${axelard_binary_signature_path}"
+          curl https://keybase.io/axelardev/key.asc | gpg --import
+          printf "\nVerifying Signature of binary. Output: \n================================================"
+          gpg --verify "${axelard_binary_signature_path}" "${axelard_binary_path}"
+          printf "================================================"
+        else
+          echo "WARNING!: No signature found. Verify binary is signed by axelardev on keybase.io"
+        fi
     else
         msg "binary already downloaded"
     fi

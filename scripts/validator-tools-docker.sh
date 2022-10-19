@@ -171,6 +171,7 @@ parse_params() {
   bin_directory="$root_directory/bin"
   logs_directory="$root_directory/logs"
   config_directory="$vald_directory/config"
+  axelard_binary_signature_path="$bin_directory/axelar-${axelar_core_version}.asc"
   axelard_binary_path="$bin_directory/axelard-${axelar_core_version}"
   os="$(uname | awk '{print tolower($0)}')"
   arch="$(uname -m)"
@@ -196,6 +197,8 @@ create_directories() {
   if [[ ! -d "$vald_directory" ]]; then mkdir -p "$vald_directory"; fi
   if [[ ! -d "$tofnd_directory" ]]; then mkdir -p "$tofnd_directory"; fi
   if [[ ! -d "$config_directory" ]]; then mkdir -p "$config_directory"; fi
+  if [[ ! -d "$shared_directory" ]]; then mkdir -p "$shared_directory"; fi
+
 }
 
 download_genesis_and_seeds() {
