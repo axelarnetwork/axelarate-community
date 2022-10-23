@@ -411,6 +411,7 @@ namespace = "tendermint"
 
 [[axelar_bridge_evm]]
 name = "Ethereum"
+# name = "ethereum-2"  # Use this name for testnet-1
 rpc_addr = ""
 start-with-bridge = false
 
