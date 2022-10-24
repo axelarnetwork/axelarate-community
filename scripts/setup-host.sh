@@ -47,15 +47,8 @@ download_dependencies() {
         axelard_binary_signature_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}.asc"
 
         curl -s --fail "${axelard_binary_url}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
-        if [ -n "$axelard_binary_signature_url" ]; then
-          curl -s --fail "${axelard_binary_signature_url}" -o "${axelard_binary_signature_path}"
-          curl https://keybase.io/axelardev/key.asc | gpg --import
-          printf "\nVerifying Signature of binary. Output: \n================================================"
-          gpg --verify "${axelard_binary_signature_path}" "${axelard_binary_path}"
-          printf "================================================"
-        else
-          echo "WARNING!: No signature found. Verify binary is signed by axelardev on keybase.io"
-        fi
+
+        check_signature "${axelard_binary_signature_url}" "${axelard_binary_signature_path}" "${axelard_binary_path}"
     else
         msg "binary already downloaded"
     fi
