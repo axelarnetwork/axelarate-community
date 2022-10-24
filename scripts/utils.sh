@@ -17,6 +17,8 @@ failure() {
 
     msg "FAILED to run the last command"
     cleanup
+
+    exit 1
 }
 
 setup_colors() {
@@ -89,5 +91,27 @@ copy_configuration_files() {
     msg "${policy}"
     if [ "$policy" = 'pruning = "everything"' ]; then
         msg "NOTE: If you're running an RPC node, then you may want to set it to 'default'"
+    fi
+}
+
+check_signature() {
+    sig_url="$1"
+    sig_path="$2"
+    binary_path="$3"
+
+    if [ -z "${sig_url}" ] || [ -z "${sig_path}" ]; then
+        echo "WARNING!: No signature url or path specified. Verify binary is signed by axelardev on keybase.io"
+        return
+    fi
+
+    curl -s "${sig_url}" -o "${sig_path}"
+
+    if [ -f "${sig_path}" ] && grep -q PGP "${sig_path}" && [ -n "$(command -v gpg)" ]; then
+        curl https://keybase.io/axelardev/key.asc | gpg --import
+        printf "\nVerifying Signature of binary. Output: \n================================================"
+        gpg --verify "${sig_path}" "${binary_path}"
+        printf "================================================"
+    else
+        echo "WARNING!: No signature found. Verify binary is signed by axelardev on keybase.io"
     fi
 }
