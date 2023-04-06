@@ -21,7 +21,7 @@ Available options:
 -r, --reset-chain             Reset all chain data (erases current state including secrets)
 -a, --axelar-core-version     Version of axelar core to checkout
 -d, --root-directory          Directory for data.
--n, --network                 Network to join [mainnet|testnet|testnet-2]
+-n, --network                 Network to join [mainnet|testnet]
 -e, --environment             Environment to run in [host only] [default: host]
 --skip-download               Skip download of binaries. Do this if you want to build them yourself.
 EOF
@@ -87,13 +87,6 @@ parse_params() {
         fi
         if [ -z "${root_directory}" ]; then
             root_directory="$HOME/.axelar_testnet"
-        fi
-    elif [ "$network" == "testnet-2" ]; then
-        if [ -z "${chain_id}" ]; then
-            chain_id=axelar-testnet-casablanca-1
-        fi
-        if [ -z "${root_directory}" ]; then
-            root_directory="$HOME/.axelar_testnet-2"
         fi
     else
         msg "Invalid network provided: '${network}'"

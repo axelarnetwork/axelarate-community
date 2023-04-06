@@ -21,7 +21,7 @@ Available options:
 -a, --axelar-core-version     Version of axelar core to checkout
 -q, --tofnd-version           Version of tofnd to checkout
 -d, --root-directory          Directory for data. [default: $HOME/.axelar_testnet]
--n, --network                 Core Network to connect to [mainnet|testnet|testnet-2]
+-n, --network                 Core Network to connect to [mainnet|testnet]
 -e, --environment             Environment to run in [host only]
 --skip-download               Skip download of binaries. Do this if you want to build them yourself.
 EOF
@@ -90,13 +90,6 @@ parse_params() {
         fi
         if [ -z "${root_directory}" ]; then
             root_directory="$HOME/.axelar_testnet"
-        fi
-    elif [ "$network" == "testnet-2" ]; then
-        if [ -z "${chain_id}" ]; then
-            chain_id=axelar-testnet-casablanca-1
-        fi
-        if [ -z "${root_directory}" ]; then
-            root_directory="$HOME/.axelar_testnet-2"
         fi
     else
         msg "Invalid network provided: ${network}"
