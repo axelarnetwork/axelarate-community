@@ -81,7 +81,7 @@ parse_params() {
   chain_id=''
   docker_network='axelarate_default'
   node_moniker="$(hostname | tr '[:upper:]' '[:lower:]')"
-  
+
   while :; do
     case "${1-}" in
     -h | --help) usage ;;
@@ -156,7 +156,7 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${network}".md  | grep axelar-core | cut -d \` -f 4)"
+    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/pages/resources/"${network}".mdx  | grep axelar-core | cut -d \` -f 4)"
   fi
 
   # check required params and arguments
