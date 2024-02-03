@@ -108,6 +108,7 @@ parse_params() {
     bin_directory="$root_directory/bin"
     logs_directory="$root_directory/logs"
     config_directory="$root_directory/config"
+    share_lib_directory="$root_directory/lib"
     resources="${git_root}"/resources/"${network}"
     axelard_binary_signature_path="$bin_directory/axelard-${axelar_core_version}.asc"
     axelard_binary_path="$bin_directory/axelard-${axelar_core_version}"
@@ -174,6 +175,7 @@ create_directories() {
     msg "creating required directories"
     if [[ ! -d "$root_directory" ]]; then mkdir -p "$root_directory"; fi
     if [[ ! -d "$config_directory" ]]; then mkdir -p "$config_directory"; fi
+    if [[ ! -d "$share_lib_directory" ]]; then mkdir -p "$share_lib_directory"; fi
 }
 
 import_functions() {

@@ -27,6 +27,25 @@ check_environment() {
         msg "NOTE: external_address has not been set in ${git_root}/configuration/config.toml. You might need it if your external IP address is different."
         msg
     fi
+
+    local shared_lib_path
+    local shared_lib_env_varible
+
+    if [ "${os}" == "darwin" ]; then
+        shared_lib_env_varible="DYLD_LIBRARY_PATH"
+    else
+        shared_lib_env_varible="LD_LIBRARY_PATH"
+    fi
+
+    (printenv $shared_lib_env_varible) && true
+    if [ $? != 0 ]; then
+        die "FAILED: ${shared_lib_env_varible} is not set. Run export ${shared_lib_env_varible}=\"${share_lib_directory}\""
+    fi
+
+    shared_lib_path=$(printenv $shared_lib_env_varible)
+    if [[ $shared_lib_path != *"${share_lib_directory}"* ]]; then
+        die "NOTE: ${share_lib_directory} missing from ${shared_lib_env_varible}. Run export ${shared_lib_env_varible}=\"\$${shared_lib_env_varible}:${share_lib_directory}\""
+    fi
 }
 
 download_dependencies() {
@@ -56,6 +75,22 @@ download_dependencies() {
     msg "symlinking axelard binary"
     rm -f "${axelard_binary_symlink}"
     ln -s "${axelard_binary_path}" "${axelard_binary_symlink}"
+
+    local wasm_lib
+    wasm_lib="libwasmvm.${arch}.so"
+    if [[ "$arch" == "amd64" ]]; then wasm_lib="libwasmvm.x86_64.so"; fi
+
+    wasm_lib_path="${share_lib_directory}/${wasm_lib}"
+    WASMVM_VERSION="v1.3.1"
+    msg "downloading wasm shared library ${WASMVM_VERSION}/${wasm_lib}"
+
+    if [[ ! -f "${wasm_lib_path}" ]]; then
+        local wasm_lib_url
+        wasm_lib_url="https://github.com/CosmWasm/wasmvm/releases/download/${WASMVM_VERSION}/${wasm_lib}"
+        wget "${wasm_lib_url}" -O "${wasm_lib_path}" && chmod +r "${wasm_lib_path}"
+    else
+        msg "wasm library already downloaded"
+    fi
 }
 
 post_run_message() {
