@@ -32,10 +32,12 @@ check_environment() {
     local shared_lib_env_varible
 
     if [ "${os}" == "darwin" ]; then
-        shared_lib_env_varible="DYLD_LIBRARY_PATH"
-    else
-        shared_lib_env_varible="LD_LIBRARY_PATH"
+        msg "NOTE: WasmVM don't have a shared library on MacOS"
+        msg "NOTE: Also, due to System Integrity Protection from MacOS, dynamic linking variable DYLD_LIBRARY_PATH are purged when launching protected processes"
+        msg "NOTE: compile axelard binary staticially linking libwasmvm to run on MacOS"
+        die "FAILED: Script don't support MacOS"
     fi
+    shared_lib_env_varible="LD_LIBRARY_PATH"
 
     (printenv $shared_lib_env_varible) && true
     if [ $? != 0 ]; then
