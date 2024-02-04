@@ -34,10 +34,9 @@ check_environment() {
     shared_lib_path=${LD_LIBRARY_PATH:-}
 
     if [ "${os}" == "darwin" ]; then
-        msg "NOTE: WasmVM don't have a shared library on MacOS"
-        msg "NOTE: Also, due to System Integrity Protection from MacOS, dynamic linking variable DYLD_LIBRARY_PATH are purged when launching protected processes"
-        msg "NOTE: please compile axelard binary by staticially linking libwasmvm to run axelar node on MacOS"
-        die "Script don't support MacOS"
+        msg "NOTE: Due to System Integrity Protection from MacOS, dynamic linking variable DYLD_LIBRARY_PATH are purged when launching protected processes"
+        msg "NOTE: Please compile axelard binary by staticially linking libwasmvm to run axelar node on MacOS or see Axelar docs on Manual setup"
+        die "Script doesn't support MacOS"
     fi
 
     if [ -z "${shared_lib_path}" ]; then
@@ -87,8 +86,10 @@ download_dependencies() {
 
     if [[ ! -f "${wasm_lib_path}" ]]; then
         local wasm_lib_url
-        wasm_lib_url="https://github.com/CosmWasm/wasmvm/releases/download/${WASMVM_VERSION}/${wasm_lib}"
-        wget "${wasm_lib_url}" -O "${wasm_lib_path}" && chmod +r "${wasm_lib_path}"
+        wasm_lib_url="https://github.com/CosmWasm/wasmvm/releases/download/${WASMVM_VERSION}"
+        wget "${wasm_lib_url}/${wasm_lib}" -O "${wasm_lib_path}" && chmod +r "${wasm_lib_path}"
+        wget "${wasm_lib_url}/checksums.txt" -O /tmp/checksums.txt
+        sha256sum "${wasm_lib_path}" | grep "$(< /tmp/checksums.txt grep "${wasm_lib}" | cut -d ' ' -f 1)"
     else
         msg "wasm library already downloaded"
     fi
