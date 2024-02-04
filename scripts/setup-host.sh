@@ -30,23 +30,22 @@ check_environment() {
 
     local shared_lib_path
     local shared_lib_env_varible
+    shared_lib_env_varible="LD_LIBRARY_PATH"
+    shared_lib_path=${LD_LIBRARY_PATH:-}
 
     if [ "${os}" == "darwin" ]; then
         msg "NOTE: WasmVM don't have a shared library on MacOS"
         msg "NOTE: Also, due to System Integrity Protection from MacOS, dynamic linking variable DYLD_LIBRARY_PATH are purged when launching protected processes"
-        msg "NOTE: compile axelard binary staticially linking libwasmvm to run on MacOS"
-        die "FAILED: Script don't support MacOS"
-    fi
-    shared_lib_env_varible="LD_LIBRARY_PATH"
-
-    (printenv $shared_lib_env_varible) && true
-    if [ $? != 0 ]; then
-        die "FAILED: ${shared_lib_env_varible} is not set. Run export ${shared_lib_env_varible}=\"${share_lib_directory}\""
+        msg "NOTE: please compile axelard binary by staticially linking libwasmvm to run axelar node on MacOS"
+        die "Script don't support MacOS"
     fi
 
-    shared_lib_path=$(printenv $shared_lib_env_varible)
+    if [ -z "${shared_lib_path}" ]; then
+        die "${shared_lib_env_varible} is not set. Run export ${shared_lib_env_varible}=\"${share_lib_directory}\""
+    fi
+
     if [[ $shared_lib_path != *"${share_lib_directory}"* ]]; then
-        die "NOTE: ${share_lib_directory} missing from ${shared_lib_env_varible}. Run export ${shared_lib_env_varible}=\"\$${shared_lib_env_varible}:${share_lib_directory}\""
+        die "NOTE: ${share_lib_directory} missing from ${shared_lib_env_varible}. Run export ${shared_lib_env_varible}=\"\${${shared_lib_env_varible}}:${share_lib_directory}\""
     fi
 }
 
