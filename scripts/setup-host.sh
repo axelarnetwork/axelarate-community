@@ -44,7 +44,7 @@ check_environment() {
     fi
 
     if [[ $shared_lib_path != *"${share_lib_directory}"* ]]; then
-        die "NOTE: ${share_lib_directory} missing from ${shared_lib_env_varible}. Run export ${shared_lib_env_varible}=\"\${${shared_lib_env_varible}}:${share_lib_directory}\""
+        die "FAILED: ${share_lib_directory} missing from ${shared_lib_env_varible}. Run export ${shared_lib_env_varible}=\"\${${shared_lib_env_varible}}:${share_lib_directory}\""
     fi
 }
 
