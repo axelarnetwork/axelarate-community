@@ -106,18 +106,20 @@ download_dependencies() {
     if [[ "$arch" == "amd64" ]]; then wasm_lib="libwasmvm.x86_64.so"; fi
 
     wasm_lib_path="${share_lib_directory}/${wasm_lib}"
-    WASMVM_VERSION="v1.3.1"
-    msg "downloading wasm shared library ${WASMVM_VERSION}/${wasm_lib}"
+    msg "downloading wasm shared library ${wasmvm_lib_version}/${wasm_lib}"
 
     if [[ ! -f "${wasm_lib_path}" ]]; then
         local wasm_lib_url
-        wasm_lib_url="https://github.com/CosmWasm/wasmvm/releases/download/${WASMVM_VERSION}"
+        wasm_lib_url="https://github.com/CosmWasm/wasmvm/releases/download/${wasmvm_lib_version}"
         wget "${wasm_lib_url}/${wasm_lib}" -O "${wasm_lib_path}" && chmod +r "${wasm_lib_path}"
         wget "${wasm_lib_url}/checksums.txt" -O /tmp/checksums.txt
         sha256sum "${wasm_lib_path}" | grep "$(< /tmp/checksums.txt grep "${wasm_lib}" | cut -d ' ' -f 1)"
     else
         msg "wasm library already downloaded"
     fi
+
+    msg "check if wasmvm library is loaded correctly"
+    ${axelard_binary_path} q wasm libwasmvm-version
 
     msg "copying genesis to configuration directory"
     cp "${shared_directory}/genesis.json" "${config_directory}/genesis.json"

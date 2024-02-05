@@ -31,6 +31,7 @@ EOF
 parse_params() {
     # default values of variables set from params
     axelar_core_version=""
+    wasmvm_lib_version="v1.3.1"
     reset_chain=0
     root_directory=''
     git_root="$(git rev-parse --show-toplevel)"
