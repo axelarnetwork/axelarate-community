@@ -27,6 +27,25 @@ check_environment() {
         msg "NOTE: external_address has not been set in ${git_root}/configuration/config.toml. You might need it if your external IP address is different."
         msg
     fi
+
+    local shared_lib_path
+    local shared_lib_env_varible
+    shared_lib_env_varible="LD_LIBRARY_PATH"
+    shared_lib_path=${LD_LIBRARY_PATH:-}
+
+    if [ "${os}" == "darwin" ]; then
+        msg "NOTE: Due to System Integrity Protection from MacOS, dynamic linking variable DYLD_LIBRARY_PATH are purged when launching protected processes"
+        msg "NOTE: Please compile axelard binary by staticially linking libwasmvm to run axelar node on MacOS or see Axelar docs on Manual setup"
+        die "Script doesn't support MacOS"
+    fi
+
+    if [ -z "${shared_lib_path}" ]; then
+        die "${shared_lib_env_varible} is not set. Run export ${shared_lib_env_varible}=\"${share_lib_directory}\""
+    fi
+
+    if [[ $shared_lib_path != *"${share_lib_directory}"* ]]; then
+        die "FAILED: ${share_lib_directory} missing from ${shared_lib_env_varible}. Run export ${shared_lib_env_varible}=\"\${${shared_lib_env_varible}}:${share_lib_directory}\""
+    fi
 }
 
 download_dependencies() {
@@ -56,6 +75,27 @@ download_dependencies() {
     msg "symlinking axelard binary"
     rm -f "${axelard_binary_symlink}"
     ln -s "${axelard_binary_path}" "${axelard_binary_symlink}"
+
+    local wasm_lib
+    wasm_lib="libwasmvm.${arch}.so"
+    if [[ "$arch" == "amd64" ]]; then wasm_lib="libwasmvm.x86_64.so"; fi
+
+    wasm_lib_path="${share_lib_directory}/${wasm_lib}"
+    wasmvm_lib_version="v1.3.1"
+    msg "downloading wasm shared library ${wasmvm_lib_version}/${wasm_lib}"
+
+    if [[ ! -f "${wasm_lib_path}" ]]; then
+        local wasm_lib_url
+        wasm_lib_url="https://github.com/CosmWasm/wasmvm/releases/download/${wasmvm_lib_version}"
+        wget "${wasm_lib_url}/${wasm_lib}" -O "${wasm_lib_path}" && chmod +r "${wasm_lib_path}"
+        wget "${wasm_lib_url}/checksums.txt" -O /tmp/checksums.txt
+        sha256sum "${wasm_lib_path}" | grep "$(< /tmp/checksums.txt grep "${wasm_lib}" | cut -d ' ' -f 1)"
+    else
+        msg "wasm library already downloaded"
+    fi
+
+    msg "check if wasmvm library is loaded correctly"
+    ${axelard_binary_path} q wasm libwasmvm-version
 }
 
 post_run_message() {
