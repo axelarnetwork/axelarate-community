@@ -1,6 +1,6 @@
 [[seed]]
 name = "Axelar team"
-address = "a005b8923888007eb5cf9ed8c8120ed956bc31f7@k8s-testnet-axelarco-c0dd71f944-b4c8da2f814e7b8f.elb.us-east-2.amazonaws.com:26656"
+address = "48f16a1604dd8a414a53a5a180ba70e67aed935c@k8s-testnet-axelarco-1f4829b7b4-e5b1777991e61bac.elb.us-east-2.amazonaws.com:26656"
 
 [[seed]]
 name = "LunaNova"
