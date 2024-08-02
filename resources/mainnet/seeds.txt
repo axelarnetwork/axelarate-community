@@ -1,1 +1,1 @@
-3d67d0646cddcc203b41434aceea64ade22ba6fc@k8s-mainnet-axelarco-79b464ee93-f03cb16c57cf7cb2.elb.us-east-2.amazonaws.com:26656,9c9b8eb8cad8648f31d3c9da3d14e825f11a7b52@public-seed.mainnet.axelar.lunanova.tech:26656
+2551bf072d23835e42a32921beacbf3425fe376f@k8s-mainnet-axelarco-3ab48adcdb-974f2bc59e735192.elb.us-east-2.amazonaws.com:26656,9c9b8eb8cad8648f31d3c9da3d14e825f11a7b52@public-seed.mainnet.axelar.lunanova.tech:26656,691101434ca4016b28e6a9943da2ad6838b80685@axelar-seed.pops.one:26656

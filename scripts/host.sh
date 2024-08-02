@@ -15,6 +15,7 @@ create_directories_host_mode() {
     if [[ ! -d "$logs_directory" ]]; then mkdir -p "$logs_directory"; fi
     if [[ ! -d "$core_directory" ]]; then mkdir -p "$core_directory"; fi
     if [[ ! -d "$config_directory" ]]; then mkdir -p "$config_directory"; fi
+    if [[ ! -d "$shared_directory" ]]; then mkdir -p "$shared_directory"; fi
 }
 
 check_environment() {
@@ -33,6 +34,47 @@ check_environment() {
         echo "FAILED: Number of allowed open files is too low. 'ulimit -n' is below ${MAX_OPEN_FILES}. Run 'ulimit -n ${MAX_OPEN_FILES}' to increase it."
         exit 1
     fi
+
+    local shared_lib_path
+    local shared_lib_env_varible
+    shared_lib_env_varible="LD_LIBRARY_PATH"
+    shared_lib_path=${LD_LIBRARY_PATH:-}
+
+    if [ "${os}" == "darwin" ]; then
+        msg "NOTE: Due to System Integrity Protection from MacOS, dynamic linking variable DYLD_LIBRARY_PATH are purged when launching protected processes"
+        msg "NOTE: Please compile axelard binary by staticially linking libwasmvm to run axelar node on MacOS or see Axelar docs on Manual setup"
+        die "Script doesn't support MacOS"
+    fi
+
+    if [ -z "${shared_lib_path}" ]; then
+        die "${shared_lib_env_varible} is not set. Run export ${shared_lib_env_varible}=\"${share_lib_directory}\""
+    fi
+
+    if [[ $shared_lib_path != *"${share_lib_directory}"* ]]; then
+        die "FAILED: ${share_lib_directory} missing from ${shared_lib_env_varible}. Run export ${shared_lib_env_varible}=\"\${${shared_lib_env_varible}}:${share_lib_directory}\""
+    fi
+}
+
+check_signature() {
+    sig_url="$1"
+    sig_path="$2"
+    binary_path="$3"
+
+    if [ -z "${sig_url}" ] || [ -z "${sig_path}" ]; then
+        echo "WARNING!: No signature url or path specified. Verify binary is signed by axelardev on keybase.io"
+        return
+    fi
+
+    curl -s "${sig_url}" -o "${sig_path}"
+
+    if [ -f "${sig_path}" ] && grep -q PGP "${sig_path}" && [ -n "$(command -v gpg)" ]; then
+        curl https://keybase.io/axelardev/key.asc | gpg --import
+        printf "\nVerifying Signature of binary. Output: \n================================================"
+        gpg --verify "${sig_path}" "${binary_path}"
+        printf "================================================"
+    else
+        echo "WARNING!: No signature found. Verify binary is signed by axelardev on keybase.io"
+    fi
 }
 
 download_dependencies() {
@@ -43,13 +85,14 @@ download_dependencies() {
     msg "downloading axelard binary $axelard_binary"
     if [[ ! -f "${axelard_binary_path}" ]]; then
         local axelard_binary_url
-        
-        if [ "$network" == "hacknet" ]; then
-            axelard_binary_url="https://axelar-hackathons.s3.us-east-2.amazonaws.com/avalanche-summit/binaries/${axelard_binary}"
-        else
-            axelard_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}"
-        fi
+        local axelard_binary_signature_url
+
+        axelard_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}"
+        axelard_binary_signature_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}.asc"
+
         curl -s --fail "${axelard_binary_url}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
+
+        check_signature "${axelard_binary_signature_url}" "${axelard_binary_signature_path}" "${axelard_binary_path}"
     else
         msg "binary already downloaded"
     fi
@@ -57,6 +100,26 @@ download_dependencies() {
     msg "symlinking axelard binary"
     rm -f "${axelard_binary_symlink}"
     ln -s "${axelard_binary_path}" "${axelard_binary_symlink}"
+
+    local wasm_lib
+    wasm_lib="libwasmvm.${arch}.so"
+    if [[ "$arch" == "amd64" ]]; then wasm_lib="libwasmvm.x86_64.so"; fi
+
+    wasm_lib_path="${share_lib_directory}/${wasm_lib}"
+    msg "downloading wasm shared library ${wasmvm_lib_version}/${wasm_lib}"
+
+    if [[ ! -f "${wasm_lib_path}" ]]; then
+        local wasm_lib_url
+        wasm_lib_url="https://github.com/CosmWasm/wasmvm/releases/download/${wasmvm_lib_version}"
+        wget "${wasm_lib_url}/${wasm_lib}" -O "${wasm_lib_path}" && chmod +r "${wasm_lib_path}"
+        wget "${wasm_lib_url}/checksums.txt" -O /tmp/checksums.txt
+        sha256sum "${wasm_lib_path}" | grep "$(< /tmp/checksums.txt grep "${wasm_lib}" | cut -d ' ' -f 1)"
+    else
+        msg "wasm library already downloaded"
+    fi
+
+    msg "check if wasmvm library is loaded correctly"
+    ${axelard_binary_path} q wasm libwasmvm-version
 
     msg "copying genesis to configuration directory"
     cp "${shared_directory}/genesis.json" "${config_directory}/genesis.json"
@@ -104,7 +167,7 @@ prepare() {
 
 run_node() {
     msg "\nrunning node"
-    "${axelard_binary_symlink}" start --home "${core_directory}" --moniker "${node_moniker}" > "${logs_directory}/axelard.log" 2>&1 &
+    "${axelard_binary_symlink}" start --home "${core_directory}" --moniker "${node_moniker}" >> "${logs_directory}/axelard.log" 2>&1 &
 }
 
 post_run_message() {

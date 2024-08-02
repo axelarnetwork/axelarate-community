@@ -165,11 +165,11 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/"${network}".md  | grep axelar-core | cut -d \` -f 4)"
+    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/src/pages/resources/"${network}".mdx  | grep axelar-core | cut -d \` -f 4)"
   fi
 
   if [ -z "${tofnd_version}" ]; then
-    tofnd_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/"${network}".md  | grep tofnd | cut -d \` -f 4)"
+    tofnd_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/src/pages/resources/"${network}".mdx  | grep tofnd | cut -d \` -f 4)"
   fi
 
   # check required params and arguments
@@ -189,8 +189,12 @@ parse_params() {
   bin_directory="$root_directory/bin"
   logs_directory="$root_directory/logs"
   config_directory="$vald_directory/config"
-  axelard_binary_path="$bin_directory/axelard"
+  axelard_binary_signature_path="$bin_directory/axelard-${axelar_core_version}.asc"
+  axelard_binary_path="$bin_directory/axelard-${axelar_core_version}"
+  axelard_binary_symlink="$bin_directory/axelard"
+  # axelard_binary_path="$bin_directory/axelard"
   tofnd_binary_path="$bin_directory/tofnd-${tofnd_version}"
+  tofnd_binary_signature_path="$bin_directory/tofnd-${tofnd_version}.asc"
   tofnd_binary_symlink="$bin_directory/tofnd"
   os="$(uname | awk '{print tolower($0)}')"
   arch="$(uname -m)"
@@ -216,6 +220,7 @@ create_directories() {
   if [[ ! -d "$vald_directory" ]]; then mkdir -p "$vald_directory"; fi
   if [[ ! -d "$tofnd_directory" ]]; then mkdir -p "$tofnd_directory"; fi
   if [[ ! -d "$config_directory" ]]; then mkdir -p "$config_directory"; fi
+  if [[ ! -d "$shared_directory" ]]; then mkdir -p "$shared_directory"; fi
 }
 
 download_genesis_and_seeds() {
@@ -255,8 +260,46 @@ copy_configuration_files() {
   cp "${git_root}/configuration/app.toml" "${shared_directory}/app.toml"
 }
 
+check_signature() {
+    sig_url="$1"
+    sig_path="$2"
+    binary_path="$3"
+
+    if [ -z "${sig_url}" ] || [ -z "${sig_path}" ]; then
+        echo "WARNING!: No signature url or path specified. Verify binary is signed by axelardev on keybase.io"
+        return
+    fi
+
+    curl -s "${sig_url}" -o "${sig_path}"
+
+    if [ -f "${sig_path}" ] && grep -q PGP "${sig_path}" && [ -n "$(command -v gpg)" ]; then
+        curl https://keybase.io/axelardev/key.asc | gpg --import
+        printf "\nVerifying Signature of binary. Output: \n================================================"
+        gpg --verify "${sig_path}" "${binary_path}"
+        printf "================================================"
+    else
+        echo "WARNING!: No signature found. Verify binary is signed by axelardev on keybase.io"
+    fi
+}
+
 download_dependencies() {
     msg "\ndownloading required dependencies"
+    local axelard_binary
+    axelard_binary="axelard-${os}-${arch}-${axelar_core_version}"
+    msg "downloading axelard binary $axelard_binary"
+    if [[ ! -f "${axelard_binary_path}" ]]; then
+        local axelard_binary_url
+        local axelard_binary_signature_url
+
+        axelard_binary_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}"
+        axelard_binary_signature_url="https://axelar-releases.s3.us-east-2.amazonaws.com/axelard/${axelar_core_version}/${axelard_binary}.asc"
+
+        curl -s --fail "${axelard_binary_url}" -o "${axelard_binary_path}" && chmod +x "${axelard_binary_path}"
+
+        check_signature "${axelard_binary_signature_url}" "${axelard_binary_signature_path}" "${axelard_binary_path}"
+    else
+        msg "binary already downloaded"
+    fi
 
     msg "checking axelard binary"
     if [[ ! -f "${axelard_binary_path}" ]]; then
@@ -318,10 +361,10 @@ check_environment() {
     if [[ -z "$TOFND_PASSWORD" ]]; then msg "FAILED: env var TOFND_PASSWORD missing"; exit 1; fi
     if [[ "${#TOFND_PASSWORD}" -lt 8 ]]; then msg "FAILED: TOFND_PASSWORD must have length at least 8"; exit 1; fi
 
-    if [ ! -f "${axelard_binary_path}" ]; then
-      echo "Cannot find axelard binary at ${axelard_binary_path}. Did you launch the node correctly?"
-      exit 1
-    fi
+    # if [ ! -f "${axelard_binary_path}" ]; then
+    #   echo "Cannot find axelard binary at ${axelard_binary_path}. Did you launch the node correctly?"
+    #   exit 1
+    # fi
 
     if [ "$(ulimit -n)" -lt "${MAX_OPEN_FILES}" ]; then
         echo "FAILED: Number of allowed open files is too low. 'ulimit -n' is below ${MAX_OPEN_FILES}. Run 'ulimit -n ${MAX_OPEN_FILES}' to increase it."
@@ -337,7 +380,7 @@ prepare() {
     if [[ "${tofnd_mnemonic_path}" != 'unset' ]] && [[ -f "$tofnd_mnemonic_path" ]]; then
       echo "Importing mnemonic to tofnd"
       # run tofnd in "import" mode. This does not start the daemon
-      (echo "$TOFND_PASSWORD" && cat "${tofnd_mnemonic_path}") | "${tofnd_binary_path}" -m import -d "${tofnd_directory}" > "${logs_directory}/tofnd.log" 2>&1
+      (echo "$TOFND_PASSWORD" && cat "${tofnd_mnemonic_path}") | "${tofnd_binary_path}" -m import -d "${tofnd_directory}" >> "${logs_directory}/tofnd.log" 2>&1
     elif [ ! -f "${tofnd_directory}/kvstore/kv/db" ]; then
       echo "Creating new mnemonic for tofnd"
       # run tofnd in "create" mode. This does not start the daemon
@@ -401,7 +444,7 @@ run_processes() {
         --validator-addr "${validator_address}" \
         --log_level debug \
         --chain-id "${chain_id}" \
-        "$recovery" > "${logs_directory}/vald.log" 2>&1 &
+        "$recovery" >> "${logs_directory}/vald.log" 2>&1 &
 }
 
 post_run_message() {

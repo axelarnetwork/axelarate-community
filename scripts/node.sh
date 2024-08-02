@@ -71,6 +71,7 @@ die() {
 parse_params() {
   # default values of variables set from params
   axelar_core_version=""
+  wasmvm_lib_version="v1.3.1"
   reset_chain=0
   root_directory=''
   git_root="$(git rev-parse --show-toplevel)"
@@ -81,7 +82,7 @@ parse_params() {
   chain_id=''
   docker_network='axelarate_default'
   node_moniker="$(hostname | tr '[:upper:]' '[:lower:]')"
-  
+
   while :; do
     case "${1-}" in
     -h | --help) usage ;;
@@ -156,7 +157,7 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/"${network}".md  | grep axelar-core | cut -d \` -f 4)"
+    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/src/pages/resources/"${network}".mdx  | grep axelar-core | cut -d \` -f 4)"
   fi
 
   # check required params and arguments
@@ -172,7 +173,9 @@ parse_params() {
   bin_directory="$root_directory/bin"
   logs_directory="$root_directory/logs"
   config_directory="$core_directory/config"
+  share_lib_directory="$root_directory/lib"
   axelard_binary_path="$bin_directory/axelard-${axelar_core_version}"
+  axelard_binary_signature_path="$bin_directory/axelard-${axelar_core_version}.asc"
   axelard_binary_symlink="$bin_directory/axelard"
   os="$(uname | awk '{print tolower($0)}')"
   arch="$(uname -m)"
@@ -234,6 +237,7 @@ create_directories() {
   if [[ ! -d "$root_directory" ]]; then mkdir -p "$root_directory"; fi
   if [[ ! -d "$shared_directory" ]]; then mkdir -p "$shared_directory"; fi
   if [[ ! -d "$core_directory" ]]; then mkdir -p "$core_directory"; fi
+  if [[ ! -d "$share_lib_directory" ]]; then mkdir -p "$share_lib_directory"; fi
 }
 
 download_genesis_and_seeds() {

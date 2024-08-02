@@ -147,11 +147,11 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/"${network}".md  | grep axelar-core | cut -d \` -f 4)"
+    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/src/pages/resources/"${network}".mdx  | grep axelar-core | cut -d \` -f 4)"
   fi
 
   if [ -z "${tofnd_version}" ]; then
-    tofnd_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/webdocs/main/docs/resources/"${network}".md  | grep tofnd | cut -d \` -f 4)"
+    tofnd_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/src/pages/resources/"${network}".mdx  | grep tofnd | cut -d \` -f 4)"
   fi
 
   # check required params and arguments
@@ -171,6 +171,7 @@ parse_params() {
   bin_directory="$root_directory/bin"
   logs_directory="$root_directory/logs"
   config_directory="$vald_directory/config"
+  axelard_binary_signature_path="$bin_directory/axelard-${axelar_core_version}.asc"
   axelard_binary_path="$bin_directory/axelard-${axelar_core_version}"
   os="$(uname | awk '{print tolower($0)}')"
   arch="$(uname -m)"
@@ -196,6 +197,8 @@ create_directories() {
   if [[ ! -d "$vald_directory" ]]; then mkdir -p "$vald_directory"; fi
   if [[ ! -d "$tofnd_directory" ]]; then mkdir -p "$tofnd_directory"; fi
   if [[ ! -d "$config_directory" ]]; then mkdir -p "$config_directory"; fi
+  if [[ ! -d "$shared_directory" ]]; then mkdir -p "$shared_directory"; fi
+
 }
 
 download_genesis_and_seeds() {
@@ -345,7 +348,7 @@ run_processes() {
     --name vald                                               \
     --network "${docker_network}"                             \
     --user 0:0                                                \
-      --restart unless-stopped                                \
+    --restart unless-stopped                                  \
     --env TOFND_HOST=tofnd                                    \
     --env HOME=/home/axelard                                  \
     --env VALIDATOR_HOST=http://axelar-core:26657             \
