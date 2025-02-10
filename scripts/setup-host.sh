@@ -81,7 +81,7 @@ download_dependencies() {
     if [[ "$arch" == "amd64" ]]; then wasm_lib="libwasmvm.x86_64.so"; fi
 
     wasm_lib_path="${share_lib_directory}/${wasm_lib}"
-    wasmvm_lib_version="v1.3.1"
+    wasmvm_lib_version="v1.5.8"
     msg "downloading wasm shared library ${wasmvm_lib_version}/${wasm_lib}"
 
     if [[ ! -f "${wasm_lib_path}" ]]; then
