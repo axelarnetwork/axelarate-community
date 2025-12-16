@@ -58,8 +58,7 @@ inter-block-cache = true
 # Example:
 # ["message.sender", "message.recipient"]
 index-events = []
-# IavlCacheSize set the size of the iavl tree cache (in number of nodes).
-iavl-cache-size = 0
+
 # IAVLDisableFastNode enables or disables the fast node feature of IAVL. 
 # Default is true.
 iavl-disable-fastnode = true
