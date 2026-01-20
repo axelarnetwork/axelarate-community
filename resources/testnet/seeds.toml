@@ -61,3 +61,7 @@ address = "ecd522acae9aca12a3429736c28ddafab0125864@34.82.76.165:26656"
 [[seed]]
 name = "WhisperNode"
 address = "fea0815747e42a4d64d4496a0f6a565973256601@65.21.227.74:26656"
+
+[[seed]]
+name = "QuantNode"
+address = "c235ef30054840217a48734ccff145687b920901@138.201.35.178:6969"
