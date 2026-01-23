@@ -7,10 +7,6 @@ name = "LunaNova"
 address = "9c9b8eb8cad8648f31d3c9da3d14e825f11a7b52@public-seed.mainnet.axelar.lunanova.tech:26656"
 
 [[seed]]
-name = "Chainode"
-address = "609504b517f88f628e98d4a918ffc69e9654b451@65.108.192.147:26656"
-
-[[seed]]
 name = "P-OPS Team"
 address = "691101434ca4016b28e6a9943da2ad6838b80685@axelar-seed.pops.one:26656"
 
