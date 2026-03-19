@@ -94,6 +94,51 @@ copy_configuration_files() {
     fi
 }
 
+VERSIONS_LCD_URL_MAINNET="https://lcd-axelar.imperator.co"
+VERSIONS_LCD_URL_TESTNET="https://axelar-testnet-lcd.qubelabs.io"
+VERSIONS_GITHUB_API_BASE="https://api.github.com"
+
+fetch_axelar_core_version() {
+    local network="$1"
+    local lcd_url
+
+    case "$network" in
+        mainnet) lcd_url="$VERSIONS_LCD_URL_MAINNET" ;;
+        testnet) lcd_url="$VERSIONS_LCD_URL_TESTNET" ;;
+        *) die "fetch_axelar_core_version: unknown network '${network}' (expected 'mainnet' or 'testnet')" ;;
+    esac
+
+    local response
+    if ! response="$(curl -s --fail --max-time 15 "${lcd_url}/cosmos/base/tendermint/v1beta1/node_info" 2>/dev/null)"; then
+        die "Failed to fetch axelar-core version from ${lcd_url}. Please retry or provide the version manually via the --axelar-core-version flag."
+    fi
+
+    local version
+    version="$(echo "$response" | grep -o '"application_version":{[^}]*}' | grep -o '"version":"[^"]*"' | head -1 | sed 's/.*":"/v/;s/"//')"
+
+    if [ -z "$version" ]; then
+        die "Could not parse axelar-core version from LCD response. Please retry or provide the version manually via the --axelar-core-version flag."
+    fi
+
+    echo "$version"
+}
+
+fetch_tofnd_version() {
+    local response
+    if ! response="$(curl -s --fail --max-time 15 "${VERSIONS_GITHUB_API_BASE}/repos/axelarnetwork/tofnd/releases/latest" 2>/dev/null)"; then
+        die "Failed to fetch tofnd version from GitHub. Please retry or provide the version manually via the --tofnd-version flag."
+    fi
+
+    local version
+    version="$(echo "$response" | grep -o '"tag_name" *: *"[^"]*"' | sed 's/.*: *"//;s/"//')"
+
+    if [ -z "$version" ]; then
+        die "Could not parse tofnd version from GitHub response. Please retry or provide the version manually via the --tofnd-version flag."
+    fi
+
+    echo "$version"
+}
+
 check_signature() {
     sig_url="$1"
     sig_path="$2"
