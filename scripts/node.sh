@@ -6,6 +6,7 @@ trap failure SIGINT SIGTERM ERR
 trap cleanup EXIT
 
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+. "${script_dir}/utils.sh"
 
 usage() {
   cat <<EOF
@@ -157,7 +158,7 @@ parse_params() {
   fi
 
   if [ -z "${axelar_core_version}" ]; then
-    axelar_core_version="$(curl -s https://raw.githubusercontent.com/axelarnetwork/axelar-docs/main/src/pages/resources/"${network}".mdx  | grep axelar-core | cut -d \` -f 4)"
+    axelar_core_version="$(fetch_axelar_core_version "${network}")"
   fi
 
   # check required params and arguments
