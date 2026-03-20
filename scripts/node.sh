@@ -72,7 +72,7 @@ die() {
 parse_params() {
   # default values of variables set from params
   axelar_core_version=""
-  wasmvm_lib_version="v1.5.8"
+  wasmvm_lib_version=""
   reset_chain=0
   root_directory=''
   git_root="$(git rev-parse --show-toplevel)"
@@ -122,6 +122,10 @@ parse_params() {
       node_moniker="${2-}"
       shift
       ;;
+    -w | --wasmvm-lib-version)
+      wasmvm_lib_version="${2-}"
+      shift
+      ;;
     -?*) die "Unknown option: $1" ;;
     *) break ;;
     esac
@@ -159,6 +163,10 @@ parse_params() {
 
   if [ -z "${axelar_core_version}" ]; then
     axelar_core_version="$(fetch_axelar_core_version "${network}")"
+  fi
+
+  if [ -z "${wasmvm_lib_version}" ]; then
+    wasmvm_lib_version="$(fetch_wasmvm_version "${axelar_core_version}")"
   fi
 
   # check required params and arguments
@@ -313,6 +321,7 @@ setup_colors
 msg "${RED}Read parameters:${NOFORMAT}"
 msg "- reset-chain: ${reset_chain}"
 msg "- axelar-core-version: ${axelar_core_version}"
+msg "- wasmvm-lib-version: ${wasmvm_lib_version}"
 msg "- root-directory: ${root_directory}"
 msg "- tendermint-key-path: ${tendermint_key_path}"
 msg "- axelar-mnemonic-path: ${axelar_mnemonic_path}"

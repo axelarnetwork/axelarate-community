@@ -81,15 +81,16 @@ download_dependencies() {
     if [[ "$arch" == "amd64" ]]; then wasm_lib="libwasmvm.x86_64.so"; fi
 
     wasm_lib_path="${share_lib_directory}/${wasm_lib}"
-    wasmvm_lib_version="v1.5.8"
+    local wasm_version_marker="${share_lib_directory}/.wasmvm_version"
     msg "downloading wasm shared library ${wasmvm_lib_version}/${wasm_lib}"
 
-    if [[ ! -f "${wasm_lib_path}" ]]; then
+    if [[ ! -f "${wasm_lib_path}" ]] || [[ ! -f "${wasm_version_marker}" ]] || [[ "$(cat "${wasm_version_marker}")" != "${wasmvm_lib_version}" ]]; then
         local wasm_lib_url
         wasm_lib_url="https://github.com/CosmWasm/wasmvm/releases/download/${wasmvm_lib_version}"
         wget "${wasm_lib_url}/${wasm_lib}" -O "${wasm_lib_path}" && chmod +r "${wasm_lib_path}"
         wget "${wasm_lib_url}/checksums.txt" -O /tmp/checksums.txt
         sha256sum "${wasm_lib_path}" | grep "$(< /tmp/checksums.txt grep "${wasm_lib}" | cut -d ' ' -f 1)"
+        echo "${wasmvm_lib_version}" > "${wasm_version_marker}"
     else
         msg "wasm library already downloaded"
     fi

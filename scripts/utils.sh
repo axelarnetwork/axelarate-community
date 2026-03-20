@@ -139,6 +139,24 @@ fetch_tofnd_version() {
     echo "$version"
 }
 
+# Fetch the wasmvm version matching a given axelar-core release from go.sum
+fetch_wasmvm_version() {
+    local axelar_core_version="$1"
+    local response
+    if ! response="$(curl -s --fail --max-time 15 "https://raw.githubusercontent.com/axelarnetwork/axelar-core/${axelar_core_version}/go.sum" 2>/dev/null)"; then
+        die "Failed to fetch go.sum for axelar-core ${axelar_core_version}. Please retry or provide the wasmvm version manually via the --wasmvm-lib-version flag."
+    fi
+
+    local version
+    version="$(echo "$response" | grep 'github.com/CosmWasm/wasmvm' | grep -v '/go.mod' | head -1 | awk '{print $2}')"
+
+    if [ -z "$version" ]; then
+        die "Could not parse wasmvm version from go.sum. Please retry or provide the wasmvm version manually via the --wasmvm-lib-version flag."
+    fi
+
+    echo "$version"
+}
+
 check_signature() {
     sig_url="$1"
     sig_path="$2"
