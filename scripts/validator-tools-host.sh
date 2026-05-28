@@ -28,6 +28,7 @@ Available options:
 -a, --axelar-core-version     Version of axelar core to checkout
 -q, --tofnd-version           Version of tofnd to checkout
 -d, --root-directory          Directory for data. [default: $HOME/.axelar_testnet]
+-i, --validator-key-name      The name of the validator key. [default: validator]
 -n, --network                 Core Network to connect to [testnet|mainnet]
 -p, --proxy-mnemonic-path     Path to broadcaster mnemonic
 -z, --tofnd-mnemonic-path     Path to tofnd mnemonic
@@ -77,6 +78,7 @@ parse_params() {
   tofnd_version=""
   root_directory=""
   git_root="$(git rev-parse --show-toplevel)"
+  validator_key_name="validator"
   network="testnet"
   proxy_mnemonic_path='unset'
   tofnd_mnemonic_path='unset'
@@ -97,6 +99,10 @@ parse_params() {
       ;;
     -d | --root-directory)
       root_directory="${2-}"
+      shift
+      ;;
+    -i | --validator-key-name)
+      validator_key_name="${2-}"
       shift
       ;;
     -n | --network)
@@ -408,7 +414,7 @@ prepare() {
 
     echo "$KEYRING_PASSWORD" | "${axelard_binary_path}" keys show broadcaster -a --home "${vald_directory}"  > "${root_directory}/broadcaster.address" 2>&1
 
-    validator_address=$(echo "${KEYRING_PASSWORD}" | ${axelard_binary_path} keys show validator -a --bech val --home "${core_directory}")
+    validator_address=$(echo "${KEYRING_PASSWORD}" | ${axelard_binary_path} keys show ${validator_key_name} -a --bech val --home "${core_directory}")
     if [ -z "$validator_address" ]; then
       until [ -f "${root_directory}/validator.bech" ] ; do
         echo "Waiting for validator address to be accessible at ${root_directory}/validator.bech"
@@ -480,6 +486,7 @@ msg "- tofnd-mnemonic-path: ${tofnd_mnemonic_path}"
 #msg "- recovery-info-path: ${recovery_info_path}"
 msg "- network: ${network}"
 msg "- environment: ${environment}"
+msg "- validator-key-name: ${validator_key_name}"
 msg "- node-moniker: ${node_moniker}"
 msg "- script_dir: ${script_dir}"
 msg "- chain-id: ${chain_id}"
